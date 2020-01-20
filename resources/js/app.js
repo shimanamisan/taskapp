@@ -28,6 +28,7 @@ window.Vue = require('vue');
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+import './bootstrap'
 import Vue from 'vue'
 import App from './App.vue'
 import store from './store/store'
