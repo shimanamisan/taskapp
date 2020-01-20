@@ -1,0 +1,19 @@
+.c-form{
+  text-align: center;
+
+  &-lavel{
+    display: inline-block;
+  }
+  &__action{
+    margin-top: $space_xxl;
+    
+    &__item{
+      text-align: center;
+      font-size: $space_l;
+    }
+  }
+}
+
+.c-form__item+.c-form__item{
+  margin-top: $space_xl;
+}

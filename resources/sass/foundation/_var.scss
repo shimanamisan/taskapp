@@ -1,0 +1,32 @@
+//プロジェクトで利用するfont-sizeやmargin、z-indeなどを変数化して一元管理するファイル
+
+// 余白（5の倍数）
+$space_s: 5px;
+$space_m: 10px;
+$space_l: 15px;
+$space_xl: 20px;
+$space_xxl: 30px;
+$space_3l: 40px;
+
+// フォントサイズ（4の倍数だったっけ？）
+$font-size_s: 12px;
+$font-size_m: 14px;
+$font-size_default: 16px;
+$font-size_l: 18px;
+$font-size_xl: 24px;
+$font-size_xxl: 30px;
+$font-size_3l: 38px;
+
+// フォントファミリー
+$font-family-base: -apple-system,BlinkMacSystemFont,"Helvetica Neue",
+"Hiragino Sans","ヒラギノ角ゴ ProN W3",Hiragino Kaku Gothic ProN,Arial,Meiryo,sans-serif;
+
+// アニメーション
+$transition_s: .3s;
+
+// zindex
+$z-index_s: 1;
+$z-index_m: 5;
+$z-index_l: 10;
+$z-index_xl: 15;
+$z-index_xxl: 30;

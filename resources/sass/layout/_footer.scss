@@ -1,0 +1,16 @@
+/********************************************** 
+フッター用
+**********************************************/
+.l-footer{
+  overflow: hidden;
+  font-size: $font-size-l;
+  padding: 0 $space_xl;
+    &-container{
+      float: right;
+    }
+    &-link{
+      color: $font-color_default;
+      display: inline-block;
+      margin-right: $space_xxl;
+    }
+}

@@ -1,0 +1,42 @@
+/********************************************** 
+ログイン・新規登録フォーム用
+**********************************************/
+.u-form__line{
+  margin-top: $space_xxl;
+  margin-bottom: $space_xxl;
+  border-top: $space_s;
+  border-top: 5px solod $font-color_default;
+}
+.u-social__item{
+  text-align: center;
+}
+.u-redirect__login{
+  margin-top: $space_xxl;
+  margin-bottom: $space_xxl;
+}
+
+// 
+.u-ind-wrapp__sub{
+  display: flex;
+  justify-content: space-between;
+}
+
+// 内側のpadding用
+.u-inner{
+  padding: 3rem;
+}
+
+// タイトル用
+.u-title{
+  margin-bottom: 25px;
+}
+
+/********************************************** 
+タスク管理用
+**********************************************/
+.u-task{
+  &-line{
+    margin-top: $space_xl;
+    margin-bottom: $space_xl;
+  }
+}

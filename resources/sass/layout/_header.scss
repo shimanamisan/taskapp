@@ -1,0 +1,19 @@
+.l-header__top{
+  height: 100%;
+  background: #62ABF8;
+}
+.l-header__nav{
+  display: flex;
+  justify-content: space-between;
+  align-items: center; // flex-Box内の要素の縦ラインを中央揃える
+    & nav ul{
+      display: flex;
+      justify-content: space-between;
+    }
+} 
+.l-header__top{
+  & nav ul li{
+    margin-right: $space_3l;
+  }
+}
+

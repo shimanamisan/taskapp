@@ -1,0 +1,45 @@
+/********************************************** 
+タスク管理画面用
+**********************************************/
+.c-task{
+
+  &-user{
+    font-size: $font-size-l;
+    text-align: center;
+  }
+  &-img{
+    margin-right: $space_xl;
+    width: 70px;
+    height: 70px;
+    > img {
+      @include custumRadius(50%);
+    }
+  }
+  &-wrapp{
+    margin-bottom: 10px;
+    border: 1px solid;
+    padding: 10px 15px;
+    @include custumShadow();
+
+      &__icon{
+        display: block;
+        float: right;
+        padding: 0 5px;
+      }
+  }
+}
+.c-task-icon__wrap{
+  display: block;
+  float: right;
+  padding: 0 5px;
+}
+.c-task-item{
+  margin-right: 15px;
+   
+  &__trash{
+    margin-right: -10px;
+  }
+}
+.fas{
+  cursor: pointer;
+}

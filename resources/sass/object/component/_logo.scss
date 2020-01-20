@@ -1,0 +1,33 @@
+/********************************************** 
+デフォルトのロゴサイズとスペース
+**********************************************/
+.c-logo{
+  width: 160px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+.c-logo__header{
+  margin-top: $space_xl;
+  margin-bottom: $space_xxl;
+}
+/********************************************** 
+トップページ用のマージン
+**********************************************/
+.c-logo__clear-margin{
+  margin-top: 0;
+  margin-bottom: 0;
+}
+.c-logo__top{
+  width: 60%;
+  margin-top: 110px;
+}
+
+// indexページヘッダー用のロゴ
+.c-logo-ind__header{
+  width: 160px;
+  display: block;
+  margin-left: $space_xxl;
+}
+
+

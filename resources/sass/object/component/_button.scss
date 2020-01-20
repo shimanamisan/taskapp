@@ -1,0 +1,45 @@
+.c-btn{
+  padding: 0 1.5rem;
+  @include custumRadius(3px);
+  cursor: pointer;
+  height: 50px;
+  line-height: 50px;
+    &-reminder{
+      margin-top: $space_xxl;
+      font-size: $font-size_s;
+      text-align: center;
+    }
+    &__login{
+      display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
+      background: #00BDA6;
+      color: $font-color_primary;
+      font-weight: 600;
+    }
+    &__signin{
+      display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
+      background: $btn_signin_primary;
+      color: $font-color_primary;
+    }
+    &__twitter{
+      display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
+      background: #0088FF;
+      color: $font-color_primary;
+    }
+}
+
+// ヘッダー用ボタン
+.c-header{
+
+  &__signin{
+    background: #fff;
+    color: #62ABF8;
+    padding: 20px 45px;
+    @include custumRadius(30px);
+  }
+  &__login{
+    color: #fff;
+  }
+  &:hover{
+    opacity: .6;
+  }
+}

@@ -1,0 +1,22 @@
+// 各ファイルに散らかりがちなmixinを一元管理するファイル。
+
+// ブレークポイント
+$breackpoints: ('sm':'screen and (max-width: 414px)',
+  'md': 'screen and (max-width: 768px)',
+  'lg': 'screen and (max-width: 1000px)',
+  'xl': 'screen and (max-width: 1200px)'
+) !default;
+
+// ボーダーラディウス
+@mixin custumRadius($value: 3){
+  -moz-border-radius: $value;
+  -webkit-border-radius: $value;
+  border-radius: $value;
+}
+
+// ボックスシャドウ
+@mixin custumShadow( $h:0px, $v:4px, $b:10px, $s:0px, $color:rgba(0,0,0,.3)){
+  -moz-box-shadow: $h $v $b $s $color;
+  -webkit-box-shadow: $h $v $b $s $color;
+  box-shadow: $h $v $b $s $color;
+}

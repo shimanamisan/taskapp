@@ -1,0 +1,44 @@
+/********************************
+ トップページ用
+*********************************/
+.p-card{
+  width: 300px;
+  margin: $space_xl;
+  padding: $space_xxl;
+  background: $background-body-color;
+    &-border{
+      box-shadow: 0 4px 12px 0 rgba(0,0,0,.5);
+      @include custumRadius(5px);
+    }
+    &__body{
+      height: 100%;
+    }
+    &-title{
+      text-align: center;
+      font-size: $font-size_3l;
+      font-weight: 600;
+    }
+    &-content{
+      text-align: center;
+      font-size: $font-size_l;
+      font-weight: 600;
+        &__third{
+          height: 100%;
+          font-weight:500;
+        }
+    }
+    &__third{
+      padding: $space_xl;
+    }
+}
+/********************************
+ ログイン・サインアップ用
+*********************************/
+.p-card__container{
+  text-align: center;
+}
+.p-card__title{
+  display: block;
+  margin-bottom: $space_l;
+  font-weight: 600;
+}

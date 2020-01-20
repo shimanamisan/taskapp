@@ -1,0 +1,701 @@
+@import url(https://fonts.googleapis.com/css?family=Nunito);@charset "UTF-8";
+
+/*****************************
+ foundation
+******************************/
+
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol,
+ul {
+  list-style: none;
+}
+
+blockquote,
+q {
+  quotes: none;
+}
+
+blockquote:before,
+blockquote:after,
+q:before,
+q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+button {
+  border: none;
+}
+
+html,
+body {
+  width: 100%;
+  color: #707070;
+  font-size: 16px;
+  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "\30D2\30E9\30AE\30CE\89D2\30B4   ProN W3", Hiragino Kaku Gothic ProN, Arial, Meiryo, sans-serif;
+  line-height: 1.6;
+  -webkit-text-size-adjust: 100%;
+     -moz-text-size-adjust: 100%;
+      -ms-text-size-adjust: 100%;
+          text-size-adjust: 100%;
+  letter-spacing: 0.1em;
+}
+
+p,
+a {
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: #0075FC;
+  text-decoration: none;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+a:hover {
+  cursor: pointer;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
+}
+
+img {
+  width: 100%;
+  vertical-align: bottom;
+}
+
+input {
+  border: 1px solid #707070;
+}
+
+*,
+:after,
+:before {
+  box-sizing: inherit;
+}
+
+/*********************************************
+ レイアウト サイト全体のブロックを定義する。
+**********************************************/
+
+/********************************************** 
+トップページ用
+**********************************************/
+
+.l-section {
+  width: 100%;
+}
+
+.l-section__third {
+  background: #fff;
+}
+
+.l-section__fourth {
+  color: #fff;
+  background: #4C4C4C;
+}
+
+.l-section-wrapp__flex {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+/********************************************** 
+ログイン・新規登録フォーム用
+**********************************************/
+
+.l-wrapper {
+  width: 100%;
+  background: #f6f6f6;
+}
+
+.l-wrapper__top {
+  width: 100%;
+  background: #f6f6f6;
+}
+
+.l-wrapper__reminder {
+  height: 100vh;
+}
+
+.l-main__auth {
+  width: 31rem;
+  margin: 0 auto;
+  padding: 25px 0px 30px 0px;
+}
+
+.l-card__container {
+  height: 100%;
+  padding: 30px 40px;
+  background: #fff;
+  border-radius: 10px;
+  box-sizing: border-box;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
+}
+
+.l-card__content {
+  margin: 20px auto;
+}
+
+.l-header__top {
+  height: 100%;
+  background: #62ABF8;
+}
+
+.l-header__nav {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.l-header__nav nav ul {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.l-header__top nav ul li {
+  margin-right: 40px;
+}
+
+/********************************************** 
+フッター用
+**********************************************/
+
+.l-footer {
+  overflow: hidden;
+  font-size: 18px;
+  padding: 0 20px;
+}
+
+.l-footer-container {
+  float: right;
+}
+
+.l-footer-link {
+  color: #707070;
+  display: inline-block;
+  margin-right: 30px;
+}
+
+.l-side {
+  width: 100%;
+  margin: 30px auto;
+}
+
+.l-side-user {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.l-side-wrapp {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.l-side-wrapp__flex {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+  overflow: hidden;
+}
+
+.l-side-main {
+  padding: 20px;
+  margin: 10px;
+  width: 50%;
+  background: #f6f6f6;
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
+  border-radius: 10px;
+}
+
+.l-side-main:last-child {
+  margin-right: 30px;
+}
+
+.l-side-sub {
+  width: 40%;
+  padding: 30px;
+}
+
+/******************************************************************************
+ コンポーネント サイト内で使用されるオブジェクト(モジュール)で汎用性が高いもの
+*******************************************************************************/
+
+.c-btn {
+  padding: 0 1.5rem;
+  border-radius: 3px;
+  cursor: pointer;
+  height: 50px;
+  line-height: 50px;
+}
+
+.c-btn-reminder {
+  margin-top: 30px;
+  font-size: 12px;
+  text-align: center;
+}
+
+.c-btn__login {
+  display: inline-block;
+  background: #00BDA6;
+  color: #fff;
+  font-weight: 600;
+}
+
+.c-btn__signin {
+  display: inline-block;
+  background: #000;
+  color: #fff;
+}
+
+.c-btn__twitter {
+  display: inline-block;
+  background: #0088FF;
+  color: #fff;
+}
+
+.c-header__signin {
+  background: #fff;
+  color: #62ABF8;
+  padding: 20px 45px;
+  border-radius: 30px;
+}
+
+.c-header__login {
+  color: #fff;
+}
+
+.c-header:hover {
+  opacity: 0.6;
+}
+
+/********************************************** 
+デフォルトのロゴサイズとスペース
+**********************************************/
+
+.c-logo {
+  width: 160px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c-logo__header {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/********************************************** 
+トップページ用のマージン
+**********************************************/
+
+.c-logo__clear-margin {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.c-logo__top {
+  width: 60%;
+  margin-top: 110px;
+}
+
+.c-logo-ind__header {
+  width: 160px;
+  display: block;
+  margin-left: 30px;
+}
+
+/*****************************
+トップページのバナー用
+*****************************/
+
+.p-image-banner {
+  background-image: cover;
+  opacity: 0.5;
+}
+
+.c-input {
+  border-radius: 3px;
+  display: block;
+  background-color: #fff;
+  font-size: 18px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: inherit;
+  border: 2px solid #dfd8d8;
+}
+
+.c-input:focus {
+  outline: none;
+  border: 2px solid #00BDA6;
+}
+
+.c-form {
+  text-align: center;
+}
+
+.c-form-lavel {
+  display: inline-block;
+}
+
+.c-form__action {
+  margin-top: 30px;
+}
+
+.c-form__action__item {
+  text-align: center;
+  font-size: 15px;
+}
+
+.c-form__item + .c-form__item {
+  margin-top: 20px;
+}
+
+/********************************************** 
+デフォルトのロゴサイズとスペース
+**********************************************/
+
+.c-logo {
+  width: 160px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.c-logo__header {
+  margin-top: 20px;
+  margin-bottom: 30px;
+}
+
+/********************************************** 
+トップページ用のマージン
+**********************************************/
+
+.c-logo__clear-margin {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+.c-logo__top {
+  width: 60%;
+  margin-top: 110px;
+}
+
+.c-logo-ind__header {
+  width: 160px;
+  display: block;
+  margin-left: 30px;
+}
+
+/********************************************** 
+タスク管理画面用
+**********************************************/
+
+.c-task-user {
+  font-size: 18px;
+  text-align: center;
+}
+
+.c-task-img {
+  margin-right: 20px;
+  width: 70px;
+  height: 70px;
+}
+
+.c-task-img > img {
+  border-radius: 50%;
+}
+
+.c-task-wrapp {
+  margin-bottom: 10px;
+  border: 1px solid;
+  padding: 10px 15px;
+  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+}
+
+.c-task-wrapp__icon {
+  display: block;
+  float: right;
+  padding: 0 5px;
+}
+
+.c-task-icon__wrap {
+  display: block;
+  float: right;
+  padding: 0 5px;
+}
+
+.c-task-item {
+  margin-right: 15px;
+}
+
+.c-task-item__trash {
+  margin-right: -10px;
+}
+
+.fas {
+  cursor: pointer;
+}
+
+/***********************************************************************************
+ プロジェクト ページ単体でのみ使用されるオブジェクト(モジュール)で汎用性が低いもの
+************************************************************************************/
+
+.p-nav__login {
+  background: #f6f6f6;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+/********************************
+ トップページ用
+*********************************/
+
+.p-card {
+  width: 300px;
+  margin: 20px;
+  padding: 30px;
+  background: #fff;
+}
+
+.p-card-border {
+  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+.p-card__body {
+  height: 100%;
+}
+
+.p-card-title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+.p-card-content {
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.p-card-content__third {
+  height: 100%;
+  font-weight: 500;
+}
+
+.p-card__third {
+  padding: 20px;
+}
+
+/********************************
+ ログイン・サインアップ用
+*********************************/
+
+.p-card__container {
+  text-align: center;
+}
+
+.p-card__title {
+  display: block;
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+.p-eyecatch {
+  height: 100vh;
+  background-image: url(/images/top-backgrond.jpg?41c8c8f404b1a3d72f43a1e010eb5960);
+  background-size: cover;
+}
+
+.p-eyecatch__header {
+  font-size: 30px;
+  color: #fff;
+}
+
+/********************************************** 
+汎用的なタイトル
+**********************************************/
+
+.p-title {
+  text-align: center;
+  font-size: 38px;
+  font-weight: 600;
+}
+
+/***********************************************************************************
+ ユーティリティ 一時的な対処のために利用する
+************************************************************************************/
+
+/********************************************** 
+ログイン・新規登録フォーム用
+**********************************************/
+
+.u-form__line {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  border-top: 5px;
+  border-top: 5px solod #707070;
+}
+
+.u-social__item {
+  text-align: center;
+}
+
+.u-redirect__login {
+  margin-top: 30px;
+  margin-bottom: 30px;
+}
+
+.u-ind-wrapp__sub {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
+}
+
+.u-inner {
+  padding: 3rem;
+}
+
+.u-title {
+  margin-bottom: 25px;
+}
+
+/********************************************** 
+タスク管理用
+**********************************************/
+
+.u-task-line {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
