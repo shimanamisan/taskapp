@@ -8,14 +8,23 @@ const state = {
   registerErrorMessages: null
 }
 
+/*******************************
+ゲッター
+********************************/
 const getters = {
   // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
   check: state => !! state.username,
 
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
-  username: state => state.username ? state.username : ''
+  username: state => state.username ? state.username : '',
+
+  // ログイン時のエラーメッセージ
+  loginErrorMessages: state => !! state.loginErrorMessages
 }
 
+/*******************************
+ミューテーション
+********************************/
 const mutations = {
   // ユーザー名を更新
   setUser(state, username){
@@ -29,11 +38,12 @@ const mutations = {
   setApiStatus(state, status){
     state.apiStatus = status
   },
-  // loginErrorMessagesステートのためのミューテーション
-  setLoginErrorMessages (state, messages) {
+  // ログイン時のエラーハンドリングのためのミューテーション
+  setLoginErrorMessages(state, messages) {
     state.loginErrorMessages = messages
   },
-  setRegisterErrorMessages (state, messages) {
+  // 会員登録時のエラーハンドリング用ミューテーション
+  setRegisterErrorMessages(state, messages) {
     state.registerErrorMessages = messages
   }
 }
@@ -48,30 +58,41 @@ const actions = {
     console.log(response)
     context.commit('setUser', response.data) 
   },
-  //ログイン処理
+  //ログイン
   async login( {commit} , data){
     // commitでミューテーションのsetApiStatus呼び出している、今回は引数に入るデータはnull
     commit('setApiStatus', null)
       // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
-      await axios.post('/api/login', data).then(response => {
-        const username = response.data.name;
-        const id = response.data.id;
-        // ログインステータスを変更する
-        commit('setApiStatus', true)
-        commit('setUser', username) 
-        // ストア情報に取得したユーザーIDを入れる
-        commit('setId', id )
-        // ログインアナウンスを入れる
-        // なにか入れる
-      }).catch(error => {
-        // ログイン失敗メッセージを入れる https://www.webopixel.net/javascript/1447.html
-      });
+      const response = await axios.post('/api/login', data).catch(error => error.response || error)
+        // 200ステータスの処理
+        if(response.status === OK){
+          const username = response.data.name;
+          const id = response.data.id;
+          // ログインステータスを変更する
+          commit('setApiStatus', true)
+          commit('setUser', username) 
+          // ストア情報に取得したユーザーIDを入れる
+          commit('setId', id )
+          return false
+        }
+
+      commit('setApiStatus', false)
+      console.log(response.status)
+      // 422ステータスの処理
+      if(response.status === UNPROCESSABLE_ENTITY ){
+        commit('setLoginErrorMessages', response.data.errors)
+      } else {
+        commit('erroe/setCode', response.status, { root:true })
+      }
+
+
+
+      commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
   // ログアウト処理
   async logout (context) {
     context.commit('setApiStatus', null)
     const response = await axios.post('/api/logout')
-
     if (response.status === OK) {
       context.commit('setApiStatus', true)
       context.commit('setUser', null)

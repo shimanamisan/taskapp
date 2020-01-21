@@ -47,7 +47,7 @@ class LoginController extends Controller
     // メソッド追加
     protected function loggedOut(Request $request)
     {
-    // セッションを再生成する
+    // セッションを再生成する（接続を一旦リセットしている？）
     $request->session()->regenerate();
 
     return response()->json();

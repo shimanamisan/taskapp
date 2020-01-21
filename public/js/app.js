@@ -1944,6 +1944,7 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./statusCode */ "./resources/js/statusCode.js");
 //
 //
 //
@@ -1954,7 +1955,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  computed: {
+    errorCode: function errorCode() {
+      return this.$store.state.error.code;
+    }
+  },
+  // ストアのステートを算出プロパティで参照し、それをウォッチャーで監視する
+  watch: {
+    errorCode: {
+      handler: function handler(val) {
+        if (val === _statusCode__WEBPACK_IMPORTED_MODULE_0__["INTERNAL_SERVER_ERROR"]) {
+          this.$router.push('/500');
+        }
+      },
+      immediate: true
+    },
+    $route: function $route() {
+      this.$store.commit('error/setCode', null);
+    }
+  }
+});
 
 /***/ }),
 
@@ -1990,10 +2012,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2031,6 +2057,39 @@ __webpack_require__.r(__webpack_exports__);
       // authモジュールのapiStatusを参照
       return this.$store.state.auth.apiStatus;
     }
+  },
+  methods: {
+    logout: function () {
+      var _logout = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.$store.dispatch('auth/logout');
+
+              case 2:
+                if (this.apiStatus) {
+                  // 通信が成功（apiStatusがtureの場合）したら移動する
+                  this.$router.push('/login');
+                }
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function logout() {
+        return _logout.apply(this, arguments);
+      }
+
+      return logout;
+    }()
   }
 });
 
@@ -2220,6 +2279,21 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2272,20 +2346,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
-  computed: {
-    isLogin: function isLogin() {
-      return this.$store.getters['auth/check'];
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+    isLogin: function isLogin(state) {
+      return getters['auth/check'];
     },
-    // 通信失敗の場合（apiStatusがfalse）の場合にはトップページの移動処理を行わない
-    apiStatus: function apiStatus() {
-      // authモジュールのapiStatusを参照
-      return this.$store.state.auth.apiStatus;
+    apiStatus: function apiStatus(state) {
+      return state.auth.apiStatus;
     },
-    // ログイン時にエラーがった場合にメッセージを表示する
-    loginErrors: function loginErrors() {
-      return this.$store.state.auth.loginErrorMessages;
+    loginErrors: function loginErrors(state) {
+      return state.auth.loginErrorMessages;
     }
-  },
+  })),
   methods: {
     // authストアのloginアクションを呼び出す
     login: function () {
@@ -2303,8 +2374,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 if (this.apiStatus) {
                   // 通信が成功（apiStatusがtureの場合）したら移動する
                   this.$router.push('/tasklist');
-                } // this.$router.push('/tasklist');
-
+                }
 
               case 3:
               case "end":
@@ -39376,20 +39446,16 @@ var render = function() {
                 1
               ),
               _vm._v(" "),
-              _c(
-                "li",
-                [
-                  _c(
-                    "router-link",
-                    {
-                      staticClass: "c-btn c-header__login",
-                      attrs: { to: "login" }
-                    },
-                    [_vm._v("ログアウト")]
-                  )
-                ],
-                1
-              )
+              _c("li", [
+                _c(
+                  "div",
+                  {
+                    staticClass: "c-btn c-header__login",
+                    on: { click: _vm.logout }
+                  },
+                  [_vm._v("ログアウト")]
+                )
+              ])
             ])
           : _c("ul", [
               _vm.isLogin
@@ -39755,6 +39821,34 @@ var render = function() {
                   [_vm._v("メールアドレス")]
                 ),
                 _vm._v(" "),
+                _vm.loginErrors
+                  ? _c("div", { staticClass: "errors" }, [
+                      _vm.loginErrors.email
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.loginErrors.email, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(_vm._s(msg))
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _vm.loginErrors.password
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.loginErrors.password, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(_vm._s(msg))
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
@@ -39787,6 +39881,8 @@ var render = function() {
                   },
                   [_vm._v("パスワード")]
                 ),
+                _vm._v(" "),
+                _c("span", [_vm._v(_vm._s(_vm.loginErrors))]),
                 _vm._v(" "),
                 _c("input", {
                   directives: [
@@ -57485,6 +57581,10 @@ var state = {
   loginErrorMessages: null,
   registerErrorMessages: null
 };
+/*******************************
+ゲッター
+********************************/
+
 var getters = {
   // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
   check: function check(state) {
@@ -57493,8 +57593,16 @@ var getters = {
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   username: function username(state) {
     return state.username ? state.username : '';
+  },
+  // ログイン時のエラーメッセージ
+  loginErrorMessages: function loginErrorMessages(state) {
+    return !!state.loginErrorMessages;
   }
 };
+/*******************************
+ミューテーション
+********************************/
+
 var mutations = {
   // ユーザー名を更新
   setUser: function setUser(state, username) {
@@ -57508,10 +57616,11 @@ var mutations = {
   setApiStatus: function setApiStatus(state, status) {
     state.apiStatus = status;
   },
-  // loginErrorMessagesステートのためのミューテーション
+  // ログイン時のエラーハンドリングのためのミューテーション
   setLoginErrorMessages: function setLoginErrorMessages(state, messages) {
     state.loginErrorMessages = messages;
   },
+  // 会員登録時のエラーハンドリング用ミューテーション
   setRegisterErrorMessages: function setRegisterErrorMessages(state, messages) {
     state.registerErrorMessages = messages;
   }
@@ -57552,12 +57661,12 @@ var actions = {
 
     return register;
   }(),
-  //ログイン処理
+  //ログイン
   login: function () {
     var _login = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref, data) {
-      var commit;
+      var commit, response, username, id;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -57567,19 +57676,44 @@ var actions = {
               commit('setApiStatus', null); // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
 
               _context2.next = 4;
-              return axios.post('/api/login', data).then(function (response) {
-                var username = response.data.name;
-                var id = response.data.id; // ログインステータスを変更する
-
-                commit('setApiStatus', true);
-                commit('setUser', username); // ストア情報に取得したユーザーIDを入れる
-
-                commit('setId', id); // ログインアナウンスを入れる
-                // なにか入れる
-              })["catch"](function (error) {// ログイン失敗メッセージを入れる https://www.webopixel.net/javascript/1447.html
+              return axios.post('/api/login', data)["catch"](function (error) {
+                return error.response || error;
               });
 
             case 4:
+              response = _context2.sent;
+
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context2.next = 12;
+                break;
+              }
+
+              username = response.data.name;
+              id = response.data.id; // ログインステータスを変更する
+
+              commit('setApiStatus', true);
+              commit('setUser', username); // ストア情報に取得したユーザーIDを入れる
+
+              commit('setId', id);
+              return _context2.abrupt("return", false);
+
+            case 12:
+              commit('setApiStatus', false);
+              console.log(response.status); // 422ステータスの処理
+
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                commit('setLoginErrorMessages', response.data.errors);
+              } else {
+                commit('erroe/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              }); //{ root: ture }で違うファイルのミューテーションを呼べる
+
+            case 16:
             case "end":
               return _context2.stop();
           }
