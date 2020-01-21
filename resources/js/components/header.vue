@@ -9,7 +9,13 @@
           <li><router-link to="register" class="c-btn c-header__signin">マイページ</router-link></li>
           <li><router-link to="login" class="c-btn c-header__login">ログアウト</router-link></li>
         </ul> -->
-        <ul>
+        <ul v-if="apiStatus">
+          <li v-if="isLogin"><i class="fas fa-user-tie p-header p-header--icon"></i><span class="p-header p-header--title">{{ username }}</span></li>
+          <li><router-link to="register" class="c-btn c-header__signin">マイページ</router-link></li>
+          <li><router-link to="login" class="c-btn c-header__login">ログアウト</router-link></li>
+        </ul>
+        <ul v-else>
+          <li v-if="isLogin"><i class="fas fa-user-tie p-header p-header--icon"></i><span class="p-header p-header--title">{{ username }}</span></li>
           <li><router-link to="register" class="c-btn c-header__signin">新規登録</router-link></li>
           <li><router-link to="login" class="c-btn c-header__login">ログイン</router-link></li>
         </ul>
@@ -24,6 +30,18 @@ export default {
       return {
     
       }
+    },
+    computed: {
+      isLogin(){
+      return this.$store.getters['auth/check']
+      },
+      username(){
+        return this.$store.getters['auth/username']
+      },
+      apiStatus(){
+      // authモジュールのapiStatusを参照
+      return this.$store.state.auth.apiStatus
+      },
     }
 }
 </script>

@@ -58,15 +58,11 @@ export default {
   },
   methods: {
     async register(){
-
       // await:非同期なアクションの処理が完了するのを待ってから（難しく言うと Promise の解決を待ってから）ページ遷移する
       // authストアのregisterアクションを呼び出す
       await this.$store.dispatch('auth/register', this.registerForm)
-
-       if (this.apiStatus) {
         // トップページに移動する
-        this.$router.push('/')
-      }      
+        this.$router.push('/') 
     },
     
   }

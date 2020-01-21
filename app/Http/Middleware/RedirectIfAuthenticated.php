@@ -16,9 +16,14 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {
+    {   
+        // ログイン状態で非ログイン状態でのみアクセスできる機能にリクエストを送信した場合に
+        // /home へのリダイレクトが返却されている
         if (Auth::guard($guard)->check()) {
-            return redirect('/home');
+
+            // ログインユーザー返却 API にリダイレクトするように修正
+            return redirect()->route('user'); // 変更
+            // return redirect('/home');
         }
 
         return $next($request);

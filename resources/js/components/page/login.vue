@@ -58,7 +58,7 @@ export default {
   computed: {
     isLogin(){
       return this.$store.getters['auth/check']
-    } ,
+    },
     // 通信失敗の場合（apiStatusがfalse）の場合にはトップページの移動処理を行わない
     apiStatus(){
     // authモジュールのapiStatusを参照
@@ -73,7 +73,6 @@ export default {
     // authストアのloginアクションを呼び出す
     async login(){
       await this.$store.dispatch('auth/login', this.loginFrom);
-      console.log(this.$store.apiStatus);
       if(this.apiStatus){
         // 通信が成功（apiStatusがtureの場合）したら移動する
         this.$router.push('/tasklist');

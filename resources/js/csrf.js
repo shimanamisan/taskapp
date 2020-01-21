@@ -13,7 +13,6 @@ export function getCookieValue (searchKey) {
 
   // document.cookie によってクッキーは以下の形式で参照できる
   // name=12345;token=67890;key=abcde
-  console.log('クッキーを見ています：' + document.cookie);
   document.cookie.split(';').forEach(cookie => {
     const [key, value] = cookie.split('=')
     if (key === searchKey) {

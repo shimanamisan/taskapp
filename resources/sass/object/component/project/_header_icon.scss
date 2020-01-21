@@ -1,0 +1,11 @@
+.p-header{
+  color: #fff;
+  font-size: $font-size_l;
+  &--icon{
+    font-size: $font-size_xxl;
+    margin-right: $space_m;
+  }
+  &--title{
+    margin-right: $space_m;
+  }
+}

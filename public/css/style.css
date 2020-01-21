@@ -271,6 +271,8 @@ input {
   display: flex;
   -webkit-box-pack: justify;
           justify-content: space-between;
+  -webkit-box-align: center;
+          align-items: center;
 }
 
 .l-header__top nav ul li {
@@ -649,6 +651,20 @@ input {
   text-align: center;
   font-size: 38px;
   font-weight: 600;
+}
+
+.p-header {
+  color: #fff;
+  font-size: 18px;
+}
+
+.p-header--icon {
+  font-size: 30px;
+  margin-right: 10px;
+}
+
+.p-header--title {
+  margin-right: 10px;
 }
 
 /***********************************************************************************

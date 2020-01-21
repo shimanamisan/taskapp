@@ -1,34 +1,29 @@
 import { OK, UNPROCESSABLE_ENTITY, CREATED } from '../statusCode'
 
 const state = {
-  user: null,
+  username: null,
   user_id: null,
   apiStatus: null, // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
-  token: null,
   loginErrorMessages: null,
   registerErrorMessages: null
 }
 
 const getters = {
   // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
-  check: state => !! state.user,
+  check: state => !! state.username,
 
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
-  username: state => state.user ? state.user.name : ''
+  username: state => state.username ? state.username : ''
 }
 
 const mutations = {
   // ユーザー名を更新
-  setUser(state, user){
-    state.user = user
+  setUser(state, username){
+    state.username = username
   },
   // ユーザーIDを更新
   setId(state, user_id){
     state.user_id = user_id
-  },
-  // トークンを入れる
-  setToken(state, token){
-    state.token = token
   },
   // ログイン状態を更新
   setApiStatus(state, status){
@@ -45,37 +40,33 @@ const mutations = {
 
 // アクション→コミットでミューテーション呼び出し→ステート更新
 const actions = {
-
-  // ログイン処理
+  // 会員登録
+  // 第1引数にはコンテキストオブジェクトが渡される。その中にはcommitなどのメソッドが入っている
+  // 第2引数にはサーバーから返却されたデータが入っている。何を返すかはコントローラー側で記述する
+  async register(context, data){
+    const response = await axios.post('/api/register', data)
+    console.log(response)
+    context.commit('setUser', response.data) 
+  },
+  //ログイン処理
   async login( {commit} , data){
     // commitでミューテーションのsetApiStatus呼び出している、今回は引数に入るデータはnull
     commit('setApiStatus', null)
-    // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
-     await axios.post('/api/login', data).then(response => {
-       console.log(response.data.token)
-      const token = response.data.token;
-      const name = response.data.user_name;
-      const id = response.data.id;
-      // ヘッダーにトークンを入れる
-      axios.defaults.headers.common['Authorization'] = token;
-      // ストアにトークンを入れる
-      commit('setToken', token);
-      // ログインステータスを変更する
-      commit('setApiStatus', true)
-      // ストア情報のユーザー情報を変更する
-      commit('setUser', name)
-      // ストア情報に取得したユーザーIDを入れる
-      commit('setId', id )
-      // ログインアナウンスを入れる
-      // なにか入れる
-    }).catch(error => {
-      // ログイン失敗メッセージを入れる https://www.webopixel.net/javascript/1447.html
-    });
-    // if (response.status === OK) {
-    //   return false
-    // }
+      // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
+      await axios.post('/api/login', data).then(response => {
+        const username = response.data.name;
+        const id = response.data.id;
+        // ログインステータスを変更する
+        commit('setApiStatus', true)
+        commit('setUser', username) 
+        // ストア情報に取得したユーザーIDを入れる
+        commit('setId', id )
+        // ログインアナウンスを入れる
+        // なにか入れる
+      }).catch(error => {
+        // ログイン失敗メッセージを入れる https://www.webopixel.net/javascript/1447.html
+      });
   },
-
   // ログアウト処理
   async logout (context) {
     context.commit('setApiStatus', null)
@@ -89,6 +80,12 @@ const actions = {
 
     context.commit('setApiStatus', false)
     context.commit('error/setCode', response.status, { root: true })
+  },
+  // 起動時にログインチェック
+  async currentUser (context) {
+    const response = await axios.get('/api/user')
+    const username = response.data.name || null
+    context.commit('setUser', username)
   }
 
 }

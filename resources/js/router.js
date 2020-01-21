@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
+
 // ルーティング用ページ
 import Index from './components/index'
 import TaskList from './components/tasklist'
@@ -8,6 +9,9 @@ import Login from './components/page/login'
 import Register from './components/page/register'
 import PasswordReminder from './components/page/passwordReminder'
 import PasswordReset from './components/page/PasswordReset'
+import SystemError from './components/page/error/SystemError.vue'
+
+import store from './store/store'
 
 // vuexで使用するストアの読み込み
 
@@ -33,12 +37,29 @@ export default new VueRouter({
     {
       // ログインページ
       path: '/login',
-      component: Login
+      component: Login,
+      
+      // ナビゲーションガード
+      beforeEnter(to, from, next){
+        if(store.getters['auth/check']){
+          next('/')
+        }else{
+          next()
+        }
+      }
     },
     {
       // ユーザー登録ページ
       path: '/register',
-      component: Register
+      component: Register,
+        // ナビゲーションガード
+        beforeEnter(to, from, next){
+          if(store.getters['auth/check']){
+            next('/')
+          }else{
+            next()
+          }
+        }
     },
     {
       // パスワードリマインダー
@@ -54,6 +75,11 @@ export default new VueRouter({
       // タスク管理ページ
       path: '/tasklist',
       component: TaskList
+    },
+    {
+      // エラーページ
+      path: '/500',
+      component: SystemError
     }
   ]
 })
