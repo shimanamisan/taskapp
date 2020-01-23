@@ -15,15 +15,12 @@
   margin-bottom: $space_xxl;
 }
 
-// 
-.u-ind-wrapp__sub{
-  display: flex;
-  justify-content: space-between;
-}
-
 // 内側のpadding用
 .u-inner{
   padding: 3rem;
+    &__l{
+      padding: 1rem;
+    }
 }
 
 // タイトル用
@@ -38,5 +35,22 @@
   &-line{
     margin-top: $space_xl;
     margin-bottom: $space_xl;
+  }
+}
+
+/********************************************** 
+各種アイコン用
+**********************************************/
+.u-icon{
+  font-size: $font-size_l;
+  
+  &__message{
+    vertical-align: middle;
+    margin-right: $space_s;
+  }
+
+  &__sns{
+    font-size: 2.5rem;
+    margin-right: $space_m;
   }
 }

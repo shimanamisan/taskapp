@@ -4,6 +4,7 @@
   cursor: pointer;
   height: 50px;
   line-height: 50px;
+  transition: $transition_s;
     &-reminder{
       margin-top: $space_xxl;
       font-size: $font-size_s;
@@ -25,21 +26,37 @@
       background: #0088FF;
       color: $font-color_primary;
     }
+    &__footer{
+      display: block; // inlineとblockの中間（並びはinline、中の要素はblock）
+      width: 120px;
+      @include custumRadius(30px);
+      &:hover{
+        opacity: 0.6;
+      }
+      &--login{
+        background-color: #FFFFFF;
+      }
+      &--message{
+        background-color: #707070;
+        border: solid 1px #ffffff;
+        color: #ffffff;
+      }
+    }
 }
 
 // ヘッダー用ボタン
 .c-header{
-
   &__signin{
     background: #fff;
     color: #62ABF8;
     padding: 20px 45px;
     @include custumRadius(30px);
+    &:hover{
+      opacity: 0.6;
+    }
   }
   &__login{
     color: #fff;
   }
-  &:hover{
-    opacity: .6;
-  }
+
 }

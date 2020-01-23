@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class RegisterApiTest extends TestCase
 {
+    // テストを行うたびにDBのマイグレーションがリセットされる様にする
     use RefreshDatabase;
 
     /**

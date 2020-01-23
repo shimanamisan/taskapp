@@ -355,6 +355,8 @@ input {
   cursor: pointer;
   height: 50px;
   line-height: 50px;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
 }
 
 .c-btn-reminder {
@@ -382,6 +384,26 @@ input {
   color: #fff;
 }
 
+.c-btn__footer {
+  display: block;
+  width: 120px;
+  border-radius: 30px;
+}
+
+.c-btn__footer:hover {
+  opacity: 0.6;
+}
+
+.c-btn__footer--login {
+  background-color: #FFFFFF;
+}
+
+.c-btn__footer--message {
+  background-color: #707070;
+  border: solid 1px #ffffff;
+  color: #ffffff;
+}
+
 .c-header__signin {
   background: #fff;
   color: #62ABF8;
@@ -389,12 +411,12 @@ input {
   border-radius: 30px;
 }
 
-.c-header__login {
-  color: #fff;
+.c-header__signin:hover {
+  opacity: 0.6;
 }
 
-.c-header:hover {
-  opacity: 0.6;
+.c-header__login {
+  color: #fff;
 }
 
 /********************************************** 
@@ -610,12 +632,17 @@ input {
 }
 
 .p-card-content__third {
-  height: 100%;
   font-weight: 500;
 }
 
 .p-card__third {
-  padding: 20px;
+  padding: 15px;
+  width: 50%;
+  text-align: center;
+}
+
+.p-card__third--right {
+  margin: 20px auto;
 }
 
 /********************************
@@ -636,6 +663,22 @@ input {
   height: 100vh;
   background-image: url(/images/top-backgrond.jpg?41c8c8f404b1a3d72f43a1e010eb5960);
   background-size: cover;
+}
+
+.p-eyecatch__inner {
+  padding: 4rem;
+}
+
+.p-eyecatch__layout {
+  position: relative;
+  top: 50px;
+}
+
+.p-eyecatch__sub {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+          justify-content: space-between;
 }
 
 .p-eyecatch__header {
@@ -691,15 +734,12 @@ input {
   margin-bottom: 30px;
 }
 
-.u-ind-wrapp__sub {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
-}
-
 .u-inner {
   padding: 3rem;
+}
+
+.u-inner__l {
+  padding: 1rem;
 }
 
 .u-title {
@@ -713,5 +753,23 @@ input {
 .u-task-line {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+/********************************************** 
+各種アイコン用
+**********************************************/
+
+.u-icon {
+  font-size: 18px;
+}
+
+.u-icon__message {
+  vertical-align: middle;
+  margin-right: 5px;
+}
+
+.u-icon__sns {
+  font-size: 2.5rem;
+  margin-right: 10px;
 }
 

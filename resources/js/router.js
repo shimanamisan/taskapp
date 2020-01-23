@@ -42,7 +42,7 @@ export default new VueRouter({
       // ナビゲーションガード
       beforeEnter(to, from, next){
         if(store.getters['auth/check']){
-          next('/')
+          next('/tasklist')
         }else{
           next()
         }
@@ -54,8 +54,9 @@ export default new VueRouter({
       component: Register,
         // ナビゲーションガード
         beforeEnter(to, from, next){
+          // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
           if(store.getters['auth/check']){
-            next('/')
+            next('/tasklist')
           }else{
             next()
           }

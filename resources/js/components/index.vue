@@ -3,16 +3,20 @@
   <Header/>
         <div class="l-wrapper__top">
               <section class="l-section__first">
-                <div class="p-eyecatch u-inner">
-                  <div class="u-ind-wrapp__sub">
-                    <div class="c-logo__header c-logo__clear-margin">
-                      <img src="../../img/log-top.png" alt="logo" class="c-logo__top">
-                      <h1 class="p-eyecatch__header">簡単な操作で軽快にタスクをこなそう</h1>
+                <div class="p-eyecatch">
+                  <div class="p-eyecatch__inner">
+                    <div class="p-eyecatch__layout">
+                        <div class="p-eyecatch__sub u-ind-wrapp__sub">
+                          <div class="c-logo__header c-logo__clear-margin">
+                            <img src="../../img/log-top.png" alt="logo" class="c-logo__top">
+                            <h1 class="p-eyecatch__header">簡単な操作で軽快にタスクをこなそう</h1>
+                          </div>
+                          <div>
+                            <img src="https://placehold.jp/550x350.png" alt="">
+                          </div>
+                        </div>
                     </div>
-                    <div>
-                      <img src="https://placehold.jp/550x350.png" alt="">
-                    </div>
-                  </div>
+                  </div><!-- p-eyecatch--inner -->
                 </div>
               </section>
 
@@ -51,15 +55,20 @@
               <section class="l-section l-section__third">
                 <div class="u-inner">
                     <div class="l-section-wrapp l-section-wrapp__flex">
-                        <div class="p-card__third">
+                        <div class="p-card__third u-inner">
                             <div class="p-card__body">
                                 <div class="p-card-title">
                                   <p>
                                     直感的に使えまっせ的なフレーズ
                                   </p>
                                 </div>
-                                <div class="p-card-content__third">
+                                <div class="p-card-content__third u-inner__l">
                                   <p>
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
                                     サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
                                   </p>
                                 </div>
@@ -73,10 +82,31 @@
               </section>
               <section class="l-section l-section__fourth">
                 <div class="u-inner">
-                  
+                  <div class="l-section-wrapp l-section-wrapp__flex">
+                        <div class="p-card__third u-inner">
+                            <div class="p-card__body">
+                                <div class="p-card-content__third u-inner__l">
+                                  <p>
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。
+                                  </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-card__third u-inner">
+                            <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--login">ログイン</button>
+                            <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--message"><i class="far fa-envelope u-icon u-icon__message"></i>お問い合わせ</button>
+                            <i class="fab fa-twitter u-icon u-icon__sns"></i>
+                            <i class="fab fa-facebook u-icon u-icon__sns"></i>
+                            <i class="fab fa-instagram u-icon u-icon__sns"></i>
+                        </div>
+                    </div>
                 </div>
               </section>
-
         </div><!-- l-wrapper__top -->
         <Footer/>
 </div>

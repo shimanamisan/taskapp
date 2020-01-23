@@ -1953,10 +1953,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
+// エラーコードモジュールを読み込む
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
   computed: {
     errorCode: function errorCode() {
       return this.$store.state.error.code;
@@ -2106,6 +2108,36 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./header */ "./resources/js/components/header.vue");
 /* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footer */ "./resources/js/components/footer.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -39538,23 +39570,34 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "l-wrapper__top" }, [
       _c("section", { staticClass: "l-section__first" }, [
-        _c("div", { staticClass: "p-eyecatch u-inner" }, [
-          _c("div", { staticClass: "u-ind-wrapp__sub" }, [
-            _c("div", { staticClass: "c-logo__header c-logo__clear-margin" }, [
-              _c("img", {
-                staticClass: "c-logo__top",
-                attrs: { src: __webpack_require__(/*! ../../img/log-top.png */ "./resources/img/log-top.png"), alt: "logo" }
-              }),
-              _vm._v(" "),
-              _c("h1", { staticClass: "p-eyecatch__header" }, [
-                _vm._v("簡単な操作で軽快にタスクをこなそう")
+        _c("div", { staticClass: "p-eyecatch" }, [
+          _c("div", { staticClass: "p-eyecatch__inner" }, [
+            _c("div", { staticClass: "p-eyecatch__layout" }, [
+              _c("div", { staticClass: "p-eyecatch__sub u-ind-wrapp__sub" }, [
+                _c(
+                  "div",
+                  { staticClass: "c-logo__header c-logo__clear-margin" },
+                  [
+                    _c("img", {
+                      staticClass: "c-logo__top",
+                      attrs: {
+                        src: __webpack_require__(/*! ../../img/log-top.png */ "./resources/img/log-top.png"),
+                        alt: "logo"
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c("h1", { staticClass: "p-eyecatch__header" }, [
+                      _vm._v("簡単な操作で軽快にタスクをこなそう")
+                    ])
+                  ]
+                ),
+                _vm._v(" "),
+                _c("div", [
+                  _c("img", {
+                    attrs: { src: "https://placehold.jp/550x350.png", alt: "" }
+                  })
+                ])
               ])
-            ]),
-            _vm._v(" "),
-            _c("div", [
-              _c("img", {
-                attrs: { src: "https://placehold.jp/550x350.png", alt: "" }
-              })
             ])
           ])
         ])
@@ -39615,7 +39658,7 @@ var staticRenderFns = [
       _c("section", { staticClass: "l-section l-section__third" }, [
         _c("div", { staticClass: "u-inner" }, [
           _c("div", { staticClass: "l-section-wrapp l-section-wrapp__flex" }, [
-            _c("div", { staticClass: "p-card__third" }, [
+            _c("div", { staticClass: "p-card__third u-inner" }, [
               _c("div", { staticClass: "p-card__body" }, [
                 _c("div", { staticClass: "p-card-title" }, [
                   _c("p", [
@@ -39625,10 +39668,10 @@ var staticRenderFns = [
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "p-card-content__third" }, [
+                _c("div", { staticClass: "p-card-content__third u-inner__l" }, [
                   _c("p", [
                     _vm._v(
-                      "\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                  "
+                      "\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                  "
                     )
                   ])
                 ])
@@ -39646,7 +39689,52 @@ var staticRenderFns = [
       ]),
       _vm._v(" "),
       _c("section", { staticClass: "l-section l-section__fourth" }, [
-        _c("div", { staticClass: "u-inner" })
+        _c("div", { staticClass: "u-inner" }, [
+          _c("div", { staticClass: "l-section-wrapp l-section-wrapp__flex" }, [
+            _c("div", { staticClass: "p-card__third u-inner" }, [
+              _c("div", { staticClass: "p-card__body" }, [
+                _c("div", { staticClass: "p-card-content__third u-inner__l" }, [
+                  _c("p", [
+                    _vm._v(
+                      "\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                    サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。\r\n                                  "
+                    )
+                  ])
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "p-card__third u-inner" }, [
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "p-card__third--right c-btn c-btn__footer c-btn__footer--login"
+                },
+                [_vm._v("ログイン")]
+              ),
+              _vm._v(" "),
+              _c(
+                "button",
+                {
+                  staticClass:
+                    "p-card__third--right c-btn c-btn__footer c-btn__footer--message"
+                },
+                [
+                  _c("i", {
+                    staticClass: "far fa-envelope u-icon u-icon__message"
+                  }),
+                  _vm._v("お問い合わせ")
+                ]
+              ),
+              _vm._v(" "),
+              _c("i", { staticClass: "fab fa-twitter u-icon u-icon__sns" }),
+              _vm._v(" "),
+              _c("i", { staticClass: "fab fa-facebook u-icon u-icon__sns" }),
+              _vm._v(" "),
+              _c("i", { staticClass: "fab fa-instagram u-icon u-icon__sns" })
+            ])
+          ])
+        ])
       ])
     ])
   }
@@ -57494,7 +57582,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     // ナビゲーションガード
     beforeEnter: function beforeEnter(to, from, next) {
       if (_store_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
-        next('/');
+        next('/tasklist');
       } else {
         next();
       }
@@ -57505,8 +57593,9 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     component: _components_page_register__WEBPACK_IMPORTED_MODULE_5__["default"],
     // ナビゲーションガード
     beforeEnter: function beforeEnter(to, from, next) {
+      // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
       if (_store_store__WEBPACK_IMPORTED_MODULE_9__["default"].getters['auth/check']) {
-        next('/');
+        next('/tasklist');
       } else {
         next();
       }
@@ -57745,21 +57834,22 @@ var actions = {
               response = _context3.sent;
 
               if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                _context3.next = 8;
+                _context3.next = 9;
                 break;
               }
 
-              context.commit('setApiStatus', true);
+              context.commit('setApiStatus', null);
               context.commit('setUser', null);
+              context.commit('setId', null);
               return _context3.abrupt("return", false);
 
-            case 8:
+            case 9:
               context.commit('setApiStatus', false);
               context.commit('error/setCode', response.status, {
                 root: true
               });
 
-            case 10:
+            case 11:
             case "end":
               return _context3.stop();
           }
@@ -57778,7 +57868,7 @@ var actions = {
     var _currentUser = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(context) {
-      var response, username;
+      var response, user;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
@@ -57788,8 +57878,13 @@ var actions = {
 
             case 2:
               response = _context4.sent;
-              username = response.data.name || null;
-              context.commit('setUser', username);
+              user = response.data || null;
+
+              if (user) {
+                context.commit('setApiStatus', true);
+                context.commit('setUser', user.name);
+                context.commit('setId', user.id);
+              }
 
             case 5:
             case "end":

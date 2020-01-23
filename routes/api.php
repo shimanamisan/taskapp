@@ -27,3 +27,5 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
+// プロフィール写真投稿
+Route::post('/mypage/profile', 'PhotoController@create')->name('profile.create');

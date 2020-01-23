@@ -23,12 +23,16 @@
       font-size: $font-size_l;
       font-weight: 600;
         &__third{
-          height: 100%;
           font-weight:500;
         }
     }
     &__third{
-      padding: $space_xl;
+      padding: $space_l;
+      width: 50%;
+      text-align: center;
+      &--right{
+        margin: $space_xl auto;
+      }
     }
 }
 /********************************

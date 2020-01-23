@@ -9,6 +9,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class LoginApiTest extends TestCase
 {
+    // テストを行うたびにDBのマイグレーションがリセットされる様にする
     use RefreshDatabase;
 
     public function setUp(): void

@@ -1,17 +1,21 @@
 <template>
-<div>
-    <transition name="fade" mode="out-in">
-      <router-view></router-view>
-    </transition>
-
-
-</div>
+  <div>
+      <transition name="fade" mode="out-in">
+        <router-view></router-view>
+      </transition>
+  </div>
 </template>
 
 <script>
+// エラーコードモジュールを読み込む
 import { INTERNAL_SERVER_ERROR } from './statusCode'
 
 export default {
+  data() {
+    return{
+    
+    }
+  },
   computed: {
     errorCode(){
       return this.$store.state.error.code

@@ -94,8 +94,9 @@ const actions = {
     context.commit('setApiStatus', null)
     const response = await axios.post('/api/logout')
     if (response.status === OK) {
-      context.commit('setApiStatus', true)
+      context.commit('setApiStatus', null)
       context.commit('setUser', null)
+      context.commit('setId', null)
       return false
     }
 
@@ -104,9 +105,13 @@ const actions = {
   },
   // 起動時にログインチェック
   async currentUser (context) {
-    const response = await axios.get('/api/user')
-    const username = response.data.name || null
-    context.commit('setUser', username)
+    const response = await axios.get('/api/user')    
+    const user = response.data || null
+    if(user){
+      context.commit('setApiStatus', true)
+      context.commit('setUser', user.name) 
+      context.commit('setId', user.id )
+    }
   }
 
 }
