@@ -5,6 +5,9 @@
   height: 50px;
   line-height: 50px;
   transition: $transition_s;
+  &:hover{
+    opacity: 0.6;
+  }
     &-reminder{
       margin-top: $space_xxl;
       font-size: $font-size_s;
@@ -26,13 +29,16 @@
       background: #0088FF;
       color: $font-color_primary;
     }
+    &__danger{
+      font-weight: 600;
+      background:red;
+      color: #ffffff;
+      @include custumRadius(30px);
+    }
     &__footer{
       display: block; // inlineとblockの中間（並びはinline、中の要素はblock）
       width: 120px;
       @include custumRadius(30px);
-      &:hover{
-        opacity: 0.6;
-      }
       &--login{
         background-color: #FFFFFF;
       }
@@ -58,5 +64,4 @@
   &__login{
     color: #fff;
   }
-
 }

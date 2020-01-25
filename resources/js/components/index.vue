@@ -98,7 +98,7 @@
                             </div>
                         </div>
                         <div class="p-card__third u-inner">
-                            <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--login">ログイン</button>
+                            <router-link tag="button" to="login" class="p-card__third--right c-btn c-btn__footer c-btn__footer--login">ログイン</router-link>
                             <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--message"><i class="far fa-envelope u-icon u-icon__message"></i>お問い合わせ</button>
                             <i class="fab fa-twitter u-icon u-icon__sns"></i>
                             <i class="fab fa-facebook u-icon u-icon__sns"></i>

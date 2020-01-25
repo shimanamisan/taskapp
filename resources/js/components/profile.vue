@@ -1,0 +1,149 @@
+<template>
+<div>
+  <Header/>
+      <div class="l-wrapper l-wrapper__profile">
+        <section class="l-main__auth l-main__auth--profile">
+      
+        <div class="l-card__container">
+            <div class="p-card__container">
+              <p class="p-card__title">プロフィール編集</p>
+            </div>
+            <hr class="u-form__line">
+            
+                <form @submit.prevent="imgupload">
+                  <div class="c-form__container--profile">
+                    <div class="c-form__item">
+                      <label for="" class="c-form-lavel c-form-lavel__profile">プロフィール画像</label>
+                      <label class="c-input--profile">
+                        <input type="file" class="c-input--profile__drop" @change="onFileChange">
+                        <output v-if="preview">
+                        <img :src="preview" alt="プロフィール画像" class="c-form__output">
+                        </output>
+                      </label>
+                    </div>
+                    <div>
+                        <div class="c-form__item">
+                          <label for="" class="c-form-lavel">ニックネーム</label>
+                          <input type="text" class="c-input" v-bind:value="profileData.name">
+                        </div>
+                        <div class="c-form__item">
+                          <label for="" class="c-form-lavel">メールアドレス</label>
+                          <input type="text" class="c-input" v-bind:value="profileData.email">
+                        </div>
+                        <div class="c-form__item">
+                          <label for="" class="c-form-lavel">変更後パスワード</label>
+                          <input type="password" class="c-input" >
+                        </div>
+                        <div class="c-form__item">
+                          <label for="" class="c-form-lavel">変更後パスワード再入力</label>
+                          <input type="password" class="c-input" >
+                        </div>
+                    </div>
+                  </div>
+                  <div class="c-form__action c-form__action__item">
+                    <button type="submit" class="c-btn c-btn__signin">更新する</button>
+                  </div>
+                </form>
+        </div><!-- l-card__container -->
+
+          <div class="l-card__container">
+            <div class="p-card__container">
+              <p class="p-card__title">アカウントの削除</p>
+            </div>
+            <hr class="u-form__line">
+            <div class="c-form__container">
+             <p>
+              退会処理を行います。現在管理者
+              であるプロジェクトは全て削除さ
+              れ復旧はできません。
+             </p>
+          </div>
+          <div class="c-form__action c-form__action__item">
+            <button type="submit" class="c-btn c-btn__danger">削除する</button>
+          </div>
+        </div><!-- l-card__container -->
+      </section><!-- l-main__auth -->
+    </div><!-- l-wrapper__login -->
+</div>
+</template>
+
+<script>
+  import Header from './header'
+export default {
+  data(){
+    return {
+      preview: null,
+      profileImage: null,
+      profileData: 
+          { 
+            name:'',
+            email:'',
+            password:''
+          }
+    }
+  },
+  created: function(){
+        axios.get('/api/profile').then(response => {
+          console.log(response.data)
+          this.profileData.name = response.data.name
+          this.profileData.email = response.data.email
+        }).catch(console.log())
+  },
+  methods:{
+    // フォームでファイルが選択されたら実行
+    onFileChange(event){
+      // 何も選択されていなかったら処理を中断
+      if(event.target.files.length === 0){
+        this.reset() // プレビューの入力値を消すメソッドを作る
+        return false
+      }
+
+      // ファイルが画像でなかったら処理を中断
+      // if(event.target.files[0].type.match('image.*')){
+      //   return false
+      // }
+
+      // FileReaderクラスのインスタンスを取得
+      const reader = new FileReader()
+
+      // ファイルを読み込み終わったタイミングで実行する処理
+      reader.onload = event => {
+        this.preview = event.target.result
+      }
+
+      // ファイルを読み込む
+      // 読み込まれたファイルはデータURL形式で受け取れる
+      reader.readAsDataURL(event.target.files[0])
+
+      // 
+      this.profileImage = event.target.files[0]
+    },
+    reset(){
+      // コンポーネントに持たせたデータを消す
+      this.preview = ""
+      this.profileImage = null
+      // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
+      this.$el.querySelector('input[type="file"]').value = null
+    },
+    // 入力欄の値とプレビュー表示を消すメソッド
+    async imgupload(){
+      const formData = new FormData()
+      console.log(formData)
+      formData.append('profile', this.profileImage)
+      const response = await axios.post('/api/mypage/profile', formData)
+
+      this.reset()
+    },
+    editData(){
+
+    }
+  },
+  components: {
+    Header
+  }
+}
+</script>
+
+<style>
+
+</style>

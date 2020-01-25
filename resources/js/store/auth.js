@@ -19,7 +19,10 @@ const getters = {
   username: state => state.username ? state.username : '',
 
   // ログイン時のエラーメッセージ
-  loginErrorMessages: state => !! state.loginErrorMessages
+  loginErrorMessages: state => !! state.loginErrorMessages,
+
+  // 新規登録時のエラーメッセージ
+  registerErrorMessages: state => !! state.registerErrorMessages
 }
 
 /*******************************
@@ -53,14 +56,35 @@ const actions = {
   // 会員登録
   // 第1引数にはコンテキストオブジェクトが渡される。その中にはcommitなどのメソッドが入っている
   // 第2引数にはサーバーから返却されたデータが入っている。何を返すかはコントローラー側で記述する
-  async register(context, data){
-    const response = await axios.post('/api/register', data)
-    console.log(response)
-    context.commit('setUser', response.data) 
+  async register( {commit} , data){
+    // commitでミューテーションのsetApiStatus呼び出している、最初には引数に入るデータはnull
+    commit('setApiStatus', null)
+    const response = await axios.post('/api/register', data).catch(error => error.response || error)
+      // 200ステータスの処理
+      if(response.status === OK){
+        const username = response.data.name;
+        const id = response.data.id;
+        // ログインステータスを変更する
+        commit('setApiStatus', true)
+        commit('setUser', username) 
+        // ストア情報に取得したユーザーIDを入れる
+        commit('setId', id )
+        return false
+      }
+    commit('setApiStatus', false)
+    console.log(response.status)
+    // 422ステータスの処理
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      console.log('「auth.jsのregisterメソッドです」：' + JSON.stringify(response.data.errors))
+      commit('setRegisterErrorMessages', response.data.errors)
+    } else {
+      commit('erroe/setCode', response.status, { root:true })
+    }
+    commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
   //ログイン
   async login( {commit} , data){
-    // commitでミューテーションのsetApiStatus呼び出している、今回は引数に入るデータはnull
+    // commitでミューテーションのsetApiStatus呼び出している、最初には引数に入るデータはnull
     commit('setApiStatus', null)
       // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
       const response = await axios.post('/api/login', data).catch(error => error.response || error)
@@ -84,9 +108,6 @@ const actions = {
       } else {
         commit('erroe/setCode', response.status, { root:true })
       }
-
-
-
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
   // ログアウト処理

@@ -28,4 +28,6 @@ Route::get('/user', function () {
     return Auth::user();
     })->name('user');
 // プロフィール写真投稿
-Route::post('/mypage/profile', 'PhotoController@create')->name('profile.create');
+Route::post('/profile/{id}', 'ProfileController@create')->name('profile.create');
+// プロフィール一覧
+Route::get('/profile', 'ProfileController@profileview')->name('profile.profileview');

@@ -30,11 +30,18 @@
    &__reminder{
      height: 100vh;
    }
+   &__profile{
+     padding-top: 50px;
+   }
 }
 .l-main__auth{
   width: 31rem; // rem: ルート要素（html要素）に指定されたサイズを基準とした単
   margin: 0 auto;
   padding: 25px 0px 30px 0px;
+  box-sizing: border-box;
+  &--profile{
+    width: 40rem;
+  }
 }
 
 .l-card__container{
@@ -44,6 +51,7 @@
   @include custumRadius(10px);
   box-sizing: border-box;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.08); // これもミキシンでリファクタできそう
+  margin-bottom: $space_3l;
 }
 .l-card__content{
   margin: $space_xl auto;

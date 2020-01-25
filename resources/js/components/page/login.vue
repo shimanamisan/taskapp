@@ -14,22 +14,27 @@
               <div class="c-form__container">
                   <form @submit.prevent="login">
                       <div class="c-form__item">
-                        <label for="login-email" class="c-form-lavel">メールアドレス</label>
-                      <div v-if="loginErrors" class="errors">
-    <ul v-if="loginErrors.email">
-      <li v-for="msg in loginErrors.email" :key="msg">{{ msg }}</li>
-    </ul>
-    <ul v-if="loginErrors.password">
-      <li v-for="msg in loginErrors.password" :key="msg">{{ msg }}</li>
-    </ul>
-  </div>
-                        <input id="login-email" type="text" class="c-input" v-model="loginFrom.email">
-                      </div>
+                          <label for="login-email" class="c-form-lavel">メールアドレス</label>
+
+                          <!-- バリデーションエラー -->
+                          <div v-if="loginErrors" class="errors">
+                            <ul v-if="loginErrors.email">
+                              <li v-for="msg in loginErrors.email" :key="msg">{{ msg }}</li>
+                            </ul>
+                          </div><!-- end errors -->
+                          <input id="login-email" type="text" class="c-input" v-model="loginFrom.email">
+                      </div><!-- end c-form__item -->
                       <div class="c-form__item">
-                        <label for="login-password" class="c-form-lavel">パスワード</label>
-                        <span>{{ loginErrors }}</span>
-                        <input id="login-password" type="password" class="c-input" v-model="loginFrom.password">
-                      </div>
+                          <label for="login-password" class="c-form-lavel">パスワード</label>
+                          
+                          <!-- バリデーションエラー -->
+                          <div v-if="loginErrors" class="errors">
+                            <ul v-if="loginErrors.password">
+                              <li v-for="msg in loginErrors.password" :key="msg">{{ msg }}</li>
+                            </ul>
+                          </div><!-- end errors -->
+                          <input id="login-password" type="password" class="c-input" v-model="loginFrom.password">
+                      </div><!-- end c-form__item -->
                       <div class="c-form__action">
                         <div class="c-form__action c-form__action__item">
                           <button type="submit" class="c-btn c-btn__login">ログインする</button>
@@ -93,7 +98,14 @@ export default {
         // 通信が成功（apiStatusがtureの場合）したら移動する
         this.$router.push('/tasklist');
       }
+    },
+    clearError(){
+      this.$store.commit('auth/setLoginErrorMessages', null)
     }
+  },
+  created(){
+    // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
+    this.clearError()
   }
 }
 </script>

@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 // ルーティング用ページ
 import Index from './components/index'
 import TaskList from './components/tasklist'
+import Profile from './components/profile'
 import Login from './components/page/login'
 import Register from './components/page/register'
 import PasswordReminder from './components/page/passwordReminder'
@@ -76,6 +77,11 @@ export default new VueRouter({
       // タスク管理ページ
       path: '/tasklist',
       component: TaskList
+    },
+    {
+      // プロフィールページ
+      path: '/profile',
+      component: Profile
     },
     {
       // エラーページ

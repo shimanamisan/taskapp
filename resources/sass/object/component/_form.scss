@@ -1,8 +1,23 @@
 .c-form{
   text-align: center;
+  &__output{
+    @include custumRadius(50%);
+  }
+  &__container{
+    // 未設定
 
+    &--profile{
+      display: flex;
+      justify-content: space-between;
+      padding: $space_xl;
+      margin-bottom: $space_xxl;
+    }
+  } 
   &-lavel{
     display: inline-block;
+    &__profile{
+      display: block;
+    }
   }
   &__action{
     margin-top: $space_xxl;

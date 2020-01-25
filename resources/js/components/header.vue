@@ -7,7 +7,7 @@
     <nav>
         <ul v-if="apiStatus">
           <li v-if="isLogin"><i class="fas fa-user-tie p-header p-header--icon"></i><span class="p-header p-header--title">{{ username }}</span></li>
-          <li><router-link to="register" class="c-btn c-header__signin">マイページ</router-link></li>
+          <li><router-link to="profile" class="c-btn c-header__signin">マイページ</router-link></li>
           <li><div @click="logout" class="c-btn c-header__login">ログアウト</div></li>
         </ul>
         <ul v-else>
@@ -41,11 +41,8 @@ export default {
     },
     methods: {
       async logout(){
-        await this.$store.dispatch('auth/logout')
-        if(this.apiStatus){
-        // 通信が成功（apiStatusがtureの場合）したら移動する
-        this.$router.push('/login');
-      }
+          await this.$store.dispatch('auth/logout')
+          this.$router.push('/login');
       }
     }
 }
