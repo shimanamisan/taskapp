@@ -5,7 +5,8 @@ const state = {
   user_id: null,
   apiStatus: null, // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
   loginErrorMessages: null,
-  registerErrorMessages: null
+  registerErrorMessages: null,
+  profileErrorMessages: null
 }
 
 /*******************************
@@ -18,11 +19,7 @@ const getters = {
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   username: state => state.username ? state.username : '',
 
-  // ログイン時のエラーメッセージ
-  loginErrorMessages: state => !! state.loginErrorMessages,
-
-  // 新規登録時のエラーメッセージ
-  registerErrorMessages: state => !! state.registerErrorMessages
+  // エラーバリデーションを消した。エラーがない場合も拾いに来て、エラーメッセージがない場合にプロパティが無いよと怒られる
 }
 
 /*******************************
@@ -48,12 +45,18 @@ const mutations = {
   // 会員登録時のエラーハンドリング用ミューテーション
   setRegisterErrorMessages(state, messages) {
     state.registerErrorMessages = messages
+  },
+  // プロフィール編集時のエラーハンドリング用ミューテーション
+  setProfileErrorMessages(state, messages){
+    state.profileErrorMessages = messages
   }
 }
 
 // アクション→コミットでミューテーション呼び出し→ステート更新
 const actions = {
-  // 会員登録
+  /****************************************
+  会員登録
+  *****************************************/
   // 第1引数にはコンテキストオブジェクトが渡される。その中にはcommitなどのメソッドが入っている
   // 第2引数にはサーバーから返却されたデータが入っている。何を返すかはコントローラー側で記述する
   async register( {commit} , data){
@@ -75,14 +78,16 @@ const actions = {
     console.log(response.status)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('「auth.jsのregisterメソッドです」：' + JSON.stringify(response.data.errors))
+      console.log('アクションのregisterメソッドです」：' + JSON.stringify(response.data.errors))
       commit('setRegisterErrorMessages', response.data.errors)
     } else {
       commit('erroe/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
-  //ログイン
+  /****************************************
+  ログイン
+  *****************************************/
   async login( {commit} , data){
     // commitでミューテーションのsetApiStatus呼び出している、最初には引数に入るデータはnull
     commit('setApiStatus', null)
@@ -110,7 +115,9 @@ const actions = {
       }
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
-  // ログアウト処理
+  /****************************************
+  ログアウト
+  *****************************************/
   async logout (context) {
     context.commit('setApiStatus', null)
     const response = await axios.post('/api/logout')
@@ -124,8 +131,27 @@ const actions = {
     context.commit('setApiStatus', false)
     context.commit('error/setCode', response.status, { root: true })
   },
+  /****************************************
+  プロフィール編集
+  *****************************************/
+  async profileEdit( {commit} , data){
+    const id = state.user_id
+    const response = await axios.post('/api/profile/' + id , data).catch(error => error.response || error)
+    console.log(response)
+    // 422ステータスの処理
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      console.log('アクションのprofileEditメソッドです')
+      commit('setProfileErrorMessages', response.data.errors)
+    } else {
+      commit('erroe/setCode', response.status, { root:true })
+    }
+    commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
 
-  // 
+
+
+
+    
+  },
   // 起動時にログインチェック
   async currentUser (context) {
     const response = await axios.get('/api/user')    

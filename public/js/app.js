@@ -2650,7 +2650,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./header */ "./resources/js/components/header.vue");
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+/* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./header */ "./resources/js/components/header.vue");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -2726,6 +2727,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2739,43 +2747,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
     };
   },
-  created: function created() {
-    var _this = this;
-
-    axios.get('/api/profile').then(function (response) {
-      console.log(response.data);
-      _this.profileData.name = response.data.name;
-      _this.profileData.email = response.data.email;
-    })["catch"](console.log());
+  computed: {
+    profileUploadErrors: function profileUploadErrors() {
+      return this.$store.state.auth.profileErrorMessages;
+    }
   },
   methods: {
     // フォームでファイルが選択されたら実行
-    onFileChange: function onFileChange(event) {
-      var _this2 = this;
+    fileSelected: function fileSelected(event) {
+      // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
+      console.log(event); // ファイル情報をdataプロパティに保存
 
-      // 何も選択されていなかったら処理を中断
-      if (event.target.files.length === 0) {
-        this.reset(); // プレビューの入力値を消すメソッドを作る
-
-        return false;
-      } // ファイルが画像でなかったら処理を中断
-      // if(event.target.files[0].type.match('image.*')){
-      //   return false
-      // }
-      // FileReaderクラスのインスタンスを取得
-
-
-      var reader = new FileReader(); // ファイルを読み込み終わったタイミングで実行する処理
-
-      reader.onload = function (event) {
-        _this2.preview = event.target.result;
-      }; // ファイルを読み込む
-      // 読み込まれたファイルはデータURL形式で受け取れる
-
-
-      reader.readAsDataURL(event.target.files[0]); // 
-
-      this.profileImage = event.target.files[0];
+      this.profileImage = event.target.files[0]; //   // 何も選択されていなかったら処理を中断
+      //   if(event.target.files.length === 0){
+      //     this.reset() // プレビューの入力値を消すメソッドを作る
+      //     return false
+      //   }
+      //   // ファイルが画像でなかったら処理を中断
+      //   // if(event.target.files[0].type.match('image.*')){
+      //   //   return false
+      //   // }
+      //   // FileReaderクラスのインスタンスを取得
+      //   const reader = new FileReader()
+      //   // ファイルを読み込み終わったタイミングで実行する処理
+      //   reader.onload = event => {
+      //     this.preview = event.target.result
+      //   }
+      //   // ファイルを読み込む
+      //   // 読み込まれたファイルはデータURL形式で受け取れる
+      //   reader.readAsDataURL(event.target.files[0])
+      //   // 
+      //   this.profileImage = event.target.files[0]
     },
     reset: function reset() {
       // コンポーネントに持たせたデータを消す
@@ -2785,10 +2787,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$el.querySelector('input[type="file"]').value = null;
     },
     // 入力欄の値とプレビュー表示を消すメソッド
-    profileUpload: function () {
-      var _profileUpload = _asyncToGenerator(
+    profileEdit: function () {
+      var _profileEdit = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var formData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
@@ -2797,9 +2800,27 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 // formData.append('profile', this.profileImage)
                 // const response = await axios.post('/api/profile', formData)
                 // console.log(formData)
+                // プロフィール画像保存のテストコード
+
+                /*
+                1.フォームの値をlaravel側へ非同期で渡す
+                2.laravel側でデータを受け取ってDBとストレージへ保存
+                3.laravel側でその結果をJSON形式でリターン
+                4.Vueでそれを受け取り変更結果を描画
+                */
+                // FormDataオブジェクトをインスタンス化
+                formData = new FormData(); // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：ファイル情報）
+                // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、常にリクエストが空とみなされてバリデーションに引っかかる
+
+                formData.append('profilePhoto', this.profileImage); // アクションへファイル情報を渡す
+
+                _context.next = 4;
+                return this.$store.dispatch('auth/profileEdit', formData);
+
+              case 4:
                 this.reset();
 
-              case 1:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -2807,16 +2828,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this);
       }));
 
-      function profileUpload() {
-        return _profileUpload.apply(this, arguments);
+      function profileEdit() {
+        return _profileEdit.apply(this, arguments);
       }
 
-      return profileUpload;
+      return profileEdit;
     }(),
-    editData: function editData() {}
+    clearError: function clearError() {
+      this.$store.commit('auth/setProfileErrorMessages', null);
+    },
+    getProfile: function getProfile() {
+      var _this = this;
+
+      axios.get('/api/user').then(function (response) {
+        console.log('ライフサイクルフックでプロフィールを取得しています');
+        _this.profileData.name = response.data.name;
+        _this.profileData.email = response.data.email;
+      })["catch"]();
+    }
+  },
+  created: function created() {
+    // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
+    this.clearError();
+    this.getProfile();
   },
   components: {
-    Header: _header__WEBPACK_IMPORTED_MODULE_1__["default"]
+    Header: _header__WEBPACK_IMPORTED_MODULE_2__["default"]
   }
 });
 
@@ -40768,7 +40805,7 @@ var render = function() {
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.profileUpload($event)
+                    return _vm.profileEdit($event)
                   }
                 }
               },
@@ -40784,11 +40821,30 @@ var render = function() {
                       [_vm._v("プロフィール画像")]
                     ),
                     _vm._v(" "),
+                    _vm.profileUploadErrors
+                      ? _c("div", { staticClass: "errors" }, [
+                          _vm.profileUploadErrors.profilePhoto
+                            ? _c(
+                                "ul",
+                                _vm._l(
+                                  _vm.profileUploadErrors.profilePhoto,
+                                  function(msg) {
+                                    return _c("li", { key: msg }, [
+                                      _vm._v(_vm._s(msg))
+                                    ])
+                                  }
+                                ),
+                                0
+                              )
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("label", { staticClass: "c-input--profile" }, [
                       _c("input", {
                         staticClass: "c-input--profile__drop",
                         attrs: { type: "file" },
-                        on: { change: _vm.onFileChange }
+                        on: { change: _vm.fileSelected }
                       }),
                       _vm._v(" "),
                       _vm.preview
@@ -58261,7 +58317,8 @@ var state = {
   apiStatus: null,
   // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
   loginErrorMessages: null,
-  registerErrorMessages: null
+  registerErrorMessages: null,
+  profileErrorMessages: null
 };
 /*******************************
 ゲッター
@@ -58275,15 +58332,8 @@ var getters = {
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   username: function username(state) {
     return state.username ? state.username : '';
-  },
-  // ログイン時のエラーメッセージ
-  loginErrorMessages: function loginErrorMessages(state) {
-    return !!state.loginErrorMessages;
-  },
-  // 新規登録時のエラーメッセージ
-  registerErrorMessages: function registerErrorMessages(state) {
-    return !!state.registerErrorMessages;
-  }
+  } // エラーバリデーションを消した。エラーがない場合も拾いに来て、エラーメッセージがない場合にプロパティが無いよと怒られる
+
 };
 /*******************************
 ミューテーション
@@ -58309,11 +58359,17 @@ var mutations = {
   // 会員登録時のエラーハンドリング用ミューテーション
   setRegisterErrorMessages: function setRegisterErrorMessages(state, messages) {
     state.registerErrorMessages = messages;
+  },
+  // プロフィール編集時のエラーハンドリング用ミューテーション
+  setProfileErrorMessages: function setProfileErrorMessages(state, messages) {
+    state.profileErrorMessages = messages;
   }
 }; // アクション→コミットでミューテーション呼び出し→ステート更新
 
 var actions = {
-  // 会員登録
+  /****************************************
+  会員登録
+  *****************************************/
   // 第1引数にはコンテキストオブジェクトが渡される。その中にはcommitなどのメソッドが入っている
   // 第2引数にはサーバーから返却されたデータが入っている。何を返すかはコントローラー側で記述する
   register: function () {
@@ -58355,7 +58411,7 @@ var actions = {
               console.log(response.status); // 422ステータスの処理
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('「auth.jsのregisterメソッドです」：' + JSON.stringify(response.data.errors));
+                console.log('アクションのregisterメソッドです」：' + JSON.stringify(response.data.errors));
                 commit('setRegisterErrorMessages', response.data.errors);
               } else {
                 commit('erroe/setCode', response.status, {
@@ -58381,7 +58437,10 @@ var actions = {
 
     return register;
   }(),
-  //ログイン
+
+  /****************************************
+  ログイン
+  *****************************************/
   login: function () {
     var _login = _asyncToGenerator(
     /*#__PURE__*/
@@ -58447,7 +58506,10 @@ var actions = {
 
     return login;
   }(),
-  // ログアウト処理
+
+  /****************************************
+  ログアウト
+  *****************************************/
   logout: function () {
     var _logout = _asyncToGenerator(
     /*#__PURE__*/
@@ -58494,22 +58556,72 @@ var actions = {
 
     return logout;
   }(),
-  // 
-  // 起動時にログインチェック
-  currentUser: function () {
-    var _currentUser = _asyncToGenerator(
+
+  /****************************************
+  プロフィール編集
+  *****************************************/
+  profileEdit: function () {
+    var _profileEdit = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(context) {
-      var response, user;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref3, data) {
+      var commit, id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              _context4.next = 2;
+              commit = _ref3.commit;
+              id = state.user_id;
+              _context4.next = 4;
+              return axios.post('/api/profile/' + id, data)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 4:
+              response = _context4.sent;
+              console.log(response); // 422ステータスの処理
+
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log('アクションのprofileEditメソッドです');
+                commit('setProfileErrorMessages', response.data.errors);
+              } else {
+                commit('erroe/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              }); //{ root: ture }で違うファイルのミューテーションを呼べる
+
+            case 8:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    function profileEdit(_x6, _x7) {
+      return _profileEdit.apply(this, arguments);
+    }
+
+    return profileEdit;
+  }(),
+  // 起動時にログインチェック
+  currentUser: function () {
+    var _currentUser = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context) {
+      var response, user;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              _context5.next = 2;
               return axios.get('/api/user');
 
             case 2:
-              response = _context4.sent;
+              response = _context5.sent;
               user = response.data || null;
 
               if (user) {
@@ -58520,13 +58632,13 @@ var actions = {
 
             case 5:
             case "end":
-              return _context4.stop();
+              return _context5.stop();
           }
         }
-      }, _callee4);
+      }, _callee5);
     }));
 
-    function currentUser(_x6) {
+    function currentUser(_x8) {
       return _currentUser.apply(this, arguments);
     }
 

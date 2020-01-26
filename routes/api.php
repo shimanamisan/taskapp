@@ -24,10 +24,19 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 // ログアウト
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 // ログインユーザー（ログインしているユーザーを返すだけなのでコントローラーは作成しない）
+// プロフィール一覧でも使う
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
 // プロフィール変更
-Route::post('/profile/{id}', 'ProfileController@create')->name('profile.create');
-// プロフィール一覧
-Route::get('/profile', 'ProfileController@profileview')->name('profile.profileview');
+Route::post('/profile/{id}', 'ProfileController@profileEdit')->name('profile.profileEdit');
+// Route::post('/profile/{id}',function(){
+//     dd(request()->all());
+//     $file_name = request()->file->getClientOriginalName();
+//     // strage/app/public/profile_imgフォルダへ保存
+// 	request()->file->storeAs('public/profile_img',$file_name);
+// });
+
+// Route::post('/fileupload',function(){
+// 	dd(request()->all());
+// });

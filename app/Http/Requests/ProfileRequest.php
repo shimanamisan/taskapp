@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StorePhoto extends FormRequest
+class ProfileRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,16 @@ class StorePhoto extends FormRequest
     {
         return [
             // ここでのバリデーションはファイルサイズも入れたほうが良い？(10MBを上限とする)
-            'photo' => 'required|file|mimes:jpg,jpeg,png,gif|max:10240'
+            // ここで指定した profilePhoto というキーが、ajax通信で返ってくる response の中に入っている
+            // response.data.errors で拾える
+            'profilePhoto' => 'required|file|mimes:jpg,jpeg,png,gif|max:10240'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'required' => '入力必須です'
         ];
     }
 }
