@@ -2733,6 +2733,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2740,9 +2741,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       preview: null,
       profileImage: null,
+      showProfileImage: null,
       profileData: {
         name: '',
         email: '',
+        profileImg: '',
         password: ''
       }
     };
@@ -2755,29 +2758,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   methods: {
     // フォームでファイルが選択されたら実行
     fileSelected: function fileSelected(event) {
+      var _this = this;
+
       // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
       console.log(event); // ファイル情報をdataプロパティに保存
 
-      this.profileImage = event.target.files[0]; //   // 何も選択されていなかったら処理を中断
-      //   if(event.target.files.length === 0){
-      //     this.reset() // プレビューの入力値を消すメソッドを作る
-      //     return false
-      //   }
-      //   // ファイルが画像でなかったら処理を中断
-      //   // if(event.target.files[0].type.match('image.*')){
-      //   //   return false
-      //   // }
-      //   // FileReaderクラスのインスタンスを取得
-      //   const reader = new FileReader()
-      //   // ファイルを読み込み終わったタイミングで実行する処理
-      //   reader.onload = event => {
-      //     this.preview = event.target.result
-      //   }
-      //   // ファイルを読み込む
-      //   // 読み込まれたファイルはデータURL形式で受け取れる
-      //   reader.readAsDataURL(event.target.files[0])
-      //   // 
-      //   this.profileImage = event.target.files[0]
+      this.profileImage = event.target.files[0]; // 何も選択されていなかったら処理を中断
+
+      if (event.target.files.length === 0) {
+        this.reset(); // プレビューの入力値を消すメソッドを作る
+
+        return false;
+      } // ファイルが画像でなかったら処理を中断
+      // if(event.target.files[0].type.match('image.*')){
+      //   return false
+      // }
+      // FileReaderクラスのインスタンスを取得
+
+
+      var reader = new FileReader(); // ファイルを読み込み終わったタイミングで実行する処理
+
+      reader.onload = function (event) {
+        _this.preview = event.target.result;
+      }; // ファイルを読み込む
+      // 読み込まれたファイルはデータURL形式で受け取れる
+
+
+      reader.readAsDataURL(event.target.files[0]); // 
+
+      this.profileImage = event.target.files[0];
     },
     reset: function reset() {
       // コンポーネントに持たせたデータを消す
@@ -2796,11 +2805,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // const formData = new FormData()
-                // formData.append('profile', this.profileImage)
-                // const response = await axios.post('/api/profile', formData)
-                // console.log(formData)
-                // プロフィール画像保存のテストコード
+                // プロフィール画像保存の処理
 
                 /*
                 1.フォームの値をlaravel側へ非同期で渡す
@@ -2838,12 +2843,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$store.commit('auth/setProfileErrorMessages', null);
     },
     getProfile: function getProfile() {
-      var _this = this;
+      var _this2 = this;
 
       axios.get('/api/user').then(function (response) {
         console.log('ライフサイクルフックでプロフィールを取得しています');
-        _this.profileData.name = response.data.name;
-        _this.profileData.email = response.data.email;
+        _this2.profileData.name = response.data.name;
+        _this2.profileData.email = response.data.email;
       })["catch"]();
     }
   },
@@ -40855,21 +40860,76 @@ var render = function() {
                                 src: _vm.preview,
                                 alt: "プロフィール画像"
                               }
-                            })
+                            }),
+                            _vm._v(" "),
+                            _c(
+                              "p",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: _vm.showProfileImage,
+                                    expression: "showProfileImage"
+                                  }
+                                ]
+                              },
+                              [
+                                _c("img", {
+                                  staticClass: "c-form__output",
+                                  attrs: {
+                                    src: _vm.profileData.pic,
+                                    alt: "プロフィール画像"
+                                  }
+                                })
+                              ]
+                            )
                           ])
                         : _vm._e()
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div")
+                  _c("div", [
+                    _c("div", { staticClass: "c-form__item" }, [
+                      _c(
+                        "label",
+                        { staticClass: "c-form-lavel", attrs: { for: "" } },
+                        [_vm._v("ニックネーム")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "c-input",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.profileData.name }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "c-form__item" }, [
+                      _c(
+                        "label",
+                        { staticClass: "c-form-lavel", attrs: { for: "" } },
+                        [_vm._v("メールアドレス")]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "c-input",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.profileData.email }
+                      })
+                    ]),
+                    _vm._v(" "),
+                    _vm._m(1),
+                    _vm._v(" "),
+                    _vm._m(2)
+                  ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(3)
               ]
             )
           ]),
           _vm._v(" "),
-          _vm._m(2)
+          _vm._m(4)
         ])
       ])
     ],
@@ -40883,6 +40943,30 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "p-card__container" }, [
       _c("p", { staticClass: "p-card__title" }, [_vm._v("プロフィール編集")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-form__item" }, [
+      _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
+        _vm._v("変更後パスワード")
+      ]),
+      _vm._v(" "),
+      _c("input", { staticClass: "c-input", attrs: { type: "password" } })
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-form__item" }, [
+      _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
+        _vm._v("変更後パスワード再入力")
+      ]),
+      _vm._v(" "),
+      _c("input", { staticClass: "c-input", attrs: { type: "password" } })
     ])
   },
   function() {
@@ -58314,8 +58398,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 var state = {
   username: null,
   user_id: null,
+  email: null,
+  password: null,
+  profileImage: null,
   apiStatus: null,
   // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
+
+  /****************************************
+  エラーメッセージ関係
+  *****************************************/
   loginErrorMessages: null,
   registerErrorMessages: null,
   profileErrorMessages: null
@@ -58332,8 +58423,19 @@ var getters = {
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   username: function username(state) {
     return state.username ? state.username : '';
-  } // エラーバリデーションを消した。エラーがない場合も拾いに来て、エラーメッセージがない場合にプロパティが無いよと怒られる
-
+  },
+  // email情報を呼び出す
+  getEmail: function getEmail(state) {
+    return state.email ? state.email : '';
+  },
+  // プロフィール写真のパスを呼び出す
+  getProfileImage: function getProfileImage(state) {
+    return state.profileImage ? state.profileImage : '';
+  },
+  // 
+  getProfileErrorMessages: function getProfileErrorMessages(state) {
+    return state.profileErrorMessages ? state.profileErrorMessages : '';
+  }
 };
 /*******************************
 ミューテーション
@@ -58347,6 +58449,12 @@ var mutations = {
   // ユーザーIDを更新
   setId: function setId(state, user_id) {
     state.user_id = user_id;
+  },
+  setEmail: function setEmail(state, email) {
+    state.email = email;
+  },
+  setPic: function setPic(state, profileImage) {
+    state.profileImage = profileImage;
   },
   // ログイン状態を更新
   setApiStatus: function setApiStatus(state, status) {
@@ -58414,7 +58522,7 @@ var actions = {
                 console.log('アクションのregisterメソッドです」：' + JSON.stringify(response.data.errors));
                 commit('setRegisterErrorMessages', response.data.errors);
               } else {
-                commit('erroe/setCode', response.status, {
+                commit('error/setCode', response.status, {
                   root: true
                 });
               }
@@ -58445,7 +58553,7 @@ var actions = {
     var _login = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, data) {
-      var commit, response, username, id;
+      var commit, response, username, email, profileImage, id;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -58461,29 +58569,35 @@ var actions = {
 
             case 4:
               response = _context2.sent;
+              // パスワード情報は返却されていない
+              console.log(response); // 200ステータスの処理
 
               if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                _context2.next = 12;
+                _context2.next = 17;
                 break;
               }
 
               username = response.data.name;
+              email = response.data.email;
+              profileImage = response.data.pic;
               id = response.data.id; // ログインステータスを変更する
 
               commit('setApiStatus', true);
-              commit('setUser', username); // ストア情報に取得したユーザーIDを入れる
+              commit('setUser', username);
+              commit('setEmail', email);
+              commit('setPic', profileImage); // ストア情報に取得したユーザーIDを入れる
 
               commit('setId', id);
               return _context2.abrupt("return", false);
 
-            case 12:
+            case 17:
               commit('setApiStatus', false);
               console.log(response.status); // 422ステータスの処理
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
                 commit('setLoginErrorMessages', response.data.errors);
               } else {
-                commit('erroe/setCode', response.status, {
+                commit('error/setCode', response.status, {
                   root: true
                 });
               }
@@ -58492,7 +58606,7 @@ var actions = {
                 root: true
               }); //{ root: ture }で違うファイルのミューテーションを呼べる
 
-            case 16:
+            case 21:
             case "end":
               return _context2.stop();
           }
@@ -58527,22 +58641,24 @@ var actions = {
               response = _context3.sent;
 
               if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                _context3.next = 9;
+                _context3.next = 11;
                 break;
               }
 
               context.commit('setApiStatus', null);
               context.commit('setUser', null);
+              context.commit('setEmail', null);
+              context.commit('setPic', null);
               context.commit('setId', null);
               return _context3.abrupt("return", false);
 
-            case 9:
+            case 11:
               context.commit('setApiStatus', false);
               context.commit('error/setCode', response.status, {
                 root: true
               });
 
-            case 11:
+            case 13:
             case "end":
               return _context3.stop();
           }
@@ -58578,13 +58694,13 @@ var actions = {
 
             case 4:
               response = _context4.sent;
-              console.log(response); // 422ステータスの処理
 
+              // 422ステータスの処理
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
                 console.log('アクションのprofileEditメソッドです');
                 commit('setProfileErrorMessages', response.data.errors);
               } else {
-                commit('erroe/setCode', response.status, {
+                commit('error/setCode', response.status, {
                   root: true
                 });
               }
@@ -58593,7 +58709,7 @@ var actions = {
                 root: true
               }); //{ root: ture }で違うファイルのミューテーションを呼べる
 
-            case 8:
+            case 7:
             case "end":
               return _context4.stop();
           }
@@ -58607,12 +58723,15 @@ var actions = {
 
     return profileEdit;
   }(),
-  // 起動時にログインチェック
+
+  /****************************************
+  リロード時にログインチェック
+  *****************************************/
   currentUser: function () {
     var _currentUser = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context) {
-      var response, user;
+      var response, loginUser;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
@@ -58622,15 +58741,18 @@ var actions = {
 
             case 2:
               response = _context5.sent;
-              user = response.data || null;
+              loginUser = response.data || null;
+              console.log(loginUser);
 
-              if (user) {
+              if (loginUser) {
                 context.commit('setApiStatus', true);
-                context.commit('setUser', user.name);
-                context.commit('setId', user.id);
+                context.commit('setUser', loginUser.name);
+                context.commit('setEmail', loginUser.email);
+                context.commit('setPic', loginUser.pic);
+                context.commit('setId', loginUser.id);
               }
 
-            case 5:
+            case 6:
             case "end":
               return _context5.stop();
           }

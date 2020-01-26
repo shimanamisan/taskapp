@@ -29,7 +29,7 @@ Route::get('/user', function () {
     return Auth::user();
     })->name('user');
 // プロフィール変更
-Route::post('/profile/{id}', 'ProfileController@profileEdit')->name('profile.profileEdit');
+Route::put('/profile/{id}', 'ProfileController@profileEdit')->name('profile.profileEdit');
 // Route::post('/profile/{id}',function(){
 //     dd(request()->all());
 //     $file_name = request()->file->getClientOriginalName();

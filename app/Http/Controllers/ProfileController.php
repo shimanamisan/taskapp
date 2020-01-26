@@ -24,10 +24,18 @@ class ProfileController extends Controller
      */
     public function profileEdit(ProfileRequest $request)
     {
+        
         $file_name = $request->profilePhoto->getClientOriginalName();
 
-        // // strage/app/public/profile_imgフォルダへ保存
-        // $request->profilePhoto->storeAs('public/profile_img',$file_name);
+        // strage/app/public/profile_imgフォルダへ保存
+        $request->profilePhoto->storeAs('public/profile_img',$file_name);
+
+        // 認証済みのユーザーでテーブルへ保存
+        Auth::user()->update(['pic' => '/storage/'.$file_name]);
+
+        return Auth::user();
+
+        
     
     }
 }

@@ -24,11 +24,12 @@
                         <input type="file" class="c-input--profile__drop" @change="fileSelected">
                         <output v-if="preview">
                         <img :src="preview" alt="プロフィール画像" class="c-form__output">
+                        <p v-show="showProfileImage"><img v-bind:src="profileData.pic" alt="プロフィール画像" class="c-form__output"></p>
                         </output>
                       </label>
                     </div>
                     <div>
-                        <!-- <div class="c-form__item">
+                        <div class="c-form__item">
                           <label for="" class="c-form-lavel">ニックネーム</label>
                           <input type="text" class="c-input" v-bind:value="profileData.name">
                         </div>
@@ -43,7 +44,7 @@
                         <div class="c-form__item">
                           <label for="" class="c-form-lavel">変更後パスワード再入力</label>
                           <input type="password" class="c-input" >
-                        </div> -->
+                        </div>
                     </div>
                   </div>
                   <div class="c-form__action c-form__action__item">
@@ -82,10 +83,12 @@ export default {
     return {
       preview: null,
       profileImage: null,
+      showProfileImage: null,
       profileData: 
           { 
             name:'',
             email:'',
+            profileImg:'',
             password:''
           }
     }
@@ -98,37 +101,30 @@ export default {
   methods: {
       // フォームでファイルが選択されたら実行
       fileSelected(event){
-
         // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
         console.log(event)
         // ファイル情報をdataプロパティに保存
         this.profileImage = event.target.files[0]
-
-      //   // 何も選択されていなかったら処理を中断
-      //   if(event.target.files.length === 0){
-      //     this.reset() // プレビューの入力値を消すメソッドを作る
-      //     return false
-      //   }
-
-      //   // ファイルが画像でなかったら処理を中断
-      //   // if(event.target.files[0].type.match('image.*')){
-      //   //   return false
-      //   // }
-
-      //   // FileReaderクラスのインスタンスを取得
-      //   const reader = new FileReader()
-
-      //   // ファイルを読み込み終わったタイミングで実行する処理
-      //   reader.onload = event => {
-      //     this.preview = event.target.result
-      //   }
-
-      //   // ファイルを読み込む
-      //   // 読み込まれたファイルはデータURL形式で受け取れる
-      //   reader.readAsDataURL(event.target.files[0])
-
-      //   // 
-      //   this.profileImage = event.target.files[0]
+        // 何も選択されていなかったら処理を中断
+        if(event.target.files.length === 0){
+          this.reset() // プレビューの入力値を消すメソッドを作る
+          return false
+        }
+        // ファイルが画像でなかったら処理を中断
+        // if(event.target.files[0].type.match('image.*')){
+        //   return false
+        // }
+        // FileReaderクラスのインスタンスを取得
+        const reader = new FileReader()
+        // ファイルを読み込み終わったタイミングで実行する処理
+        reader.onload = event => {
+          this.preview = event.target.result
+        }
+        // ファイルを読み込む
+        // 読み込まれたファイルはデータURL形式で受け取れる
+        reader.readAsDataURL(event.target.files[0])
+        // 
+        this.profileImage = event.target.files[0]
       },
       reset(){
         // コンポーネントに持たせたデータを消す
@@ -139,13 +135,7 @@ export default {
       },
       // 入力欄の値とプレビュー表示を消すメソッド
       async profileEdit(){
-        // const formData = new FormData()
-        // formData.append('profile', this.profileImage)
-        // const response = await axios.post('/api/profile', formData)
-        // console.log(formData)
-
-
-        // プロフィール画像保存のテストコード
+        // プロフィール画像保存の処理
         /*
         1.フォームの値をlaravel側へ非同期で渡す
         2.laravel側でデータを受け取ってDBとストレージへ保存
@@ -158,8 +148,7 @@ export default {
         // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、常にリクエストが空とみなされてバリデーションに引っかかる
         formData.append('profilePhoto', this.profileImage)
         // アクションへファイル情報を渡す
-        await this.$store.dispatch('auth/profileEdit', formData )
-
+        await this.$store.dispatch('auth/profileEdit', formData)
         this.reset()
       },
       clearError(){

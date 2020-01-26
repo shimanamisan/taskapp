@@ -3,7 +3,15 @@ import { OK, UNPROCESSABLE_ENTITY, CREATED } from '../statusCode'
 const state = {
   username: null,
   user_id: null,
+  email: null,
+  password: null,
+  profileImage: null,
   apiStatus: null, // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
+
+
+  /****************************************
+  エラーメッセージ関係
+  *****************************************/
   loginErrorMessages: null,
   registerErrorMessages: null,
   profileErrorMessages: null
@@ -19,7 +27,14 @@ const getters = {
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   username: state => state.username ? state.username : '',
 
-  // エラーバリデーションを消した。エラーがない場合も拾いに来て、エラーメッセージがない場合にプロパティが無いよと怒られる
+  // email情報を呼び出す
+  getEmail: state => state.email ? state.email : '',
+
+  // プロフィール写真のパスを呼び出す
+  getProfileImage: state => state.profileImage ? state.profileImage : '',
+
+  // 
+  getProfileErrorMessages: state => state.profileErrorMessages ? state.profileErrorMessages : '',
 }
 
 /*******************************
@@ -33,6 +48,12 @@ const mutations = {
   // ユーザーIDを更新
   setId(state, user_id){
     state.user_id = user_id
+  },
+  setEmail(state, email){
+    state.email = email
+  },
+  setPic(state, profileImage){
+    state.profileImage = profileImage
   },
   // ログイン状態を更新
   setApiStatus(state, status){
@@ -81,7 +102,7 @@ const actions = {
       console.log('アクションのregisterメソッドです」：' + JSON.stringify(response.data.errors))
       commit('setRegisterErrorMessages', response.data.errors)
     } else {
-      commit('erroe/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
@@ -93,13 +114,20 @@ const actions = {
     commit('setApiStatus', null)
       // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
       const response = await axios.post('/api/login', data).catch(error => error.response || error)
+      
+      // パスワード情報は返却されていない
+      console.log(response)
         // 200ステータスの処理
         if(response.status === OK){
-          const username = response.data.name;
-          const id = response.data.id;
+          const username = response.data.name
+          const email = response.data.email
+          const profileImage = response.data.pic
+          const id = response.data.id
           // ログインステータスを変更する
           commit('setApiStatus', true)
           commit('setUser', username) 
+          commit('setEmail', email) 
+          commit('setPic', profileImage) 
           // ストア情報に取得したユーザーIDを入れる
           commit('setId', id )
           return false
@@ -111,7 +139,7 @@ const actions = {
       if(response.status === UNPROCESSABLE_ENTITY ){
         commit('setLoginErrorMessages', response.data.errors)
       } else {
-        commit('erroe/setCode', response.status, { root:true })
+        commit('error/setCode', response.status, { root:true })
       }
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
@@ -124,6 +152,8 @@ const actions = {
     if (response.status === OK) {
       context.commit('setApiStatus', null)
       context.commit('setUser', null)
+      context.commit('setEmail', null) 
+      context.commit('setPic', null) 
       context.commit('setId', null)
       return false
     }
@@ -137,29 +167,28 @@ const actions = {
   async profileEdit( {commit} , data){
     const id = state.user_id
     const response = await axios.post('/api/profile/' + id , data).catch(error => error.response || error)
-    console.log(response)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
       console.log('アクションのprofileEditメソッドです')
       commit('setProfileErrorMessages', response.data.errors)
     } else {
-      commit('erroe/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
-
-
-
-
-    
   },
-  // 起動時にログインチェック
+  /****************************************
+  リロード時にログインチェック
+  *****************************************/
   async currentUser (context) {
     const response = await axios.get('/api/user')    
-    const user = response.data || null
-    if(user){
+    const loginUser = response.data || null
+    console.log(loginUser)
+    if(loginUser){
       context.commit('setApiStatus', true)
-      context.commit('setUser', user.name) 
-      context.commit('setId', user.id )
+      context.commit('setUser', loginUser.name) 
+      context.commit('setEmail', loginUser.email) 
+      context.commit('setPic', loginUser.pic) 
+      context.commit('setId', loginUser.id )
     }
   }
 

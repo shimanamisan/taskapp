@@ -25,7 +25,8 @@ class RedirectIfAuthenticated
             return redirect()->route('user'); // 変更
             // return redirect('/home');
         }
-
+        
+        // エディタから見たら少し特殊な書き方だがこれで良い
         return $next($request);
     }
 }
