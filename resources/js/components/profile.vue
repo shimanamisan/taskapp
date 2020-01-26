@@ -10,7 +10,7 @@
             </div>
             <hr class="u-form__line">
             
-                <form @submit.prevent="imgupload">
+                <form @submit.prevent="profileUpload">
                   <div class="c-form__container--profile">
                     <div class="c-form__item">
                       <label for="" class="c-form-lavel c-form-lavel__profile">プロフィール画像</label>
@@ -22,7 +22,7 @@
                       </label>
                     </div>
                     <div>
-                        <div class="c-form__item">
+                        <!-- <div class="c-form__item">
                           <label for="" class="c-form-lavel">ニックネーム</label>
                           <input type="text" class="c-input" v-bind:value="profileData.name">
                         </div>
@@ -37,7 +37,7 @@
                         <div class="c-form__item">
                           <label for="" class="c-form-lavel">変更後パスワード再入力</label>
                           <input type="password" class="c-input" >
-                        </div>
+                        </div> -->
                     </div>
                   </div>
                   <div class="c-form__action c-form__action__item">
@@ -126,11 +126,12 @@ export default {
       this.$el.querySelector('input[type="file"]').value = null
     },
     // 入力欄の値とプレビュー表示を消すメソッド
-    async imgupload(){
-      const formData = new FormData()
-      console.log(formData)
-      formData.append('profile', this.profileImage)
-      const response = await axios.post('/api/mypage/profile', formData)
+    async profileUpload(){
+      // const formData = new FormData()
+      // formData.append('profile', this.profileImage)
+      // const response = await axios.post('/api/profile', formData)
+      // console.log(formData)
+
 
       this.reset()
     },

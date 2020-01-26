@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue');
+// window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -35,7 +35,8 @@ import router from './router'
 
 // Vueインスタンスを生成する前にログインチェックを行うように変更
 // 非同期処理をawaitするには、asyncメソッドの内部に配置する必要があるので関数にまとめた
-const createApp = async () => {
+// createApp()の中にVueインスタンス生成もまとめている
+const createApp = async function(){
   await store.dispatch('auth/currentUser')
 
     new Vue({
@@ -51,6 +52,7 @@ const createApp = async () => {
 
 createApp()
 
+// ES5の書き方
 // const app = new Vue({
 //     el: '#app',
 //     components: { App }

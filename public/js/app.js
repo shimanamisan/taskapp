@@ -2785,26 +2785,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.$el.querySelector('input[type="file"]').value = null;
     },
     // 入力欄の値とプレビュー表示を消すメソッド
-    imgupload: function () {
-      var _imgupload = _asyncToGenerator(
+    profileUpload: function () {
+      var _profileUpload = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
-        var formData, response;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                formData = new FormData();
-                console.log(formData);
-                formData.append('profile', this.profileImage);
-                _context.next = 5;
-                return axios.post('/api/mypage/profile', formData);
-
-              case 5:
-                response = _context.sent;
+                // const formData = new FormData()
+                // formData.append('profile', this.profileImage)
+                // const response = await axios.post('/api/profile', formData)
+                // console.log(formData)
                 this.reset();
 
-              case 7:
+              case 1:
               case "end":
                 return _context.stop();
             }
@@ -2812,11 +2807,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this);
       }));
 
-      function imgupload() {
-        return _imgupload.apply(this, arguments);
+      function profileUpload() {
+        return _profileUpload.apply(this, arguments);
       }
 
-      return imgupload;
+      return profileUpload;
     }(),
     editData: function editData() {}
   },
@@ -40773,7 +40768,7 @@ var render = function() {
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
-                    return _vm.imgupload($event)
+                    return _vm.profileUpload($event)
                   }
                 }
               },
@@ -40810,47 +40805,15 @@ var render = function() {
                     ])
                   ]),
                   _vm._v(" "),
-                  _c("div", [
-                    _c("div", { staticClass: "c-form__item" }, [
-                      _c(
-                        "label",
-                        { staticClass: "c-form-lavel", attrs: { for: "" } },
-                        [_vm._v("ニックネーム")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "c-input",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.profileData.name }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _c("div", { staticClass: "c-form__item" }, [
-                      _c(
-                        "label",
-                        { staticClass: "c-form-lavel", attrs: { for: "" } },
-                        [_vm._v("メールアドレス")]
-                      ),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "c-input",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.profileData.email }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(1),
-                    _vm._v(" "),
-                    _vm._m(2)
-                  ])
+                  _c("div")
                 ]),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(1)
               ]
             )
           ]),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(2)
         ])
       ])
     ],
@@ -40864,30 +40827,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "p-card__container" }, [
       _c("p", { staticClass: "p-card__title" }, [_vm._v("プロフィール編集")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-form__item" }, [
-      _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
-        _vm._v("変更後パスワード")
-      ]),
-      _vm._v(" "),
-      _c("input", { staticClass: "c-input", attrs: { type: "password" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-form__item" }, [
-      _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
-        _vm._v("変更後パスワード再入力")
-      ]),
-      _vm._v(" "),
-      _c("input", { staticClass: "c-input", attrs: { type: "password" } })
     ])
   },
   function() {
@@ -57292,9 +57231,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // window.Vue = require('vue');
 
-window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -57316,8 +57254,10 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 
 
+
  // Vueインスタンスを生成する前にログインチェックを行うように変更
 // 非同期処理をawaitするには、asyncメソッドの内部に配置する必要があるので関数にまとめた
+// createApp()の中にVueインスタンス生成もまとめている
 
 var createApp =
 /*#__PURE__*/
@@ -57356,7 +57296,8 @@ function () {
   };
 }();
 
-createApp(); // const app = new Vue({
+createApp(); // ES5の書き方
+// const app = new Vue({
 //     el: '#app',
 //     components: { App }
 // });
@@ -58238,11 +58179,32 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
   }, {
     // タスク管理ページ
     path: '/tasklist',
-    component: _components_tasklist__WEBPACK_IMPORTED_MODULE_3__["default"]
+    component: _components_tasklist__WEBPACK_IMPORTED_MODULE_3__["default"],
+    // ナビゲーションガード
+    beforeEnter: function beforeEnter(to, from, next) {
+      // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
+      if (_store_store__WEBPACK_IMPORTED_MODULE_10__["default"].getters['auth/check']) {
+        next();
+      } else {
+        // 認証済みでなかったらログイン画面へ遷移
+        next('/login');
+      }
+    }
   }, {
     // プロフィールページ
     path: '/profile',
-    component: _components_profile__WEBPACK_IMPORTED_MODULE_4__["default"]
+    component: _components_profile__WEBPACK_IMPORTED_MODULE_4__["default"],
+    // ナビゲーションガード
+    beforeEnter: function beforeEnter(to, from, next) {
+      // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
+      if (_store_store__WEBPACK_IMPORTED_MODULE_10__["default"].getters['auth/check']) {
+        // next('/profile')とすると、自分自身コンポーネント呼び出し続けてエラーになるので注意！
+        next();
+      } else {
+        // 認証済みでなかったらログイン画面へ遷移
+        next('/login');
+      }
+    }
   }, {
     // エラーページ
     path: '/500',
@@ -58532,6 +58494,7 @@ var actions = {
 
     return logout;
   }(),
+  // 
   // 起動時にログインチェック
   currentUser: function () {
     var _currentUser = _asyncToGenerator(

@@ -38,30 +38,29 @@ export default new VueRouter({
     {
       // ログインページ
       path: '/login',
-      component: Login,
-      
-      // ナビゲーションガード
-      beforeEnter(to, from, next){
-        if(store.getters['auth/check']){
-          next('/tasklist')
-        }else{
-          next()
-        }
-      }
+          component: Login,
+          // ナビゲーションガード
+          beforeEnter(to, from, next){
+            if(store.getters['auth/check']){
+              next('/tasklist')
+            }else{
+              next()
+            }
+          }
     },
     {
       // ユーザー登録ページ
       path: '/register',
       component: Register,
-        // ナビゲーションガード
-        beforeEnter(to, from, next){
-          // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
-          if(store.getters['auth/check']){
-            next('/tasklist')
-          }else{
-            next()
+          // ナビゲーションガード
+          beforeEnter(to, from, next){
+            // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
+            if(store.getters['auth/check']){
+              next('/tasklist')
+            }else{
+              next()
+            }
           }
-        }
     },
     {
       // パスワードリマインダー
@@ -76,12 +75,33 @@ export default new VueRouter({
     {
       // タスク管理ページ
       path: '/tasklist',
-      component: TaskList
+      component: TaskList,
+        // ナビゲーションガード
+        beforeEnter(to, from, next){
+        // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
+        if(store.getters['auth/check']){
+          next()
+        }else{
+          // 認証済みでなかったらログイン画面へ遷移
+          next('/login')
+        }
+      }
     },
     {
       // プロフィールページ
       path: '/profile',
-      component: Profile
+      component: Profile,
+        // ナビゲーションガード
+        beforeEnter(to, from, next){
+        // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
+        if(store.getters['auth/check']){
+          // next('/profile')とすると、自分自身コンポーネント呼び出し続けてエラーになるので注意！
+          next()
+        }else{
+          // 認証済みでなかったらログイン画面へ遷移
+          next('/login')
+        }
+      }
     },
     {
       // エラーページ

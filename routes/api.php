@@ -27,7 +27,7 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
-// プロフィール写真投稿
+// プロフィール変更
 Route::post('/profile/{id}', 'ProfileController@create')->name('profile.create');
 // プロフィール一覧
 Route::get('/profile', 'ProfileController@profileview')->name('profile.profileview');

@@ -124,6 +124,8 @@ const actions = {
     context.commit('setApiStatus', false)
     context.commit('error/setCode', response.status, { root: true })
   },
+
+  // 
   // 起動時にログインチェック
   async currentUser (context) {
     const response = await axios.get('/api/user')    
