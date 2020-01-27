@@ -10,6 +10,7 @@
 
         <script>
             window.Laravel = {};
+            // window.Laravel.csrfTokenという変数にcsrfトークンを入れている
             window.Laravel.csrfToken = "{{ csrf_token() }}";
         </script>
     </head>

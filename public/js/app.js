@@ -2746,7 +2746,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         name: '',
         email: '',
         profileImg: '',
-        password: ''
+        password: '',
+        password_confirmation: ''
       }
     };
   },
@@ -57448,12 +57449,9 @@ createApp(); // ES5の書き方
 /*!***********************************!*\
   !*** ./resources/js/bootstrap.js ***!
   \***********************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _csrf__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./csrf */ "./resources/js/csrf.js");
 window._ = __webpack_require__(/*! lodash */ "./node_modules/lodash/lodash.js");
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -57472,17 +57470,15 @@ try {
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
+// import { getCookieValue } from './csrf'
 
 
-
-window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // Ajaxリクエストであることを示すヘッダーを付与する
+window.axios = __webpack_require__(/*! axios */ "./node_modules/axios/index.js"); // デフォルトはこっちの記述、ヘッダーにトークン詰めてない？
+// https://readouble.com/laravel/5.8/ja/csrf.html#csrf-x-xsrf-token
+// Ajaxリクエストであることを示すヘッダーを付与する
+// ここをコメントアウトすると419エラーが出る（csrf用のトークンが無い）
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-window.axios.interceptors.request.use(function (config) {
-  // クッキーからトークンを取り出してヘッダーに添付する
-  config.headers['X-XSRF-TOKEN'] = Object(_csrf__WEBPACK_IMPORTED_MODULE_0__["getCookieValue"])('XSRF-TOKEN');
-  return config;
-});
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
  * for events that are broadcast by Laravel. Echo and event broadcasting
@@ -58186,52 +58182,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_tasklist_vue_vue_type_template_id_05505924___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
-
-/***/ }),
-
-/***/ "./resources/js/csrf.js":
-/*!******************************!*\
-  !*** ./resources/js/csrf.js ***!
-  \******************************/
-/*! exports provided: getCookieValue */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getCookieValue", function() { return getCookieValue; });
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-/**
- * クッキーの値を取得する
- * @param {String} searchKey 検索するキー
- * @returns {String} キーに対応する値
- */
-function getCookieValue(searchKey) {
-  if (typeof searchKey === 'undefined') {
-    return '';
-  }
-
-  var val = ''; // document.cookie によってクッキーは以下の形式で参照できる
-  // name=12345;token=67890;key=abcde
-
-  document.cookie.split(';').forEach(function (cookie) {
-    var _cookie$split = cookie.split('='),
-        _cookie$split2 = _slicedToArray(_cookie$split, 2),
-        key = _cookie$split2[0],
-        value = _cookie$split2[1];
-
-    if (key === searchKey) {
-      return val = value;
-    }
-  });
-  return val;
-}
 
 /***/ }),
 

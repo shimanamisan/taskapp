@@ -89,7 +89,8 @@ export default {
             name:'',
             email:'',
             profileImg:'',
-            password:''
+            password:'',
+            password_confirmation: '',
           }
     }
   },

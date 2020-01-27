@@ -19,19 +19,17 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-import { getCookieValue } from './csrf'
+// import { getCookieValue } from './csrf'
 
 window.axios = require('axios');
 
+// デフォルトはこっちの記述、ヘッダーにトークン詰めてない？
+// https://readouble.com/laravel/5.8/ja/csrf.html#csrf-x-xsrf-token
 // Ajaxリクエストであることを示すヘッダーを付与する
+// ここをコメントアウトすると419エラーが出る（csrf用のトークンが無い）
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
-window.axios.interceptors.request.use(config => {
-  // クッキーからトークンを取り出してヘッダーに添付する
-  config.headers['X-XSRF-TOKEN'] = getCookieValue('XSRF-TOKEN')
 
-  return config
-})
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
