@@ -15,6 +15,7 @@ class ProfileController extends Controller
     {
         // 認証が必要
         $this->middleware('auth');
+        
     }
 
      /**
@@ -24,7 +25,13 @@ class ProfileController extends Controller
      */
     public function profileEdit(ProfileRequest $request)
     {
-        
+       
+        /****************************************
+        プロフィール写真編集の処理
+        ****************************************/
+
+        // フォームリクエストされてきたファイル名を取得する
+        // profilePhotoはvue側で指定した key:value のkeyを指定している
         $file_name = $request->profilePhoto->getClientOriginalName();
 
         // strage/app/public/profile_imgフォルダへ保存
@@ -33,6 +40,13 @@ class ProfileController extends Controller
         // 認証済みのユーザーでテーブルへ保存
         Auth::user()->update(['pic' => '/storage/'.$file_name]);
 
+        /****************************************
+        ユーザー情報を更新
+        ****************************************/
+
+        
+
+        // 認証済みユーザー情報を返却
         return Auth::user();
 
         

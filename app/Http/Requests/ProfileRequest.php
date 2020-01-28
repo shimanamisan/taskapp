@@ -28,14 +28,17 @@ class ProfileRequest extends FormRequest
             // ここで指定した profilePhoto というキーが、ajax通信で返ってくる response の中に入っている
             // response.data.errors で拾える
             'profilePhoto' => 'required|file|mimes:jpg,jpeg,png,gif|max:10240',
-            'email' => 'required'
+            'name' => 'required',
+            'email' => 'required',
+            'password' => 'required'
         ];
     }
 
-    public function messages()
-    {
-        return [
-            'required' => '入力必須です'
-        ];
-    }
+    // // リクエストコントローラーでバリデーションメッセージを上書きできる
+    // public function messages()
+    // {
+    //     return [
+    //         'required' => '入力必須です'
+    //     ];
+    // }
 }

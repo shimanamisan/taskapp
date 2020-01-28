@@ -2746,6 +2746,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2783,11 +2789,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         return false;
       } // ファイルが画像でなかったら処理を中断
-
-
-      if (event.target.files[0].type.match('image.*')) {
-        return false;
-      } // FileReaderクラスのインスタンスを取得
+      // if(event.target.files[0].type.match('image.*')){
+      //   return false
+      // }
+      // FileReaderクラスのインスタンスを取得
 
 
       var reader = new FileReader(); // ファイルを読み込み終わったタイミングで実行する処理
@@ -2828,8 +2833,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 4.Vueでそれを受け取り変更結果を描画
                 */
                 // FormDataオブジェクトをインスタンス化
-                formData = new FormData(); // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：ファイル情報）
-                // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、常にリクエストが空とみなされてバリデーションに引っかかる
+                formData = new FormData(); // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
+                // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
+                // 常にリクエストが空とみなされてバリデーションに引っかかる
 
                 formData.append('profilePhoto', this.profileImage); // アクションへファイル情報を渡す
 
@@ -40913,17 +40919,16 @@ var render = function() {
                       _vm._v(" "),
                       _vm.profileUploadErrors
                         ? _c("div", { staticClass: "errors" }, [
-                            _vm.profileUploadErrors.email
+                            _vm.profileUploadErrors.name
                               ? _c(
                                   "ul",
-                                  _vm._l(
-                                    _vm.profileUploadErrors.email,
-                                    function(msg) {
-                                      return _c("li", { key: msg }, [
-                                        _vm._v(_vm._s(msg))
-                                      ])
-                                    }
-                                  ),
+                                  _vm._l(_vm.profileUploadErrors.name, function(
+                                    msg
+                                  ) {
+                                    return _c("li", { key: msg }, [
+                                      _vm._v(_vm._s(msg))
+                                    ])
+                                  }),
                                   0
                                 )
                               : _vm._e()
@@ -40970,18 +40975,48 @@ var render = function() {
                       })
                     ]),
                     _vm._v(" "),
-                    _vm._m(1),
+                    _c("div", { staticClass: "c-form__item" }, [
+                      _c(
+                        "label",
+                        { staticClass: "c-form-lavel", attrs: { for: "" } },
+                        [_vm._v("変更後パスワード")]
+                      ),
+                      _vm._v(" "),
+                      _vm.profileUploadErrors
+                        ? _c("div", { staticClass: "errors" }, [
+                            _vm.profileUploadErrors.password
+                              ? _c(
+                                  "ul",
+                                  _vm._l(
+                                    _vm.profileUploadErrors.password,
+                                    function(msg) {
+                                      return _c("li", { key: msg }, [
+                                        _vm._v(_vm._s(msg))
+                                      ])
+                                    }
+                                  ),
+                                  0
+                                )
+                              : _vm._e()
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "c-input",
+                        attrs: { type: "password" }
+                      })
+                    ]),
                     _vm._v(" "),
-                    _vm._m(2)
+                    _vm._m(1)
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(3)
+                _vm._m(2)
               ]
             )
           ]),
           _vm._v(" "),
-          _vm._m(4)
+          _vm._m(3)
         ])
       ])
     ],
@@ -40995,18 +41030,6 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "p-card__container" }, [
       _c("p", { staticClass: "p-card__title" }, [_vm._v("プロフィール編集")])
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-form__item" }, [
-      _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
-        _vm._v("変更後パスワード")
-      ]),
-      _vm._v(" "),
-      _c("input", { staticClass: "c-input", attrs: { type: "password" } })
     ])
   },
   function() {

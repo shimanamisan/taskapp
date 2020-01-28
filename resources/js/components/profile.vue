@@ -33,8 +33,8 @@
                           <label for="" class="c-form-lavel">ニックネーム</label>
                             <!-- バリデーションエラー --->
                             <div v-if="profileUploadErrors" class="errors">
-                              <ul v-if="profileUploadErrors.email">
-                                <li v-for="msg in profileUploadErrors.email" :key="msg">{{ msg }}</li>
+                              <ul v-if="profileUploadErrors.name">
+                                <li v-for="msg in profileUploadErrors.name" :key="msg">{{ msg }}</li>
                               </ul>
                             </div><!--- end errors -->
                           <input type="text" class="c-input" v-bind:value="profileData.name">
@@ -51,6 +51,12 @@
                         </div>
                         <div class="c-form__item">
                           <label for="" class="c-form-lavel">変更後パスワード</label>
+                            <!-- バリデーションエラー --->
+                            <div v-if="profileUploadErrors" class="errors">
+                              <ul v-if="profileUploadErrors.password">
+                                <li v-for="msg in profileUploadErrors.password" :key="msg">{{ msg }}</li>
+                              </ul>
+                            </div><!--- end errors -->
                           <input type="password" class="c-input" >
                         </div>
                         <div class="c-form__item">
@@ -124,9 +130,9 @@ export default {
           return false
         }
         // ファイルが画像でなかったら処理を中断
-        if(event.target.files[0].type.match('image.*')){
-          return false
-        }
+        // if(event.target.files[0].type.match('image.*')){
+        //   return false
+        // }
         // FileReaderクラスのインスタンスを取得
         const reader = new FileReader()
         // ファイルを読み込み終わったタイミングで実行する処理
@@ -157,8 +163,9 @@ export default {
         */
         // FormDataオブジェクトをインスタンス化
         const formData = new FormData()
-        // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：ファイル情報）
-        // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、常にリクエストが空とみなされてバリデーションに引っかかる
+        // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
+        // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
+        // 常にリクエストが空とみなされてバリデーションに引っかかる
         formData.append('profilePhoto', this.profileImage)
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/profileEdit', formData)
