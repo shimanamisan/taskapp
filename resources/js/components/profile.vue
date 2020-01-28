@@ -31,10 +31,22 @@
                     <div>
                         <div class="c-form__item">
                           <label for="" class="c-form-lavel">ニックネーム</label>
+                            <!-- バリデーションエラー --->
+                            <div v-if="profileUploadErrors" class="errors">
+                              <ul v-if="profileUploadErrors.email">
+                                <li v-for="msg in profileUploadErrors.email" :key="msg">{{ msg }}</li>
+                              </ul>
+                            </div><!--- end errors -->
                           <input type="text" class="c-input" v-bind:value="profileData.name">
                         </div>
                         <div class="c-form__item">
                           <label for="" class="c-form-lavel">メールアドレス</label>
+                            <!-- バリデーションエラー --->
+                            <div v-if="profileUploadErrors" class="errors">
+                              <ul v-if="profileUploadErrors.email">
+                                <li v-for="msg in profileUploadErrors.email" :key="msg">{{ msg }}</li>
+                              </ul>
+                            </div><!--- end errors -->
                           <input type="text" class="c-input" v-bind:value="profileData.email">
                         </div>
                         <div class="c-form__item">
@@ -112,9 +124,9 @@ export default {
           return false
         }
         // ファイルが画像でなかったら処理を中断
-        // if(event.target.files[0].type.match('image.*')){
-        //   return false
-        // }
+        if(event.target.files[0].type.match('image.*')){
+          return false
+        }
         // FileReaderクラスのインスタンスを取得
         const reader = new FileReader()
         // ファイルを読み込み終わったタイミングで実行する処理

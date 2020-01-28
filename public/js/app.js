@@ -2734,6 +2734,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2771,10 +2783,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
         return false;
       } // ファイルが画像でなかったら処理を中断
-      // if(event.target.files[0].type.match('image.*')){
-      //   return false
-      // }
-      // FileReaderクラスのインスタンスを取得
+
+
+      if (event.target.files[0].type.match('image.*')) {
+        return false;
+      } // FileReaderクラスのインスタンスを取得
 
 
       var reader = new FileReader(); // ファイルを読み込み終わったタイミングで実行する処理
@@ -39728,7 +39741,7 @@ var render = function() {
         [
           _c("router-link", { attrs: { to: "/" } }, [
             _c("img", {
-              staticClass: "c-logo-ind__header",
+              staticClass: "c-logo c-logo-ind__header",
               attrs: { src: __webpack_require__(/*! ../../img/log-top.png */ "./resources/img/log-top.png"), alt: "logo" }
             })
           ])
@@ -40898,6 +40911,25 @@ var render = function() {
                         [_vm._v("ニックネーム")]
                       ),
                       _vm._v(" "),
+                      _vm.profileUploadErrors
+                        ? _c("div", { staticClass: "errors" }, [
+                            _vm.profileUploadErrors.email
+                              ? _c(
+                                  "ul",
+                                  _vm._l(
+                                    _vm.profileUploadErrors.email,
+                                    function(msg) {
+                                      return _c("li", { key: msg }, [
+                                        _vm._v(_vm._s(msg))
+                                      ])
+                                    }
+                                  ),
+                                  0
+                                )
+                              : _vm._e()
+                          ])
+                        : _vm._e(),
+                      _vm._v(" "),
                       _c("input", {
                         staticClass: "c-input",
                         attrs: { type: "text" },
@@ -40911,6 +40943,25 @@ var render = function() {
                         { staticClass: "c-form-lavel", attrs: { for: "" } },
                         [_vm._v("メールアドレス")]
                       ),
+                      _vm._v(" "),
+                      _vm.profileUploadErrors
+                        ? _c("div", { staticClass: "errors" }, [
+                            _vm.profileUploadErrors.email
+                              ? _c(
+                                  "ul",
+                                  _vm._l(
+                                    _vm.profileUploadErrors.email,
+                                    function(msg) {
+                                      return _c("li", { key: msg }, [
+                                        _vm._v(_vm._s(msg))
+                                      ])
+                                    }
+                                  ),
+                                  0
+                                )
+                              : _vm._e()
+                          ])
+                        : _vm._e(),
                       _vm._v(" "),
                       _c("input", {
                         staticClass: "c-input",

@@ -2,7 +2,7 @@
   <header class="l-header__top">
   <div class="l-header__nav l-header__container">
     <div class="c-logo__header c-logo__clear-margin">
-     <router-link to="/"><img src="../../img/log-top.png" alt="logo" class="c-logo-ind__header"></router-link>
+     <router-link to="/"><img src="../../img/log-top.png" alt="logo" class="c-logo c-logo-ind__header"></router-link>
     </div>
     <nav>
         <ul v-if="apiStatus">
