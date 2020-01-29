@@ -39,11 +39,11 @@
   margin: 0 auto;
   padding: 25px 0px 30px 0px;
   box-sizing: border-box;
+
   &--profile{
-    width: 40rem;
+    width: 774px;
   }
 }
-
 .l-card__container{
   height: 100%;
   padding: $space_xxl $space_3l;
@@ -55,4 +55,12 @@
 }
 .l-card__content{
   margin: $space_xl auto;
+}
+
+/********************************************** 
+共通flex
+**********************************************/
+.l-flex{
+  display: flex;
+  justify-content: flex-end;
 }

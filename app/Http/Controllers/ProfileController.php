@@ -11,6 +11,9 @@ use Illuminate\Support\Facades\Storage;
 
 class ProfileController extends Controller
 {
+
+    protected $user;
+
     public function __construct()
     {
         // 認証が必要
@@ -38,12 +41,16 @@ class ProfileController extends Controller
         $request->profilePhoto->storeAs('public/profile_img',$file_name);
 
         // 認証済みのユーザーでテーブルへ保存
-        Auth::user()->update(['pic' => '/storage/'.$file_name]);
+        Auth::user()->update(['pic' => '/storage/profile_img/'.$file_name]);
 
         /****************************************
         ユーザー情報を更新
         ****************************************/
-
+        // Auth::user()->update([
+        //     'name' => $request->input('name'),
+        //     'email' => $request->input('email'),
+        //     'password' => $request->input('password')
+        // ]);
         
 
         // 認証済みユーザー情報を返却

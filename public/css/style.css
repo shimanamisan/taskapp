@@ -245,7 +245,7 @@ input {
 }
 
 .l-main__auth--profile {
-  width: 40rem;
+  width: 774px;
 }
 
 .l-card__container {
@@ -260,6 +260,17 @@ input {
 
 .l-card__content {
   margin: 20px auto;
+}
+
+/********************************************** 
+共通flex
+**********************************************/
+
+.l-flex {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
 }
 
 .l-header__top {
@@ -373,6 +384,10 @@ input {
   opacity: 0.6;
 }
 
+.c-btn:focus {
+  outline: none;
+}
+
 .c-btn-reminder {
   margin-top: 30px;
   font-size: 12px;
@@ -419,6 +434,22 @@ input {
   background-color: #707070;
   border: solid 1px #ffffff;
   color: #ffffff;
+}
+
+.c-btn--profile {
+  font-size: 12px;
+  height: 25px;
+  line-height: 25px;
+  background-color: #3192fa;
+  color: #ffffff;
+}
+
+.c-btn--profile__cancel {
+  background-color: black;
+}
+
+.c-btn--profile__cancel:hover {
+  opacity: 0.6;
 }
 
 .c-header__signin {
@@ -518,6 +549,36 @@ input {
   opacity: 0;
 }
 
+.c-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  width: 100%;
+  height: 100vh;
+  box-sizing: inherit;
+  z-index: 1;
+}
+
+.c-modal__body {
+  background-color: #ffffff;
+  padding: 40px;
+  width: 50%;
+  position: absolute;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  will-change: opacity;
+  -webkit-transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
 .c-form {
   text-align: center;
 }
@@ -529,8 +590,7 @@ input {
 .c-form__container--profile {
   display: -webkit-box;
   display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
+  justify-content: space-around;
   padding: 20px;
   margin-bottom: 30px;
 }
@@ -541,6 +601,7 @@ input {
 
 .c-form-lavel__profile {
   display: block;
+  text-align: center;
 }
 
 .c-form__action {
@@ -836,5 +897,22 @@ input {
 .u-icon__sns {
   font-size: 2.5rem;
   margin-right: 10px;
+}
+
+/********************************************** 
+ボタン配置用
+**********************************************/
+
+.u-btn--wrapp {
+  margin-top: 7px;
+}
+
+.u-btn--password {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.u-btn__profile--margin {
+  margin-left: 10px;
 }
 

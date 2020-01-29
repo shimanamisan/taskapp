@@ -1,5 +1,12 @@
 <template>
-  <p>システムエラーです！！</p>
+
+    <div class="l-container">
+      <h1>
+        500
+        Internal Server Error
+      </h1>
+
+    </div>
 </template>
 
 <script>

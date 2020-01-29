@@ -54,3 +54,22 @@
     margin-right: $space_m;
   }
 }
+
+/********************************************** 
+ボタン配置用
+**********************************************/
+.u-btn{
+
+  &--wrapp{
+    margin-top:  7px;
+  }
+  &--password{
+    margin-top: 20px;
+    text-align: right;
+  }
+
+}
+
+.u-btn__profile--margin{
+  margin-left: 10px;
+}

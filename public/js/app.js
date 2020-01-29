@@ -2286,6 +2286,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({});
 
 /***/ }),
@@ -2752,20 +2759,60 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      // ボタン表示フラグ
+      showProfileImage: false,
+      showName: false,
+      showEmail: false,
+      showPassword: false,
+      // 画像プレビューフラグ
       preview: null,
-      profileImage: null,
-      showProfileImage: null,
+      PreviewProfileImage: null,
+      // プロフィールのフォームデータ
       profileData: {
         name: '',
         email: '',
-        profileImg: '',
         password: '',
-        password_confirmation: ''
+        password_confirmation: '',
+        profileImage: null
       }
     };
   },
@@ -2779,6 +2826,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     fileSelected: function fileSelected(event) {
       var _this = this;
 
+      // ボタン表示フラグ
       // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
       console.log(event); // ファイル情報をdataプロパティに保存
 
@@ -2805,7 +2853,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       reader.readAsDataURL(event.target.files[0]); // 
 
-      this.profileImage = event.target.files[0];
+      this.profileData.profileImage = event.target.files[0];
     },
     reset: function reset() {
       // コンポーネントに持たせたデータを消す
@@ -2813,8 +2861,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.profileImage = null; // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
 
       this.$el.querySelector('input[type="file"]').value = null;
+      this.showProfileImage = !this.showProfileImage;
     },
-    // 入力欄の値とプレビュー表示を消すメソッド
+    // AsyncFunction オブジェクトを返す 非同期関数 を定義
+    // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function
     profileEdit: function () {
       var _profileEdit = _asyncToGenerator(
       /*#__PURE__*/
@@ -2836,16 +2886,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 formData = new FormData(); // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
                 // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
                 // 常にリクエストが空とみなされてバリデーションに引っかかる
+                // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
 
-                formData.append('profilePhoto', this.profileImage); // アクションへファイル情報を渡す
+                formData.append('profilePhoto', this.profileData.profileImage);
+                formData.append('name', this.profileData.name);
+                formData.append('email', this.profileData.email);
+                formData.append('password', this.profileData.password); // アクションへファイル情報を渡す
 
-                _context.next = 4;
+                _context.next = 7;
                 return this.$store.dispatch('auth/profileEdit', formData);
 
-              case 4:
-                this.reset();
-
-              case 5:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -2859,6 +2910,125 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return profileEdit;
     }(),
+    imageEdit: function () {
+      var _imageEdit = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      function imageEdit() {
+        return _imageEdit.apply(this, arguments);
+      }
+
+      return imageEdit;
+    }(),
+    nameEdit: function () {
+      var _nameEdit = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                console.log('名前を変える');
+
+              case 1:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      function nameEdit() {
+        return _nameEdit.apply(this, arguments);
+      }
+
+      return nameEdit;
+    }(),
+    emailEdit: function () {
+      var _emailEdit = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      function emailEdit() {
+        return _emailEdit.apply(this, arguments);
+      }
+
+      return emailEdit;
+    }(),
+    passwordEdit: function () {
+      var _passwordEdit = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      function passwordEdit() {
+        return _passwordEdit.apply(this, arguments);
+      }
+
+      return passwordEdit;
+    }(),
+    cancelPassword: function cancelPassword() {
+      this.showPassword = !this.showPassword;
+    },
+
+    /****************************************
+     * focus処理のメソッド
+    *****************************************/
+    namefocus: function namefocus() {
+      if (this.showName === true) {
+        return;
+      }
+
+      this.showName = !this.showName;
+    },
+    emailfocus: function emailfocus() {
+      if (this.showEmail === true) {
+        return;
+      }
+
+      this.showEmail = !this.showEmail;
+    },
+    imagefocus: function imagefocus() {
+      if (this.showProfileImage === true) {
+        return;
+      }
+
+      this.showProfileImage = !this.showProfileImage;
+    },
+
+    /*************************************************
+     * バリデーションメッセージを消すアクションを呼ぶ
+    **************************************************/
     clearError: function clearError() {
       this.$store.commit('auth/setProfileErrorMessages', null);
     },
@@ -2869,6 +3039,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         console.log('ライフサイクルフックでプロフィールを取得しています');
         _this2.profileData.name = response.data.name;
         _this2.profileData.email = response.data.email;
+        _this2.preview = response.data.pic;
       })["catch"]();
     }
   },
@@ -40194,9 +40365,18 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("p", [_vm._v("システムエラーです！！")])
+  return _vm._m(0)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "l-container" }, [
+      _c("h1", [_vm._v("\n    500\n    Internal Server Error\n  ")])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -40819,204 +40999,434 @@ var render = function() {
       _vm._v(" "),
       _c("div", { staticClass: "l-wrapper l-wrapper__profile" }, [
         _c("section", { staticClass: "l-main__auth l-main__auth--profile" }, [
-          _c("div", { staticClass: "l-card__container" }, [
-            _vm._m(0),
-            _vm._v(" "),
-            _c("hr", { staticClass: "u-form__line" }),
-            _vm._v(" "),
-            _c(
-              "form",
-              {
-                on: {
-                  submit: function($event) {
-                    $event.preventDefault()
-                    return _vm.profileEdit($event)
-                  }
-                }
-              },
-              [
-                _c("div", { staticClass: "c-form__container--profile" }, [
+          _c(
+            "div",
+            { staticClass: "l-card__container" },
+            [
+              _vm._m(0),
+              _vm._v(" "),
+              _c("hr", { staticClass: "u-form__line" }),
+              _vm._v(" "),
+              _c("div", { staticClass: "c-form__container--profile" }, [
+                _c("div", { staticClass: "c-form__item" }, [
+                  _c(
+                    "label",
+                    {
+                      staticClass: "c-form-lavel c-form-lavel__profile",
+                      attrs: { for: "" }
+                    },
+                    [_vm._v("プロフィール画像")]
+                  ),
+                  _vm._v(" "),
+                  _vm.profileUploadErrors
+                    ? _c("div", { staticClass: "errors" }, [
+                        _vm.profileUploadErrors.profilePhoto
+                          ? _c(
+                              "ul",
+                              _vm._l(
+                                _vm.profileUploadErrors.profilePhoto,
+                                function(msg) {
+                                  return _c("li", { key: msg }, [
+                                    _vm._v(_vm._s(msg))
+                                  ])
+                                }
+                              ),
+                              0
+                            )
+                          : _vm._e()
+                      ])
+                    : _vm._e(),
+                  _vm._v(" "),
+                  _c("label", { staticClass: "c-input--profile" }, [
+                    _c("input", {
+                      staticClass: "c-input--profile__drop",
+                      attrs: { type: "file" },
+                      on: { change: _vm.fileSelected, focus: _vm.imagefocus }
+                    }),
+                    _vm._v(" "),
+                    _vm.preview
+                      ? _c("output", [
+                          _c("img", {
+                            staticClass: "c-form__output",
+                            attrs: { src: _vm.preview, alt: "プロフィール画像" }
+                          }),
+                          _vm._v(" "),
+                          _c(
+                            "p",
+                            {
+                              directives: [
+                                {
+                                  name: "show",
+                                  rawName: "v-show",
+                                  value: _vm.PreviewProfileImage,
+                                  expression: "PreviewProfileImage"
+                                }
+                              ]
+                            },
+                            [
+                              _c("img", {
+                                staticClass: "c-form__output",
+                                attrs: {
+                                  src: _vm.profileData.pic,
+                                  alt: "プロフィール画像"
+                                }
+                              })
+                            ]
+                          )
+                        ])
+                      : _vm._e()
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showProfileImage,
+                          expression: "showProfileImage"
+                        }
+                      ],
+                      staticClass: "l-flex u-btn--wrapp"
+                    },
+                    [
+                      _c("div", { staticClass: "u-btn__profile--margin" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "c-btn c-btn--profile c-btn--profile__cancel",
+                            on: { click: _vm.reset }
+                          },
+                          [_vm._v("キャンセル")]
+                        )
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "u-btn__profile--margin" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "c-btn c-btn--profile",
+                            on: { click: _vm.imageEdit }
+                          },
+                          [_vm._v("変更")]
+                        )
+                      ])
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
+                _c("div", [
                   _c("div", { staticClass: "c-form__item" }, [
                     _c(
                       "label",
-                      {
-                        staticClass: "c-form-lavel c-form-lavel__profile",
-                        attrs: { for: "" }
-                      },
-                      [_vm._v("プロフィール画像")]
+                      { staticClass: "c-form-lavel", attrs: { for: "" } },
+                      [_vm._v("ニックネーム")]
                     ),
                     _vm._v(" "),
                     _vm.profileUploadErrors
                       ? _c("div", { staticClass: "errors" }, [
-                          _vm.profileUploadErrors.profilePhoto
+                          _vm.profileUploadErrors.name
                             ? _c(
                                 "ul",
-                                _vm._l(
-                                  _vm.profileUploadErrors.profilePhoto,
-                                  function(msg) {
-                                    return _c("li", { key: msg }, [
-                                      _vm._v(_vm._s(msg))
-                                    ])
-                                  }
-                                ),
+                                _vm._l(_vm.profileUploadErrors.name, function(
+                                  msg
+                                ) {
+                                  return _c("li", { key: msg }, [
+                                    _vm._v(_vm._s(msg))
+                                  ])
+                                }),
                                 0
                               )
                             : _vm._e()
                         ])
                       : _vm._e(),
                     _vm._v(" "),
-                    _c("label", { staticClass: "c-input--profile" }, [
-                      _c("input", {
-                        staticClass: "c-input--profile__drop",
-                        attrs: { type: "file" },
-                        on: { change: _vm.fileSelected }
-                      }),
-                      _vm._v(" "),
-                      _vm.preview
-                        ? _c("output", [
-                            _c("img", {
-                              staticClass: "c-form__output",
-                              attrs: {
-                                src: _vm.preview,
-                                alt: "プロフィール画像"
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.profileData.name,
+                          expression: "profileData.name"
+                        }
+                      ],
+                      staticClass: "c-input",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.profileData.name },
+                      on: {
+                        focus: _vm.namefocus,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(_vm.profileData, "name", $event.target.value)
+                        }
+                      }
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        directives: [
+                          {
+                            name: "show",
+                            rawName: "v-show",
+                            value: _vm.showName,
+                            expression: "showName"
+                          }
+                        ],
+                        staticClass: "l-flex u-btn--wrapp"
+                      },
+                      [
+                        _c("div", { staticClass: "u-btn__profile--margin" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "c-btn c-btn--profile c-btn--profile__cancel",
+                              on: {
+                                click: function($event) {
+                                  _vm.showName = !_vm.showName
+                                }
                               }
-                            }),
-                            _vm._v(" "),
-                            _c(
-                              "p",
-                              {
-                                directives: [
-                                  {
-                                    name: "show",
-                                    rawName: "v-show",
-                                    value: _vm.showProfileImage,
-                                    expression: "showProfileImage"
-                                  }
-                                ]
-                              },
-                              [
-                                _c("img", {
-                                  staticClass: "c-form__output",
-                                  attrs: {
-                                    src: _vm.profileData.pic,
-                                    alt: "プロフィール画像"
-                                  }
-                                })
-                              ]
-                            )
-                          ])
-                        : _vm._e()
-                    ])
+                            },
+                            [_vm._v("キャンセル")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _c("div", { staticClass: "u-btn__profile--margin" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "c-btn c-btn--profile",
+                              on: { click: _vm.nameEdit }
+                            },
+                            [_vm._v("変更")]
+                          )
+                        ])
+                      ]
+                    )
                   ]),
                   _vm._v(" "),
-                  _c("div", [
-                    _c("div", { staticClass: "c-form__item" }, [
-                      _c(
-                        "label",
-                        { staticClass: "c-form-lavel", attrs: { for: "" } },
-                        [_vm._v("ニックネーム")]
-                      ),
-                      _vm._v(" "),
-                      _vm.profileUploadErrors
-                        ? _c("div", { staticClass: "errors" }, [
-                            _vm.profileUploadErrors.name
-                              ? _c(
-                                  "ul",
-                                  _vm._l(_vm.profileUploadErrors.name, function(
-                                    msg
-                                  ) {
-                                    return _c("li", { key: msg }, [
-                                      _vm._v(_vm._s(msg))
-                                    ])
-                                  }),
-                                  0
-                                )
-                              : _vm._e()
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "c-input",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.profileData.name }
-                      })
-                    ]),
+                  _c("div", { staticClass: "c-form__item" }, [
+                    _c(
+                      "label",
+                      { staticClass: "c-form-lavel", attrs: { for: "" } },
+                      [_vm._v("メールアドレス")]
+                    ),
                     _vm._v(" "),
-                    _c("div", { staticClass: "c-form__item" }, [
-                      _c(
-                        "label",
-                        { staticClass: "c-form-lavel", attrs: { for: "" } },
-                        [_vm._v("メールアドレス")]
-                      ),
-                      _vm._v(" "),
-                      _vm.profileUploadErrors
-                        ? _c("div", { staticClass: "errors" }, [
-                            _vm.profileUploadErrors.email
-                              ? _c(
-                                  "ul",
-                                  _vm._l(
-                                    _vm.profileUploadErrors.email,
-                                    function(msg) {
-                                      return _c("li", { key: msg }, [
-                                        _vm._v(_vm._s(msg))
-                                      ])
-                                    }
-                                  ),
-                                  0
-                                )
-                              : _vm._e()
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "c-input",
-                        attrs: { type: "text" },
-                        domProps: { value: _vm.profileData.email }
-                      })
-                    ]),
+                    _vm.profileUploadErrors
+                      ? _c("div", { staticClass: "errors" }, [
+                          _vm.profileUploadErrors.email
+                            ? _c(
+                                "ul",
+                                _vm._l(_vm.profileUploadErrors.email, function(
+                                  msg
+                                ) {
+                                  return _c("li", { key: msg }, [
+                                    _vm._v(_vm._s(msg))
+                                  ])
+                                }),
+                                0
+                              )
+                            : _vm._e()
+                        ])
+                      : _vm._e(),
                     _vm._v(" "),
-                    _c("div", { staticClass: "c-form__item" }, [
-                      _c(
-                        "label",
-                        { staticClass: "c-form-lavel", attrs: { for: "" } },
-                        [_vm._v("変更後パスワード")]
-                      ),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.profileData.email,
+                          expression: "profileData.email"
+                        }
+                      ],
+                      staticClass: "c-input",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.profileData.email },
+                      on: {
+                        focus: _vm.emailfocus,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.profileData,
+                            "email",
+                            $event.target.value
+                          )
+                        }
+                      }
+                    })
+                  ]),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.showEmail,
+                          expression: "showEmail"
+                        }
+                      ],
+                      staticClass: "l-flex u-btn--wrapp"
+                    },
+                    [
+                      _c("div", { staticClass: "u-btn__profile--margin" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass:
+                              "c-btn c-btn--profile c-btn--profile__cancel",
+                            on: {
+                              click: function($event) {
+                                _vm.showEmail = !_vm.showEmail
+                              }
+                            }
+                          },
+                          [_vm._v("キャンセル")]
+                        )
+                      ]),
                       _vm._v(" "),
-                      _vm.profileUploadErrors
-                        ? _c("div", { staticClass: "errors" }, [
-                            _vm.profileUploadErrors.password
-                              ? _c(
-                                  "ul",
-                                  _vm._l(
-                                    _vm.profileUploadErrors.password,
-                                    function(msg) {
-                                      return _c("li", { key: msg }, [
-                                        _vm._v(_vm._s(msg))
-                                      ])
-                                    }
-                                  ),
-                                  0
-                                )
-                              : _vm._e()
-                          ])
-                        : _vm._e(),
-                      _vm._v(" "),
-                      _c("input", {
-                        staticClass: "c-input",
-                        attrs: { type: "password" }
-                      })
-                    ]),
-                    _vm._v(" "),
-                    _vm._m(1)
+                      _c("div", { staticClass: "u-btn__profile--margin" }, [
+                        _c(
+                          "button",
+                          {
+                            staticClass: "c-btn c-btn--profile",
+                            on: { click: _vm.emailEdit }
+                          },
+                          [_vm._v("変更")]
+                        )
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "u-btn--wrapp u-btn--password" }, [
+                    _c(
+                      "button",
+                      {
+                        staticClass: "c-btn c-btn--profile",
+                        on: {
+                          click: function($event) {
+                            _vm.showPassword = !_vm.showPassword
+                          }
+                        }
+                      },
+                      [_vm._v("パスワードの変更")]
+                    )
                   ])
-                ]),
-                _vm._v(" "),
-                _vm._m(2)
-              ]
-            )
-          ]),
+                ])
+              ]),
+              _vm._v(" "),
+              _c("transition", { attrs: { name: "fade" } }, [
+                _c(
+                  "div",
+                  {
+                    directives: [
+                      {
+                        name: "show",
+                        rawName: "v-show",
+                        value: _vm.showPassword,
+                        expression: "showPassword"
+                      }
+                    ],
+                    key: "modal",
+                    staticClass: "c-modal"
+                  },
+                  [
+                    _c("div", { staticClass: "c-modal__body" }, [
+                      _c("div", { staticClass: "c-form__item" }, [
+                        _c(
+                          "label",
+                          { staticClass: "c-form-lavel", attrs: { for: "" } },
+                          [_vm._v("新しいパスワード")]
+                        ),
+                        _vm._v(" "),
+                        _vm.profileUploadErrors
+                          ? _c("div", { staticClass: "errors" }, [
+                              _vm.profileUploadErrors.password
+                                ? _c(
+                                    "ul",
+                                    _vm._l(
+                                      _vm.profileUploadErrors.password,
+                                      function(msg) {
+                                        return _c("li", { key: msg }, [
+                                          _vm._v(_vm._s(msg))
+                                        ])
+                                      }
+                                    ),
+                                    0
+                                  )
+                                : _vm._e()
+                            ])
+                          : _vm._e(),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.profileData.password,
+                              expression: "profileData.password"
+                            }
+                          ],
+                          staticClass: "c-input",
+                          attrs: { type: "password" },
+                          domProps: { value: _vm.profileData.password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.profileData,
+                                "password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "c-form__item" }, [
+                        _c(
+                          "label",
+                          { staticClass: "c-form-lavel", attrs: { for: "" } },
+                          [_vm._v("新しいパスワード再入力")]
+                        ),
+                        _vm._v(" "),
+                        _c("input", {
+                          staticClass: "c-input",
+                          attrs: { type: "password" }
+                        })
+                      ]),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "c-btn",
+                          on: {
+                            click: function($event) {
+                              _vm.showPassword = !_vm.showPassword
+                            }
+                          }
+                        },
+                        [_vm._v("閉じる")]
+                      )
+                    ])
+                  ]
+                )
+              ])
+            ],
+            1
+          ),
           _vm._v(" "),
-          _vm._m(3)
+          _vm._m(1)
         ])
       ])
     ],
@@ -41036,30 +41446,6 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-form__item" }, [
-      _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
-        _vm._v("変更後パスワード再入力")
-      ]),
-      _vm._v(" "),
-      _c("input", { staticClass: "c-input", attrs: { type: "password" } })
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-form__action c-form__action__item" }, [
-      _c(
-        "button",
-        { staticClass: "c-btn c-btn__signin", attrs: { type: "submit" } },
-        [_vm._v("更新する")]
-      )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
     return _c("div", { staticClass: "l-card__container" }, [
       _c("div", { staticClass: "p-card__container" }, [
         _c("p", { staticClass: "p-card__title" }, [_vm._v("アカウントの削除")])
@@ -41070,7 +41456,7 @@ var staticRenderFns = [
       _c("div", { staticClass: "c-form__container" }, [
         _c("p", [
           _vm._v(
-            "\r\n              退会処理を行います。現在管理者\r\n              であるプロジェクトは全て削除さ\r\n              れ復旧はできません。\r\n             "
+            "\r\n                          退会処理を行います。現在管理者\r\n                          であるプロジェクトは全て削除さ\r\n                          れ復旧はできません。\r\n                          "
           )
         ])
       ]),

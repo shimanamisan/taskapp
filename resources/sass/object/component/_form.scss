@@ -8,7 +8,7 @@
 
     &--profile{
       display: flex;
-      justify-content: space-between;
+      justify-content: space-around;
       padding: $space_xl;
       margin-bottom: $space_xxl;
     }
@@ -17,6 +17,7 @@
     display: inline-block;
     &__profile{
       display: block;
+      text-align: center;
     }
   }
   &__action{
