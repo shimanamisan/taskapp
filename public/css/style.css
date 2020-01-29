@@ -549,22 +549,29 @@ input {
   opacity: 0;
 }
 
+.c-modal--body {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 70vw;
+  height: 70vh;
+  box-sizing: border-box;
+  padding: 30px;
+  z-index: 99;
+  border-radius: 8px;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background-color: #fff;
+}
+
 .c-modal {
   position: fixed;
   left: 0;
   top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
   background-color: rgba(0, 0, 0, 0.3);
-  width: 100%;
-  height: 100vh;
-  box-sizing: inherit;
-  z-index: 1;
-}
-
-.c-modal__body {
-  background-color: #ffffff;
-  padding: 40px;
-  width: 50%;
-  position: absolute;
 }
 
 .fade-enter-active,

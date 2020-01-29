@@ -2793,6 +2793,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -41339,7 +41340,7 @@ var render = function() {
                     staticClass: "c-modal"
                   },
                   [
-                    _c("div", { staticClass: "c-modal__body" }, [
+                    _c("div", { staticClass: "c-modal--body" }, [
                       _c("div", { staticClass: "c-form__item" }, [
                         _c(
                           "label",

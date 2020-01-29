@@ -83,25 +83,26 @@
                       
                                   <transition name="fade">
                                       <div key="modal" class="c-modal" v-show="showPassword">
-                                        <div class="c-modal__body">
-                                            <div class="c-form__item">
-                                                <label for="" class="c-form-lavel">新しいパスワード</label>
-                                                  <!-- バリデーションエラー --->
-                                                  <div v-if="profileUploadErrors" class="errors">
-                                                    <ul v-if="profileUploadErrors.password">
-                                                      <li v-for="msg in profileUploadErrors.password" :key="msg">{{ msg }}</li>
-                                                    </ul>
-                                                  </div><!--- end errors -->
-                                              
-                                                <input type="password" class="c-input" v-model="profileData.password">
-                                            </div><!-- c-form__item -->
-                                            <div class="c-form__item">
-                                              <label for="" class="c-form-lavel">新しいパスワード再入力</label>
-                                              <input type="password" class="c-input" >
-                                            </div>
-                                                  <button class="c-btn" @click="showPassword = !showPassword">閉じる</button>
-                                        </div><!-- end c-form__item -->
+                                          <div class="c-modal--body">
+                                              <div class="c-form__item">
+                                                  <label for="" class="c-form-lavel">新しいパスワード</label>
+                                                    <!-- バリデーションエラー --->
+                                                    <div v-if="profileUploadErrors" class="errors">
+                                                      <ul v-if="profileUploadErrors.password">
+                                                        <li v-for="msg in profileUploadErrors.password" :key="msg">{{ msg }}</li>
+                                                      </ul>
+                                                    </div><!--- end errors -->
+                                                
+                                                  <input type="password" class="c-input" v-model="profileData.password">
+                                              </div><!-- c-form__item -->
+                                              <div class="c-form__item">
+                                                <label for="" class="c-form-lavel">新しいパスワード再入力</label>
+                                                <input type="password" class="c-input" >
+                                              </div>
+                                              <button class="c-btn" @click="showPassword = !showPassword">閉じる</button>
+                                          </div>
                                       </div><!-- end c-modal -->
+                                      
                                   </transition>
               </div><!-- l-card__container -->
 
