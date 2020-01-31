@@ -117,7 +117,6 @@ const actions = {
     commit('setApiStatus', false)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('ステータスエラーです')
       commit('setRegisterErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
@@ -132,9 +131,7 @@ const actions = {
     commit('setApiStatus', null)
       // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
       const response = await axios.post('/api/login', data).catch(error => error.response || error)
-      
-      // パスワード情報は返却されていない
-      console.log(response)
+
         // 200ステータスの処理
         if(response.status === OK){
           const username = response.data.name
@@ -154,7 +151,6 @@ const actions = {
       commit('setApiStatus', false)
       // 422ステータスの処理
       if(response.status === UNPROCESSABLE_ENTITY ){
-        console.log('ステータスエラーです')
         commit('setLoginErrorMessages', response.data.errors)
       } else {
         commit('error/setCode', response.status, { root:true })
@@ -188,7 +184,6 @@ const actions = {
     const response = await axios.post('/api/profile/image/' + id , data).catch(error => error.response || error)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('ステータスエラーです')
       commit('setProfileErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
@@ -201,7 +196,6 @@ const actions = {
     const response = await axios.post('/api/profile/name/' + id , data).catch(error => error.response || error)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('ステータスエラーです')
       commit('setProfileErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
@@ -216,7 +210,6 @@ const actions = {
     const response = await axios.post('/api/profile/email/' + id , data).catch(error => error.response || error)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('ステータスエラーです')
       commit('setProfileErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
@@ -226,16 +219,20 @@ const actions = {
   // パスワード変更
   async ProfilPasswordeEdit( {commit}, data){
     const id = state.user_id
-    console.log('ProfilPasswordeEdit' + JSON.stringify(data))
     const response = await axios.post('/api/profile/password/' + id , data).catch(error => error.response || error)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('ステータスエラーです' + JSON.stringify(response.data.errors))
       commit('setProfileErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true })
+  },
+  // ユーザー削除
+  async ProfileUserDelete({ commit }){
+    const id = state.user_id
+    const response = await axios.delete('/api/profile/delete/' + id).catch(error => error.response || error)
+    console.log('ユーザー削除メソッドです' + console.log(response))
   },
   /****************************************
   リロード時にログインチェック
@@ -243,7 +240,6 @@ const actions = {
   async currentUser (context) {
     const response = await axios.get('/api/user')    
     const loginUser = response.data || null
-    console.log(loginUser)
     if(loginUser){
       context.commit('setApiStatus', true)
       context.commit('setUser', loginUser.name) 

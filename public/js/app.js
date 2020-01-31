@@ -2873,15 +2873,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     reset: function reset() {
       // エラーメッセージが出ていたら消す
       this.clearError(); // コンポーネントに持たせたデータを消す
+      // this.preview = ""
+      // this.profileImage = null
+      // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
+      // this.$el.querySelector('input[type="file"]').value = null
 
-      this.preview = "";
-      this.profileImage = null; // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
-
-      this.$el.querySelector('input[type="file"]').value = null;
       this.showProfileImage = !this.showProfileImage;
     },
-    // AsyncFunction オブジェクトを返す 非同期関数 を定義
-    // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function
+    // プロフィール写真変更
     ProfileImageEdit: function () {
       var _ProfileImageEdit = _asyncToGenerator(
       /*#__PURE__*/
@@ -2892,23 +2891,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 // プロフィール画像保存の処理
-
-                /*
-                1.フォームの値をlaravel側へ非同期で渡す
-                2.laravel側でデータを受け取ってDBとストレージへ保存
-                3.laravel側でその結果をJSON形式でリターン
-                4.Vueでそれを受け取り変更結果を描画
-                */
                 // FormDataオブジェクトをインスタンス化
                 formData = new FormData(); // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
                 // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
                 // 常にリクエストが空とみなされてバリデーションに引っかかる
                 // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
 
-                formData.append('profilePhoto', this.profileData.profileImage); // formData.append('name', this.profileData.name)
-                // formData.append('email', this.profileData.email)
-                // formData.append('password', this.profileData.password)
-                // アクションへファイル情報を渡す
+                formData.append('profilePhoto', this.profileData.profileImage); // アクションへファイル情報を渡す
 
                 _context.next = 4;
                 return this.$store.dispatch('auth/ProfileImageEdit', formData);
@@ -2927,8 +2916,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return ProfileImageEdit;
     }(),
-    ProfileNameEdit: function () {
-      var _ProfileNameEdit = _asyncToGenerator(
+    ProfileUserDelete: function () {
+      var _ProfileUserDelete = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
@@ -2936,9 +2925,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context2.prev = _context2.next) {
               case 0:
                 _context2.next = 2;
-                return this.$store.dispatch('auth/ProfileNameEdit', {
-                  name: this.profileData.name
-                });
+                return this.$store.dispatch('auth/ProfileUserDelete');
 
               case 2:
               case "end":
@@ -2946,6 +2933,33 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             }
           }
         }, _callee2, this);
+      }));
+
+      function ProfileUserDelete() {
+        return _ProfileUserDelete.apply(this, arguments);
+      }
+
+      return ProfileUserDelete;
+    }(),
+    ProfileNameEdit: function () {
+      var _ProfileNameEdit = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.$store.dispatch('auth/ProfileNameEdit', {
+                  name: this.profileData.name
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
       }));
 
       function ProfileNameEdit() {
@@ -2957,22 +2971,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     ProfileEmailEdit: function () {
       var _ProfileEmailEdit = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
-                _context3.next = 2;
+                _context4.next = 2;
                 return this.$store.dispatch('auth/ProfileEmailEdit', {
                   email: this.profileData.email
                 });
 
               case 2:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3, this);
+        }, _callee4, this);
       }));
 
       function ProfileEmailEdit() {
@@ -2984,12 +2998,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     ProfilPasswordeEdit: function () {
       var _ProfilPasswordeEdit = _asyncToGenerator(
       /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                _context4.next = 2;
+                _context5.next = 2;
                 return this.$store.dispatch('auth/ProfilPasswordeEdit', {
                   // これでkey:valueの形でデータをコントローラーへ渡せる
                   password: this.profileData.password,
@@ -3006,10 +3020,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
               case 3:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4, this);
+        }, _callee5, this);
       }));
 
       function ProfilPasswordeEdit() {
@@ -3093,6 +3107,89 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./header */ "./resources/js/components/header.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -41515,7 +41612,25 @@ var render = function() {
             1
           ),
           _vm._v(" "),
-          _vm._m(1)
+          _c("div", { staticClass: "l-card__container" }, [
+            _vm._m(1),
+            _vm._v(" "),
+            _c("hr", { staticClass: "u-form__line" }),
+            _vm._v(" "),
+            _vm._m(2),
+            _vm._v(" "),
+            _c("div", { staticClass: "c-form__action c-form__action__item" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "c-btn c-btn__danger",
+                  attrs: { type: "submit" },
+                  on: { click: _vm.ProfileUserDelete }
+                },
+                [_vm._v("削除する")]
+              )
+            ])
+          ])
         ])
       ])
     ],
@@ -41535,26 +41650,18 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "l-card__container" }, [
-      _c("div", { staticClass: "p-card__container" }, [
-        _c("p", { staticClass: "p-card__title" }, [_vm._v("アカウントの削除")])
-      ]),
-      _vm._v(" "),
-      _c("hr", { staticClass: "u-form__line" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "c-form__container" }, [
-        _c("p", [
-          _vm._v(
-            "\r\n                          退会処理を行います。現在管理者\r\n                          であるプロジェクトは全て削除さ\r\n                          れ復旧はできません。\r\n                          "
-          )
-        ])
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "c-form__action c-form__action__item" }, [
-        _c(
-          "button",
-          { staticClass: "c-btn c-btn__danger", attrs: { type: "submit" } },
-          [_vm._v("削除する")]
+    return _c("div", { staticClass: "p-card__container" }, [
+      _c("p", { staticClass: "p-card__title" }, [_vm._v("アカウントの削除")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-form__container" }, [
+      _c("p", [
+        _vm._v(
+          "\r\n                          退会処理を行います。現在管理者\r\n                          であるプロジェクトは全て削除さ\r\n                          れ復旧はできません。\r\n                          "
         )
       ])
     ])
@@ -41581,17 +41688,136 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    [
-      _c("Header"),
-      _vm._v(" "),
-      _c("h1", [_vm._v("これはタスク管理のページです")])
-    ],
-    1
-  )
+  return _c("div", [_c("Header"), _vm._v(" "), _vm._m(0)], 1)
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("section", { staticClass: "l-side" }, [
+      _c("div", { staticClass: "l-side-wrapp__flex" }, [
+        _c("div", { staticClass: "l-side-sub" }, [
+          _c("div", { staticClass: "l-side-wrapp" }, [
+            _c("div", { staticClass: "l-side-user" }, [
+              _c("div", { staticClass: "c-task-img" }, [
+                _c("img", {
+                  attrs: { src: "https://placehold.jp/150x150.png", alt: "" }
+                })
+              ]),
+              _vm._v(" "),
+              _c("h1", { staticClass: "c-task-user" }, [_vm._v("ユーザー名")])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "u-task-line" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "l-side-wrapp" }, [
+            _c("div", { staticClass: "c-task-wrapp" }, [
+              _c("i", { staticClass: "fas fa-bars c-task-item" }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [_vm._v("フォルダタイトル")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "c-task-wrapp__icon" }, [
+                _c("i", {
+                  staticClass: "fas fa-edit c-task-item c-task-item__edit"
+                }),
+                _vm._v(" "),
+                _c("i", {
+                  staticClass: "fas fa-trash-alt c-task-item c-task-item__trash"
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "c-task-wrapp" }, [
+              _c("i", { staticClass: "fas fa-bars c-task-item" }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [_vm._v("フォルダタイトル")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "c-task-wrapp__icon" }, [
+                _c("i", {
+                  staticClass: "fas fa-edit c-task-item c-task-item__edit"
+                }),
+                _vm._v(" "),
+                _c("i", {
+                  staticClass: "fas fa-trash-alt c-task-item c-task-item__trash"
+                })
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "c-task-wrapp" }, [
+              _c("i", { staticClass: "fas fa-bars c-task-item" }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [_vm._v("フォルダタイトル")]),
+              _vm._v(" "),
+              _c("div", { staticClass: "c-task-wrapp__icon" }, [
+                _c("i", {
+                  staticClass: "fas fa-edit c-task-item c-task-item__edit"
+                }),
+                _vm._v(" "),
+                _c("i", {
+                  staticClass: "fas fa-trash-alt c-task-item c-task-item__trash"
+                })
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("hr", { staticClass: "u-task-folder" }),
+          _vm._v(" "),
+          _c("div", { staticClass: "l-side-wrapp" }, [
+            _c("i", { staticClass: "fas fa-plus" }),
+            _vm._v(" "),
+            _c("label", { attrs: { for: "" } }, [_vm._v("フォルダを追加する")]),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "text" } })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "l-side-main" }, [
+          _c("div", { staticClass: "l-side-wrapp l-side-wrapp__taskbox" }, [
+            _vm._v("\n              サンプルテキスト\n              "),
+            _c("div", { staticClass: "c-task" }, [
+              _vm._v("\n                フォルダタイトル\n              ")
+            ]),
+            _vm._v(" "),
+            _c("div", [_vm._v("\n                TODOリスト\n              ")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("i", { staticClass: "fas fa-plus" }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v("新しいタスクを追加")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "text" } })
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "l-side-main" }, [
+          _c("div", { staticClass: "l-side-wrapp l-side-wrapp__taskbox" }, [
+            _vm._v("\n              サンプルテキスト\n              "),
+            _c("div", { staticClass: "c-task" }, [
+              _vm._v("\n                フォルダタイトル\n              ")
+            ]),
+            _vm._v(" "),
+            _c("div", [_vm._v("\n                TODOリスト\n              ")]),
+            _vm._v(" "),
+            _c("div", [
+              _c("i", { staticClass: "fas fa-plus" }),
+              _vm._v(" "),
+              _c("label", { attrs: { for: "" } }, [
+                _vm._v("新しいタスクを追加")
+              ])
+            ]),
+            _vm._v(" "),
+            _c("input", { attrs: { type: "text" } })
+          ])
+        ])
+      ])
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -59035,7 +59261,6 @@ var actions = {
               commit('setApiStatus', false); // 422ステータスの処理
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('ステータスエラーです');
                 commit('setRegisterErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59085,11 +59310,9 @@ var actions = {
 
             case 4:
               response = _context2.sent;
-              // パスワード情報は返却されていない
-              console.log(response); // 200ステータスの処理
 
               if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                _context2.next = 17;
+                _context2.next = 16;
                 break;
               }
 
@@ -59106,11 +59329,10 @@ var actions = {
               commit('setId', id);
               return _context2.abrupt("return", false);
 
-            case 17:
+            case 16:
               commit('setApiStatus', false); // 422ステータスの処理
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('ステータスエラーです');
                 commit('setLoginErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59122,7 +59344,7 @@ var actions = {
                 root: true
               }); //{ root: ture }で違うファイルのミューテーションを呼べる
 
-            case 20:
+            case 19:
             case "end":
               return _context2.stop();
           }
@@ -59214,7 +59436,6 @@ var actions = {
 
               // 422ステータスの処理
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('ステータスエラーです');
                 commit('setProfileErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59262,7 +59483,6 @@ var actions = {
 
               // 422ステータスの処理
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('ステータスエラーです');
                 commit('setProfileErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59311,7 +59531,6 @@ var actions = {
 
               // 422ステータスの処理
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('ステータスエラーです');
                 commit('setProfileErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59349,18 +59568,16 @@ var actions = {
             case 0:
               commit = _ref6.commit;
               id = state.user_id;
-              console.log('ProfilPasswordeEdit' + JSON.stringify(data));
-              _context7.next = 5;
+              _context7.next = 4;
               return axios.post('/api/profile/password/' + id, data)["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 5:
+            case 4:
               response = _context7.sent;
 
               // 422ステータスの処理
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('ステータスエラーです' + JSON.stringify(response.data.errors));
                 commit('setProfileErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59372,7 +59589,7 @@ var actions = {
                 root: true
               });
 
-            case 8:
+            case 7:
             case "end":
               return _context7.stop();
           }
@@ -59386,34 +59603,26 @@ var actions = {
 
     return ProfilPasswordeEdit;
   }(),
-
-  /****************************************
-  リロード時にログインチェック
-  *****************************************/
-  currentUser: function () {
-    var _currentUser = _asyncToGenerator(
+  // ユーザー削除
+  ProfileUserDelete: function () {
+    var _ProfileUserDelete = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(context) {
-      var response, loginUser;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref7) {
+      var commit, id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
-              _context8.next = 2;
-              return axios.get('/api/user');
+              commit = _ref7.commit;
+              id = state.user_id;
+              _context8.next = 4;
+              return axios["delete"]('/api/profile/delete/' + id)["catch"](function (error) {
+                return error.response || error;
+              });
 
-            case 2:
+            case 4:
               response = _context8.sent;
-              loginUser = response.data || null;
-              console.log(loginUser);
-
-              if (loginUser) {
-                context.commit('setApiStatus', true);
-                context.commit('setUser', loginUser.name);
-                context.commit('setEmail', loginUser.email);
-                context.commit('setPic', loginUser.pic);
-                context.commit('setId', loginUser.id);
-              }
+              console.log('ユーザー削除メソッドです' + console.log(response));
 
             case 6:
             case "end":
@@ -59423,7 +59632,49 @@ var actions = {
       }, _callee8);
     }));
 
-    function currentUser(_x14) {
+    function ProfileUserDelete(_x14) {
+      return _ProfileUserDelete.apply(this, arguments);
+    }
+
+    return ProfileUserDelete;
+  }(),
+
+  /****************************************
+  リロード時にログインチェック
+  *****************************************/
+  currentUser: function () {
+    var _currentUser = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(context) {
+      var response, loginUser;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              _context9.next = 2;
+              return axios.get('/api/user');
+
+            case 2:
+              response = _context9.sent;
+              loginUser = response.data || null;
+
+              if (loginUser) {
+                context.commit('setApiStatus', true);
+                context.commit('setUser', loginUser.name);
+                context.commit('setEmail', loginUser.email);
+                context.commit('setPic', loginUser.pic);
+                context.commit('setId', loginUser.id);
+              }
+
+            case 5:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9);
+    }));
+
+    function currentUser(_x15) {
       return _currentUser.apply(this, arguments);
     }
 

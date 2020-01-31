@@ -40,6 +40,8 @@ Route::post('/profile/name/{id}', 'ProfileController@ProfileNameEdit')->name('pr
 Route::post('/profile/email/{id}', 'ProfileController@ProfileEmailEdit')->name('profile.ProfileEmailEdit');
 // パスワード変更
 Route::post('/profile/password/{id}', 'ProfileController@ProfilPasswordeEdit')->name('profile.ProfilPasswordeEdit');
+// ユーザー論理削除
+Route::delete('/profile/delete/{id}', 'ProfileController@ProfileUserDelete')->name('profile.ProfileUserDelete');
 
 
 

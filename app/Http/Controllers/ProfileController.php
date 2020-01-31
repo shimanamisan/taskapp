@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\User;
+use App\Models\UserDelete;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -100,5 +101,16 @@ class ProfileController extends Controller
         $user->password = bcrypt($request->get('password'));
         $user->save();
 
+    }
+
+    /****************************************
+    ユーザー削除用
+    ****************************************/
+    public function ProfileUserDelete(Request $request, $id)
+    {
+        // DBファサードではなく、Eloquent ORM にてdelete()メソッドを実行する事
+        // https://www.ritolab.com/entry/53#environment_development
+        $user = UserDelete::find($id);
+        $user->delete();
     }
 }

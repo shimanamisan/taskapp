@@ -130,7 +130,7 @@
                           </p>
                         </div>
                         <div class="c-form__action c-form__action__item">
-                          <button type="submit" class="c-btn c-btn__danger">削除する</button>
+                          <button type="submit" class="c-btn c-btn__danger" @click="ProfileUserDelete">削除する</button>
                         </div>
                   </div><!-- l-card__container -->
           </section><!-- l-main__auth -->
@@ -208,22 +208,15 @@ export default {
         // エラーメッセージが出ていたら消す
         this.clearError()
         // コンポーネントに持たせたデータを消す
-        this.preview = ""
-        this.profileImage = null
+        // this.preview = ""
+        // this.profileImage = null
         // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
-        this.$el.querySelector('input[type="file"]').value = null
+        // this.$el.querySelector('input[type="file"]').value = null
         this.showProfileImage = !this.showProfileImage
       },
-      // AsyncFunction オブジェクトを返す 非同期関数 を定義
-      // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function
+      // プロフィール写真変更
       async ProfileImageEdit(){
         // プロフィール画像保存の処理
-        /*
-        1.フォームの値をlaravel側へ非同期で渡す
-        2.laravel側でデータを受け取ってDBとストレージへ保存
-        3.laravel側でその結果をJSON形式でリターン
-        4.Vueでそれを受け取り変更結果を描画
-        */
         // FormDataオブジェクトをインスタンス化
         const formData = new FormData()
         // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
@@ -231,12 +224,12 @@ export default {
         // 常にリクエストが空とみなされてバリデーションに引っかかる
         // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
         formData.append('profilePhoto', this.profileData.profileImage)
-        // formData.append('name', this.profileData.name)
-        // formData.append('email', this.profileData.email)
-        // formData.append('password', this.profileData.password)
-
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileImageEdit', formData)        
+      },
+      async ProfileUserDelete(){
+        // アクションを呼びに行く
+        await this.$store.dispatch('auth/ProfileUserDelete')
       },
       async ProfileNameEdit(){
         // アクションへファイル情報を渡す
