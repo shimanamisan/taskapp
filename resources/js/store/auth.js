@@ -14,7 +14,11 @@ const state = {
   *****************************************/
   loginErrorMessages: null,
   registerErrorMessages: null,
-  profileErrorMessages: null
+  profileErrorMessages: null,
+  ProfileImageErrorMessages: null,
+  ProfileNameErrorMessages: null,
+  ProfileEmailErrorMessages: null,
+  ProfilePasswordErrorMessages: null,
 }
 
 /*******************************
@@ -32,26 +36,25 @@ const getters = {
 
   // プロフィール写真のパスを呼び出す
   getProfileImage: state => state.profileImage ? state.profileImage : '',
-
-  // 
-  getProfileErrorMessages: state => state.profileErrorMessages ? state.profileErrorMessages : '',
 }
 
 /*******************************
 ミューテーション
 ********************************/
 const mutations = {
-  // ユーザー名を更新
+  // ユーザー名をセット
   setUser(state, username){
     state.username = username
   },
-  // ユーザーIDを更新
+  // ユーザーIDをセット
   setId(state, user_id){
     state.user_id = user_id
   },
+  // email情報をセット
   setEmail(state, email){
     state.email = email
   },
+  // プロフィール写真のパスをセット
   setPic(state, profileImage){
     state.profileImage = profileImage
   },
@@ -67,10 +70,26 @@ const mutations = {
   setRegisterErrorMessages(state, messages) {
     state.registerErrorMessages = messages
   },
-  // プロフィール編集時のエラーハンドリング用ミューテーション
+  // プロフィールバリデーションメッセージをセット
   setProfileErrorMessages(state, messages){
     state.profileErrorMessages = messages
-  }
+  },
+  // // プロフィール画像編集時のエラーハンドリング用ミューテーション
+  // setProfileImageErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
+  // // 名前変更時のエラーハンドリング
+  // setProfileNameErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
+  // // email変更時のエラーハンドリング
+  // setProfileEmailErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
+  // // パスワード変更時のエラーハンドリング
+  // setProfilePasswordErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
 }
 
 // アクション→コミットでミューテーション呼び出し→ステート更新
@@ -96,10 +115,9 @@ const actions = {
         return false
       }
     commit('setApiStatus', false)
-    console.log(response.status)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('アクションのregisterメソッドです」：' + JSON.stringify(response.data.errors))
+      console.log('ステータスエラーです')
       commit('setRegisterErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
@@ -134,9 +152,9 @@ const actions = {
         }
 
       commit('setApiStatus', false)
-      console.log(response.status)
       // 422ステータスの処理
       if(response.status === UNPROCESSABLE_ENTITY ){
+        console.log('ステータスエラーです')
         commit('setLoginErrorMessages', response.data.errors)
       } else {
         commit('error/setCode', response.status, { root:true })
@@ -164,17 +182,60 @@ const actions = {
   /****************************************
   プロフィール編集
   *****************************************/
-  async profileEdit( {commit} , data){
+  // 画像変更
+  async ProfileImageEdit( {commit}, data){
     const id = state.user_id
-    const response = await axios.post('/api/profile/' + id , data).catch(error => error.response || error)
+    const response = await axios.post('/api/profile/image/' + id , data).catch(error => error.response || error)
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log('アクションのprofileEditメソッドです')
+      console.log('ステータスエラーです')
       commit('setProfileErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
+  },
+  // 名前変更
+  async ProfileNameEdit( {commit}, data){
+    const id = state.user_id
+    const response = await axios.post('/api/profile/name/' + id , data).catch(error => error.response || error)
+    // 422ステータスの処理
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      console.log('ステータスエラーです')
+      commit('setProfileErrorMessages', response.data.errors)
+    } else {
+      commit('error/setCode', response.status, { root:true })
+    }
+    commit('setUser', response.data.name) 
+    commit('error/setCode', response.status, { root: true })
+
+  },
+  // email変更
+  async ProfileEmailEdit( {commit}, data){
+    const id = state.user_id
+    const response = await axios.post('/api/profile/email/' + id , data).catch(error => error.response || error)
+    // 422ステータスの処理
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      console.log('ステータスエラーです')
+      commit('setProfileErrorMessages', response.data.errors)
+    } else {
+      commit('error/setCode', response.status, { root:true })
+    }
+    commit('error/setCode', response.status, { root: true })
+  },
+  // パスワード変更
+  async ProfilPasswordeEdit( {commit}, data){
+    const id = state.user_id
+    console.log('ProfilPasswordeEdit' + JSON.stringify(data))
+    const response = await axios.post('/api/profile/password/' + id , data).catch(error => error.response || error)
+    // 422ステータスの処理
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      console.log('ステータスエラーです' + JSON.stringify(response.data.errors))
+      commit('setProfileErrorMessages', response.data.errors)
+    } else {
+      commit('error/setCode', response.status, { root:true })
+    }
+    commit('error/setCode', response.status, { root: true })
   },
   /****************************************
   リロード時にログインチェック

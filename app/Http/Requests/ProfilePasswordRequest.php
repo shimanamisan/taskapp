@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileRequest extends FormRequest
+class ProfilePasswordRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,18 +27,10 @@ class ProfileRequest extends FormRequest
             // ここでのバリデーションはファイルサイズも入れたほうが良い？(10MBを上限とする)
             // ここで指定した profilePhoto というキーが、ajax通信で返ってくる response の中に入っている
             // response.data.errors で拾える
-            'profilePhoto' => 'required|file|mimes:jpg,jpeg,png,gif|max:10240',
-            'name' => 'required',
-            'email' => 'required',
-            'password' => 'required'
+            'password' => 'required|min:8',
+            // パスワードフォームと一致していないとエラーを出す
+            'password_confirmation' => 'required|min:8|same:password',
+
         ];
     }
-
-    // // リクエストコントローラーでバリデーションメッセージを上書きできる
-    // public function messages()
-    // {
-    //     return [
-    //         'required' => '入力必須です'
-    //     ];
-    // }
 }

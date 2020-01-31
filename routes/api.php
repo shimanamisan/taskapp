@@ -28,8 +28,21 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
-// プロフィール変更
-Route::post('/profile/{id}', 'ProfileController@profileEdit')->name('profile.profileEdit');
+
+/****************************************
+プロフィール変更
+*****************************************/
+// プロフィール画像
+Route::post('/profile/image/{id}', 'ProfileController@ProfileImageEdit')->name('profile.ProfileImageEdit');
+// 名前変更
+Route::post('/profile/name/{id}', 'ProfileController@ProfileNameEdit')->name('profile.ProfileNameEdit');
+// email変更
+Route::post('/profile/email/{id}', 'ProfileController@ProfileEmailEdit')->name('profile.ProfileEmailEdit');
+// パスワード変更
+Route::post('/profile/password/{id}', 'ProfileController@ProfilPasswordeEdit')->name('profile.ProfilPasswordeEdit');
+
+
+
 // Route::post('/profile/{id}',function(){
 //     dd(request()->all());
 //     $file_name = request()->file->getClientOriginalName();

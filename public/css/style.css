@@ -549,12 +549,23 @@ input {
   opacity: 0;
 }
 
+.c-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
 .c-modal--body {
   position: fixed;
   left: 50%;
   top: 50%;
-  width: 70vw;
-  height: 70vh;
+  width: 70%;
+  max-width: 500px;
+  height: 50vh;
   box-sizing: border-box;
   padding: 30px;
   z-index: 99;
@@ -564,14 +575,12 @@ input {
   background-color: #fff;
 }
 
-.c-modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9;
-  background-color: rgba(0, 0, 0, 0.3);
+.c-modal--inner {
+  margin-top: 30px;
+}
+
+.c-modal--btn__passwordEdit {
+  float: right;
 }
 
 .fade-enter-active,
@@ -722,6 +731,15 @@ input {
   margin-right: auto;
   padding: 20px;
   text-align: center;
+}
+
+.p-nav--trigger {
+  float: right;
+}
+
+.p-nav--close {
+  font-size: 30px;
+  vertical-align: middle;
 }
 
 /********************************

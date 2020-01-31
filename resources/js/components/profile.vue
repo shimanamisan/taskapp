@@ -30,7 +30,7 @@
                                         <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="reset">キャンセル</button>
                                       </div>
                                       <div class="u-btn__profile--margin">
-                                        <button class="c-btn c-btn--profile" @click="imageEdit">変更</button>
+                                        <button class="c-btn c-btn--profile" @click="ProfileImageEdit">変更</button>
                                       </div>
                                     </div><!-- l-flex -->
                             </div><!-- end c-form__item -->
@@ -48,10 +48,10 @@
                                   <!-- 変更用ボタン -->
                                   <div class="l-flex u-btn--wrapp" v-show="showName">
                                     <div class="u-btn__profile--margin">
-                                      <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="showName = !showName">キャンセル</button>
+                                      <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="cancelName">キャンセル</button>
                                     </div>
                                     <div class="u-btn__profile--margin">
-                                      <button class="c-btn c-btn--profile" @click="nameEdit">変更</button>
+                                      <button class="c-btn c-btn--profile" @click="ProfileNameEdit">変更</button>
                                     </div>
                                   </div><!-- l-flex -->
                               </div>
@@ -72,7 +72,7 @@
                                     <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="showEmail = !showEmail">キャンセル</button>
                                   </div>
                                   <div class="u-btn__profile--margin">
-                                    <button class="c-btn c-btn--profile" @click="emailEdit">変更</button>
+                                    <button class="c-btn c-btn--profile" @click="ProfileEmailEdit">変更</button>
                                   </div>
                                 </div><!-- l-flex -->
                               <div class="u-btn--wrapp u-btn--password">
@@ -84,7 +84,10 @@
                                   <transition name="fade">
                                       <div key="modal" class="c-modal" v-show="showPassword">
                                           <div class="c-modal--body">
-                                              <div class="c-form__item">
+                                            <div class="p-nav--trigger" @click="showPassword = !showPassword">
+                                              <i class="fas fa-times p-nav--close"></i>
+                                            </div>
+                                              <div class="c-form__item c-modal--inner">
                                                   <label for="" class="c-form-lavel">新しいパスワード</label>
                                                     <!-- バリデーションエラー --->
                                                     <div v-if="profileUploadErrors" class="errors">
@@ -93,13 +96,21 @@
                                                       </ul>
                                                     </div><!--- end errors -->
                                                 
-                                                  <input type="password" class="c-input" v-model="profileData.password">
+                                                <input type="password" class="c-input" v-model="profileData.password">
                                               </div><!-- c-form__item -->
                                               <div class="c-form__item">
                                                 <label for="" class="c-form-lavel">新しいパスワード再入力</label>
-                                                <input type="password" class="c-input" >
+                                                    <!-- バリデーションエラー --->
+                                                    <div v-if="profileUploadErrors" class="errors">
+                                                      <ul v-if="profileUploadErrors.password_confirmation">
+                                                      <li v-for="msg in profileUploadErrors.password_confirmation" :key="msg">{{ msg }}</li>
+                                                      </ul>
+                                                    </div><!--- end errors -->
+                                                <input type="password" class="c-input" v-model="profileData.password_confirmation">
                                               </div>
-                                              <button class="c-btn" @click="showPassword = !showPassword">閉じる</button>
+                                              <div class="u-btn--wrapp u-btn--password c-modal--btn__passwordEdit">
+                                                  <button class="c-btn c-btn--profile" @click="ProfilPasswordeEdit">変更</button>
+                                              </div>
                                           </div>
                                       </div><!-- end c-modal -->
                                       
@@ -158,6 +169,9 @@ export default {
   computed: {
     profileUploadErrors(){
       return this.$store.state.auth.profileErrorMessages
+    },
+    getErrorCode(){
+      return this.$store.state.error.code
     }
   },
   methods: {
@@ -191,6 +205,8 @@ export default {
         this.profileData.profileImage = event.target.files[0]
       },
       reset(){
+        // エラーメッセージが出ていたら消す
+        this.clearError()
         // コンポーネントに持たせたデータを消す
         this.preview = ""
         this.profileImage = null
@@ -200,7 +216,7 @@ export default {
       },
       // AsyncFunction オブジェクトを返す 非同期関数 を定義
       // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function
-      async profileEdit(){
+      async ProfileImageEdit(){
         // プロフィール画像保存の処理
         /*
         1.フォームの値をlaravel側へ非同期で渡す
@@ -215,29 +231,46 @@ export default {
         // 常にリクエストが空とみなされてバリデーションに引っかかる
         // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
         formData.append('profilePhoto', this.profileData.profileImage)
-        formData.append('name', this.profileData.name)
-        formData.append('email', this.profileData.email)
-        formData.append('password', this.profileData.password)
+        // formData.append('name', this.profileData.name)
+        // formData.append('email', this.profileData.email)
+        // formData.append('password', this.profileData.password)
 
         // アクションへファイル情報を渡す
-        await this.$store.dispatch('auth/profileEdit', formData)
+        await this.$store.dispatch('auth/ProfileImageEdit', formData)        
+      },
+      async ProfileNameEdit(){
+        // アクションへファイル情報を渡す
+        await this.$store.dispatch('auth/ProfileNameEdit', { name: this.profileData.name } )
+      
+      },
+      async ProfileEmailEdit(){
+        // アクションへファイル情報を渡す
+        await this.$store.dispatch('auth/ProfileEmailEdit', { email: this.profileData.email } )
+     
+      },
+      async ProfilPasswordeEdit(){
+        // アクションへファイル情報を渡す
+        await this.$store.dispatch('auth/ProfilPasswordeEdit', 
+        { 
+          // これでkey:valueの形でデータをコントローラーへ渡せる
+          password: this.profileData.password,
+          password_confirmation: this.profileData.password_confirmation
+        })
 
-        
-      },
-      async imageEdit(){
-
-      },
-      async nameEdit(){
-        console.log('名前を変える')
-      },
-      async emailEdit(){
-        
-      },
-      async passwordEdit(){
-
+        if(this.getErrorCode === 200){
+          // 送信後入力フォームを空にする
+          this.profileData.password = '',
+          this.profileData.password_confirmation = ''
+          this.showPassword = !this.showPassword
+          this.clearError()
+        }
       },
       cancelPassword(){
         this.showPassword = !this.showPassword
+      },
+      cancelName(){
+        this.clearError()
+        this.showName = !this.showName
       },
 
       /****************************************
@@ -267,9 +300,11 @@ export default {
       clearError(){
         this.$store.commit('auth/setProfileErrorMessages', null)
       },
+      /*************************************************
+       * マイページアクセス時にユーザー情報を取得
+      **************************************************/
       getProfile(){
         axios.get('/api/user').then(response => {
-          console.log('ライフサイクルフックでプロフィールを取得しています')
           this.profileData.name = response.data.name
           this.profileData.email = response.data.email
           this.preview = response.data.pic

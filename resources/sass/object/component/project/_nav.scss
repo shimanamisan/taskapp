@@ -1,7 +1,18 @@
-.p-nav__login{
-  background: $background-color;
-  margin-left: auto;
-  margin-right: auto;
-  padding: $space_xl;
-  text-align: center;
+.p-nav{
+
+  &__login{
+    background: $background-color;
+    margin-left: auto;
+    margin-right: auto;
+    padding: $space_xl;
+    text-align: center;
+  }
+  &--trigger{
+    float: right;
+  }
+  // モーダル閉じるボタン
+  &--close{
+    font-size: 30px;
+    vertical-align: middle;
+  }
 }

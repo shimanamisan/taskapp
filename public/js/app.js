@@ -2794,6 +2794,17 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -2820,6 +2831,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     profileUploadErrors: function profileUploadErrors() {
       return this.$store.state.auth.profileErrorMessages;
+    },
+    getErrorCode: function getErrorCode() {
+      return this.$store.state.error.code;
     }
   },
   methods: {
@@ -2857,7 +2871,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.profileData.profileImage = event.target.files[0];
     },
     reset: function reset() {
-      // コンポーネントに持たせたデータを消す
+      // エラーメッセージが出ていたら消す
+      this.clearError(); // コンポーネントに持たせたデータを消す
+
       this.preview = "";
       this.profileImage = null; // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
 
@@ -2866,8 +2882,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     // AsyncFunction オブジェクトを返す 非同期関数 を定義
     // https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/async_function
-    profileEdit: function () {
-      var _profileEdit = _asyncToGenerator(
+    ProfileImageEdit: function () {
+      var _ProfileImageEdit = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
         var formData;
@@ -2889,15 +2905,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 // 常にリクエストが空とみなされてバリデーションに引っかかる
                 // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
 
-                formData.append('profilePhoto', this.profileData.profileImage);
-                formData.append('name', this.profileData.name);
-                formData.append('email', this.profileData.email);
-                formData.append('password', this.profileData.password); // アクションへファイル情報を渡す
+                formData.append('profilePhoto', this.profileData.profileImage); // formData.append('name', this.profileData.name)
+                // formData.append('email', this.profileData.email)
+                // formData.append('password', this.profileData.password)
+                // アクションへファイル情報を渡す
 
-                _context.next = 7;
-                return this.$store.dispatch('auth/profileEdit', formData);
+                _context.next = 4;
+                return this.$store.dispatch('auth/ProfileImageEdit', formData);
 
-              case 7:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -2905,101 +2921,109 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this);
       }));
 
-      function profileEdit() {
-        return _profileEdit.apply(this, arguments);
+      function ProfileImageEdit() {
+        return _ProfileImageEdit.apply(this, arguments);
       }
 
-      return profileEdit;
+      return ProfileImageEdit;
     }(),
-    imageEdit: function () {
-      var _imageEdit = _asyncToGenerator(
+    ProfileNameEdit: function () {
+      var _ProfileNameEdit = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
+                _context2.next = 2;
+                return this.$store.dispatch('auth/ProfileNameEdit', {
+                  name: this.profileData.name
+                });
+
+              case 2:
               case "end":
                 return _context2.stop();
             }
           }
-        }, _callee2);
+        }, _callee2, this);
       }));
 
-      function imageEdit() {
-        return _imageEdit.apply(this, arguments);
+      function ProfileNameEdit() {
+        return _ProfileNameEdit.apply(this, arguments);
       }
 
-      return imageEdit;
+      return ProfileNameEdit;
     }(),
-    nameEdit: function () {
-      var _nameEdit = _asyncToGenerator(
+    ProfileEmailEdit: function () {
+      var _ProfileEmailEdit = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                console.log('名前を変える');
+                _context3.next = 2;
+                return this.$store.dispatch('auth/ProfileEmailEdit', {
+                  email: this.profileData.email
+                });
 
-              case 1:
+              case 2:
               case "end":
                 return _context3.stop();
             }
           }
-        }, _callee3);
+        }, _callee3, this);
       }));
 
-      function nameEdit() {
-        return _nameEdit.apply(this, arguments);
+      function ProfileEmailEdit() {
+        return _ProfileEmailEdit.apply(this, arguments);
       }
 
-      return nameEdit;
+      return ProfileEmailEdit;
     }(),
-    emailEdit: function () {
-      var _emailEdit = _asyncToGenerator(
+    ProfilPasswordeEdit: function () {
+      var _ProfilPasswordeEdit = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
+                _context4.next = 2;
+                return this.$store.dispatch('auth/ProfilPasswordeEdit', {
+                  // これでkey:valueの形でデータをコントローラーへ渡せる
+                  password: this.profileData.password,
+                  password_confirmation: this.profileData.password_confirmation
+                });
+
+              case 2:
+                if (this.getErrorCode === 200) {
+                  // 送信後入力フォームを空にする
+                  this.profileData.password = '', this.profileData.password_confirmation = '';
+                  this.showPassword = !this.showPassword;
+                  this.clearError();
+                }
+
+              case 3:
               case "end":
                 return _context4.stop();
             }
           }
-        }, _callee4);
+        }, _callee4, this);
       }));
 
-      function emailEdit() {
-        return _emailEdit.apply(this, arguments);
+      function ProfilPasswordeEdit() {
+        return _ProfilPasswordeEdit.apply(this, arguments);
       }
 
-      return emailEdit;
-    }(),
-    passwordEdit: function () {
-      var _passwordEdit = _asyncToGenerator(
-      /*#__PURE__*/
-      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5() {
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
-          while (1) {
-            switch (_context5.prev = _context5.next) {
-              case 0:
-              case "end":
-                return _context5.stop();
-            }
-          }
-        }, _callee5);
-      }));
-
-      function passwordEdit() {
-        return _passwordEdit.apply(this, arguments);
-      }
-
-      return passwordEdit;
+      return ProfilPasswordeEdit;
     }(),
     cancelPassword: function cancelPassword() {
       this.showPassword = !this.showPassword;
+    },
+    cancelName: function cancelName() {
+      this.clearError();
+      this.showName = !this.showName;
     },
 
     /****************************************
@@ -3033,11 +3057,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     clearError: function clearError() {
       this.$store.commit('auth/setProfileErrorMessages', null);
     },
+
+    /*************************************************
+     * マイページアクセス時にユーザー情報を取得
+    **************************************************/
     getProfile: function getProfile() {
       var _this2 = this;
 
       axios.get('/api/user').then(function (response) {
-        console.log('ライフサイクルフックでプロフィールを取得しています');
         _this2.profileData.name = response.data.name;
         _this2.profileData.email = response.data.email;
         _this2.preview = response.data.pic;
@@ -41109,7 +41136,7 @@ var render = function() {
                           "button",
                           {
                             staticClass: "c-btn c-btn--profile",
-                            on: { click: _vm.imageEdit }
+                            on: { click: _vm.ProfileImageEdit }
                           },
                           [_vm._v("変更")]
                         )
@@ -41187,11 +41214,7 @@ var render = function() {
                             {
                               staticClass:
                                 "c-btn c-btn--profile c-btn--profile__cancel",
-                              on: {
-                                click: function($event) {
-                                  _vm.showName = !_vm.showName
-                                }
-                              }
+                              on: { click: _vm.cancelName }
                             },
                             [_vm._v("キャンセル")]
                           )
@@ -41202,7 +41225,7 @@ var render = function() {
                             "button",
                             {
                               staticClass: "c-btn c-btn--profile",
-                              on: { click: _vm.nameEdit }
+                              on: { click: _vm.ProfileNameEdit }
                             },
                             [_vm._v("変更")]
                           )
@@ -41299,7 +41322,7 @@ var render = function() {
                           "button",
                           {
                             staticClass: "c-btn c-btn--profile",
-                            on: { click: _vm.emailEdit }
+                            on: { click: _vm.ProfileEmailEdit }
                           },
                           [_vm._v("変更")]
                         )
@@ -41341,20 +41364,91 @@ var render = function() {
                   },
                   [
                     _c("div", { staticClass: "c-modal--body" }, [
+                      _c(
+                        "div",
+                        {
+                          staticClass: "p-nav--trigger",
+                          on: {
+                            click: function($event) {
+                              _vm.showPassword = !_vm.showPassword
+                            }
+                          }
+                        },
+                        [_c("i", { staticClass: "fas fa-times p-nav--close" })]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        { staticClass: "c-form__item c-modal--inner" },
+                        [
+                          _c(
+                            "label",
+                            { staticClass: "c-form-lavel", attrs: { for: "" } },
+                            [_vm._v("新しいパスワード")]
+                          ),
+                          _vm._v(" "),
+                          _vm.profileUploadErrors
+                            ? _c("div", { staticClass: "errors" }, [
+                                _vm.profileUploadErrors.password
+                                  ? _c(
+                                      "ul",
+                                      _vm._l(
+                                        _vm.profileUploadErrors.password,
+                                        function(msg) {
+                                          return _c("li", { key: msg }, [
+                                            _vm._v(_vm._s(msg))
+                                          ])
+                                        }
+                                      ),
+                                      0
+                                    )
+                                  : _vm._e()
+                              ])
+                            : _vm._e(),
+                          _vm._v(" "),
+                          _c("input", {
+                            directives: [
+                              {
+                                name: "model",
+                                rawName: "v-model",
+                                value: _vm.profileData.password,
+                                expression: "profileData.password"
+                              }
+                            ],
+                            staticClass: "c-input",
+                            attrs: { type: "password" },
+                            domProps: { value: _vm.profileData.password },
+                            on: {
+                              input: function($event) {
+                                if ($event.target.composing) {
+                                  return
+                                }
+                                _vm.$set(
+                                  _vm.profileData,
+                                  "password",
+                                  $event.target.value
+                                )
+                              }
+                            }
+                          })
+                        ]
+                      ),
+                      _vm._v(" "),
                       _c("div", { staticClass: "c-form__item" }, [
                         _c(
                           "label",
                           { staticClass: "c-form-lavel", attrs: { for: "" } },
-                          [_vm._v("新しいパスワード")]
+                          [_vm._v("新しいパスワード再入力")]
                         ),
                         _vm._v(" "),
                         _vm.profileUploadErrors
                           ? _c("div", { staticClass: "errors" }, [
-                              _vm.profileUploadErrors.password
+                              _vm.profileUploadErrors.password_confirmation
                                 ? _c(
                                     "ul",
                                     _vm._l(
-                                      _vm.profileUploadErrors.password,
+                                      _vm.profileUploadErrors
+                                        .password_confirmation,
                                       function(msg) {
                                         return _c("li", { key: msg }, [
                                           _vm._v(_vm._s(msg))
@@ -41372,13 +41466,15 @@ var render = function() {
                             {
                               name: "model",
                               rawName: "v-model",
-                              value: _vm.profileData.password,
-                              expression: "profileData.password"
+                              value: _vm.profileData.password_confirmation,
+                              expression: "profileData.password_confirmation"
                             }
                           ],
                           staticClass: "c-input",
                           attrs: { type: "password" },
-                          domProps: { value: _vm.profileData.password },
+                          domProps: {
+                            value: _vm.profileData.password_confirmation
+                          },
                           on: {
                             input: function($event) {
                               if ($event.target.composing) {
@@ -41386,7 +41482,7 @@ var render = function() {
                               }
                               _vm.$set(
                                 _vm.profileData,
-                                "password",
+                                "password_confirmation",
                                 $event.target.value
                               )
                             }
@@ -41394,30 +41490,22 @@ var render = function() {
                         })
                       ]),
                       _vm._v(" "),
-                      _c("div", { staticClass: "c-form__item" }, [
-                        _c(
-                          "label",
-                          { staticClass: "c-form-lavel", attrs: { for: "" } },
-                          [_vm._v("新しいパスワード再入力")]
-                        ),
-                        _vm._v(" "),
-                        _c("input", {
-                          staticClass: "c-input",
-                          attrs: { type: "password" }
-                        })
-                      ]),
-                      _vm._v(" "),
                       _c(
-                        "button",
+                        "div",
                         {
-                          staticClass: "c-btn",
-                          on: {
-                            click: function($event) {
-                              _vm.showPassword = !_vm.showPassword
-                            }
-                          }
+                          staticClass:
+                            "u-btn--wrapp u-btn--password c-modal--btn__passwordEdit"
                         },
-                        [_vm._v("閉じる")]
+                        [
+                          _c(
+                            "button",
+                            {
+                              staticClass: "c-btn c-btn--profile",
+                              on: { click: _vm.ProfilPasswordeEdit }
+                            },
+                            [_vm._v("変更")]
+                          )
+                        ]
                       )
                     ])
                   ]
@@ -58820,7 +58908,11 @@ var state = {
   *****************************************/
   loginErrorMessages: null,
   registerErrorMessages: null,
-  profileErrorMessages: null
+  profileErrorMessages: null,
+  ProfileImageErrorMessages: null,
+  ProfileNameErrorMessages: null,
+  ProfileEmailErrorMessages: null,
+  ProfilePasswordErrorMessages: null
 };
 /*******************************
 ゲッター
@@ -58842,10 +58934,6 @@ var getters = {
   // プロフィール写真のパスを呼び出す
   getProfileImage: function getProfileImage(state) {
     return state.profileImage ? state.profileImage : '';
-  },
-  // 
-  getProfileErrorMessages: function getProfileErrorMessages(state) {
-    return state.profileErrorMessages ? state.profileErrorMessages : '';
   }
 };
 /*******************************
@@ -58853,17 +58941,19 @@ var getters = {
 ********************************/
 
 var mutations = {
-  // ユーザー名を更新
+  // ユーザー名をセット
   setUser: function setUser(state, username) {
     state.username = username;
   },
-  // ユーザーIDを更新
+  // ユーザーIDをセット
   setId: function setId(state, user_id) {
     state.user_id = user_id;
   },
+  // email情報をセット
   setEmail: function setEmail(state, email) {
     state.email = email;
   },
+  // プロフィール写真のパスをセット
   setPic: function setPic(state, profileImage) {
     state.profileImage = profileImage;
   },
@@ -58879,10 +58969,26 @@ var mutations = {
   setRegisterErrorMessages: function setRegisterErrorMessages(state, messages) {
     state.registerErrorMessages = messages;
   },
-  // プロフィール編集時のエラーハンドリング用ミューテーション
+  // プロフィールバリデーションメッセージをセット
   setProfileErrorMessages: function setProfileErrorMessages(state, messages) {
     state.profileErrorMessages = messages;
-  }
+  } // // プロフィール画像編集時のエラーハンドリング用ミューテーション
+  // setProfileImageErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
+  // // 名前変更時のエラーハンドリング
+  // setProfileNameErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
+  // // email変更時のエラーハンドリング
+  // setProfileEmailErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
+  // // パスワード変更時のエラーハンドリング
+  // setProfilePasswordErrorMessages(state, messages){
+  //   state.profileErrorMessages = messages
+  // },
+
 }; // アクション→コミットでミューテーション呼び出し→ステート更新
 
 var actions = {
@@ -58926,11 +59032,10 @@ var actions = {
               return _context.abrupt("return", false);
 
             case 12:
-              commit('setApiStatus', false);
-              console.log(response.status); // 422ステータスの処理
+              commit('setApiStatus', false); // 422ステータスの処理
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('アクションのregisterメソッドです」：' + JSON.stringify(response.data.errors));
+                console.log('ステータスエラーです');
                 commit('setRegisterErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -58942,7 +59047,7 @@ var actions = {
                 root: true
               }); //{ root: ture }で違うファイルのミューテーションを呼べる
 
-            case 16:
+            case 15:
             case "end":
               return _context.stop();
           }
@@ -59002,10 +59107,10 @@ var actions = {
               return _context2.abrupt("return", false);
 
             case 17:
-              commit('setApiStatus', false);
-              console.log(response.status); // 422ステータスの処理
+              commit('setApiStatus', false); // 422ステータスの処理
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log('ステータスエラーです');
                 commit('setLoginErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59017,7 +59122,7 @@ var actions = {
                 root: true
               }); //{ root: ture }で違うファイルのミューテーションを呼べる
 
-            case 21:
+            case 20:
             case "end":
               return _context2.stop();
           }
@@ -59087,8 +59192,9 @@ var actions = {
   /****************************************
   プロフィール編集
   *****************************************/
-  profileEdit: function () {
-    var _profileEdit = _asyncToGenerator(
+  // 画像変更
+  ProfileImageEdit: function () {
+    var _ProfileImageEdit = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref3, data) {
       var commit, id, response;
@@ -59099,7 +59205,7 @@ var actions = {
               commit = _ref3.commit;
               id = state.user_id;
               _context4.next = 4;
-              return axios.post('/api/profile/' + id, data)["catch"](function (error) {
+              return axios.post('/api/profile/image/' + id, data)["catch"](function (error) {
                 return error.response || error;
               });
 
@@ -59108,7 +59214,7 @@ var actions = {
 
               // 422ステータスの処理
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log('アクションのprofileEditメソッドです');
+                console.log('ステータスエラーです');
                 commit('setProfileErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -59128,11 +59234,157 @@ var actions = {
       }, _callee4);
     }));
 
-    function profileEdit(_x6, _x7) {
-      return _profileEdit.apply(this, arguments);
+    function ProfileImageEdit(_x6, _x7) {
+      return _ProfileImageEdit.apply(this, arguments);
     }
 
-    return profileEdit;
+    return ProfileImageEdit;
+  }(),
+  // 名前変更
+  ProfileNameEdit: function () {
+    var _ProfileNameEdit = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref4, data) {
+      var commit, id, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref4.commit;
+              id = state.user_id;
+              _context5.next = 4;
+              return axios.post('/api/profile/name/' + id, data)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 4:
+              response = _context5.sent;
+
+              // 422ステータスの処理
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log('ステータスエラーです');
+                commit('setProfileErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('setUser', response.data.name);
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 8:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    function ProfileNameEdit(_x8, _x9) {
+      return _ProfileNameEdit.apply(this, arguments);
+    }
+
+    return ProfileNameEdit;
+  }(),
+  // email変更
+  ProfileEmailEdit: function () {
+    var _ProfileEmailEdit = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref5, data) {
+      var commit, id, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+              commit = _ref5.commit;
+              id = state.user_id;
+              _context6.next = 4;
+              return axios.post('/api/profile/email/' + id, data)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 4:
+              response = _context6.sent;
+
+              // 422ステータスの処理
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log('ステータスエラーです');
+                commit('setProfileErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 7:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    function ProfileEmailEdit(_x10, _x11) {
+      return _ProfileEmailEdit.apply(this, arguments);
+    }
+
+    return ProfileEmailEdit;
+  }(),
+  // パスワード変更
+  ProfilPasswordeEdit: function () {
+    var _ProfilPasswordeEdit = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref6, data) {
+      var commit, id, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref6.commit;
+              id = state.user_id;
+              console.log('ProfilPasswordeEdit' + JSON.stringify(data));
+              _context7.next = 5;
+              return axios.post('/api/profile/password/' + id, data)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 5:
+              response = _context7.sent;
+
+              // 422ステータスの処理
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log('ステータスエラーです' + JSON.stringify(response.data.errors));
+                commit('setProfileErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 8:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }));
+
+    function ProfilPasswordeEdit(_x12, _x13) {
+      return _ProfilPasswordeEdit.apply(this, arguments);
+    }
+
+    return ProfilPasswordeEdit;
   }(),
 
   /****************************************
@@ -59141,17 +59393,17 @@ var actions = {
   currentUser: function () {
     var _currentUser = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(context) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(context) {
       var response, loginUser;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
-              _context5.next = 2;
+              _context8.next = 2;
               return axios.get('/api/user');
 
             case 2:
-              response = _context5.sent;
+              response = _context8.sent;
               loginUser = response.data || null;
               console.log(loginUser);
 
@@ -59165,13 +59417,13 @@ var actions = {
 
             case 6:
             case "end":
-              return _context5.stop();
+              return _context8.stop();
           }
         }
-      }, _callee5);
+      }, _callee8);
     }));
 
-    function currentUser(_x8) {
+    function currentUser(_x14) {
       return _currentUser.apply(this, arguments);
     }
 
