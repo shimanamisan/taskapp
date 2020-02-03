@@ -16,6 +16,13 @@
       justify-content: center;
     }
 }
+/********************************************** 
+タスクページ用
+**********************************************/
+.l-task--wrapp{
+  width: 100%;
+  margin: $space_xxl auto;
+}
 
 /********************************************** 
 ログイン・新規登録フォーム用
@@ -39,10 +46,9 @@
   margin: 0 auto;
   padding: 25px 0px 30px 0px;
   box-sizing: border-box;
-
-  &--profile{
-    width: 774px;
-  }
+    &--profile{
+      width: 774px;
+    }
 }
 .l-card__container{
   height: 100%;
@@ -52,9 +58,10 @@
   box-sizing: border-box;
   box-shadow: 0 4px 12px 0 rgba(0,0,0,.08); // これもミキシンでリファクタできそう
   margin-bottom: $space_3l;
-}
-.l-card__content{
-  margin: $space_xl auto;
+
+    &__content{
+      margin: $space_xl auto;
+    }
 }
 
 /********************************************** 

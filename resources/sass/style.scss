@@ -16,7 +16,6 @@
 @import 'layout/main';
 @import 'layout/header';
 @import 'layout/footer';
-@import 'layout/side';
 
 /******************************************************************************
  コンポーネント サイト内で使用されるオブジェクト(モジュール)で汎用性が高いもの
@@ -30,6 +29,7 @@
 @import 'object/component/form';
 @import 'object/component/logo';
 @import 'object/component/task';
+@import 'object/component/folder';
 @import 'object/component/validation_msg';
 
 /***********************************************************************************

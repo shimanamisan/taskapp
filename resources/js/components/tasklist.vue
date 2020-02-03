@@ -1,103 +1,173 @@
 <template>
   <div>
     <Header/>
-    
-      <section class="l-side">
-        <div class="l-side-wrapp__flex">
-            <div class="l-side-sub">
-              <div class="l-side-wrapp">
-                <div class="l-side-user">
-                    <div class="c-task-img">
-                      <img src="https://placehold.jp/150x150.png" alt="">
+      <div class="c-task">
+        <div class="c-task__wrapp c-task__wrapp--primary">
+                <div class="c-task--sidebar">
+                  <div class="c-task--sidebar__wrapp">
+                    <div class="c-task--sidebar__user">
+                        <div class="c-task__avater">
+                          <img src="https://placehold.jp/150x150.png" alt="">
+                        </div>
+                        <h1 class="c-task--sidebar__usertitle">ユーザー名</h1>
                     </div>
-                    <h1 class="c-task-user">ユーザー名</h1>
-                </div>
-              </div>
-              <hr class="u-task-line">
+                  </div><!-- c-task--sidebar__wrapp -->
+                  <hr class="u-task-line">
 
-              <div class="l-side-wrapp">
-                <div class="c-task-wrapp">
-                  <i class="fas fa-bars c-task-item"></i>
-                  <label for="">フォルダタイトル</label>
-                  <div class="c-task-wrapp__icon">
-                    <i class="fas fa-edit c-task-item c-task-item__edit"></i>
-                    <i class="fas fa-trash-alt c-task-item c-task-item__trash"></i>
+                  <div class="c-task--sidebar__wrapp c-task--folder">
+                    <div class="c-task--folder__wrapp">
+                      <i class="fas fa-bars c-task--folder__item"></i>
+                      <label for="">フォルダタイトル</label>
+                
+                    </div>
+                 
                   </div>
-                </div>
-                <div class="c-task-wrapp">
-                  <i class="fas fa-bars c-task-item"></i>
-                  <label for="">フォルダタイトル</label>
-                  <div class="c-task-wrapp__icon">
-                    <i class="fas fa-edit c-task-item c-task-item__edit"></i>
-                    <i class="fas fa-trash-alt c-task-item c-task-item__trash"></i>
+                  <hr class="u-task-folder">
+                  <div class="c-task--sidebar__wrapp">
+                    <i class="fas fa-plus"></i>
+                    <label for="">フォルダを追加する</label>
+                    <input type="text">
                   </div>
-                </div>
-                <div class="c-task-wrapp">
-                  <i class="fas fa-bars c-task-item"></i>
-                  <label for="">フォルダタイトル</label>
-                  <div class="c-task-wrapp__icon">
-                    <i class="fas fa-edit c-task-item c-task-item__edit"></i>
-                    <i class="fas fa-trash-alt c-task-item c-task-item__trash"></i>
-                  </div>
-                </div>
-              </div>
-              <hr class="u-task-folder">
-              <div class="l-side-wrapp">
-                <i class="fas fa-plus"></i>
-                <label for="">フォルダを追加する</label>
-                <input type="text">
-              </div>
+                </div><!-- l-side-sub -->
 
-      
-            </div><!-- l-side-sub -->
+  
+             <div class="c-task--card">
+               <div class="c-task--card__inner">
 
-            <div class="l-side-main">
-              <div class="l-side-wrapp l-side-wrapp__taskbox">
-                サンプルテキスト
-                <div class="c-task">
-                  フォルダタイトル
-                </div>
-                <div>
-                  TODOリスト
-                </div>
-                <div>
-                  <i class="fas fa-plus"></i>
-                  <label for="">新しいタスクを追加</label>
-                </div>
-                <input type="text">
-              </div>
+                        <div class="c-task--todo">
+                                <div class="c-task--todo__header">
+                                  フォルダタイトル
+                                </div>
+                                <div class="c-task--todo__card">
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                                
+                                </div>
+                                <div>
+                                  <i class="fas fa-plus"></i>
+                                  <label for="">新しいタスクを追加</label>
+                                </div>
+                                <input type="text">
+                        </div>
+               </div>
+               <div class="c-task--card__inner">
+
+                        <div class="c-task--todo">
+                                <div class="c-task--todo__header">
+                                  フォルダタイトル
+                                </div>
+                                <div class="c-task--todo__card">
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                  <div class="c-task--todo--list">
+                                    TODOリスト
+                                  </div>
+                                                
+                                </div>
+                                <div>
+                                  <i class="fas fa-plus"></i>
+                                  <label for="">新しいタスクを追加</label>
+                                </div>
+                                <input type="text">
+                        </div>
+               </div>
             </div>
-            <div class="l-side-main">
-              <div class="l-side-wrapp l-side-wrapp__taskbox">
-                サンプルテキスト
-                <div class="c-task">
-                  フォルダタイトル
-                </div>
-                <div>
-                  TODOリスト
-                </div>
-                <div>
-                  <i class="fas fa-plus"></i>
-                  <label for="">新しいタスクを追加</label>
-                </div>
-                <input type="text">
-              </div>
-            </div>
-        </div>
-      </section>
+
+  
+
+         </div><!-- l-side-wrapp__flex -->
+      </div>
   </div>
 </template>
 
 <script>
-  import Header from './header'
+  import Header from './Header'
+  import Todo from './Todo'
+  import Message from './Message'
 
 export default {
+  data(){
+    return{
+      todo_flag: false,
+
+    }
+  },
     components:{
-      Header
+      Header,
+      Todo,
+      Message
     }
 }
 </script>
 
 <style>
 
+
+::-webkit-scrollbar{
+  width: 10px;
+}
+::-webkit-scrollbar-track{
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  box-shadow: inset 0 0 2px #777; 
+}
+::-webkit-scrollbar-thumb{
+  background: #ccc;
+  border-radius: 10px;
+  box-shadow: none;
+}
 </style>

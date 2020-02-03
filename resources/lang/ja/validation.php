@@ -103,6 +103,7 @@ return [
     'required_without'     => ':valuesを指定しない場合は、:attributeを指定してください。',
     'required_without_all' => ':valuesのどれも指定しない場合は、:attributeを指定してください。',
     'same'                 => ':attributeと:otherには同じ値を指定してください。',
+    // 'same'                 => '値が一致していません。',
     'size'                 => [
         'numeric' => ':attributeは:sizeを指定してください。',
         'file'    => ':attributeのファイルは、:sizeキロバイトでなくてはなりません。',
@@ -132,6 +133,7 @@ return [
             'ルール名' => 'カスタムメッセージ',
         ],
     ],
+    
 
     /*
     |--------------------------------------------------------------------------
@@ -144,6 +146,11 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'email' => 'メールアドレス',
+        'password' => 'パスワード',
+        'password_confirmation' => 'パスワード再入力'
+    ],
+    ''
 
 ];

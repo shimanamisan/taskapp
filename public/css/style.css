@@ -216,6 +216,15 @@ input {
 }
 
 /********************************************** 
+タスクページ用
+**********************************************/
+
+.l-task--wrapp {
+  width: 100%;
+  margin: 30px auto;
+}
+
+/********************************************** 
 ログイン・新規登録フォーム用
 **********************************************/
 
@@ -258,7 +267,7 @@ input {
   margin-bottom: 40px;
 }
 
-.l-card__content {
+.l-card__container__content {
   margin: 20px auto;
 }
 
@@ -274,7 +283,7 @@ input {
 }
 
 .l-header__top {
-  height: 100%;
+  height: 100px;
   background: #62ABF8;
 }
 
@@ -318,52 +327,6 @@ input {
   color: #707070;
   display: inline-block;
   margin-right: 30px;
-}
-
-.l-side {
-  width: 100%;
-  margin: 30px auto;
-}
-
-.l-side-user {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-          align-items: center;
-  -webkit-box-pack: center;
-          justify-content: center;
-}
-
-.l-side-wrapp {
-  width: 100%;
-  padding: 10px;
-  box-sizing: border-box;
-}
-
-.l-side-wrapp__flex {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
-  overflow: hidden;
-}
-
-.l-side-main {
-  padding: 20px;
-  margin: 10px;
-  width: 50%;
-  background: #f6f6f6;
-  box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.4);
-  border-radius: 10px;
-}
-
-.l-side-main:last-child {
-  margin-right: 30px;
-}
-
-.l-side-sub {
-  width: 40%;
-  padding: 30px;
 }
 
 /******************************************************************************
@@ -671,54 +634,161 @@ input {
 タスク管理画面用
 **********************************************/
 
-.c-task-user {
+.c-task {
+  width: 100%;
+  display: -webkit-box;
+  display: flex;
+  margin-top: 30px;
+}
+
+.c-task__wrapp {
+  display: -webkit-box;
+  display: flex;
+  margin-bottom: 10px;
+  padding: 10px 15px;
+}
+
+.c-task--sidebar {
+  width: 300px;
+  padding: 30px;
+}
+
+.c-task--sidebar__user {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.c-task--sidebar__usertitle {
   font-size: 18px;
   text-align: center;
 }
 
-.c-task-img {
+.c-task--sidebar__wrapp {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.c-task__avater {
   margin-right: 20px;
   width: 70px;
   height: 70px;
 }
 
-.c-task-img > img {
+.c-task__avater > img {
   border-radius: 50%;
 }
 
-.c-task-wrapp {
-  margin-bottom: 10px;
-  border: 1px solid;
-  padding: 10px 15px;
-  box-shadow: 0px 4px 10px 0px rgba(0, 0, 0, 0.3);
+.c-task--folder {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
-.c-task-wrapp__icon {
-  display: block;
-  float: right;
-  padding: 0 5px;
+.c-task--folder:hover {
+  cursor: pointer;
+  background: #36363638;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
-.c-task-icon__wrap {
-  display: block;
-  float: right;
-  padding: 0 5px;
-}
-
-.c-task-item {
+.c-task--folder__item {
   margin-right: 15px;
 }
 
-.c-task-item__trash {
-  margin-right: -10px;
+.c-task--folder__wrapp {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
+}
+
+.c-task--card {
+  display: -webkit-box;
+  display: flex;
+  height: calc(100vh - 180px);
+}
+
+.c-task--todo {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-direction: column;
+  padding: 15px;
+  min-width: 290px;
+  width: 290px;
+  height: 100%;
+  border-radius: 8px;
+  background-color: #f9f7f5;
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  margin: 0 15px 10px 0;
+  overflow-y: auto;
+  border-radius: 5px;
+}
+
+.c-task--todo__wrapp {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.c-task--todo__header {
+  padding-top: 10px;
+}
+
+.c-task--todo--list {
+  padding: 5px 10px;
+  height: 50px;
+  background: #ffffff;
+  margin-bottom: 10px;
 }
 
 .fas {
   cursor: pointer;
+  vertical-align: middle;
+}
+
+.c-folder {
+  display: -webkit-box;
+  display: flex;
+}
+
+.c-folder--wrapp {
+  display: -webkit-box;
+  display: flex;
+  width: 40%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.c-folder--avatar {
+  -webkit-box-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+          justify-content: center;
+}
+
+.c-folder--avatar--title {
+  font-size: 18px;
+  text-align: center;
+}
+
+.c-folder--avatar__img {
+  margin-right: 20px;
+  width: 70px;
+  height: 70px;
+}
+
+.c-folder--avatar__img > img {
+  border-radius: 50%;
 }
 
 .errors {
   color: red;
+  font-style: 14px;
 }
 
 /***********************************************************************************
@@ -890,6 +960,10 @@ input {
 }
 
 .u-inner__l {
+  padding: 1rem;
+}
+
+.u-inner--l {
   padding: 1rem;
 }
 

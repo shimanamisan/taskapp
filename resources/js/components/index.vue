@@ -113,7 +113,7 @@
 </template>
 
 <script>
-  import Header from './header'
+  import Header from './Header'
   import Footer from './footer'
 export default {
   components: {

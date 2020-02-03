@@ -3,43 +3,103 @@
 **********************************************/
 .c-task{
 
-  &-user{
-    font-size: $font-size-l;
-    text-align: center;
-  }
-  &-img{
-    margin-right: $space_xl;
-    width: 70px;
-    height: 70px;
-    > img {
-      @include custumRadius(50%);
-    }
-  }
-  &-wrapp{
+  // 共通レイアウト
+  width: 100%;
+  display: flex;
+  margin-top: $space_xxl;
+  &__wrapp{
+    display: flex;
     margin-bottom: 10px;
-    border: 1px solid;
     padding: 10px 15px;
-    @include custumShadow();
+      // &--primary{
+      // }
+  }
 
-      &__icon{
-        display: block;
-        float: right;
-        padding: 0 5px;
+    // ここからサイドバー
+    &--sidebar{
+      width: 300px;
+      padding: $space_xxl;
+      
+        &__user{
+          display: flex;
+          align-items: center;
+          justify-content: center;
+        }
+        &__usertitle{
+          font-size: $font-size-l;
+          text-align: center;
+        }
+
+        &__wrapp{
+          width: 100%;
+          padding: 10px;
+          box-sizing: border-box;
+        }
+    }
+    &__avater{
+      margin-right: $space_xl;
+      width: 70px;
+      height: 70px;
+      > img {
+        @include custumRadius(50%);
       }
-  }
+    }
+
+    &--folder{
+      transition: .5s;
+      &:hover{
+        cursor: pointer;
+        background: #36363638;
+        transition: .5s;
+      }
+      &__item{
+        margin-right: 15px;
+      }
+      &__wrapp{
+        display: flex;
+        align-items: center;
+      
+      }
+    }
+
+    // ここからTODOリスト側
+    &--card{
+        display: flex;
+        height: calc(100vh - 180px);
+        &__inner{
+       
+        }
+    }
+    &--todo{
+      display: flex;
+      flex-direction: column;
+      padding: 15px;
+      min-width: 290px;
+      width: 290px;
+      height: 100%;
+      border-radius: 8px;
+      background-color: #f9f7f5;
+      box-shadow: 0 1px 2px 0 rgba(0,0,0,0.2);
+      margin: 0 15px 10px 0;
+      overflow-y: auto;
+      @include custumRadius(5px);
+        &__wrapp{
+          width: 100%;
+          box-sizing: border-box;
+        }
+        &__header{
+          padding-top: 10px;
+        }
+        &--list{
+          padding: 5px 10px;
+          height: 50px;
+          background: #ffffff;
+          margin-bottom: 10px;
+        }
+    }
 }
-.c-task-icon__wrap{
-  display: block;
-  float: right;
-  padding: 0 5px;
-}
-.c-task-item{
-  margin-right: 15px;
-   
-  &__trash{
-    margin-right: -10px;
-  }
-}
+
 .fas{
   cursor: pointer;
+  vertical-align: middle;
 }

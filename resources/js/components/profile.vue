@@ -84,7 +84,7 @@
                                   <transition name="fade">
                                       <div key="modal" class="c-modal" v-show="showPassword">
                                           <div class="c-modal--body">
-                                            <div class="p-nav--trigger" @click="showPassword = !showPassword">
+                                            <div class="p-nav--trigger" @click="ShowPasswordTrigger">
                                               <i class="fas fa-times p-nav--close"></i>
                                             </div>
                                               <div class="c-form__item c-modal--inner">
@@ -140,7 +140,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import Header from './header'
+import Header from './Header'
 
 export default {
   data(){
@@ -265,7 +265,10 @@ export default {
         this.clearError()
         this.showName = !this.showName
       },
-
+      ShowPasswordTrigger(){
+        this.clearError()
+        this.showPassword = !this.showPassword
+      },
       /****************************************
        * focus処理のメソッド
       *****************************************/

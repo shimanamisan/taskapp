@@ -1,0 +1,28 @@
+.c-folder{
+  display: flex;
+  
+  &--wrapp{
+    display: flex;
+    width: 40%;
+    padding: 10px;
+    box-sizing: border-box;
+  }
+  &--avatar{
+
+    align-items: center;
+    justify-content: center;
+    &--title{
+      font-size: $font-size-l;
+      text-align: center;
+    }
+    &__img{
+      margin-right: $space_xl;
+      width: 70px;
+      height: 70px;
+      > img {
+        @include custumRadius(50%);
+      }
+    }
+  }
+}
+

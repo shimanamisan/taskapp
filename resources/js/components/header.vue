@@ -6,7 +6,7 @@
     </div>
     <nav>
         <ul v-if="apiStatus">
-          <li v-if="isLogin"><i class="fas fa-user-tie p-header p-header--icon"></i><span class="p-header p-header--title">{{ username }}</span></li>
+          <li v-if="isLogin"><router-link to="/tasklist"><i class="fas fa-user-tie p-header p-header--icon"></i><span class="p-header p-header--title">{{ username }}</span></router-link></li>
           <li><router-link to="profile" class="c-btn c-header__signin">マイページ</router-link></li>
           <li><div @click="logout" class="c-btn c-header__login">ログアウト</div></li>
         </ul>
