@@ -143,6 +143,7 @@ button {
 html,
 body {
   width: 100%;
+  height: 100%;
   color: #707070;
   font-size: 16px;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "\30D2\30E9\30AE\30CE\89D2\30B4   ProN W3", Hiragino Kaku Gothic ProN, Arial, Meiryo, sans-serif;
@@ -635,17 +636,34 @@ input {
 **********************************************/
 
 .c-task {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-flow: column;
+  margin-top: 30px;
+  height: calc(100vh - 64px);
+}
+
+.c-task-content {
+  -webkit-box-flex: 1;
+          flex: 1;
   width: 100%;
   display: -webkit-box;
   display: flex;
-  margin-top: 30px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+          flex-flow: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: auto;
 }
 
-.c-task__wrapp {
+.c-task-owner {
   display: -webkit-box;
   display: flex;
-  margin-bottom: 10px;
-  padding: 10px 15px;
+  height: 100%;
+  overflow: hidden;
 }
 
 .c-task--sidebar {
@@ -709,7 +727,11 @@ input {
 .c-task--card {
   display: -webkit-box;
   display: flex;
-  height: calc(100vh - 180px);
+  height: 100%;
+}
+
+.c-task--card__inner {
+  height: 100%;
 }
 
 .c-task--todo {
@@ -722,12 +744,28 @@ input {
   min-width: 290px;
   width: 290px;
   height: 100%;
-  border-radius: 8px;
   background-color: #f9f7f5;
-  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
   margin: 0 15px 10px 0;
   overflow-y: auto;
-  border-radius: 5px;
+  border-radius: 8px;
+}
+
+.c-task--todo--textAreaWrapp {
+  padding: 10px 0;
+  box-sizing: border-box;
+}
+
+.c-task--todo--textArea {
+  min-height: 50px;
+  width: 100%;
+  font-size: 12px;
+  color: #4a4a4a;
+  border: none;
+  border-top: 1px solid #efefef;
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2);
 }
 
 .c-task--todo__wrapp {
@@ -736,14 +774,38 @@ input {
 }
 
 .c-task--todo__header {
-  padding-top: 10px;
+  padding: 10px 0;
+}
+
+.c-task--todo--counter {
+  color: #7760f8;
+  margin-left: 5px;
 }
 
 .c-task--todo--list {
   padding: 5px 10px;
-  height: 50px;
+  height: 60px;
   background: #ffffff;
   margin-bottom: 10px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2);
+}
+
+.c-task--todo--push {
+  font-size: 14px;
+  text-align: center;
+  height: 30px;
+  color: #62ABF8;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+.c-task--todo--push:hover {
+  cursor: pointer;
+  opacity: 0.6;
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
 }
 
 .fas {
@@ -928,7 +990,7 @@ input {
 }
 
 .p-header--title {
-  margin-right: 10px;
+  margin-left: 10px;
 }
 
 /***********************************************************************************

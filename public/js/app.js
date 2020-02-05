@@ -3325,14 +3325,107 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      todo_flag: false
+      TodoEdit_flg: null,
+      todoInputForm: '',
+      todo: []
     };
+  },
+  methods: {
+    clearInputForm: function clearInputForm() {
+      this.todoInputForm = '';
+      this.TodoEdit_flg = !this.TodoEdit_flg;
+    }
   },
   components: {
     Header: _Header__WEBPACK_IMPORTED_MODULE_0__["default"],
@@ -40203,13 +40296,19 @@ var render = function() {
                     "li",
                     [
                       _c("router-link", { attrs: { to: "/tasklist" } }, [
-                        _c("i", {
-                          staticClass: "fas fa-user-tie p-header p-header--icon"
-                        }),
                         _c(
-                          "span",
-                          { staticClass: "p-header p-header--title" },
-                          [_vm._v(_vm._s(_vm.username))]
+                          "i",
+                          {
+                            staticClass:
+                              "fas fa-user-tie p-header p-header--icon"
+                          },
+                          [
+                            _c(
+                              "span",
+                              { staticClass: "p-header p-header--title" },
+                              [_vm._v(_vm._s(_vm.username))]
+                            )
+                          ]
                         )
                       ])
                     ],
@@ -40246,12 +40345,19 @@ var render = function() {
           : _c("ul", [
               _vm.isLogin
                 ? _c("li", [
-                    _c("i", {
-                      staticClass: "fas fa-user-tie p-header p-header--icon"
-                    }),
-                    _c("span", { staticClass: "p-header p-header--title" }, [
-                      _vm._v(_vm._s(_vm.username))
-                    ])
+                    _c(
+                      "i",
+                      {
+                        staticClass: "fas fa-user-tie p-header p-header--icon"
+                      },
+                      [
+                        _c(
+                          "span",
+                          { staticClass: "p-header p-header--title" },
+                          [_vm._v(_vm._s(_vm.username))]
+                        )
+                      ]
+                    )
                   ])
                 : _vm._e(),
               _vm._v(" "),
@@ -41994,216 +42100,594 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [_c("Header"), _vm._v(" "), _vm._m(0)], 1)
+  return _c(
+    "div",
+    [
+      _c("Header"),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task" }, [
+        _c("div", { staticClass: "c-task-content" }, [
+          _c("div", { staticClass: "c-task-owner" }, [
+            _vm._m(0),
+            _vm._v(" "),
+            _c("div", { staticClass: "c-task--card" }, [
+              _c("div", { staticClass: "c-task--card__inner" }, [
+                _c("div", { staticClass: "c-task--todo" }, [
+                  _vm._m(1),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.TodoEdit_flg,
+                          expression: "!TodoEdit_flg"
+                        }
+                      ],
+                      staticClass: "c-task--todo--list c-task--todo--push",
+                      on: {
+                        click: function($event) {
+                          _vm.TodoEdit_flg = !_vm.TodoEdit_flg
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                      ＋ 新しいタスクを追加\n                                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.TodoEdit_flg,
+                          expression: "TodoEdit_flg"
+                        }
+                      ],
+                      staticClass: "c-task--todo--textAreaWrapp"
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.todoInputForm,
+                            expression: "todoInputForm"
+                          }
+                        ],
+                        staticClass: "c-task--todo--textArea",
+                        attrs: { type: "input" },
+                        domProps: { value: _vm.todoInputForm },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.todoInputForm = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "l-flex u-btn--wrapp" }, [
+                        _c("div", { staticClass: "u-btn__profile--margin" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "c-btn c-btn--profile c-btn--profile__cancel",
+                              on: { click: _vm.clearInputForm }
+                            },
+                            [_vm._v("キャンセル")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(2)
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(3)
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "c-task--card" }, [
+              _c("div", { staticClass: "c-task--card__inner" }, [
+                _c("div", { staticClass: "c-task--todo" }, [
+                  _vm._m(4),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.TodoEdit_flg,
+                          expression: "!TodoEdit_flg"
+                        }
+                      ],
+                      staticClass: "c-task--todo--list c-task--todo--push",
+                      on: {
+                        click: function($event) {
+                          _vm.TodoEdit_flg = !_vm.TodoEdit_flg
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                      ＋ 新しいタスクを追加\n                                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.TodoEdit_flg,
+                          expression: "TodoEdit_flg"
+                        }
+                      ],
+                      staticClass: "c-task--todo--textAreaWrapp"
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.todoInputForm,
+                            expression: "todoInputForm"
+                          }
+                        ],
+                        staticClass: "c-task--todo--textArea",
+                        attrs: { type: "input" },
+                        domProps: { value: _vm.todoInputForm },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.todoInputForm = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "l-flex u-btn--wrapp" }, [
+                        _c("div", { staticClass: "u-btn__profile--margin" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "c-btn c-btn--profile c-btn--profile__cancel",
+                              on: { click: _vm.clearInputForm }
+                            },
+                            [_vm._v("キャンセル")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(5)
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(6)
+                ])
+              ])
+            ]),
+            _vm._v(" "),
+            _c("div", { staticClass: "c-task--card" }, [
+              _c("div", { staticClass: "c-task--card__inner" }, [
+                _c("div", { staticClass: "c-task--todo" }, [
+                  _vm._m(7),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: !_vm.TodoEdit_flg,
+                          expression: "!TodoEdit_flg"
+                        }
+                      ],
+                      staticClass: "c-task--todo--list c-task--todo--push",
+                      on: {
+                        click: function($event) {
+                          _vm.TodoEdit_flg = !_vm.TodoEdit_flg
+                        }
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n                                      ＋ 新しいタスクを追加\n                                    "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c(
+                    "div",
+                    {
+                      directives: [
+                        {
+                          name: "show",
+                          rawName: "v-show",
+                          value: _vm.TodoEdit_flg,
+                          expression: "TodoEdit_flg"
+                        }
+                      ],
+                      staticClass: "c-task--todo--textAreaWrapp"
+                    },
+                    [
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.todoInputForm,
+                            expression: "todoInputForm"
+                          }
+                        ],
+                        staticClass: "c-task--todo--textArea",
+                        attrs: { type: "input" },
+                        domProps: { value: _vm.todoInputForm },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.todoInputForm = $event.target.value
+                          }
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("div", { staticClass: "l-flex u-btn--wrapp" }, [
+                        _c("div", { staticClass: "u-btn__profile--margin" }, [
+                          _c(
+                            "button",
+                            {
+                              staticClass:
+                                "c-btn c-btn--profile c-btn--profile__cancel",
+                              on: { click: _vm.clearInputForm }
+                            },
+                            [_vm._v("キャンセル")]
+                          )
+                        ]),
+                        _vm._v(" "),
+                        _vm._m(8)
+                      ])
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _vm._m(9)
+                ])
+              ])
+            ])
+          ])
+        ])
+      ])
+    ],
+    1
+  )
 }
 var staticRenderFns = [
   function() {
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-task" }, [
-      _c("div", { staticClass: "c-task__wrapp c-task__wrapp--primary" }, [
-        _c("div", { staticClass: "c-task--sidebar" }, [
-          _c("div", { staticClass: "c-task--sidebar__wrapp" }, [
-            _c("div", { staticClass: "c-task--sidebar__user" }, [
-              _c("div", { staticClass: "c-task__avater" }, [
-                _c("img", {
-                  attrs: { src: "https://placehold.jp/150x150.png", alt: "" }
-                })
-              ]),
-              _vm._v(" "),
-              _c("h1", { staticClass: "c-task--sidebar__usertitle" }, [
-                _vm._v("ユーザー名")
-              ])
-            ])
+    return _c("div", { staticClass: "c-task--sidebar" }, [
+      _c("div", { staticClass: "c-task--sidebar__wrapp" }, [
+        _c("div", { staticClass: "c-task--sidebar__user" }, [
+          _c("div", { staticClass: "c-task__avater" }, [
+            _c("img", {
+              attrs: { src: "https://placehold.jp/150x150.png", alt: "" }
+            })
           ]),
           _vm._v(" "),
-          _c("hr", { staticClass: "u-task-line" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "c-task--sidebar__wrapp c-task--folder" }, [
-            _c("div", { staticClass: "c-task--folder__wrapp" }, [
-              _c("i", { staticClass: "fas fa-bars c-task--folder__item" }),
-              _vm._v(" "),
-              _c("label", { attrs: { for: "" } }, [_vm._v("フォルダタイトル")])
-            ])
-          ]),
-          _vm._v(" "),
-          _c("hr", { staticClass: "u-task-folder" }),
-          _vm._v(" "),
-          _c("div", { staticClass: "c-task--sidebar__wrapp" }, [
-            _c("i", { staticClass: "fas fa-plus" }),
-            _vm._v(" "),
-            _c("label", { attrs: { for: "" } }, [_vm._v("フォルダを追加する")]),
-            _vm._v(" "),
-            _c("input", { attrs: { type: "text" } })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "c-task--card" }, [
-          _c("div", { staticClass: "c-task--card__inner" }, [
-            _c("div", { staticClass: "c-task--todo" }, [
-              _c("div", { staticClass: "c-task--todo__header" }, [
-                _vm._v(
-                  "\n                                フォルダタイトル\n                              "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "c-task--todo__card" }, [
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("i", { staticClass: "fas fa-plus" }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "" } }, [
-                  _vm._v("新しいタスクを追加")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("input", { attrs: { type: "text" } })
-            ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "c-task--card__inner" }, [
-            _c("div", { staticClass: "c-task--todo" }, [
-              _c("div", { staticClass: "c-task--todo__header" }, [
-                _vm._v(
-                  "\n                                フォルダタイトル\n                              "
-                )
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "c-task--todo__card" }, [
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "c-task--todo--list" }, [
-                  _vm._v(
-                    "\n                                  TODOリスト\n                                "
-                  )
-                ])
-              ]),
-              _vm._v(" "),
-              _c("div", [
-                _c("i", { staticClass: "fas fa-plus" }),
-                _vm._v(" "),
-                _c("label", { attrs: { for: "" } }, [
-                  _vm._v("新しいタスクを追加")
-                ])
-              ]),
-              _vm._v(" "),
-              _c("input", { attrs: { type: "text" } })
-            ])
+          _c("h1", { staticClass: "c-task--sidebar__usertitle" }, [
+            _vm._v("ユーザー名")
           ])
         ])
+      ]),
+      _vm._v(" "),
+      _c("hr", { staticClass: "u-task-line" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--sidebar__wrapp c-task--folder" }, [
+        _c("div", { staticClass: "c-task--folder__wrapp" }, [
+          _c("i", { staticClass: "fas fa-bars c-task--folder__item" }),
+          _vm._v(" "),
+          _c("label", { attrs: { for: "" } }, [_vm._v("フォルダタイトル")])
+        ])
+      ]),
+      _vm._v(" "),
+      _c("hr", { staticClass: "u-task-folder" }),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--sidebar__wrapp" }, [
+        _c("i", { staticClass: "fas fa-plus" }),
+        _vm._v(" "),
+        _c("label", { attrs: { for: "" } }, [_vm._v("フォルダを追加する")]),
+        _vm._v(" "),
+        _c("input", { attrs: { type: "text" } })
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--todo__header" }, [
+      _vm._v(
+        "\n                              タスクタイトル\n                              "
+      ),
+      _c(
+        "label",
+        { staticClass: "c-task--todo--counter", attrs: { for: "" } },
+        [_vm._v("0")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "u-btn__profile--margin" }, [
+      _c("button", { staticClass: "c-btn c-btn--profile" }, [_vm._v("変更")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--todo__card" }, [
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--todo__header" }, [
+      _vm._v(
+        "\n                              タスクタイトル\n                              "
+      ),
+      _c(
+        "label",
+        { staticClass: "c-task--todo--counter", attrs: { for: "" } },
+        [_vm._v("0")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "u-btn__profile--margin" }, [
+      _c("button", { staticClass: "c-btn c-btn--profile" }, [_vm._v("変更")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--todo__card" }, [
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--todo__header" }, [
+      _vm._v(
+        "\n                              タスクタイトル\n                              "
+      ),
+      _c(
+        "label",
+        { staticClass: "c-task--todo--counter", attrs: { for: "" } },
+        [_vm._v("0")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "u-btn__profile--margin" }, [
+      _c("button", { staticClass: "c-btn c-btn--profile" }, [_vm._v("変更")])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--todo__card" }, [
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
+      ]),
+      _vm._v(" "),
+      _c("div", { staticClass: "c-task--todo--list" }, [
+        _vm._v(
+          "\n                                      TODOリスト\n                                    "
+        )
       ])
     ])
   }
