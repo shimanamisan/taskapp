@@ -4,11 +4,11 @@ import VueRouter from 'vue-router'
 
 // ルーティング用ページ
 import Index from './components/index'
-import TaskList from './components/tasklist'
-import Profile from './components/profile'
-import Login from './components/page/login'
-import Register from './components/page/register'
-import PasswordReminder from './components/page/passwordReminder'
+import TaskList from './components/TaskList'
+import Profile from './components/Profile'
+import Login from './components/page/Login'
+import Register from './components/page/Register'
+import PasswordReminder from './components/page/PasswordReminder'
 import PasswordReset from './components/page/PasswordReset'
 import SystemError from './components/page/error/SystemError.vue'
 

@@ -17,14 +17,16 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+/****************************************
+ユーザー認証処理
+*****************************************/
 // 会員登録
 Route::post('/register', 'Auth\RegisterController@register')->name('register');
 // ログイン
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 // ログアウト
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
-// ログインユーザー（ログインしているユーザーを返すだけなのでコントローラーは作成しない）
-// プロフィール一覧でも使う
+// ログインユーザー取得（ログインしているユーザーを返すだけなのでコントローラーは作成しない）、プロフィール一覧でも使う
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
@@ -33,7 +35,7 @@ Route::get('/user', function () {
 プロフィール変更
 *****************************************/
 // プロフィール画像
-Route::post('/profile/image/{id}', 'ProfileController@ProfileImageEdit')->name('profile.ProfileImageEdit');
+Route::post('/profile/image/{id}', 'ProfileController@ProfileImageEdit')->name('profile.ProfileImageEdit'); // 名前をつけることでview側で効率よくURLを生成できる（SPAでは使用しない？）
 // 名前変更
 Route::post('/profile/name/{id}', 'ProfileController@ProfileNameEdit')->name('profile.ProfileNameEdit');
 // email変更
@@ -43,7 +45,11 @@ Route::post('/profile/password/{id}', 'ProfileController@ProfilPasswordeEdit')->
 // ユーザー論理削除
 Route::delete('/profile/delete/{id}', 'ProfileController@ProfileUserDelete')->name('profile.ProfileUserDelete');
 
-
+/****************************************
+タスク管理
+*****************************************/
+// フォルダー一覧
+Route::get('/folder/{id}/tasks, TaskController@index')->name('task.index');
 
 // Route::post('/profile/{id}',function(){
 //     dd(request()->all());

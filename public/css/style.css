@@ -636,34 +636,45 @@ input {
 **********************************************/
 
 .c-task {
+  height: calc(100vh - 100px);
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-flow: column;
-  margin-top: 30px;
-  height: calc(100vh - 64px);
+  overflow-y: hidden;
 }
 
-.c-task-content {
-  -webkit-box-flex: 1;
-          flex: 1;
+.c-task--content {
   width: 100%;
   display: -webkit-box;
   display: flex;
   -webkit-box-orient: vertical;
   -webkit-box-direction: normal;
           flex-flow: column;
-  overflow-x: hidden;
-  overflow-y: auto;
-  height: auto;
+  overflow-y: hidden;
 }
 
-.c-task-owner {
+.c-task--borad01 {
   display: -webkit-box;
   display: flex;
   height: 100%;
-  overflow: hidden;
+}
+
+.c-task--borad02 {
+  width: 100%;
+  padding-right: 0;
+  height: 100%;
+  background-color: #fff;
+}
+
+.c-task--borad03 {
+  margin-top: 35px;
+  display: -webkit-box;
+  display: flex;
+  height: 100%;
+  width: 100%;
+  white-space: nowrap;
 }
 
 .c-task--sidebar {
@@ -731,7 +742,7 @@ input {
 }
 
 .c-task--card__inner {
-  height: 100%;
+  height: 85%;
 }
 
 .c-task--todo {
@@ -751,12 +762,12 @@ input {
   border-radius: 8px;
 }
 
-.c-task--todo--textAreaWrapp {
+.c-task--todo--inputAreaWrapp {
   padding: 10px 0;
   box-sizing: border-box;
 }
 
-.c-task--todo--textArea {
+.c-task--todo--inputArea {
   min-height: 50px;
   width: 100%;
   font-size: 12px;
