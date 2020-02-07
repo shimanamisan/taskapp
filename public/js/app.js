@@ -2477,6 +2477,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       return ProfilPasswordeEdit;
     }(),
     cancelPassword: function cancelPassword() {
+      this.profileData.password = '';
+      this.profileData.password_confirmation = "";
+      this.clearError();
       this.showPassword = !this.showPassword;
     },
     cancelName: function cancelName() {

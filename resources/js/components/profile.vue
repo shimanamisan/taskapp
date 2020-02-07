@@ -259,6 +259,9 @@ export default {
         }
       },
       cancelPassword(){
+        this.profileData.password = ''
+        this.profileData.password_confirmation = ""
+        this.clearError()
         this.showPassword = !this.showPassword
       },
       cancelName(){
