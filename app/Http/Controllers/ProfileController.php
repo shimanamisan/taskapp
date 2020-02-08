@@ -97,7 +97,7 @@ class ProfileController extends Controller
         パスワードを更新
         ****************************************/
         // password と password_confirmation のバリデーションはリクエストコントローラで行っている
-        $user =  Auth::user();
+        $user = Auth::user();
         $user->password = bcrypt($request->get('password'));
         $user->save();
 

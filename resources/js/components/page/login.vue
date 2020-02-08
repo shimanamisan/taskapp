@@ -86,7 +86,7 @@ export default {
     // ...mapStateを使った書き方
     ...mapState({
       isLogin: state => getters['auth/check'],
-      apiStatus: state => state.auth.apiStatus,
+      apiStatus: state => state.auth.apiStatus, // ここもゲッターにできる？
       loginErrors: state => state.auth.loginErrorMessages
     })
   },

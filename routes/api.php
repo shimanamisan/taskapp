@@ -49,7 +49,7 @@ Route::delete('/profile/delete/{id}', 'ProfileController@ProfileUserDelete')->na
 タスク管理
 *****************************************/
 // フォルダー一覧
-Route::get('/folder/{id}/tasks, TaskController@index')->name('task.index');
+Route::get('/folder', 'TaskController@index')->name('task.index');
 
 // Route::post('/profile/{id}',function(){
 //     dd(request()->all());

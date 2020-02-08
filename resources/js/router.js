@@ -4,7 +4,7 @@ import VueRouter from 'vue-router'
 
 // ルーティング用ページ
 import Index from './components/index'
-import TaskList from './components/TaskList'
+import TaskFolder from './components/TaskFolder'
 import Profile from './components/Profile'
 import Login from './components/page/Login'
 import Register from './components/page/Register'
@@ -75,7 +75,7 @@ export default new VueRouter({
     {
       // タスク管理ページ
       path: '/tasklist',
-      component: TaskList,
+      component: TaskFolder,
         // ナビゲーションガード
         beforeEnter(to, from, next){
         // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する

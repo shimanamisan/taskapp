@@ -15,15 +15,11 @@ const state = {
   loginErrorMessages: null,
   registerErrorMessages: null,
   profileErrorMessages: null,
-  ProfileImageErrorMessages: null,
-  ProfileNameErrorMessages: null,
-  ProfileEmailErrorMessages: null,
-  ProfilePasswordErrorMessages: null,
 }
 
-/*******************************
-ゲッター
-********************************/
+/***********************************
+ゲッター（アロー関数で短縮形で記述）
+************************************/
 const getters = {
   // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
   check: state => !! state.username,
@@ -36,6 +32,9 @@ const getters = {
 
   // プロフィール写真のパスを呼び出す
   getProfileImage: state => state.profileImage ? state.profileImage : '',
+
+  // エラーメッセージを取得
+  // profileErrorMessages: state => state.profileErrorMessages ? state.profileErrorMessages : ''
 }
 
 /*******************************
@@ -200,7 +199,10 @@ const actions = {
     } else {
       commit('error/setCode', response.status, { root:true })
     }
-    commit('setUser', response.data.name) 
+
+      if(response.data.name){
+        commit('setUser', response.data.name) 
+      }
     commit('error/setCode', response.status, { root: true })
 
   },

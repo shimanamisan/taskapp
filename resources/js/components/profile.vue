@@ -167,12 +167,18 @@ export default {
     }
   },
   computed: {
-    profileUploadErrors(){
-      return this.$store.state.auth.profileErrorMessages
-    },
-    getErrorCode(){
-      return this.$store.state.error.code
-    }
+
+    ...mapState({
+      profileUploadErrors: state => state.auth.profileErrorMessages,
+      getErrorCode: state => getters['error/code']
+    })
+    // profileUploadErrors(){
+    //   // エラーメッセージがあった際にストアより取得
+    //   return this.$store.state.auth.profileErrorMessages
+    // },
+    // getErrorCode(){
+    //   return this.$store.state.error.code
+    // }
   },
   methods: {
       // フォームでファイルが選択されたら実行
@@ -307,9 +313,9 @@ export default {
           this.profileData.name = response.data.name
           this.profileData.email = response.data.email
           this.preview = response.data.pic
-        }).catch(
-          // ストアのアクションで管理したほうが良いか？
-        )
+        }).catch({
+  
+        })
       }
   },
   created(){
