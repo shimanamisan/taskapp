@@ -1,5 +1,7 @@
 <template>
-  <div class="v-div">
+ <div>
+
+
       <!-- ここからTaskList -->
       <div class="c-task--card">
           <div class="c-task--card__inner">
@@ -27,6 +29,9 @@
                             <div class="c-task--todo__card">
                                 <div class="c-task--todo--list">
                                   TODOリスト
+                                  <div class="c-task--todo--list--del">
+                                    <i class="fas fa-times"></i>
+                                  </div>
                                 </div>
                                 <div class="c-task--todo--list">
                                   TODOリスト
@@ -75,9 +80,9 @@
                             </div>
                         </div><!-- l-flex -->
                     </div><!-- c-task--todo--inputAreaWrapp -->
-     
+   
+ </div>
 
-  </div>
 </template>
 
 <script>

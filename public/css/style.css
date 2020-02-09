@@ -803,6 +803,14 @@ input {
   box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2);
 }
 
+.c-task--todo--list--del {
+  float: right;
+}
+
+.c-task--todo--list--del > i {
+  vertical-align: text-top;
+}
+
 .c-task--todo--push {
   font-size: 14px;
   text-align: center;
