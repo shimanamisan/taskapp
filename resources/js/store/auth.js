@@ -8,7 +8,6 @@ const state = {
   profileImage: null,
   apiStatus: null, // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
 
-
   /****************************************
   エラーメッセージ関係
   *****************************************/
@@ -25,7 +24,7 @@ const getters = {
   check: state => !! state.username,
 
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
-  username: state => state.username ? state.username : '',
+  getUserName: state => state.username ? state.username : '',
 
   // email情報を呼び出す
   getEmail: state => state.email ? state.email : '',
@@ -72,23 +71,7 @@ const mutations = {
   // プロフィールバリデーションメッセージをセット
   setProfileErrorMessages(state, messages){
     state.profileErrorMessages = messages
-  },
-  // // プロフィール画像編集時のエラーハンドリング用ミューテーション
-  // setProfileImageErrorMessages(state, messages){
-  //   state.profileErrorMessages = messages
-  // },
-  // // 名前変更時のエラーハンドリング
-  // setProfileNameErrorMessages(state, messages){
-  //   state.profileErrorMessages = messages
-  // },
-  // // email変更時のエラーハンドリング
-  // setProfileEmailErrorMessages(state, messages){
-  //   state.profileErrorMessages = messages
-  // },
-  // // パスワード変更時のエラーハンドリング
-  // setProfilePasswordErrorMessages(state, messages){
-  //   state.profileErrorMessages = messages
-  // },
+  }
 }
 
 // アクション→コミットでミューテーション呼び出し→ステート更新

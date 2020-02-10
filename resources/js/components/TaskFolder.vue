@@ -1,30 +1,9 @@
 <template>
-<div>
+  <div>
     <div class="c-task--sidebar">
-      <div class="c-task--sidebar__wrapp">
-        <div class="c-task--sidebar__user">
-          <div class="c-task__avater">
-            <img src="https://placehold.jp/150x150.png" alt="">
-          </div>
-          <h1 class="c-task--sidebar__usertitle">ユーザー名</h1>
-        </div>
-      </div>
-      <!-- c-task--sidebar__wrapp -->
+      <FolderProfile/>
       <hr class="u-task-line">
-      <div v-show="!FolderEdit_flg" class="c-task--todo--list c-task--todo--push" @click="FolderEdit_flg = !FolderEdit_flg">＋ 新しいフォルダを追加 </div>
-      <div v-show="FolderEdit_flg" class="c-task--todo--inputAreaWrapp">
-        <input type="input" class="c-task--todo--inputArea" v-model="FolderCreateForm">
-        <div class="l-flex u-btn--wrapp">
-          <div class="u-btn__profile--margin">
-            <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="ClearFolderCreateForm">キャンセル</button>
-          </div>
-          <div class="u-btn__profile--margin">
-            <button class="c-btn c-btn--profile" @click="CreateFolder">追加</button>
-          </div>
-        </div>
-        <!-- l-flex -->
-      </div>
-      <!-- c-task--todo--push -->
+      <FolderAdd/>
       <div class="c-task--sidebar__wrapp c-task--folder">
         <div class="c-task--folder__wrapp">
           <i class="fas fa-bars c-task--folder__item"></i>
@@ -35,14 +14,27 @@
     </div>
     <!-- c-task--sidebar -->
     <!-- TODOコンポーネント  -->
-   
-</div>
-
+  </div>
 </template>
 <script>
-
+import FolderProfile from './FolderProfile'
+import FolderAdd from './FolderAdd'
 export default {
-  components:{
+  data(){
+    return {
+
+    }
+  },
+  components: {
+    FolderProfile,
+    FolderAdd
+  },
+  computed: {
+
+  },
+  methods: {
+    
+  
   }
 }
 </script>

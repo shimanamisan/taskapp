@@ -21,7 +21,7 @@
                             <label class="c-input--profile" >
                                 <input type="file" class="c-input--profile__drop" @change="fileSelected" @focus="imagefocus">
                                 <output v-if="preview">
-                                    <img :src="preview" alt="プロフィール画像" class="c-form__output">
+                                    <img v-bind:src="preview" alt="プロフィール画像" class="c-form__output">
                                     <p v-show="PreviewProfileImage">
                                         <img v-bind:src="profileData.pic" alt="プロフィール画像" class="c-form__output">
                                     </p>
@@ -189,8 +189,6 @@ export default {
   methods: {
       // フォームでファイルが選択されたら実行
       fileSelected(event){
-        // ボタン表示フラグ
-
         // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
         console.log(event)
         // ファイル情報をdataプロパティに保存

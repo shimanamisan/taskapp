@@ -6,8 +6,15 @@
                 <div class="c-task--borad01">
                     <div class="c-task--borad02">
                         <div class="c-task--borad03">
-                          <TaskFolder/>
-                          <TaskList/>
+                          <TaskFolder
+
+                          
+                          />
+                          <TaskList
+                          
+                          
+                          
+                          />
                         </div><!-- c-task--borad03 -->
                     </div>
                     <!-- c-task--borad02 -->
@@ -28,8 +35,7 @@
 export default {
   data(){
     return{
-      FolderEdit_flg: null,
-      FolderCreateForm: '',
+
     }
   },
   components:{
@@ -43,13 +49,6 @@ export default {
     ...mapState("taskStore",['AllLists'])
   },
   methods:{
-    ClearFolderCreateForm(){
-      this.FolderCreateForm = ''
-      this.FolderEdit_flg = !this.FolderEdit_flg
-    },
-    async CreateFolder(){
-       // await this.$store.dispatch('taskStore/test', { folder: this.FolderCreateForm })
-    },
     async setAlllists(data){
       await this.$store.dispatch('taskStore/alllists', data)
     },

@@ -107,6 +107,7 @@
       overflow-y: auto;
       @include custumRadius(8px);
         &--inputAreaWrapp{
+          // background-color: #ccc;
           padding: 10px 0;
           box-sizing: border-box;
         }
@@ -160,6 +161,9 @@
           }
         }
     }
+}
+.activ{
+  background-color: #fff;
 }
 
 .fas{

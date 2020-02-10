@@ -39,6 +39,7 @@
         </div>
     </header>
 </template>
+
 <script>
 export default {
     date(){
@@ -51,7 +52,7 @@ export default {
       return this.$store.getters['auth/check']
       },
       username(){
-        return this.$store.getters['auth/username']
+        return this.$store.getters['auth/getUserName']
       },
       apiStatus(){
       // authモジュールのapiStatusを参照
