@@ -70,19 +70,24 @@
     }
 
     &--folder{
-        transition: .5s;
-        &:hover{
-          cursor: pointer;
-          background: #36363638;
-          transition: .5s;
-        }
-        &__item{
+        &__drag{
           margin-right: 15px;
         }
         &__wrapp{
+          box-sizing: border-box;
+          padding: 5px;
+          margin-top: 10px;
           display: flex;
           align-items: center;
-        
+          transition: .5s;
+            &:hover{
+              cursor: pointer;
+              background: #36363638;
+              transition: .5s;
+            }
+        }
+        &__item{
+          vertical-align: baseline;
         }
     }
 

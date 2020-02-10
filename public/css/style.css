@@ -712,12 +712,23 @@ input {
   border-radius: 50%;
 }
 
-.c-task--folder {
+.c-task--folder__drag {
+  margin-right: 15px;
+}
+
+.c-task--folder__wrapp {
+  box-sizing: border-box;
+  padding: 5px;
+  margin-top: 10px;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+          align-items: center;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
 
-.c-task--folder:hover {
+.c-task--folder__wrapp:hover {
   cursor: pointer;
   background: #36363638;
   -webkit-transition: 0.5s;
@@ -725,14 +736,7 @@ input {
 }
 
 .c-task--folder__item {
-  margin-right: 15px;
-}
-
-.c-task--folder__wrapp {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-          align-items: center;
+  vertical-align: baseline;
 }
 
 .c-task--card {

@@ -15,15 +15,16 @@
                                 <i class="fas fa-times"></i>
                             </div>
                         </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
-                        <div class="c-task--todo--list">TODOリスト </div>
+                        <div class="c-task--todo--list">TODOリスト 
+                            <div class="c-task--todo--list--del">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        </div>
+                        <div class="c-task--todo--list">TODOリスト 
+                            <div class="c-task--todo--list--del">
+                                <i class="fas fa-times"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <!-- end c-task--todo -->

@@ -6,16 +6,22 @@
                 <div class="c-task--borad01">
                     <div class="c-task--borad02">
                         <div class="c-task--borad03">
-                          <TaskFolder
-
-                          
-                          />
-                          <TaskList
-                          
-                          
-                          
-                          />
-                        </div><!-- c-task--borad03 -->
+                            <div class="c-task--sidebar">
+                                <TaskFolderProfile/>
+                                <hr class="u-task-line">
+                                <TaskFolderAdd/>
+                                <div class="c-task--sidebar__wrapp c-task--folder">
+                                  <ul>
+                                    <TaskFolder v-for="folderItem in AllLists.folders" :key="folderItem.id" :title="folderItem.title" />
+                                  </ul>
+                                </div>
+                                <!-- c-task--sidebar__wrapp -->
+                            </div>
+                            <!-- c-task--sidebar -->
+                            <!-- TODOコンポーネント  -->
+                            <TaskList />
+                        </div>
+                        <!-- c-task--borad03 -->
                     </div>
                     <!-- c-task--borad02 -->
                 </div>
@@ -27,6 +33,8 @@
 </template>
 <script>
   import Header from './Header'
+  import TaskFolderProfile from './TaskFolderProfile'
+  import TaskFolderAdd from './TaskFolderAdd'
   import TaskFolder from './TaskFolder'
   import TaskList from './TaskList'
   import Message from './Message'
@@ -40,6 +48,8 @@ export default {
   },
   components:{
     Header,
+    TaskFolderProfile,
+    TaskFolderAdd,
     TaskFolder,
     TaskList,
     Message
@@ -54,6 +64,7 @@ export default {
     },
     GetAllLists(){
       axios.get('/api/folder').then( response => {
+        // console.log(response.data)
         this.setAlllists(response.data)
       }).catch( error => {
         console.log(error)

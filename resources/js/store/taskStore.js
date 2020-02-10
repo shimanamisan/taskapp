@@ -1,6 +1,6 @@
 
 const state = {
-  AllLists:[ ],
+  AllLists:[],
 }
 
 const getters = {
@@ -15,9 +15,9 @@ const mutations = {
 }
 
 const actions = {
-  async getAllLists( context ){
-    const response = axios.get('/api/folder/user/' + id)
-  },
+  // async getAllLists( context ){
+  //   const response = axios.get('/api/folder/user/' + id)
+  // },
   async alllists({commit}, data){
     commit('setAllLists', data)
   }
