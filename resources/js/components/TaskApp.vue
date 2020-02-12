@@ -12,14 +12,21 @@
                                 <TaskFolderAdd/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
                                   <ul>
-                                    <TaskFolder v-for="folderItem in AllLists.folders" :key="folderItem.id" :title="folderItem.title" />
+                                      <TaskFolder v-for="folderItem in AllLists.folders" :key="folderItem.id" :title="folderItem.title" />                               
+
                                   </ul>
                                 </div>
                                 <!-- c-task--sidebar__wrapp -->
                             </div>
                             <!-- c-task--sidebar -->
                             <!-- TODOコンポーネント  -->
-                            <TaskList />
+                            <div class="c-task--card">
+                            <TaskCard v-for="cards in AllLists.folders"
+                            :key="cards.id"
+                            :cards="cards"
+                            />
+                             </div>
+                            <TaskCardAdd/>
                         </div>
                         <!-- c-task--borad03 -->
                     </div>
@@ -36,7 +43,8 @@
   import TaskFolderProfile from './TaskFolderProfile'
   import TaskFolderAdd from './TaskFolderAdd'
   import TaskFolder from './TaskFolder'
-  import TaskList from './TaskList'
+  import TaskCard from './TaskCard'
+  import TaskCardAdd from './TaskCardAdd'
   import Message from './Message'
   import { mapState } from 'vuex'
 
@@ -51,7 +59,8 @@ export default {
     TaskFolderProfile,
     TaskFolderAdd,
     TaskFolder,
-    TaskList,
+    TaskCard,
+    TaskCardAdd,
     Message
   },
   computed:{
@@ -62,7 +71,7 @@ export default {
     async setAlllists(data){
       await this.$store.dispatch('taskStore/alllists', data)
     },
-    GetAllLists(){
+    getAllLists(){
       axios.get('/api/folder').then( response => {
         // console.log(response.data)
         this.setAlllists(response.data)
@@ -72,7 +81,7 @@ export default {
     }
   },
   created(){
-    this.GetAllLists()
+    this.getAllLists()
   }
 }
 </script>

@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="v-div">
         <div v-show="!CardEdit_flg" class="c-task--todo--list c-task--todo--push" @click="CardEdit_flg = !CardEdit_flg">＋ 新しいカードを追加 </div>
-        <div v-show="CardEdit_flg" class="c-task--todo--inputAreaWrapp">
+        <div v-show="CardEdit_flg" class="c-task--todo--inputAreaWrapp CardAdd">
             <form @submit.prevent>
                 <input type="input" class="c-task--todo--inputArea" v-model="CradCreateForm">
                 <div class="l-flex u-btn--wrapp">
@@ -35,5 +35,10 @@ export default {
 }
 </script>
 <style>
-
+.v-div{
+  padding: 0 20px;
+}
+.CardAdd{
+  padding: 0 20px 0 0;
+}
 </style>

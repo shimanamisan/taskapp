@@ -1,15 +1,15 @@
 <template>
   <div>
-    <div v-show="!FolderEdit_flg" class="c-task--todo--list c-task--todo--push" @click="FolderEdit_flg = !FolderEdit_flg">＋ 新しいフォルダを追加 </div>
-    <div v-show="FolderEdit_flg" class="c-task--todo--inputAreaWrapp">
+    <div v-show="!folderEdit_flg" class="c-task--todo--list c-task--todo--push" @click="folderEdit_flg = !folderEdit_flg">＋ 新しいフォルダを追加 </div>
+    <div v-show="folderEdit_flg" class="c-task--todo--inputAreaWrapp">
       <form @submit.prevent>
-        <input type="text" class="c-task--todo--inputArea" v-model="FolderTitle">
+        <input type="text" class="c-task--todo--inputArea" v-model="folderTitle">
         <div class="l-flex u-btn--wrapp">
           <div class="u-btn__profile--margin">
-            <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="ClearFolderCreateForm">キャンセル</button>
+            <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="clearFolderCreateForm">キャンセル</button>
           </div>
           <div class="u-btn__profile--margin">
-            <button type="submit" class="c-btn c-btn--profile" @click="CreateFolder">追加</button>
+            <button type="submit" class="c-btn c-btn--profile" @click="createFolder">追加</button>
           </div>
         </div>
         <!-- end l-flex -->
@@ -22,18 +22,18 @@
 export default {
   data(){
     return{
-      FolderEdit_flg: null,
-      FolderTitle: '',
+      folderEdit_flg: null,
+      folderTitle: '',
     }
   },
   methods: {
-    async CreateFolder(){
-       await this.$store.dispatch('taskStore/test', { folder: this.FolderTitle })
-       this.FolderTitle= ""
+    async createFolder(){
+       await this.$store.dispatch('taskStore/createFolder', { title: this.folderTitle })
+       this.folderTitle= ""
     },
-    ClearFolderCreateForm(){
-    this.FolderTitle = ''
-    this.FolderEdit_flg = !this.FolderEdit_flg
+    clearFolderCreateForm(){
+    this.folderTitle = ''
+    this.folderEdit_flg = !this.folderEdit_flg
     }
   }
 }

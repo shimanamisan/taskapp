@@ -49,7 +49,9 @@ Route::delete('/profile/delete/{id}', 'ProfileController@ProfileUserDelete')->na
 タスク管理
 *****************************************/
 // フォルダー一覧
-Route::get('/folder', 'TaskController@index')->name('task.index');
+Route::get('/folder', 'TaskController@index')->name('folder.index');
+// フォルダ登録
+Route::post('/folder/add', 'TaskController@folderAdd')->name('folder.folderAdd');
 
 // Route::post('/profile/{id}',function(){
 //     dd(request()->all());
