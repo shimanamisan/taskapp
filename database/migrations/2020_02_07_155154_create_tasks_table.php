@@ -20,7 +20,7 @@ class CreateTasksTable extends Migration
             $table->timestamps();
 
             // 外部キーを設定する
-            $table->foreign('card_id')->references('id')->on('cards');
+            $table->foreign('card_id')->references('id')->on('cards')->onDelete('cascade');
         });
     }
 

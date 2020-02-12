@@ -20,7 +20,7 @@ class CreateCardsTable extends Migration
             $table->timestamps();
 
             // 外部キーを設定する
-            $table->foreign('folder_id')->references('id')->on('folders');
+            $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');
 
         });
     }

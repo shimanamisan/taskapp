@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth; //追加
 
 class TaskController extends Controller
 {
-    // フォルダーを追加する処理を組んでいく
+    // フォルダーやタスクデータの一覧を取得
     public function index()
     {   
       $user_id = Auth::user()->id;
@@ -16,5 +16,14 @@ class TaskController extends Controller
       $AllLists = User::with(['folders.cards.tasks'])->find($user_id);
 
       return $AllLists;
+    }    
+
+    public function folderAdd(Request $request)
+    {   
+      
+      $user = User::get($request);
+      dd($user);
+
+      return $user;
     }    
 }

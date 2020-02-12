@@ -22,7 +22,7 @@ class CreateFoldersTable extends Migration
 
             // 外部制約キーを追加
             // foldersテーブルのuser_idカラムに紐づくものは、usersテーブルの'idカラム'であることを設定している
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
