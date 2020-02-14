@@ -19,7 +19,7 @@ const actions = {
   async getAllLists( context ){
     const response = await axios.get('/api/folder/user/' + id)
   },
-  async alllists({commit}, data){
+  async setAllLists({commit}, data){
     commit('setAllLists', data)
   },
   async createFolder( {commit}, title){

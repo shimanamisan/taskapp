@@ -11,21 +11,29 @@
                                 <hr class="u-task-line">
                                 <TaskFolderAdd/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
-                                  <ul>
-                                      <TaskFolder v-for="folderItem in AllLists.folders" :key="folderItem.id" :title="folderItem.title" />                               
 
-                                  </ul>
+                                    <draggable :list="AllLists" tag="ul" :options="{animation:300, handle:'.hand-icon'}" >
+                                        <TaskFolder
+                                        v-for="folder in AllLists"
+                                        :key="folder.id"
+                                        :title="folder.title"/>                               
+                                    </draggable>
+
                                 </div>
                                 <!-- c-task--sidebar__wrapp -->
                             </div>
                             <!-- c-task--sidebar -->
                             <!-- TODOコンポーネント  -->
-                            <div class="c-task--card">
-                            <TaskCard v-for="cards in AllLists.folders"
-                            :key="cards.id"
-                            :cards="cards"
-                            />
-                             </div>
+                            
+                              <div class="c-task--card" v-for="(folders, index) in AllLists"
+                                  :key="index">
+                        
+                                  <TaskCard v-for="(cards, index) in folders.cards"
+                                  :key="index"
+                                  :cards="cards"
+                                  />
+                        
+                              </div>
                             <TaskCardAdd/>
                         </div>
                         <!-- c-task--borad03 -->
@@ -39,6 +47,7 @@
     </div>
 </template>
 <script>
+  import draggable from 'vuedraggable'
   import Header from './Header'
   import TaskFolderProfile from './TaskFolderProfile'
   import TaskFolderAdd from './TaskFolderAdd'
@@ -61,6 +70,7 @@ export default {
     TaskFolder,
     TaskCard,
     TaskCardAdd,
+    draggable,
     Message
   },
   computed:{
@@ -69,16 +79,17 @@ export default {
   },
   methods:{
     async setAlllists(data){
-      await this.$store.dispatch('taskStore/alllists', data)
+      await this.$store.dispatch('taskStore/setAllLists', data)
     },
-    getAllLists(){
-      axios.get('/api/folder').then( response => {
-        // console.log(response.data)
-        this.setAlllists(response.data)
+    async getAllLists(){
+      await axios.get('/api/folder').then( response => {
+      let datas = response.data
+      this.setAlllists(datas.folders)
       }).catch( error => {
         console.log(error)
       })
-    }
+    },
+
   },
   created(){
     this.getAllLists()

@@ -82,7 +82,7 @@ const actions = {
   // 第1引数にはコンテキストオブジェクトが渡される。その中にはcommitなどのメソッドが入っている
   // 第2引数にはサーバーから返却されたデータが入っている。何を返すかはコントローラー側で記述する
   async register( {commit} , data){
-    // commitでミューテーションのsetApiStatus呼び出している、最初には引数に入るデータはnull
+    // commitでミューテーションのsetApiStatus呼び出している、最初には引数に入るデータはnull（初期化）
     commit('setApiStatus', null)
     const response = await axios.post('/api/register', data).catch(error => error.response || error)
       // 200ステータスの処理

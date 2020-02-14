@@ -721,8 +721,6 @@ input {
   box-sizing: border-box;
   padding: 5px;
   margin-top: 10px;
-  display: -webkit-box;
-  display: flex;
   -webkit-box-align: center;
           align-items: center;
   -webkit-transition: 0.5s;
@@ -730,7 +728,6 @@ input {
 }
 
 .c-task--folder__wrapp:hover {
-  cursor: pointer;
   background: #36363638;
   -webkit-transition: 0.5s;
   transition: 0.5s;
@@ -738,6 +735,10 @@ input {
 
 .c-task--folder__item {
   vertical-align: baseline;
+}
+
+.c-task--folder__item:hover {
+  cursor: pointer;
 }
 
 .c-task--card {

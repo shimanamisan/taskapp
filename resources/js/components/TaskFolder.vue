@@ -2,7 +2,7 @@
     <div>
       
         <li class="c-task--folder__wrapp">
-            <i class="fas fa-bars c-task--folder__drag"></i>
+            <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
             <label class="c-task--folder__item" for="">{{title}}</label>
             <div class="c-task--folder__trash">
                <i class="fas fa-trash-alt"></i>
@@ -11,12 +11,16 @@
     </div>
 </template>
 <script>
+import draggable from 'vuedraggable'
 export default {
   data(){
     return {
     }
   },
-  props:{
+  components: {
+    draggable
+  },
+  props: {
     title:{
       type: String,
       required: true
