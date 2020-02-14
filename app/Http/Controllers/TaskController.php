@@ -13,9 +13,9 @@ class TaskController extends Controller
     {   
       $user_id = Auth::user()->id;
 
-      $AllLists = User::with(['folders.cards.tasks'])->find($user_id);
-
-      return $AllLists;
+      $allData = User::with(['folders.cards.tasks'])->find($user_id);
+     
+      return $allData;
     }    
 
     public function folderAdd(Request $request)
