@@ -20,7 +20,7 @@ class FoldersTableSeeder extends Seeder
         foreach($titles as $title){
             DB::table('folders')->insert([
                 'title' => $title,
-                'user_id' => 1,
+                'user_id' => rand(1, 2),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);

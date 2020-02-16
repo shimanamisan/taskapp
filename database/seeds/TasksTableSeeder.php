@@ -20,7 +20,7 @@ class TasksTableSeeder extends Seeder
         foreach($titles as $title){
             DB::table('tasks')->insert([
                 'title' => $title,
-                'card_id' => 1,
+                'card_id' => rand(1, 2),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ]);
