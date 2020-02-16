@@ -46,13 +46,22 @@ Route::post('/profile/password/{id}', 'ProfileController@ProfilPasswordeEdit')->
 Route::delete('/profile/delete/{id}', 'ProfileController@ProfileUserDelete')->name('profile.ProfileUserDelete');
 
 /****************************************
-タスク管理
+タスク管理(一覧・登録)
 *****************************************/
 // フォルダー一覧
 Route::get('/folder', 'TaskController@index')->name('folder.index');
 // フォルダ登録
-Route::post('/folder/add', 'TaskController@folderAdd')->name('folder.folderAdd');
+Route::post('/folder/create', 'TaskController@createFolder')->name('folder.createFolder');
+// フォルダ更新
+Route::patch('/folder/{id}/update', 'TaskController@updateFolder')->name('folder.updateFolder');
+// フォルダ削除
+Route::delete('/folder/{id}/delete', 'TaskController@deleteFolder')->name('folder.deleteFolder');
 
+/****************************************
+タスク管理(更新・削除)
+*****************************************/
+Route::patch('/folder', 'TaskController@index')->name('folder.index');
+Route::delete('/folder', 'TaskController@index')->name('folder.index');
 // Route::post('/profile/{id}',function(){
 //     dd(request()->all());
 //     $file_name = request()->file->getClientOriginalName();

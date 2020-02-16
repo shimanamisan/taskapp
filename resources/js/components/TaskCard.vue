@@ -1,18 +1,24 @@
 <template>
   <div>
     <!-- ここからTaskList -->
+    
     <div class="c-task--card__inner">
       <div class="c-task--todo">
         <div class="c-task--todo__header">{{ cards.title }}
-          <label for="" class="c-task--todo--counter">0</label>
-           <div class="c-task--todo--list--del">
-      <i class="fas fa-times"></i>
-    </div>
+          <label for="" class="c-task--todo--counter">{{ listCounter }}</label>
+            <div class="c-task--todo--list--del">
+               <i class="fas fa-times"></i>
+            </div>
         </div>
         <TaskListAdd/>
         <!-- c-task--todo--push -->
-        <draggable :list="cards.tasks" tag="div" :options="{animation:300}" >
-           <TaskList v-for="(items, index) in cards.tasks" :key="index" :items="items"/>
+        <draggable :list="cards.tasks" tag="div" v-bind="{animation:300}" group="cards">
+           <TaskList v-for="(task, index) in cards.tasks"
+           :key = "task.id"
+           :id = "task.id"
+           :task = "task"
+           :listIndex = "index"
+           />
         </draggable>
       </div>
       <!-- end c-task--todo -->
@@ -29,15 +35,33 @@ import TaskCardAdd from './TaskCardAdd'
 export default {
   data(){
       return{
-     
+        data: this.cards
     }
   },
-  props:['cards'],
+  props: {
+    cards: {
+      type: Object,
+      required: true
+    },
+    id: {
+      type: Number,
+      required: true
+    },
+    listIndex: {
+      type: Number,
+      required: true
+    }
+  },
   components: {
     TaskList,
     TaskListAdd,
     TaskCardAdd,
     draggable
+  },
+  computed:{
+    listCounter(){
+      return this.data.tasks.length
+    }  
   },
   methods: {
   

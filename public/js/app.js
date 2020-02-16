@@ -2606,12 +2606,15 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2683,7 +2686,19 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a,
     Message: _Message__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_9__["mapState"])("taskStore", ['AllLists'])),
+  computed: {
+    // taskStore.jsのステート：AllListsを常に参照している
+    AllLists: {
+      get: function get() {
+        return this.$store.state.taskStore.AllLists;
+      },
+      set: function set(value) {
+        console.log(value);
+        this.$store.commit('taskStore/setAllLists', value);
+      }
+    } // ...mapState("taskStore",['AllLists'])
+
+  },
   methods: {
     setAlllists: function () {
       var _setAlllists = _asyncToGenerator(
@@ -2722,9 +2737,17 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
               case 0:
                 _context2.next = 2;
                 return axios.get('/api/folder').then(function (response) {
-                  var datas = response.data;
+                  var data = [];
+                  var datas = response.data.folders;
 
-                  _this.setAlllists(datas.folders);
+                  for (var key in datas) {
+                    data.push(datas[key]);
+                  } // 配列に追加できているか確認
+
+
+                  console.log(data); // return false
+
+                  _this.setAlllists(data);
                 })["catch"](function (error) {
                   console.log(error);
                 });
@@ -2788,20 +2811,46 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      data: this.cards
+    };
   },
-  props: ['cards'],
+  props: {
+    cards: {
+      type: Object,
+      required: true
+    },
+    id: {
+      type: Number,
+      required: true
+    },
+    listIndex: {
+      type: Number,
+      required: true
+    }
+  },
   components: {
     TaskList: _TaskList__WEBPACK_IMPORTED_MODULE_1__["default"],
     TaskListAdd: _TaskListAdd__WEBPACK_IMPORTED_MODULE_2__["default"],
     TaskCardAdd: _TaskCardAdd__WEBPACK_IMPORTED_MODULE_3__["default"],
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
+  },
+  computed: {
+    listCounter: function listCounter() {
+      return this.data.tasks.length;
+    }
   },
   methods: {}
 });
@@ -2863,8 +2912,16 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
-/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2883,16 +2940,56 @@ __webpack_require__.r(__webpack_exports__);
     return {};
   },
   components: {
-    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a
+    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
   },
   props: {
     title: {
       type: String,
       required: true
+    },
+    id: {
+      type: Number,
+      required: true
+    },
+    listIndex: {
+      type: Number,
+      required: true
     }
   },
   computed: {},
-  methods: {}
+  methods: {
+    // フォルダーを削除する
+    deleteFolder: function () {
+      var _deleteFolder = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!window.confirm('フォルダーを削除すると全てのタスクも削除されます。\nフォルダーを削除しますか？')) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _context.next = 3;
+                return this.$store.dispatch('taskStore/deleteFolder', this.id);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function deleteFolder() {
+        return _deleteFolder.apply(this, arguments);
+      }
+
+      return deleteFolder;
+    }()
+  }
 });
 
 /***/ }),
@@ -2941,6 +3038,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       folderTitle: ''
     };
   },
+  props: {// listIndex: {
+    //   type: Number,
+    //   required: true
+    // }
+  },
   methods: {
     createFolder: function () {
       var _createFolder = _asyncToGenerator(
@@ -2956,7 +3058,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                this.folderTitle = "";
+                this.clearFolderCreateForm();
 
               case 3:
               case "end":
@@ -3039,7 +3141,26 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {};
   },
-  props: ['items']
+  props: {
+    task: {
+      type: Object,
+      required: true
+    },
+    id: {
+      type: Number,
+      required: true
+    },
+    listIndex: {
+      type: Number,
+      required: true
+    }
+  },
+  computed: {},
+  methods: {
+    logfunc: function logfunc(value) {
+      console.log(value);
+    }
+  }
 });
 
 /***/ }),
@@ -45122,20 +45243,20 @@ var render = function() {
                         [
                           _c(
                             "draggable",
-                            {
-                              attrs: {
-                                list: _vm.AllLists,
-                                tag: "ul",
-                                options: {
-                                  animation: 300,
-                                  handle: ".hand-icon"
-                                }
-                              }
-                            },
-                            _vm._l(_vm.AllLists, function(folder) {
+                            _vm._b(
+                              { attrs: { list: _vm.AllLists, tag: "ul" } },
+                              "draggable",
+                              { animation: 300 },
+                              false
+                            ),
+                            _vm._l(_vm.AllLists, function(folders, index) {
                               return _c("TaskFolder", {
-                                key: folder.id,
-                                attrs: { title: folder.title }
+                                key: folders.id,
+                                attrs: {
+                                  id: folders.id,
+                                  listIndex: index,
+                                  title: folders.title
+                                }
                               })
                             }),
                             1
@@ -45150,11 +45271,19 @@ var render = function() {
                   _vm._l(_vm.AllLists, function(folders, index) {
                     return _c(
                       "div",
-                      { key: index, staticClass: "c-task--card" },
+                      {
+                        key: folders.id,
+                        staticClass: "c-task--card",
+                        attrs: { list: folders, listIndex: index }
+                      },
                       _vm._l(folders.cards, function(cards, index) {
                         return _c("TaskCard", {
-                          key: index,
-                          attrs: { cards: cards }
+                          key: cards.id,
+                          attrs: {
+                            id: cards.id,
+                            listIndex: index,
+                            cards: cards
+                          }
                         })
                       }),
                       1
@@ -45206,7 +45335,7 @@ var render = function() {
             _c(
               "label",
               { staticClass: "c-task--todo--counter", attrs: { for: "" } },
-              [_vm._v("0")]
+              [_vm._v(_vm._s(_vm.listCounter))]
             ),
             _vm._v(" "),
             _vm._m(0)
@@ -45216,15 +45345,17 @@ var render = function() {
           _vm._v(" "),
           _c(
             "draggable",
-            {
-              attrs: {
-                list: _vm.cards.tasks,
-                tag: "div",
-                options: { animation: 300 }
-              }
-            },
-            _vm._l(_vm.cards.tasks, function(items, index) {
-              return _c("TaskList", { key: index, attrs: { items: items } })
+            _vm._b(
+              { attrs: { list: _vm.cards.tasks, tag: "div", group: "cards" } },
+              "draggable",
+              { animation: 300 },
+              false
+            ),
+            _vm._l(_vm.cards.tasks, function(task, index) {
+              return _c("TaskList", {
+                key: task.id,
+                attrs: { id: task.id, task: task, listIndex: index }
+              })
             }),
             1
           )
@@ -45396,20 +45527,16 @@ var render = function() {
         _vm._v(_vm._s(_vm.title))
       ]),
       _vm._v(" "),
-      _vm._m(0)
+      _c("div", { staticClass: "c-task--folder__trash" }, [
+        _c("i", {
+          staticClass: "fas fa-trash-alt",
+          on: { click: _vm.deleteFolder }
+        })
+      ])
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-task--folder__trash" }, [
-      _c("i", { staticClass: "fas fa-trash-alt" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -45587,10 +45714,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "c-task--todo--list" }, [
-    _vm._v("\n  " + _vm._s(_vm.items.title) + "\n  "),
-    _vm._m(0)
-  ])
+  return _c(
+    "div",
+    { staticClass: "c-task--todo--list", on: { click: _vm.logfunc } },
+    [_vm._v("\n  " + _vm._s(_vm.task.title) + "\n  "), _vm._m(0)]
+  )
 }
 var staticRenderFns = [
   function() {
@@ -68533,32 +68661,90 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var state = {
-  AllLists: []
+  AllLists: [],
+  CardLists: []
+  /* 
+  AllListsのデータ構造
+    folders:[
+      [
+        {
+          cards:[
+            {
+              tasks:
+              [],
+              [],
+              [],
+            }
+        ],
+          cards:[
+            {
+              tasks:
+              [],
+              [],
+              [],
+            }
+        ],
+          cards:[
+            {
+              tasks:
+              [],
+              [],
+              [],
+            }
+        ],
+      }
+    ],
+      [
+        cards: {
+  
+      }
+    ],
+      [
+        cards: {
+  
+      }
+    ],    
+  ]
+  
+  
+  */
+
 };
 var getters = {};
+/*******************************
+ミューテーション
+********************************/
+
 var mutations = {
   // タスクデータをステートへ格納
   setAllLists: function setAllLists(state, AllLists) {
     state.AllLists = AllLists;
+  },
+  setCardLists: function setCardLists(state, CardLists) {
+    state.CardLists = CardLists;
   }
 };
+/*******************************
+アクション
+********************************/
+
 var actions = {
-  getAllLists: function () {
-    var _getAllLists = _asyncToGenerator(
+  // async getAllLists( context ){
+  //   const response = await axios.get('/api/folder/user/' + id)
+  // },
+  setAllLists: function () {
+    var _setAllLists = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(context) {
-      var response;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, payload) {
+      var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
         while (1) {
           switch (_context.prev = _context.next) {
             case 0:
-              _context.next = 2;
-              return axios.get('/api/folder/user/' + id);
+              commit = _ref.commit;
+              commit('setAllLists', payload);
 
             case 2:
-              response = _context.sent;
-
-            case 3:
             case "end":
               return _context.stop();
           }
@@ -68566,23 +68752,23 @@ var actions = {
       }, _callee);
     }));
 
-    function getAllLists(_x) {
-      return _getAllLists.apply(this, arguments);
+    function setAllLists(_x, _x2) {
+      return _setAllLists.apply(this, arguments);
     }
 
-    return getAllLists;
+    return setAllLists;
   }(),
-  setAllLists: function () {
-    var _setAllLists = _asyncToGenerator(
+  setCardLists: function () {
+    var _setCardLists = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, payload) {
       var commit;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              commit = _ref.commit;
-              commit('setAllLists', data);
+              commit = _ref2.commit;
+              commit('setCardLists', payload);
 
             case 2:
             case "end":
@@ -68592,32 +68778,44 @@ var actions = {
       }, _callee2);
     }));
 
-    function setAllLists(_x2, _x3) {
-      return _setAllLists.apply(this, arguments);
+    function setCardLists(_x3, _x4) {
+      return _setCardLists.apply(this, arguments);
     }
 
-    return setAllLists;
+    return setCardLists;
   }(),
+
+  /*************************************
+  フォルダー作成・更新・削除・並び替え
+  *************************************/
+  // フォルダーの作成
   createFolder: function () {
     var _createFolder = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref2, title) {
-      var commit, response;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, payload) {
+      var commit, response, data, datas, key;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
             case 0:
-              commit = _ref2.commit;
+              commit = _ref3.commit;
               _context3.next = 3;
-              return axios.post('/api/folder/add/', title)["catch"](function (error) {
+              return axios.post('/api/folder/create', payload)["catch"](function (error) {
                 return error.response || error;
               });
 
             case 3:
               response = _context3.sent;
-              return _context3.abrupt("return", console.log(response));
+              data = [];
+              datas = response.data.folders;
 
-            case 5:
+              for (key in datas) {
+                data.push(datas[key]);
+              }
+
+              commit('setAllLists', data);
+
+            case 8:
             case "end":
               return _context3.stop();
           }
@@ -68625,11 +68823,53 @@ var actions = {
       }, _callee3);
     }));
 
-    function createFolder(_x4, _x5) {
+    function createFolder(_x5, _x6) {
       return _createFolder.apply(this, arguments);
     }
 
     return createFolder;
+  }(),
+  // フォルダーの削除
+  deleteFolder: function () {
+    var _deleteFolder = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, id) {
+      var commit, response, data, datas, key;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              commit = _ref4.commit;
+              console.log('動作しています' + id);
+              _context4.next = 4;
+              return axios["delete"]('/api/folder/' + id + '/delete')["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 4:
+              response = _context4.sent;
+              data = [];
+              datas = response.data.folders;
+
+              for (key in datas) {
+                data.push(datas[key]);
+              }
+
+              commit('setAllLists', data);
+
+            case 9:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    }));
+
+    function deleteFolder(_x7, _x8) {
+      return _deleteFolder.apply(this, arguments);
+    }
+
+    return deleteFolder;
   }()
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

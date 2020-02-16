@@ -5,7 +5,7 @@
             <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
             <label class="c-task--folder__item" for="">{{title}}</label>
             <div class="c-task--folder__trash">
-               <i class="fas fa-trash-alt"></i>
+               <i class="fas fa-trash-alt" @click="deleteFolder"></i>
             </div>
         </li>
     </div>
@@ -21,16 +21,29 @@ export default {
     draggable
   },
   props: {
-    title:{
+    title: {
       type: String,
       required: true
     },
+    id: {
+      type: Number,
+      required: true
+    },
+    listIndex: {
+      type: Number,
+      required: true
+    }
   },
   computed: {
 
   },
   methods: {
-    
+    // フォルダーを削除する
+    async deleteFolder(){
+      if(window.confirm('フォルダーを削除すると全てのタスクも削除されます。\nフォルダーを削除しますか？')){
+        await this.$store.dispatch('taskStore/deleteFolder', this.id )
+      }
+    }
   }
 }
 </script>

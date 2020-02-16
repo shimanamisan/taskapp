@@ -12,11 +12,15 @@
                                 <TaskFolderAdd/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
 
-                                    <draggable :list="AllLists" tag="ul" :options="{animation:300, handle:'.hand-icon'}" >
+                                    <draggable :list="AllLists" tag="ul" v-bind="{animation:300}">
+
                                         <TaskFolder
-                                        v-for="folder in AllLists"
-                                        :key="folder.id"
-                                        :title="folder.title"/>                               
+                                        v-for = "(folders, index) in AllLists"
+                                        :key = "folders.id"
+                                        :id = "folders.id"
+                                        :listIndex = "index"
+                                        :title = "folders.title"/>
+
                                     </draggable>
 
                                 </div>
@@ -25,14 +29,19 @@
                             <!-- c-task--sidebar -->
                             <!-- TODOコンポーネント  -->
                             
-                              <div class="c-task--card" v-for="(folders, index) in AllLists"
-                                  :key="index">
-                        
-                                  <TaskCard v-for="(cards, index) in folders.cards"
-                                  :key="index"
-                                  :cards="cards"
+                            <!-- <draggable group="cards" class="c-task--card"  v-for="(folders, index) in AllLists" :key="index"> -->
+                              <div class="c-task--card" v-for="(folders, index) in AllLists" :list="folders"
+                              :key="folders.id"
+                              :listIndex = "index"
+                              >
+                                 
+                                  <TaskCard v-for="(cards, index) in folders.cards" 
+                                  :key = "cards.id"
+                                  :id = "cards.id"
+                                  :listIndex = "index"
+                                  :cards = "cards"
                                   />
-                        
+                              <!-- </draggable> -->
                               </div>
                             <TaskCardAdd/>
                         </div>
@@ -75,7 +84,16 @@ export default {
   },
   computed:{
     // taskStore.jsのステート：AllListsを常に参照している
-    ...mapState("taskStore",['AllLists'])
+    AllLists: {
+        get(){
+          return this.$store.state.taskStore.AllLists
+        },
+        set(value){
+          console.log(value)
+          this.$store.commit('taskStore/setAllLists', value)
+        }
+      }
+    // ...mapState("taskStore",['AllLists'])
   },
   methods:{
     async setAlllists(data){
@@ -83,13 +101,19 @@ export default {
     },
     async getAllLists(){
       await axios.get('/api/folder').then( response => {
-      let datas = response.data
-      this.setAlllists(datas.folders)
+      var data = []
+      var datas = response.data.folders
+      for(var key in datas){
+        data.push(datas[key])
+      }
+      // 配列に追加できているか確認
+      console.log(data)
+      // return false
+      this.setAlllists(data)
       }).catch( error => {
         console.log(error)
       })
     },
-
   },
   created(){
     this.getAllLists()

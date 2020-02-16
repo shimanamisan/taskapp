@@ -26,15 +26,21 @@ export default {
       folderTitle: '',
     }
   },
+  props: {
+    // listIndex: {
+    //   type: Number,
+    //   required: true
+    // }
+  },
   methods: {
     async createFolder(){
-       await this.$store.dispatch('taskStore/createFolder', { title: this.folderTitle })
-       this.folderTitle= ""
+      await this.$store.dispatch('taskStore/createFolder', { title: this.folderTitle })
+      this.clearFolderCreateForm()
     },
     clearFolderCreateForm(){
     this.folderTitle = ''
     this.folderEdit_flg = !this.folderEdit_flg
-    }
+    },
   }
 }
 </script>
