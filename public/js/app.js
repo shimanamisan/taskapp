@@ -1953,11 +1953,21 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 // エラーコードモジュールを読み込む
+ // import Loading from './components/loading/Loading'
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {//  loading: true
+    };
+  },
+  components: {// Loading
+  },
+  mounted: function mounted() {
+    setTimeout(function () {
+      this.loading = false;
+    }, 1000);
   },
   computed: {
     errorCode: function errorCode() {
@@ -2660,9 +2670,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 
 
 
@@ -2687,21 +2694,26 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Message: _Message__WEBPACK_IMPORTED_MODULE_8__["default"]
   },
   computed: {
-    // taskStore.jsのステート：AllListsを常に参照している
-    AllLists: {
+    // taskStore.jsのステート：FolderListsを常に参照している
+    FolderLists: {
       get: function get() {
-        return this.$store.state.taskStore.AllLists;
+        return this.$store.state.taskStore.FolderLists;
       },
       set: function set(value) {
         console.log(value);
-        this.$store.commit('taskStore/setAllLists', value);
+        this.$store.commit('taskStore/setFolderLists', value);
       }
-    } // ...mapState("taskStore",['AllLists'])
+    },
+    CardLists: {
+      get: function get() {
+        return this.$store.state.taskStore.CardLists;
+      }
+    } // ...mapState("taskStore",['FolderLists'])
 
   },
   methods: {
-    setAlllists: function () {
-      var _setAlllists = _asyncToGenerator(
+    setFolderLists: function () {
+      var _setFolderLists = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(data) {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
@@ -2709,7 +2721,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             switch (_context.prev = _context.next) {
               case 0:
                 _context.next = 2;
-                return this.$store.dispatch('taskStore/setAllLists', data);
+                return this.$store.dispatch('taskStore/setFolderLists', data);
 
               case 2:
               case "end":
@@ -2719,14 +2731,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee, this);
       }));
 
-      function setAlllists(_x) {
-        return _setAlllists.apply(this, arguments);
+      function setFolderLists(_x) {
+        return _setFolderLists.apply(this, arguments);
       }
 
-      return setAlllists;
+      return setFolderLists;
     }(),
-    getAllLists: function () {
-      var _getAllLists = _asyncToGenerator(
+    getFolderLists: function () {
+      var _getFolderLists = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         var _this = this;
@@ -2747,7 +2759,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                   console.log(data); // return false
 
-                  _this.setAlllists(data);
+                  _this.setFolderLists(data);
                 })["catch"](function (error) {
                   console.log(error);
                 });
@@ -2760,15 +2772,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2);
       }));
 
-      function getAllLists() {
-        return _getAllLists.apply(this, arguments);
+      function getFolderLists() {
+        return _getFolderLists.apply(this, arguments);
       }
 
-      return getAllLists;
+      return getFolderLists;
     }()
   },
   created: function created() {
-    this.getAllLists();
+    this.getFolderLists();
   }
 });
 
@@ -2933,7 +2945,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -2988,6 +2999,32 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return deleteFolder;
+    }(),
+    // フォルダーを選択したら、そのフォルダーのカードリストを取得
+    setCardLists: function () {
+      var _setCardLists = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _context2.next = 2;
+                return this.$store.dispatch('taskStore/setCardLists', this.id);
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function setCardLists() {
+        return _setCardLists.apply(this, arguments);
+      }
+
+      return setCardLists;
     }()
   }
 });
@@ -3106,14 +3143,28 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      img: ''
+    };
+  },
   computed: {
     username: function username() {
       return this.$store.getters['auth/getUserName'];
-    },
-    profileimage: function profileimage() {
-      var img = this.$store.getters['auth/getProfileImage'];
-      return img;
     }
+  },
+  methods: {
+    profileimage: function profileimage() {
+      var _this = this;
+
+      axios.get('/api/user').then(function (response) {
+        _this.img = response.data.pic;
+      })["catch"]({// error
+      });
+    }
+  },
+  created: function created() {
+    this.profileimage();
   }
 });
 
@@ -3338,6 +3389,9 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {};
+  },
   components: {
     Header: _Header__WEBPACK_IMPORTED_MODULE_0__["default"],
     Footer: _footer__WEBPACK_IMPORTED_MODULE_1__["default"]
@@ -45244,12 +45298,12 @@ var render = function() {
                           _c(
                             "draggable",
                             _vm._b(
-                              { attrs: { list: _vm.AllLists, tag: "ul" } },
+                              { attrs: { list: _vm.FolderLists, tag: "ul" } },
                               "draggable",
                               { animation: 300 },
                               false
                             ),
-                            _vm._l(_vm.AllLists, function(folders, index) {
+                            _vm._l(_vm.FolderLists, function(folders, index) {
                               return _c("TaskFolder", {
                                 key: folders.id,
                                 attrs: {
@@ -45268,31 +45322,21 @@ var render = function() {
                     1
                   ),
                   _vm._v(" "),
-                  _vm._l(_vm.AllLists, function(folders, index) {
-                    return _c(
-                      "div",
-                      {
-                        key: folders.id,
-                        staticClass: "c-task--card",
-                        attrs: { list: folders, listIndex: index }
-                      },
-                      _vm._l(folders.cards, function(cards, index) {
-                        return _c("TaskCard", {
-                          key: cards.id,
-                          attrs: {
-                            id: cards.id,
-                            listIndex: index,
-                            cards: cards
-                          }
-                        })
-                      }),
-                      1
-                    )
-                  }),
+                  _c(
+                    "div",
+                    { staticClass: "c-task--card" },
+                    _vm._l(_vm.CardLists, function(cards, index) {
+                      return _c("TaskCard", {
+                        key: cards.id,
+                        attrs: { id: cards.id, listIndex: index, cards: cards }
+                      })
+                    }),
+                    1
+                  ),
                   _vm._v(" "),
                   _c("TaskCardAdd")
                 ],
-                2
+                1
               )
             ])
           ])
@@ -45520,20 +45564,26 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("li", { staticClass: "c-task--folder__wrapp" }, [
-      _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
-      _vm._v(" "),
-      _c("label", { staticClass: "c-task--folder__item", attrs: { for: "" } }, [
-        _vm._v(_vm._s(_vm.title))
-      ]),
-      _vm._v(" "),
-      _c("div", { staticClass: "c-task--folder__trash" }, [
-        _c("i", {
-          staticClass: "fas fa-trash-alt",
-          on: { click: _vm.deleteFolder }
-        })
-      ])
-    ])
+    _c(
+      "li",
+      { staticClass: "c-task--folder__wrapp", on: { click: _vm.setCardLists } },
+      [
+        _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
+        _vm._v(" "),
+        _c(
+          "label",
+          { staticClass: "c-task--folder__item", attrs: { for: "" } },
+          [_vm._v(_vm._s(_vm.title))]
+        ),
+        _vm._v(" "),
+        _c("div", { staticClass: "c-task--folder__trash" }, [
+          _c("i", {
+            staticClass: "fas fa-trash-alt",
+            on: { click: _vm.deleteFolder }
+          })
+        ])
+      ]
+    )
   ])
 }
 var staticRenderFns = []
@@ -45682,7 +45732,7 @@ var render = function() {
     _c("div", { staticClass: "c-task--sidebar__user" }, [
       _c("output", [
         _c("div", { staticClass: "c-task__avater" }, [
-          _c("img", { attrs: { src: _vm.profileimage, alt: "" } })
+          _c("img", { attrs: { src: this.img, alt: "" } })
         ])
       ]),
       _vm._v(" "),
@@ -68661,10 +68711,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 var state = {
-  AllLists: [],
+  FolderLists: [],
   CardLists: []
   /* 
-  AllListsのデータ構造
+  FolderListsのデータ構造
     folders:[
       [
         {
@@ -68717,8 +68767,8 @@ var getters = {};
 
 var mutations = {
   // タスクデータをステートへ格納
-  setAllLists: function setAllLists(state, AllLists) {
-    state.AllLists = AllLists;
+  setFolderLists: function setFolderLists(state, FolderLists) {
+    state.FolderLists = FolderLists;
   },
   setCardLists: function setCardLists(state, CardLists) {
     state.CardLists = CardLists;
@@ -68729,11 +68779,9 @@ var mutations = {
 ********************************/
 
 var actions = {
-  // async getAllLists( context ){
-  //   const response = await axios.get('/api/folder/user/' + id)
-  // },
-  setAllLists: function () {
-    var _setAllLists = _asyncToGenerator(
+  // 全てのデータをステートにセット
+  setFolderLists: function () {
+    var _setFolderLists = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(_ref, payload) {
       var commit;
@@ -68742,7 +68790,7 @@ var actions = {
           switch (_context.prev = _context.next) {
             case 0:
               commit = _ref.commit;
-              commit('setAllLists', payload);
+              commit('setFolderLists', payload);
 
             case 2:
             case "end":
@@ -68752,25 +68800,39 @@ var actions = {
       }, _callee);
     }));
 
-    function setAllLists(_x, _x2) {
-      return _setAllLists.apply(this, arguments);
+    function setFolderLists(_x, _x2) {
+      return _setFolderLists.apply(this, arguments);
     }
 
-    return setAllLists;
+    return setFolderLists;
   }(),
+
+  /*************************************
+  リアクティブにデータを取得する
+  *************************************/
+  // フォルダー配下のカードをステートにセット
   setCardLists: function () {
     var _setCardLists = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, payload) {
-      var commit;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(_ref2, id) {
+      var commit, response, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref2.commit;
-              commit('setCardLists', payload);
+              _context2.next = 3;
+              return axios.get('/api/folder/' + id + '/card')["catch"](function (error) {
+                return error.response || error;
+              });
 
-            case 2:
+            case 3:
+              response = _context2.sent;
+              data = response.data.cards;
+              console.log(data);
+              commit('setCardLists', data);
+
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -68813,7 +68875,7 @@ var actions = {
                 data.push(datas[key]);
               }
 
-              commit('setAllLists', data);
+              commit('setFolderLists', data);
 
             case 8:
             case "end":
@@ -68855,7 +68917,7 @@ var actions = {
                 data.push(datas[key]);
               }
 
-              commit('setAllLists', data);
+              commit('setFolderLists', data);
 
             case 9:
             case "end":

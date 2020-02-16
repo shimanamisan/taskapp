@@ -13,7 +13,7 @@ class TaskController extends Controller
     {   
       $user_id = Auth::user()->id;
 
-      $allData = User::with(['folders.cards.tasks'])->find($user_id);
+      $allData = User::with('folders')->find($user_id);
      
       return $allData;
     }    
@@ -28,18 +28,18 @@ class TaskController extends Controller
       // 更新されたデータを新たに全て取得
       $user_id = Auth::user()->id;
 
-      $allData = User::with(['folders.cards.tasks'])->find($user_id);
+      $allData = User::with('folders')->find($user_id);
 
       return $allData;
     }
 
-    public function deleteFolder(Request $request)
+    public function deleteFolder(Request $id)
     {
       $user = Auth::user();
 
       $user_id = Auth::user()->id;
 
-      $folderId = $request->id;
+      $folderId = $id->id;
 
       $user->folders()->find($folderId)->delete();
 
@@ -49,5 +49,21 @@ class TaskController extends Controller
 
     }
 
+    // カードのデータを取得
+    public function selectCrad(Request $id)
+    {
+     
+      $user = Auth::user();
+
+      $user_id = Auth::user()->id;
+
+      $folderId = $id->id;
+      
+      $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+      $cardData = $allData->folders->find($folderId);
+
+      return $cardData;
+    }
 
 }

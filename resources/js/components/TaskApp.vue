@@ -12,10 +12,10 @@
                                 <TaskFolderAdd/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
 
-                                    <draggable :list="AllLists" tag="ul" v-bind="{animation:300}">
+                                    <draggable :list="FolderLists" tag="ul" v-bind="{animation:300}">
 
                                         <TaskFolder
-                                        v-for = "(folders, index) in AllLists"
+                                        v-for = "(folders, index) in FolderLists"
                                         :key = "folders.id"
                                         :id = "folders.id"
                                         :listIndex = "index"
@@ -29,17 +29,14 @@
                             <!-- c-task--sidebar -->
                             <!-- TODOコンポーネント  -->
                             
-                            <!-- <draggable group="cards" class="c-task--card"  v-for="(folders, index) in AllLists" :key="index"> -->
-                              <div class="c-task--card" v-for="(folders, index) in AllLists" :list="folders"
-                              :key="folders.id"
-                              :listIndex = "index"
-                              >
+                            <!-- <draggable group="cards" class="c-task--card"  v-for="(folders, index) in FolderLists" :key="index"> -->
+                              <div class="c-task--card">
                                  
-                                  <TaskCard v-for="(cards, index) in folders.cards" 
+                                  <TaskCard v-for="(cards, index) in CardLists" 
                                   :key = "cards.id"
                                   :id = "cards.id"
                                   :listIndex = "index"
-                                  :cards = "cards"
+                                  :cards = "cards"  
                                   />
                               <!-- </draggable> -->
                               </div>
@@ -83,23 +80,28 @@ export default {
     Message
   },
   computed:{
-    // taskStore.jsのステート：AllListsを常に参照している
-    AllLists: {
+    // taskStore.jsのステート：FolderListsを常に参照している
+    FolderLists: {
         get(){
-          return this.$store.state.taskStore.AllLists
+          return this.$store.state.taskStore.FolderLists
         },
         set(value){
           console.log(value)
-          this.$store.commit('taskStore/setAllLists', value)
+          this.$store.commit('taskStore/setFolderLists', value)
         }
+      },
+    CardLists: {
+      get(){
+        return this.$store.state.taskStore.CardLists
       }
-    // ...mapState("taskStore",['AllLists'])
+    }
+    // ...mapState("taskStore",['FolderLists'])
   },
   methods:{
-    async setAlllists(data){
-      await this.$store.dispatch('taskStore/setAllLists', data)
+    async setFolderLists(data){
+      await this.$store.dispatch('taskStore/setFolderLists', data)
     },
-    async getAllLists(){
+    async getFolderLists(){
       await axios.get('/api/folder').then( response => {
       var data = []
       var datas = response.data.folders
@@ -109,14 +111,14 @@ export default {
       // 配列に追加できているか確認
       console.log(data)
       // return false
-      this.setAlllists(data)
+      this.setFolderLists(data)
       }).catch( error => {
         console.log(error)
       })
     },
   },
   created(){
-    this.getAllLists()
+    this.getFolderLists()
   }
 }
 </script>

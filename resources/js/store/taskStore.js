@@ -1,9 +1,9 @@
 
 const state = {
-  AllLists:[],
+  FolderLists:[],
   CardLists:[]
 /* 
-AllListsのデータ構造
+FolderListsのデータ構造
   folders:[
     [
       {
@@ -58,8 +58,8 @@ const getters = {
 ********************************/
 const mutations = {
   // タスクデータをステートへ格納
-  setAllLists(state, AllLists){
-    state.AllLists = AllLists
+  setFolderLists(state, FolderLists){
+    state.FolderLists = FolderLists
   },
   setCardLists(state, CardLists){
     state.CardLists = CardLists
@@ -70,20 +70,20 @@ const mutations = {
 アクション
 ********************************/
 const actions = {
-
-  // async getAllLists( context ){
-  //   const response = await axios.get('/api/folder/user/' + id)
-  // },
-  async setAllLists( {commit} , payload){
-    commit('setAllLists', payload)
+  // 全てのデータをステートにセット
+  async setFolderLists( {commit} , payload){
+    commit('setFolderLists', payload)
   },
-  async setCardLists( {commit} , payload){
-    commit('setCardLists', payload)
+  /*************************************
+  リアクティブにデータを取得する
+  *************************************/
+  // フォルダー配下のカードをステートにセット
+  async setCardLists( {commit} , id){
+    const response = await axios.get('/api/folder/' + id + '/card').catch(error => error.response || error)
+    var data = response.data.cards
+    console.log(data)
+    commit('setCardLists', data)
   },
-
-
-
-
   /*************************************
   フォルダー作成・更新・削除・並び替え
   *************************************/
@@ -96,7 +96,7 @@ const actions = {
     for(var key in datas){
       data.push(datas[key])
     }
-    commit('setAllLists', data)
+    commit('setFolderLists', data)
   },
   // フォルダーの削除
   async deleteFolder( {commit}, id ){
@@ -107,7 +107,7 @@ const actions = {
     for(var key in datas){
       data.push(datas[key])
     }
-    commit('setAllLists', data)
+    commit('setFolderLists', data)
   }
 }
 

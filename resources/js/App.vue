@@ -1,7 +1,8 @@
 <template>
   <div>
+      <!-- <Loading v-show="loading"></Loading> -->
       <transition name="fade" mode="out-in">
-        <router-view></router-view>
+        <router-view ></router-view>
       </transition>
   </div>
 </template>
@@ -9,12 +10,21 @@
 <script>
 // エラーコードモジュールを読み込む
 import { INTERNAL_SERVER_ERROR } from './statusCode'
+// import Loading from './components/loading/Loading'
 
 export default {
   data() {
     return{
-    
+      //  loading: true
     }
+  },
+  components: {
+      // Loading
+  },
+  mounted(){
+    setTimeout( function(){
+      this.loading = false
+    }, 1000)
   },
   computed: {
     errorCode(){

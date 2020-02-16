@@ -3,7 +3,7 @@
     <div class="c-task--sidebar__user">
       <output>
         <div class="c-task__avater">
-          <img :src="profileimage" alt="">
+          <img :src="this.img" alt="">
         </div>
       </output>
       <h1 class="c-task--sidebar__usertitle">{{ username }}</h1>
@@ -13,15 +13,27 @@
 
 <script>
 export default {
-
-    computed:{
-        username(){
-        return this.$store.getters['auth/getUserName']
-      },
-        profileimage(){
-        let img = this.$store.getters['auth/getProfileImage']
-        return img
-      }
+  data(){
+    return{
+      img: ''
+    }
+  },
+  computed:{
+    username(){
+    return this.$store.getters['auth/getUserName']
+    }
+  },
+  methods: {
+    profileimage(){
+        axios.get('/api/user').then(response => {
+        this.img = response.data.pic
+        }).catch({
+        // error
+      })
+    }
+  },
+  created(){
+    this.profileimage()
   }
 }
 </script>

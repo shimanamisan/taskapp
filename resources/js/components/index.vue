@@ -95,10 +95,15 @@
   import Header from './Header'
   import Footer from './footer'
 export default {
-  components: {
+    data(){
+        return {
+           
+        }
+    },
+    components: {
     Header,
     Footer
-  }
+    }
 }
 </script>
 <style>

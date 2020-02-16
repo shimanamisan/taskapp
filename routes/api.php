@@ -60,8 +60,18 @@ Route::delete('/folder/{id}/delete', 'TaskController@deleteFolder')->name('folde
 /****************************************
 タスク管理(更新・削除)
 *****************************************/
+Route::get('/folder/{id}/card', 'TaskController@selectCrad')->name('folder.selectCrad');
 Route::patch('/folder', 'TaskController@index')->name('folder.index');
 Route::delete('/folder', 'TaskController@index')->name('folder.index');
+
+
+
+
+
+
+
+
+
 // Route::post('/profile/{id}',function(){
 //     dd(request()->all());
 //     $file_name = request()->file->getClientOriginalName();
