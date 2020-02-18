@@ -56,13 +56,29 @@ Route::post('/folder/create', 'TaskController@createFolder')->name('folder.creat
 Route::patch('/folder/{id}/update', 'TaskController@updateFolder')->name('folder.updateFolder');
 // フォルダ削除
 Route::delete('/folder/{id}/delete', 'TaskController@deleteFolder')->name('folder.deleteFolder');
+// フォルダ配下のカード取得
+Route::get('/folder/{id}/card/set', 'TaskController@selectCrad')->name('folder.selectCrad');
+
+/****************************************
+カード管理(更新・削除)
+*****************************************/
+// カード登録
+Route::post('/folder/{id}/card/create', 'TaskController@createCard')->name('folder.createCard');
+// カードの削除
+Route::delete('/folder/{id}/card/delete', 'TaskController@deleteCard')->name('folder.deleteCard');
+// カードの更新
 
 /****************************************
 タスク管理(更新・削除)
 *****************************************/
-Route::get('/folder/{id}/card', 'TaskController@selectCrad')->name('folder.selectCrad');
-Route::patch('/folder', 'TaskController@index')->name('folder.index');
+// タスク登録
+
+// タスク削除
 Route::delete('/folder', 'TaskController@index')->name('folder.index');
+// タスク更新
+Route::patch('/folder', 'TaskController@index')->name('folder.index');
+
+
 
 
 

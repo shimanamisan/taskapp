@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Folder; // 追加 
 use App\User; //追加
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; //追加
@@ -33,6 +34,7 @@ class TaskController extends Controller
       return $allData;
     }
 
+    // フォルダーを削除
     public function deleteFolder(Request $id)
     {
       $user = Auth::user();
@@ -64,6 +66,44 @@ class TaskController extends Controller
       $cardData = $allData->folders->find($folderId);
 
       return $cardData;
+    }
+
+    // カードの作成
+    public function createCard(Request $request, $id)
+    {
+      // dd($request->title, $id);
+
+      $folder = Folder::find($id);
+
+      $folder->cards()->create($request->all());
+
+      $user = Auth::user();
+
+      $user_id = Auth::user()->id;
+      
+      $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+      $cardData = $allData->folders->find($id);
+
+      return $cardData;
+    }
+
+    // カードの削除
+    public function deleteCard(Request $request, $id)
+    {
+      // dd($request->title, $id);
+      $user = Auth::user();
+
+      $user_id = Auth::user()->id;
+
+      $folderId = $id->id;
+
+      $user->folders()->find($folderId)->delete();
+
+      $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+      return $allData;
+    
     }
 
 }
