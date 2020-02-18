@@ -2139,12 +2139,8 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
-
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
+//
+//
 //
 //
 //
@@ -2314,14 +2310,21 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       }
     };
   },
-  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
-    profileUploadErrors: function profileUploadErrors(state) {
-      return state.auth.profileErrorMessages;
+  computed: {
+    // mapStateだと、メソッド内でthis.~で呼び出せなかった。
+    // エラーコードで処理の振り分けを行うので、this.getErrorCodeで呼び出す必要があった
+    // ...mapState({
+    //   profileUploadErrors: state => state.auth.profileErrorMessages,
+    //   getErrorCode: state => getters['error/code']
+    // }),
+    profileUploadErrors: function profileUploadErrors() {
+      // エラーメッセージがあった際にストアより取得
+      return this.$store.state.auth.profileErrorMessages;
     },
-    getErrorCode: function getErrorCode(state) {
-      return getters['error/code'];
+    getErrorCode: function getErrorCode() {
+      return this.$store.state.error.code;
     }
-  })),
+  },
   methods: {
     // フォームでファイルが選択されたら実行
     fileSelected: function fileSelected(event) {
@@ -2388,6 +2391,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 return this.$store.dispatch('auth/ProfileImageEdit', formData);
 
               case 4:
+                this.showProfileImage = !this.showProfileImage;
+
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -2528,6 +2534,8 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       this.showName = !this.showName;
     },
     ShowPasswordTrigger: function ShowPasswordTrigger() {
+      this.profileData.password = '';
+      this.profileData.password_confirmation = "";
       this.clearError();
       this.showPassword = !this.showPassword;
     },
@@ -2836,7 +2844,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      data: this.cards
+      // listCounter()メソッドで使うデータプロパティ
+      data: this.cards,
+      FolderId: ''
     };
   },
   props: {
@@ -2878,6 +2888,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -2902,13 +2920,49 @@ __webpack_require__.r(__webpack_exports__);
   data: function data() {
     return {
       CardEdit_flg: null,
-      CradCreateForm: ''
+      CradCreateForm: '',
+      folder_id: ''
     };
   },
   methods: {
-    ClearCradCreateForm: function ClearCradCreateForm() {
+    createCard: function () {
+      var _createCard = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.folder_id = this.$store.state.taskStore.folder_id;
+                _context.next = 3;
+                return this.$store.dispatch('taskStore/createCard', {
+                  title: this.CradCreateForm,
+                  id: this.folder_id
+                });
+
+              case 3:
+                this.clearCradCreateForm();
+
+              case 4:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function createCard() {
+        return _createCard.apply(this, arguments);
+      }
+
+      return createCard;
+    }(),
+    clearCradCreateForm: function clearCradCreateForm() {
       this.CradCreateForm = '';
       this.CardEdit_flg = !this.CardEdit_flg;
+    },
+    setFolderId: function setFolderId() {
+      this.folder_id = this.$store.state.taskStore.folder_id;
     }
   }
 });
@@ -2948,7 +3002,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      current_folder_id: '',
+      isActiveFolder: false
+    };
   },
   components: {
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
@@ -2967,7 +3024,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       required: true
     }
   },
-  computed: {},
+  computed: {
+    classObject: function classObject() {
+      return {
+        'u-isActive--folder': this.isActiveFolder
+      };
+    }
+  },
   methods: {
     // フォルダーを削除する
     deleteFolder: function () {
@@ -3025,7 +3088,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return setCardLists;
-    }()
+    }(),
+    folderActive: function folderActive() {
+      this.isActiveFolder = !this.isActiveFolder;
+    }
   }
 });
 
@@ -3142,10 +3208,14 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      img: ''
+      img: '',
+      dummy: 'https://placehold.jp/150x150.png'
     };
   },
   computed: {
@@ -45514,13 +45584,23 @@ var render = function() {
                   "button",
                   {
                     staticClass: "c-btn c-btn--profile c-btn--profile__cancel",
-                    on: { click: _vm.ClearCradCreateForm }
+                    on: { click: _vm.clearCradCreateForm }
                   },
                   [_vm._v("キャンセル")]
                 )
               ]),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "u-btn__profile--margin" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "c-btn c-btn--profile",
+                    attrs: { type: "submit" },
+                    on: { click: _vm.createCard }
+                  },
+                  [_vm._v("追加")]
+                )
+              ])
             ])
           ]
         )
@@ -45528,20 +45608,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "u-btn__profile--margin" }, [
-      _c(
-        "button",
-        { staticClass: "c-btn c-btn--profile", attrs: { type: "submit" } },
-        [_vm._v("追加")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -45566,15 +45633,17 @@ var render = function() {
   return _c("div", [
     _c(
       "li",
-      { staticClass: "c-task--folder__wrapp", on: { click: _vm.setCardLists } },
+      {
+        staticClass: "c-task--folder__wrapp",
+        class: _vm.classObject,
+        on: { click: _vm.setCardLists }
+      },
       [
         _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
         _vm._v(" "),
-        _c(
-          "label",
-          { staticClass: "c-task--folder__item", attrs: { for: "" } },
-          [_vm._v(_vm._s(_vm.title))]
-        ),
+        _c("label", { staticClass: "c-task--folder__item" }, [
+          _vm._v(_vm._s(_vm.title))
+        ]),
         _vm._v(" "),
         _c("div", { staticClass: "c-task--folder__trash" }, [
           _c("i", {
@@ -45664,7 +45733,7 @@ var render = function() {
                 }
               ],
               staticClass: "c-task--todo--inputArea",
-              attrs: { type: "text" },
+              attrs: { type: "input" },
               domProps: { value: _vm.folderTitle },
               on: {
                 input: function($event) {
@@ -45731,9 +45800,13 @@ var render = function() {
   return _c("div", { staticClass: "c-task--sidebar__wrapp" }, [
     _c("div", { staticClass: "c-task--sidebar__user" }, [
       _c("output", [
-        _c("div", { staticClass: "c-task__avater" }, [
-          _c("img", { attrs: { src: this.img, alt: "" } })
-        ])
+        this.img
+          ? _c("div", { staticClass: "c-task__avater" }, [
+              _c("img", { attrs: { src: this.img, alt: "" } })
+            ])
+          : _c("div", { staticClass: "c-task__avater" }, [
+              _c("img", { attrs: { src: this.dummy, alt: "" } })
+            ])
       ]),
       _vm._v(" "),
       _c("h1", { staticClass: "c-task--sidebar__usertitle" }, [
@@ -68704,61 +68777,20 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vuex__WEBPACK_IMPORTED_MODULE_1__
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../statusCode */ "./resources/js/statusCode.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+
 var state = {
   FolderLists: [],
-  CardLists: []
-  /* 
-  FolderListsのデータ構造
-    folders:[
-      [
-        {
-          cards:[
-            {
-              tasks:
-              [],
-              [],
-              [],
-            }
-        ],
-          cards:[
-            {
-              tasks:
-              [],
-              [],
-              [],
-            }
-        ],
-          cards:[
-            {
-              tasks:
-              [],
-              [],
-              [],
-            }
-        ],
-      }
-    ],
-      [
-        cards: {
-  
-      }
-    ],
-      [
-        cards: {
-  
-      }
-    ],    
-  ]
-  
-  
-  */
-
+  CardLists: [],
+  folder_id: '',
+  card_id: '',
+  task_id: ''
 };
 var getters = {};
 /*******************************
@@ -68772,6 +68804,15 @@ var mutations = {
   },
   setCardLists: function setCardLists(state, CardLists) {
     state.CardLists = CardLists;
+  },
+  setFolder_id: function setFolder_id(state, id) {
+    state.folder_id = id;
+  },
+  setCard_id: function setCard_id(state, id) {
+    state.card_id = id;
+  },
+  setTask_id: function setTask_id(state, id) {
+    state.task_id = id;
   }
 };
 /*******************************
@@ -68808,7 +68849,7 @@ var actions = {
   }(),
 
   /*************************************
-  リアクティブにデータを取得する
+  カードのデータを取得する
   *************************************/
   // フォルダー配下のカードをステートにセット
   setCardLists: function () {
@@ -68821,15 +68862,16 @@ var actions = {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref2.commit;
-              _context2.next = 3;
-              return axios.get('/api/folder/' + id + '/card')["catch"](function (error) {
+              // ここのIDはfolder_idのこと
+              commit('setFolder_id', id);
+              _context2.next = 4;
+              return axios.get('/api/folder/' + id + '/card/set')["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 3:
+            case 4:
               response = _context2.sent;
               data = response.data.cards;
-              console.log(data);
               commit('setCardLists', data);
 
             case 7:
@@ -68932,7 +68974,63 @@ var actions = {
     }
 
     return deleteFolder;
+  }(),
+
+  /*************************************
+  カードの作成・更新・削除・並び替え
+  *************************************/
+  // カードの作成
+  createCard: function () {
+    var _createCard = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, _ref6) {
+      var commit, title, id, card, response, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              title = _ref6.title, id = _ref6.id;
+              card = {};
+              card.title = title;
+              _context5.next = 6;
+              return axios.post('/api/folder/' + id + '/card/create', card)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 6:
+              response = _context5.sent;
+              data = response.data.cards;
+
+              if (!(response.status === 500)) {
+                _context5.next = 11;
+                break;
+              }
+
+              console.log('500エラーです');
+              return _context5.abrupt("return", false);
+
+            case 11:
+              commit('setCardLists', data);
+
+            case 12:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    function createCard(_x9, _x10) {
+      return _createCard.apply(this, arguments);
+    }
+
+    return createCard;
   }()
+  /*************************************
+  タスクの作成・更新・削除・並び替え
+  *************************************/
+
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,

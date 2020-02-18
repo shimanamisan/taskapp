@@ -2,8 +2,11 @@
   <div class="c-task--sidebar__wrapp">
     <div class="c-task--sidebar__user">
       <output>
-        <div class="c-task__avater">
+        <div class="c-task__avater" v-if="this.img">
           <img :src="this.img" alt="">
+        </div>
+        <div class="c-task__avater" v-else>
+          <img :src="this.dummy" alt="">
         </div>
       </output>
       <h1 class="c-task--sidebar__usertitle">{{ username }}</h1>
@@ -15,7 +18,8 @@
 export default {
   data(){
     return{
-      img: ''
+      img: '',
+      dummy: 'https://placehold.jp/150x150.png'
     }
   },
   computed:{

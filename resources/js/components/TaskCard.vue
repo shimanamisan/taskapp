@@ -35,7 +35,9 @@ import TaskCardAdd from './TaskCardAdd'
 export default {
   data(){
       return{
-        data: this.cards
+        // listCounter()メソッドで使うデータプロパティ
+        data: this.cards,
+        FolderId: ''
     }
   },
   props: {
@@ -64,7 +66,7 @@ export default {
     }  
   },
   methods: {
-  
+ 
   },
 }
 </script>

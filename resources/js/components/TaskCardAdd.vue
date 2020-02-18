@@ -6,10 +6,10 @@
                 <input type="input" class="c-task--todo--inputArea" v-model="CradCreateForm">
                 <div class="l-flex u-btn--wrapp">
                     <div class="u-btn__profile--margin">
-                        <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="ClearCradCreateForm">キャンセル</button>
+                        <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="clearCradCreateForm">キャンセル</button>
                     </div>
                     <div class="u-btn__profile--margin">
-                        <button type="submit" class="c-btn c-btn--profile">追加</button>
+                        <button type="submit" class="c-btn c-btn--profile" @click="createCard">追加</button>
                     </div>
                 </div>
                 <!-- l-flex -->
@@ -24,12 +24,27 @@ export default {
     return{
       CardEdit_flg: null,
       CradCreateForm: '',
+      folder_id: ''
     }
   },
   methods: {
-    ClearCradCreateForm(){
+    async createCard(){
+      this.folder_id = this.$store.state.taskStore.folder_id
+      await this.$store.dispatch('taskStore/createCard',
+      {
+        title: this.CradCreateForm,
+        id: this.folder_id
+      })
+
+      this.clearCradCreateForm()
+    },
+    clearCradCreateForm(){
     this.CradCreateForm = ''
     this.CardEdit_flg = !this.CardEdit_flg
+    },
+    setFolderId(){
+      this.folder_id = this.$store.state.taskStore.folder_id
+      
     }
   }
 }

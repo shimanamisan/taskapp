@@ -3,7 +3,7 @@
     <div v-show="!folderEdit_flg" class="c-task--todo--list c-task--todo--push" @click="folderEdit_flg = !folderEdit_flg">＋ 新しいフォルダを追加 </div>
     <div v-show="folderEdit_flg" class="c-task--todo--inputAreaWrapp">
       <form @submit.prevent>
-        <input type="text" class="c-task--todo--inputArea" v-model="folderTitle">
+        <input type="input" class="c-task--todo--inputArea" v-model="folderTitle">
         <div class="l-flex u-btn--wrapp">
           <div class="u-btn__profile--margin">
             <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="clearFolderCreateForm">キャンセル</button>

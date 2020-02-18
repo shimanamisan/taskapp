@@ -1,52 +1,11 @@
+import { OK, UNPROCESSABLE_ENTITY, CREATED } from '../statusCode'
 
 const state = {
   FolderLists:[],
-  CardLists:[]
-/* 
-FolderListsのデータ構造
-  folders:[
-    [
-      {
-        cards:[
-          {
-            tasks:
-            [],
-            [],
-            [],
-          }
-      ],
-        cards:[
-          {
-            tasks:
-            [],
-            [],
-            [],
-          }
-      ],
-        cards:[
-          {
-            tasks:
-            [],
-            [],
-            [],
-          }
-      ],
-    }
-  ],
-    [
-      cards: {
-
-    }
-  ],
-    [
-      cards: {
-
-    }
-  ],    
-]
-
-
-*/
+  CardLists:[],
+  folder_id: '',
+  card_id: '',
+  task_id: '',
 }
 
 const getters = {
@@ -63,7 +22,16 @@ const mutations = {
   },
   setCardLists(state, CardLists){
     state.CardLists = CardLists
-  }
+  },
+  setFolder_id(state, id){
+    state.folder_id = id
+  },
+  setCard_id(state, id){
+    state.card_id = id
+  },
+  setTask_id(state, id){
+    state.task_id = id
+  },
 }
 
 /*******************************
@@ -75,13 +43,14 @@ const actions = {
     commit('setFolderLists', payload)
   },
   /*************************************
-  リアクティブにデータを取得する
+  カードのデータを取得する
   *************************************/
   // フォルダー配下のカードをステートにセット
   async setCardLists( {commit} , id){
-    const response = await axios.get('/api/folder/' + id + '/card').catch(error => error.response || error)
+    // ここのIDはfolder_idのこと
+    commit('setFolder_id', id)
+    const response = await axios.get('/api/folder/' + id + '/card/set').catch(error => error.response || error)
     var data = response.data.cards
-    console.log(data)
     commit('setCardLists', data)
   },
   /*************************************
@@ -108,7 +77,26 @@ const actions = {
       data.push(datas[key])
     }
     commit('setFolderLists', data)
+  },
+  /*************************************
+  カードの作成・更新・削除・並び替え
+  *************************************/
+  // カードの作成
+  async createCard( { commit }, {title, id}){
+    let card = {}
+    card.title = title
+    const response = await axios.post('/api/folder/' + id + '/card/create', card ).catch(error => error.response || error)
+    var data = response.data.cards
+    if(response.status === 500){
+      console.log('500エラーです')
+      return false
+    }
+    commit('setCardLists', data)
   }
+
+  /*************************************
+  タスクの作成・更新・削除・並び替え
+  *************************************/
 }
 
 export default {

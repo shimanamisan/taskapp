@@ -87,6 +87,7 @@
                         </div>
                     </div>
                     <!-- c-form__container--profile -->
+
                     <transition name="fade">
                         <div key="modal" class="c-modal" v-show="showPassword">
                             <div class="c-modal--body">
@@ -123,6 +124,7 @@
                         </div>
                         <!-- end c-modal -->
                     </transition>
+
                 </div>
                 <!-- l-card__container -->
                 <div class="l-card__container">
@@ -173,18 +175,19 @@ export default {
     }
   },
   computed: {
-
-    ...mapState({
-      profileUploadErrors: state => state.auth.profileErrorMessages,
-      getErrorCode: state => getters['error/code']
-    })
-    // profileUploadErrors(){
-    //   // エラーメッセージがあった際にストアより取得
-    //   return this.$store.state.auth.profileErrorMessages
-    // },
-    // getErrorCode(){
-    //   return this.$store.state.error.code
-    // }
+    // mapStateだと、メソッド内でthis.~で呼び出せなかった。
+    // エラーコードで処理の振り分けを行うので、this.getErrorCodeで呼び出す必要があった
+    // ...mapState({
+    //   profileUploadErrors: state => state.auth.profileErrorMessages,
+    //   getErrorCode: state => getters['error/code']
+    // }),
+    profileUploadErrors(){
+      // エラーメッセージがあった際にストアより取得
+      return this.$store.state.auth.profileErrorMessages
+    },
+    getErrorCode(){
+      return this.$store.state.error.code
+    }
   },
   methods: {
       // フォームでファイルが選択されたら実行
@@ -235,7 +238,9 @@ export default {
         // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
         formData.append('profilePhoto', this.profileData.profileImage)
         // アクションへファイル情報を渡す
-        await this.$store.dispatch('auth/ProfileImageEdit', formData)        
+        await this.$store.dispatch('auth/ProfileImageEdit', formData)
+
+        this.showProfileImage = !this.showProfileImage
       },
       async ProfileUserDelete(){
         // アクションを呼びに行く
@@ -259,7 +264,7 @@ export default {
           password: this.profileData.password,
           password_confirmation: this.profileData.password_confirmation
         })
-
+  
         if(this.getErrorCode === 200){
           // 送信後入力フォームを空にする
           this.profileData.password = '',
@@ -279,6 +284,8 @@ export default {
         this.showName = !this.showName
       },
       ShowPasswordTrigger(){
+        this.profileData.password = ''
+        this.profileData.password_confirmation = ""
         this.clearError()
         this.showPassword = !this.showPassword
       },

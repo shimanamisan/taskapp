@@ -1,8 +1,8 @@
 <template>
     <div>
-      <li class="c-task--folder__wrapp" @click="setCardLists">
+      <li class="c-task--folder__wrapp" :class="classObject" @click="setCardLists">
             <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
-            <label class="c-task--folder__item" for="">{{title}}</label>
+            <label class="c-task--folder__item" >{{title}}</label>
             <div class="c-task--folder__trash">
                <i class="fas fa-trash-alt" @click="deleteFolder"></i>
             </div>
@@ -14,6 +14,8 @@ import draggable from 'vuedraggable'
 export default {
   data(){
     return {
+      current_folder_id: '',
+      isActiveFolder: false
     }
   },
   components: {
@@ -34,7 +36,11 @@ export default {
     }
   },
   computed: {
-
+    classObject(){
+      return {
+        'u-isActive--folder': this.isActiveFolder
+      }
+    }
   },
   methods: {
     // フォルダーを削除する
@@ -46,6 +52,9 @@ export default {
     // フォルダーを選択したら、そのフォルダーのカードリストを取得
     async setCardLists(){
       await this.$store.dispatch('taskStore/setCardLists', this.id )
+    },
+    folderActive(){
+      this.isActiveFolder = !this.isActiveFolder
     }
   }
 }
