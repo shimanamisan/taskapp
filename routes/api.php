@@ -55,17 +55,17 @@ Route::post('/folder/create', 'TaskController@createFolder')->name('folder.creat
 // フォルダ更新
 Route::patch('/folder/{id}/update', 'TaskController@updateFolder')->name('folder.updateFolder');
 // フォルダ削除
-Route::delete('/folder/{id}/delete', 'TaskController@deleteFolder')->name('folder.deleteFolder');
+Route::delete('/folder/{folder_id}/delete', 'TaskController@deleteFolder')->name('folder.deleteFolder');
 // フォルダ配下のカード取得
-Route::get('/folder/{id}/card/set', 'TaskController@selectCrad')->name('folder.selectCrad');
+Route::get('/folder/{folder_id}/card/set', 'TaskController@selectCrad')->name('folder.selectCrad');
 
 /****************************************
 カード管理(更新・削除)
 *****************************************/
 // カード登録
-Route::post('/folder/{id}/card/create', 'TaskController@createCard')->name('folder.createCard');
+Route::post('/folder/{folder_id}/card/create', 'TaskController@createCard')->name('card.createCard');
 // カードの削除
-Route::delete('/folder/{id}/card/delete', 'TaskController@deleteCard')->name('folder.deleteCard');
+Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'TaskController@deleteCard')->name('card.deleteCard');
 // カードの更新
 
 /****************************************
@@ -74,9 +74,9 @@ Route::delete('/folder/{id}/card/delete', 'TaskController@deleteCard')->name('fo
 // タスク登録
 
 // タスク削除
-Route::delete('/folder', 'TaskController@index')->name('folder.index');
+Route::delete('/folder', 'TaskController@index')->name('task.index');
 // タスク更新
-Route::patch('/folder', 'TaskController@index')->name('folder.index');
+Route::patch('/folder', 'TaskController@index')->name('task.index');
 
 
 

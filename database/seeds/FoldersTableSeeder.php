@@ -14,7 +14,7 @@ class FoldersTableSeeder extends Seeder
     public function run()
     {
         // フォルダ用テストデータ挿入
-        $titles = ['仕事', 'プライベート', '家族'];
+        $titles = ['仕事', 'プライベート', '家族', '家事・育児', 'フィットネス', '副業', '来週までにやるリスト', '今週までにやるリスト'];
         
         // $titlesに入っている配列の個数回ループが実行され、$titleに分解された値が入る
         foreach($titles as $title){

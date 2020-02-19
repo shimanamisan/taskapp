@@ -108,9 +108,6 @@ export default {
       for(var key in datas){
         data.push(datas[key])
       }
-      // 配列に追加できているか確認
-      console.log(data)
-      // return false
       this.setFolderLists(data)
       }).catch( error => {
         console.log(error)

@@ -8,102 +8,112 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth; //追加
 
 class TaskController extends Controller
-{
-    // フォルダーやタスクデータの一覧を取得
-    public function index()
-    {   
-      $user_id = Auth::user()->id;
+{ 
 
-      $allData = User::with('folders')->find($user_id);
-     
-      return $allData;
-    }    
+  /****************************************
+    フォルダー関連の処理
+  *****************************************/
+  // フォルダーやタスクデータの一覧を取得
+  public function index()
+  {   
+    $user_id = Auth::user()->id;
 
-    public function createFolder(Request $request)
-    {  
-      // Auth::user()はApp\Userのインスタンスを返す。モデルのこと
-      // これで探しているのと同じ。User::find($id);
-      $user = Auth::user();
-      // https://programing-school.work/laravel-belongsto/
-      $user->folders()->create($request->all());
-      // 更新されたデータを新たに全て取得
-      $user_id = Auth::user()->id;
-
-      $allData = User::with('folders')->find($user_id);
-
-      return $allData;
-    }
-
-    // フォルダーを削除
-    public function deleteFolder(Request $id)
-    {
-      $user = Auth::user();
-
-      $user_id = Auth::user()->id;
-
-      $folderId = $id->id;
-
-      $user->folders()->find($folderId)->delete();
-
-      $allData = User::with(['folders.cards.tasks'])->find($user_id);
-
-      return $allData;
-
-    }
-
-    // カードのデータを取得
-    public function selectCrad(Request $id)
-    {
-     
-      $user = Auth::user();
-
-      $user_id = Auth::user()->id;
-
-      $folderId = $id->id;
-      
-      $allData = User::with(['folders.cards.tasks'])->find($user_id);
-
-      $cardData = $allData->folders->find($folderId);
-
-      return $cardData;
-    }
-
-    // カードの作成
-    public function createCard(Request $request, $id)
-    {
-      // dd($request->title, $id);
-
-      $folder = Folder::find($id);
-
-      $folder->cards()->create($request->all());
-
-      $user = Auth::user();
-
-      $user_id = Auth::user()->id;
-      
-      $allData = User::with(['folders.cards.tasks'])->find($user_id);
-
-      $cardData = $allData->folders->find($id);
-
-      return $cardData;
-    }
-
-    // カードの削除
-    public function deleteCard(Request $request, $id)
-    {
-      // dd($request->title, $id);
-      $user = Auth::user();
-
-      $user_id = Auth::user()->id;
-
-      $folderId = $id->id;
-
-      $user->folders()->find($folderId)->delete();
-
-      $allData = User::with(['folders.cards.tasks'])->find($user_id);
-
-      return $allData;
+    $allData = User::with('folders')->find($user_id);
     
-    }
+    return $allData;
+  }    
+
+  public function createFolder(Request $request)
+  {  
+    // Auth::user()はApp\Userのインスタンスを返す。モデルのこと
+    // これで探しているのと同じ。User::find($id);
+    $user = Auth::user();
+    // https://programing-school.work/laravel-belongsto/
+    $user->folders()->create($request->all());
+    // 更新されたデータを新たに全て取得
+    $user_id = Auth::user()->id;
+
+    $allData = User::with('folders')->find($user_id);
+
+    return $allData;
+  }
+
+  // フォルダーを削除
+  public function deleteFolder($folder_id)
+  { 
+
+    $user = Auth::user();
+
+    $user_id = Auth::user()->id;
+
+    $user->folders()->find($folder_id)->delete();
+
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    return $allData;
+
+  }
+
+  // カードのデータを取得
+  public function selectCrad($folder_id)
+  {
+    // dd($folder_id);
+
+    $user = Auth::user();
+
+    $user_id = Auth::user()->id;
+
+    // $folderId = $id->id;
+    
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    $cardData = $allData->folders->find($folder_id);
+
+    return $cardData;
+  }
+
+  /****************************************
+    カード関連の処理
+  *****************************************/
+  // カードの作成
+  public function createCard(Request $request, $folder_id)
+  {
+    // dd($request->title, $id);
+
+    $folder = Folder::find($folder_id);
+
+    $folder->cards()->create($request->all());
+
+    $user = Auth::user();
+
+    $user_id = Auth::user()->id;
+    
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    $cardData = $allData->folders->find($folder_id);
+
+    return $cardData;
+  }
+
+  // カードの削除
+  public function deleteCard($folder_id, $card_id)
+  {
+    // dd('カード削除の処理です');
+
+    $folder = Folder::find($folder_id);
+
+    $folder->cards()->find($card_id)->delete();
+
+    $user = Auth::user();
+
+    $user_id = Auth::user()->id;
+
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    $cardData = $allData->folders->find($folder_id);
+
+    return $allData;
+  
+  }
 
 }

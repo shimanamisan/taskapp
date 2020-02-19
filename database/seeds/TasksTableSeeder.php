@@ -14,7 +14,7 @@ class TasksTableSeeder extends Seeder
     public function run()
     {
         // カード用テストデータ挿入
-        $titles = ['ループ処理復習', 'MySQLも復習', 'シンタックスエラー減らす'];
+        $titles = ['ループ処理復習', 'MySQLも復習', 'シンタックスエラー減らす', 'ポートフォリオ作る', 'ビジネスについてまとめる'];
 
         // $titlesに入っている配列の個数回ループが実行され、$titleに分解された値が入る
         foreach($titles as $title){

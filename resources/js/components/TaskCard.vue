@@ -7,7 +7,7 @@
         <div class="c-task--todo__header">{{ cards.title }}
           <label for="" class="c-task--todo--counter">{{ listCounter }}</label>
             <div class="c-task--todo--list--del">
-               <i class="fas fa-times"></i>
+               <i class="fas fa-times" @click="deleteCard"></i>
             </div>
         </div>
         <TaskListAdd/>
@@ -37,7 +37,6 @@ export default {
       return{
         // listCounter()メソッドで使うデータプロパティ
         data: this.cards,
-        FolderId: ''
     }
   },
   props: {
@@ -62,11 +61,25 @@ export default {
   },
   computed:{
     listCounter(){
-      return this.data.tasks.length
+      return this.cards.tasks.length
     }  
   },
   methods: {
- 
+    async deleteCard(){
+      const folder_id = this.cards.folder_id
+      const card_id = this.cards.id
+      // console.log( 'これはカードid：' + folder_id + '  ' + 'これはフォルダid：' + card_id)
+      if(window.confirm('フォルダーを削除すると全てのタスクも削除されます。\nフォルダーを削除しますか？')){
+        await this.$store.dispatch('taskStore/deleteCard', 
+        {
+          folderId: folder_id,
+          cardId: card_id
+        })
+
+        // 削除後更新されるので、選択されていたものがそのまま表示されている様に呼び出す
+        await this.$store.dispatch('taskStore/setCardLists', folder_id )
+      }
+    }
   },
 }
 </script>

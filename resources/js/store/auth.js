@@ -32,8 +32,6 @@ const getters = {
   // プロフィール写真のパスを呼び出す
   getProfileImage: state => state.profileImage ? state.profileImage : '',
 
-  // エラーメッセージを取得
-  // profileErrorMessages: state => state.profileErrorMessages ? state.profileErrorMessages : ''
 }
 
 /*******************************
