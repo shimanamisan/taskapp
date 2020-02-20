@@ -54,7 +54,12 @@ class TaskController extends Controller
 
   }
 
-  // カードのデータを取得
+  public function updateFolder($folder_id)
+  {
+    dd('フォルダーののアップデート処理です');
+  }
+
+  // フォルダー配下のカードのデータを取得
   public function selectCrad($folder_id)
   {
     // dd($folder_id);
@@ -113,7 +118,28 @@ class TaskController extends Controller
     $cardData = $allData->folders->find($folder_id);
 
     return $allData;
-  
   }
 
+  public function updateCard($folder_id, $card_id)
+  {
+    dd('カードのアップデート処理です');
+  }
+
+  /****************************************
+    タスク関連の処理
+  *****************************************/
+  public function createTask($folder_id, $card_id)
+  {
+    dd('タスクの新規登録処理です');
+  }
+
+  public function deleteTask($folder_id, $card_id, $task_id)
+  {
+    dd('タスクの削除処理です');
+  }
+
+  public function updateTask($folder_id, $card_id, $task_id)
+  {
+    dd('タスクのアップデート処理です');
+  }
 }
