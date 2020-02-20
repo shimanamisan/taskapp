@@ -10,7 +10,7 @@
                <i class="fas fa-times" @click="deleteCard"></i>
             </div>
         </div>
-        <TaskListAdd/>
+        <TaskListAdd :cards="cards"/>
         <!-- c-task--todo--push -->
         <draggable :list="cards.tasks" tag="div" v-bind="{animation:300}" group="cards">
            <TaskList v-for="(task, index) in cards.tasks"
@@ -36,7 +36,7 @@ export default {
   data(){
       return{
         // listCounter()メソッドで使うデータプロパティ
-        data: this.cards,
+        // data: this.cards,
     }
   },
   props: {
@@ -69,7 +69,7 @@ export default {
       const folder_id = this.cards.folder_id
       const card_id = this.cards.id
       // console.log( 'これはカードid：' + folder_id + '  ' + 'これはフォルダid：' + card_id)
-      if(window.confirm('フォルダーを削除すると全てのタスクも削除されます。\nフォルダーを削除しますか？')){
+      if(window.confirm('カードを削除すると、全てのタスクリストも削除されます。\nフォルダーを削除しますか？')){
         await this.$store.dispatch('taskStore/deleteCard', 
         {
           folderId: folder_id,

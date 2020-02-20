@@ -513,6 +513,10 @@ input {
   opacity: 0;
 }
 
+.c-input--profile__drop:hover {
+  cursor: pointer;
+}
+
 .c-modal {
   position: fixed;
   left: 0;
@@ -711,6 +715,10 @@ input {
 
 .c-task__avater > img {
   border-radius: 50%;
+}
+
+.c-task--folder__tips {
+  overflow: hidden;
 }
 
 .c-task--folder__drag {

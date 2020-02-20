@@ -71,6 +71,9 @@
     }
 
     &--folder{
+        &__tips{
+          overflow: hidden;
+        }
         &__drag{
           margin-right: 15px;
         }

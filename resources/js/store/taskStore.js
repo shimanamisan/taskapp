@@ -1,4 +1,4 @@
-import { OK, UNPROCESSABLE_ENTITY, CREATED } from '../statusCode'
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../statusCode'
 
 const state = {
   FolderLists:[],
@@ -79,8 +79,8 @@ const actions = {
     const response = await axios.delete('/api/folder/' + folder_id + '/delete' ).catch(error => error.response || error)
     var data = []
     var datas = response.data.folders
-    if(response.status === 500 || response.status === 405){
-      console.log('500エラーまたは405エラーです')
+    if(response.status === INTERNAL_SERVER_ERROR){
+      console.log('INTERNAL_SERVER_ERRORです')
       return false
     }
     for(var key in datas){
@@ -94,13 +94,13 @@ const actions = {
   // カードの作成
   async createCard( { commit }, {title, folder_id}){
     // Laravel側へオブジェクトとしてデータを渡すために作成
-    let card = {}
+    const card = {}
     // titleプロパティにフォームの値をセット
     card.title = title
     const response = await axios.post('/api/folder/' + folder_id + '/card/create', card ).catch(error => error.response || error)
     var data = response.data.cards
-    if(response.status === 500 || response.status === 405){
-      console.log('500エラーまたは405エラーです')
+    if(response.status === INTERNAL_SERVER_ERROR){
+      console.log('INTERNAL_SERVER_ERRORです')
       return false
     }
     commit('setCardLists', data)
@@ -108,22 +108,48 @@ const actions = {
   // カードの削除
   async deleteCard( { commit }, {folderId, cardId}){
     console.log('カード削除のアクションが動作しています')
-    console.log( typeof folderId)
-    console.log( typeof cardId)
     const response = await axios.delete('/api/folder/' + folderId + '/card/' + cardId + '/delete').catch(error => error.response || error)
     var data = response.data.cards
-    if(response.status === 500 || response.status === 405){
-      console.log('500エラーまたは405エラーです')
+    if(response.status === INTERNAL_SERVER_ERROR){
+      console.log('INTERNAL_SERVER_ERRORです')
+      return false
+    }
+    commit('setCardLists', data)
+  },
+
+  /*************************************
+  タスクの作成・更新・削除・並び替え
+  *************************************/
+ // タスクの作成
+  async createTask( { commit }, {title, folder_id, card_id}){
+    const task = {}
+    // titleプロパティにフォームの値をセット
+    task.title = title
+    const response = await axios.post('/api/folder/' + folder_id + '/card/' + card_id + '/task/create', task ).catch(error => error.response || error)
+    // /folder/{folder_id}/card/{card_id}/task/create
+    var data = response.data.cards
+    if(response.status === INTERNAL_SERVER_ERROR){
+      console.log('INTERNAL_SERVER_ERRORです')
+      return false
+    }
+    console.log('ここまでアクションOK')
+    return false
+    commit('setCardLists', data)
+  },
+  // タスクの削除
+  async deleteTask( { commit }, {folderId, cardId}){
+    console.log('カード削除のアクションが動作しています')
+    const response = await axios.delete('/api/folder/' + folderId + '/card/' + cardId + '/delete').catch(error => error.response || error)
+    var data = response.data.cards
+    if(response.status === INTERNAL_SERVER_ERROR){
+      console.log('INTERNAL_SERVER_ERRORです')
       return false
     }
     commit('setCardLists', data)
   }
 
-  // /folder/{id}/card/{id}/delete
 
-  /*************************************
-  タスクの作成・更新・削除・並び替え
-  *************************************/
+
 }
 
 export default {

@@ -67,16 +67,17 @@ Route::post('/folder/{folder_id}/card/create', 'TaskController@createCard')->nam
 // カードの削除
 Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'TaskController@deleteCard')->name('card.deleteCard');
 // カードの更新
+Route::patch('/folder/{folder_id}/card/{card_id}/update', 'TaskController@deleteCard')->name('card.updateCard');
 
 /****************************************
 タスク管理(更新・削除)
 *****************************************/
 // タスク登録
-
+Route::post('/folder/{folder_id}/card/{card_id}/task/create', 'TaskController@createTask')->name('task.createTask');
 // タスク削除
-Route::delete('/folder', 'TaskController@index')->name('task.index');
+Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
 // タスク更新
-Route::patch('/folder', 'TaskController@index')->name('task.index');
+Route::patch('/folder/{folder_id}/card/{card_id}/task/{task_id}/update', 'TaskController@deleteTask')->name('task.updateTask');
 
 
 

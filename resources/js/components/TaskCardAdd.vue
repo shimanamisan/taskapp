@@ -3,7 +3,7 @@
         <div v-show="!CardEdit_flg" class="c-task--todo--list c-task--todo--push" @click="CardEdit_flg = !CardEdit_flg">＋ 新しいカードを追加 </div>
         <div v-show="CardEdit_flg" class="c-task--todo--inputAreaWrapp CardAdd">
             <form @submit.prevent>
-                <input type="input" class="c-task--todo--inputArea" v-model="CradCreateForm">
+                <input type="text" class="c-task--todo--inputArea" v-model="CradCreateForm">
                 <div class="l-flex u-btn--wrapp">
                     <!-- バリデーションエラー --->
                     <div v-if="requestErrorMessages" class="errors">

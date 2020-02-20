@@ -29,7 +29,7 @@
                             <!-- c-task--sidebar -->
                             <!-- TODOコンポーネント  -->
                             
-                            <!-- <draggable group="cards" class="c-task--card"  v-for="(folders, index) in FolderLists" :key="index"> -->
+                            <!-- <draggable group="cards" class="c-task--card"> -->
                               <div class="c-task--card">
                                  
                                   <TaskCard v-for="(cards, index) in CardLists" 

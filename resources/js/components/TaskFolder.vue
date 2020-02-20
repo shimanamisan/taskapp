@@ -2,8 +2,16 @@
     <div>
       <li class="c-task--folder__wrapp" :class="classObject" @click="setCardLists">
             <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
-            <label class="c-task--folder__item" >{{title}}</label>
+            <span class="c-task--folder__tips" v-if="editFlag">
+              <span class="c-task--folder__item" >{{title}}</span>
+            </span>
+            <form @submit.prevent v-else>
+              <span class="c-task--folder__tips" >
+                <input type="text" class="c-input" v-model="this.title">
+              </span>
+            </form>
             <div class="c-task--folder__trash">
+               <i class="fas fa-edit" @click="editFolder"></i>
                <i class="fas fa-trash-alt" @click="deleteFolder"></i>
             </div>
         </li>
@@ -15,7 +23,8 @@ export default {
   data(){
     return {
       current_folder_id: '',
-      isActiveFolder: false
+      isActiveFolder: false,
+      editFlag: true,
     }
   },
   components: {
@@ -45,7 +54,7 @@ export default {
   methods: {
     // フォルダーを削除する
     async deleteFolder(){
-      if(window.confirm('フォルダーを削除すると全てのタスクも削除されます。\nフォルダーを削除しますか？')){
+      if(window.confirm('フォルダーを削除すると、全てのカード及びタスクリストも削除されます。\nフォルダーを削除しますか？')){
         await this.$store.dispatch('taskStore/deleteFolder', this.id )
       }
     },
@@ -55,7 +64,11 @@ export default {
     },
     folderActive(){
       this.isActiveFolder = !this.isActiveFolder
-    }
+    },
+    editFolder(){
+      this.editFlag = !this.editFlag
+    } 
+
   }
 }
 </script>

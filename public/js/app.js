@@ -2848,9 +2848,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {
-      // listCounter()メソッドで使うデータプロパティ
-      data: this.cards
+    return {// listCounter()メソッドで使うデータプロパティ
+      // data: this.cards,
     };
   },
   props: {
@@ -2891,7 +2890,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 folder_id = this.cards.folder_id;
                 card_id = this.cards.id; // console.log( 'これはカードid：' + folder_id + '  ' + 'これはフォルダid：' + card_id)
 
-                if (!window.confirm('フォルダーを削除すると全てのタスクも削除されます。\nフォルダーを削除しますか？')) {
+                if (!window.confirm('カードを削除すると、全てのタスクリストも削除されます。\nフォルダーを削除しますか？')) {
                   _context.next = 7;
                   break;
                 }
@@ -3064,12 +3063,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       current_folder_id: '',
-      isActiveFolder: false
+      isActiveFolder: false,
+      editFlag: true
     };
   },
   components: {
@@ -3106,7 +3114,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                if (!window.confirm('フォルダーを削除すると全てのタスクも削除されます。\nフォルダーを削除しますか？')) {
+                if (!window.confirm('フォルダーを削除すると、全てのカード及びタスクリストも削除されます。\nフォルダーを削除しますか？')) {
                   _context.next = 3;
                   break;
                 }
@@ -3156,6 +3164,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }(),
     folderActive: function folderActive() {
       this.isActiveFolder = !this.isActiveFolder;
+    },
+    editFolder: function editFolder() {
+      this.editFlag = !this.editFlag;
     }
   }
 });
@@ -3360,6 +3371,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -3382,14 +3401,55 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      TodoEdit_flg: null,
-      TodoCreateForm: ''
+      TaskEdit_flg: null,
+      TaskCreateForm: ''
     };
   },
+  props: {
+    cards: {
+      type: Object,
+      required: true
+    }
+  },
   methods: {
-    ClearTodoCreateForm: function ClearTodoCreateForm() {
-      this.TodoCreateForm = '';
-      this.TodoEdit_flg = !this.TodoEdit_flg;
+    // 投稿の内容をアクションへ渡す
+    createTask: function () {
+      var _createTask = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.$store.dispatch('taskStore/createTask', {
+                  // アクションは第2引数までしか引数を受け取れないので、
+                  // 複数のデータをアクションへ渡すには、オブジェクト形式で渡す。
+                  title: this.TaskCreateForm,
+                  folder_id: this.cards.folder_id,
+                  card_id: this.cards.id
+                });
+
+              case 2:
+                this.clearTaskCreateForm();
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function createTask() {
+        return _createTask.apply(this, arguments);
+      }
+
+      return createTask;
+    }(),
+    clearTaskCreateForm: function clearTaskCreateForm() {
+      this.TaskCreateForm = '';
+      this.TaskEdit_flg = !this.TaskEdit_flg;
     }
   }
 });
@@ -45525,7 +45585,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("TaskListAdd"),
+          _c("TaskListAdd", { attrs: { cards: _vm.cards } }),
           _vm._v(" "),
           _c(
             "draggable",
@@ -45627,7 +45687,7 @@ var render = function() {
                 }
               ],
               staticClass: "c-task--todo--inputArea",
-              attrs: { type: "input" },
+              attrs: { type: "text" },
               domProps: { value: _vm.CradCreateForm },
               on: {
                 input: function($event) {
@@ -45716,11 +45776,54 @@ var render = function() {
       [
         _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
         _vm._v(" "),
-        _c("label", { staticClass: "c-task--folder__item" }, [
-          _vm._v(_vm._s(_vm.title))
-        ]),
+        _vm.editFlag
+          ? _c("span", { staticClass: "c-task--folder__tips" }, [
+              _c("span", { staticClass: "c-task--folder__item" }, [
+                _vm._v(_vm._s(_vm.title))
+              ])
+            ])
+          : _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                  }
+                }
+              },
+              [
+                _c("span", { staticClass: "c-task--folder__tips" }, [
+                  _c("input", {
+                    directives: [
+                      {
+                        name: "model",
+                        rawName: "v-model",
+                        value: this.title,
+                        expression: "this.title"
+                      }
+                    ],
+                    staticClass: "c-input",
+                    attrs: { type: "text" },
+                    domProps: { value: this.title },
+                    on: {
+                      input: function($event) {
+                        if ($event.target.composing) {
+                          return
+                        }
+                        _vm.$set(this, "title", $event.target.value)
+                      }
+                    }
+                  })
+                ])
+              ]
+            ),
         _vm._v(" "),
         _c("div", { staticClass: "c-task--folder__trash" }, [
+          _c("i", {
+            staticClass: "fas fa-edit",
+            on: { click: _vm.editFolder }
+          }),
+          _vm._v(" "),
           _c("i", {
             staticClass: "fas fa-trash-alt",
             on: { click: _vm.deleteFolder }
@@ -45957,14 +46060,14 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: !_vm.TodoEdit_flg,
-            expression: "!TodoEdit_flg"
+            value: !_vm.TaskEdit_flg,
+            expression: "!TaskEdit_flg"
           }
         ],
         staticClass: "c-task--todo--list c-task--todo--push",
         on: {
           click: function($event) {
-            _vm.TodoEdit_flg = !_vm.TodoEdit_flg
+            _vm.TaskEdit_flg = !_vm.TaskEdit_flg
           }
         }
       },
@@ -45978,8 +46081,8 @@ var render = function() {
           {
             name: "show",
             rawName: "v-show",
-            value: _vm.TodoEdit_flg,
-            expression: "TodoEdit_flg"
+            value: _vm.TaskEdit_flg,
+            expression: "TaskEdit_flg"
           }
         ],
         staticClass: "c-task--todo--inputAreaWrapp"
@@ -46000,19 +46103,19 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.TodoCreateForm,
-                  expression: "TodoCreateForm"
+                  value: _vm.TaskCreateForm,
+                  expression: "TaskCreateForm"
                 }
               ],
               staticClass: "c-task--todo--inputArea",
               attrs: { type: "input" },
-              domProps: { value: _vm.TodoCreateForm },
+              domProps: { value: _vm.TaskCreateForm },
               on: {
                 input: function($event) {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.TodoCreateForm = $event.target.value
+                  _vm.TaskCreateForm = $event.target.value
                 }
               }
             }),
@@ -46023,13 +46126,22 @@ var render = function() {
                   "button",
                   {
                     staticClass: "c-btn c-btn--profile c-btn--profile__cancel",
-                    on: { click: _vm.ClearTodoCreateForm }
+                    on: { click: _vm.clearTaskCreateForm }
                   },
                   [_vm._v("キャンセル")]
                 )
               ]),
               _vm._v(" "),
-              _vm._m(0)
+              _c("div", { staticClass: "u-btn__profile--margin" }, [
+                _c(
+                  "button",
+                  {
+                    staticClass: "c-btn c-btn--profile",
+                    on: { click: _vm.createTask }
+                  },
+                  [_vm._v("追加")]
+                )
+              ])
             ])
           ]
         )
@@ -46037,16 +46149,7 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "u-btn__profile--margin" }, [
-      _c("button", { staticClass: "c-btn c-btn--profile" }, [_vm._v("追加")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -68853,8 +68956,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../statusCode */ "./resources/js/statusCode.js");
 
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
@@ -69036,12 +69137,12 @@ var actions = {
               data = [];
               datas = response.data.folders;
 
-              if (!(response.status === 500 || response.status === 405)) {
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
                 _context4.next = 10;
                 break;
               }
 
-              console.log('500エラーまたは405エラーです');
+              console.log('INTERNAL_SERVER_ERRORです');
               return _context4.abrupt("return", false);
 
             case 10:
@@ -69094,12 +69195,12 @@ var actions = {
               response = _context5.sent;
               data = response.data.cards;
 
-              if (!(response.status === 500 || response.status === 405)) {
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
                 _context5.next = 11;
                 break;
               }
 
-              console.log('500エラーまたは405エラーです');
+              console.log('INTERNAL_SERVER_ERRORです');
               return _context5.abrupt("return", false);
 
             case 11:
@@ -69132,29 +69233,27 @@ var actions = {
               commit = _ref7.commit;
               folderId = _ref8.folderId, cardId = _ref8.cardId;
               console.log('カード削除のアクションが動作しています');
-              console.log(_typeof(folderId));
-              console.log(_typeof(cardId));
-              _context6.next = 7;
+              _context6.next = 5;
               return axios["delete"]('/api/folder/' + folderId + '/card/' + cardId + '/delete')["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 7:
+            case 5:
               response = _context6.sent;
               data = response.data.cards;
 
-              if (!(response.status === 500 || response.status === 405)) {
-                _context6.next = 12;
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
+                _context6.next = 10;
                 break;
               }
 
-              console.log('500エラーまたは405エラーです');
+              console.log('INTERNAL_SERVER_ERRORです');
               return _context6.abrupt("return", false);
 
-            case 12:
+            case 10:
               commit('setCardLists', data);
 
-            case 13:
+            case 11:
             case "end":
               return _context6.stop();
           }
@@ -69167,12 +69266,109 @@ var actions = {
     }
 
     return deleteCard;
-  }() // /folder/{id}/card/{id}/delete
+  }(),
 
   /*************************************
   タスクの作成・更新・削除・並び替え
   *************************************/
+  // タスクの作成
+  createTask: function () {
+    var _createTask = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref9, _ref10) {
+      var commit, title, folder_id, card_id, task, response, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+        while (1) {
+          switch (_context7.prev = _context7.next) {
+            case 0:
+              commit = _ref9.commit;
+              title = _ref10.title, folder_id = _ref10.folder_id, card_id = _ref10.card_id;
+              task = {}; // titleプロパティにフォームの値をセット
 
+              task.title = title;
+              _context7.next = 6;
+              return axios.post('/api/folder/' + folder_id + '/card/' + card_id + '/task/create', task)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 6:
+              response = _context7.sent;
+              // /folder/{folder_id}/card/{card_id}/task/create
+              data = response.data.cards;
+
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
+                _context7.next = 11;
+                break;
+              }
+
+              console.log('INTERNAL_SERVER_ERRORです');
+              return _context7.abrupt("return", false);
+
+            case 11:
+              console.log('ここまでアクションOK');
+              return _context7.abrupt("return", false);
+
+            case 14:
+            case "end":
+              return _context7.stop();
+          }
+        }
+      }, _callee7);
+    }));
+
+    function createTask(_x13, _x14) {
+      return _createTask.apply(this, arguments);
+    }
+
+    return createTask;
+  }(),
+  // タスクの削除
+  deleteTask: function () {
+    var _deleteTask = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref11, _ref12) {
+      var commit, folderId, cardId, response, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+        while (1) {
+          switch (_context8.prev = _context8.next) {
+            case 0:
+              commit = _ref11.commit;
+              folderId = _ref12.folderId, cardId = _ref12.cardId;
+              console.log('カード削除のアクションが動作しています');
+              _context8.next = 5;
+              return axios["delete"]('/api/folder/' + folderId + '/card/' + cardId + '/delete')["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 5:
+              response = _context8.sent;
+              data = response.data.cards;
+
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
+                _context8.next = 10;
+                break;
+              }
+
+              console.log('INTERNAL_SERVER_ERRORです');
+              return _context8.abrupt("return", false);
+
+            case 10:
+              commit('setCardLists', data);
+
+            case 11:
+            case "end":
+              return _context8.stop();
+          }
+        }
+      }, _callee8);
+    }));
+
+    function deleteTask(_x15, _x16) {
+      return _deleteTask.apply(this, arguments);
+    }
+
+    return deleteTask;
+  }()
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
