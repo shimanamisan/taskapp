@@ -8,7 +8,9 @@ class Task extends Model
 {
     protected $fillable = [
         'title',
-        'card_id'
+        'card_id',
+        'status'
+
     ];
 
     public function cards()

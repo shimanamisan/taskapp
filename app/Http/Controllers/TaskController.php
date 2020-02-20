@@ -15,8 +15,10 @@ class TaskController extends Controller
   *****************************************/
   // フォルダーやタスクデータの一覧を取得
   public function index()
-  {   
-    $user_id = Auth::user()->id;
+  {  
+    $user = Auth::user();
+
+    $user_id = $user->id;
 
     $allData = User::with('folders')->find($user_id);
     
@@ -28,10 +30,11 @@ class TaskController extends Controller
     // Auth::user()はApp\Userのインスタンスを返す。モデルのこと
     // これで探しているのと同じ。User::find($id);
     $user = Auth::user();
+
+    $user_id = $user->id;
     // https://programing-school.work/laravel-belongsto/
     $user->folders()->create($request->all());
     // 更新されたデータを新たに全て取得
-    $user_id = Auth::user()->id;
 
     $allData = User::with('folders')->find($user_id);
 
@@ -44,7 +47,7 @@ class TaskController extends Controller
 
     $user = Auth::user();
 
-    $user_id = Auth::user()->id;
+    $user_id = $user->id;
 
     $user->folders()->find($folder_id)->delete();
 
@@ -62,13 +65,10 @@ class TaskController extends Controller
   // フォルダー配下のカードのデータを取得
   public function selectCrad($folder_id)
   {
-    // dd($folder_id);
 
     $user = Auth::user();
 
-    $user_id = Auth::user()->id;
-
-    // $folderId = $id->id;
+    $user_id = $user->id;
     
     $allData = User::with(['folders.cards.tasks'])->find($user_id);
 
@@ -83,15 +83,13 @@ class TaskController extends Controller
   // カードの作成
   public function createCard(Request $request, $folder_id)
   {
-    // dd($request->title, $id);
+    $user = Auth::user();
+
+    $user_id = $user->id;
 
     $folder = Folder::find($folder_id);
 
     $folder->cards()->create($request->all());
-
-    $user = Auth::user();
-
-    $user_id = Auth::user()->id;
     
     $allData = User::with(['folders.cards.tasks'])->find($user_id);
 
@@ -104,14 +102,13 @@ class TaskController extends Controller
   public function deleteCard($folder_id, $card_id)
   {
     // dd('カード削除の処理です');
+    $user = Auth::user();
+
+    $user_id = $user->id;
 
     $folder = Folder::find($folder_id);
 
     $folder->cards()->find($card_id)->delete();
-
-    $user = Auth::user();
-
-    $user_id = Auth::user()->id;
 
     $allData = User::with(['folders.cards.tasks'])->find($user_id);
 
@@ -128,14 +125,39 @@ class TaskController extends Controller
   /****************************************
     タスク関連の処理
   *****************************************/
-  public function createTask($folder_id, $card_id)
+  public function createTask(Request $request, $folder_id, $card_id)
   {
-    dd('タスクの新規登録処理です');
+    // dd($folder_id);
+
+    $user = Auth::user();
+
+    $user_id = $user->id;
+
+    $folder = Folder::find($folder_id);
+
+    $folder->cards()->find($card_id)->tasks()->create($request->all());
+
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    $cardData = $allData->folders->find($folder_id);
+
   }
 
   public function deleteTask($folder_id, $card_id, $task_id)
   {
-    dd('タスクの削除処理です');
+    // dd('タスクの削除処理です');
+
+    $user = Auth::user();
+
+    $user_id = $user->id;
+
+    $folder = Folder::find($folder_id);
+
+    $folder->cards()->find($card_id)->tasks()->find($task_id)->delete();
+
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    $cardData = $allData->folders->find($folder_id);
   }
 
   public function updateTask($folder_id, $card_id, $task_id)
