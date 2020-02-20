@@ -10,7 +10,7 @@
                <i class="fas fa-times" @click="deleteCard"></i>
             </div>
         </div>
-        <TaskListAdd :cards="cards"/>
+        <TaskListAdd :list="cards"/>
         <!-- c-task--todo--push -->
         <draggable :list="cards.tasks" tag="div" v-bind="{animation:300}" group="cards">
            <TaskList v-for="(task, index) in cards.tasks"

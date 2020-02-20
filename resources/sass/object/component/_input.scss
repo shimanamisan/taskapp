@@ -9,7 +9,7 @@
   border: 2px solid #dfd8d8;
     &:focus{
       outline: none;
-      border: 2px solid #00BDA6; 
+      border: 2px solid #1e73be; 
     }
   &--profile{
     display:block;
@@ -35,4 +35,11 @@
         }
     }
   }
+}
+
+.c-input--tasks{
+  font-size: 16px;
+  padding: 5px 10px;
+  width: 170px;
+
 }

@@ -26,23 +26,25 @@ export default {
     }
   },
   props: {
-    cards: {
+    list: {
       type: Object,
       required: true
     }
   },
   methods:{
-    // 投稿の内容をアクションへ渡す
+    // タスクを作成
     async createTask(){
-      // 呼び出したフォルダーIDをフォームの内容をアクションへ渡す
       await this.$store.dispatch('taskStore/createTask',
       { 
         // アクションは第2引数までしか引数を受け取れないので、
         // 複数のデータをアクションへ渡すには、オブジェクト形式で渡す。
         title: this.TaskCreateForm,
-        folder_id: this.cards.folder_id,
-        card_id: this.cards.id
+        folder_id: this.list.folder_id,
+        card_id: this.list.id
       })
+
+      // 削除後更新されるので、選択されていたものがそのまま表示されている様に呼び出す
+      await this.$store.dispatch('taskStore/setCardLists', this.list.folder_id )
 
       this.clearTaskCreateForm()
     },

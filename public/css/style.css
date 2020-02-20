@@ -487,7 +487,7 @@ input {
 
 .c-input:focus {
   outline: none;
-  border: 2px solid #00BDA6;
+  border: 2px solid #1e73be;
 }
 
 .c-input--profile {
@@ -515,6 +515,12 @@ input {
 
 .c-input--profile__drop:hover {
   cursor: pointer;
+}
+
+.c-input--tasks {
+  font-size: 16px;
+  padding: 5px 10px;
+  width: 170px;
 }
 
 .c-modal {
@@ -680,11 +686,13 @@ input {
   height: 100%;
   width: 100%;
   white-space: nowrap;
+  position: relative;
 }
 
 .c-task--sidebar {
   width: 300px;
   padding: 30px;
+  position: absolute;
 }
 
 .c-task--sidebar__user {
@@ -753,6 +761,7 @@ input {
   display: -webkit-box;
   display: flex;
   height: 100%;
+  margin-left: 360px;
 }
 
 .c-task--card__inner {

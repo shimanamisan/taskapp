@@ -34,6 +34,7 @@
     height: 100%;
     width: 100%;
     white-space: nowrap;
+    position: relative;
     
     // overflow-x: scroll; // 横方向のスクロールバーを表示
     // overflow-y: hidden; // 縦方向スクロールバーを隠す
@@ -44,7 +45,7 @@
     &--sidebar{
       width: 300px;
       padding: $space_xxl;
-      
+      position: absolute;
           &__user{
             display: flex;
             align-items: center;
@@ -100,6 +101,7 @@
     &--card{
         display: flex;
         height: 100%;
+        margin-left: 360px;
         &__inner{
           height: 85%;
         }

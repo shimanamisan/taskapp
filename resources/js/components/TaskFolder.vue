@@ -5,9 +5,9 @@
             <span class="c-task--folder__tips" v-if="editFlag">
               <span class="c-task--folder__item" >{{title}}</span>
             </span>
-            <form @submit.prevent v-else>
+            <form class="folder--update" @submit.prevent v-else>
               <span class="c-task--folder__tips" >
-                <input type="text" class="c-input" v-model="this.title">
+                <input type="text" class="c-input c-input--tasks" v-model="this.title" @change="test" >
               </span>
             </form>
             <div class="c-task--folder__trash">
@@ -67,7 +67,11 @@ export default {
     },
     editFolder(){
       this.editFlag = !this.editFlag
-    } 
+    },
+    test(){
+      console.log('aaaaaa')
+      
+    }
 
   }
 }
@@ -76,6 +80,13 @@ export default {
 .c-task--folder__trash {
   display: block;
   float: right;
+}
+.folder--update{
+  display: inline-block;
+}
+
+.fa-edit{
+  margin-right: 5px
 }
 
 </style>

@@ -133,7 +133,7 @@ const actions = {
       return false
     }
     console.log('ここまでアクションOK')
-    return false
+    
     commit('setCardLists', data)
   },
   // タスクの削除

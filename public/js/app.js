@@ -2663,21 +2663,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 
 
@@ -3167,6 +3152,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     editFolder: function editFolder() {
       this.editFlag = !this.editFlag;
+    },
+    test: function test() {
+      console.log('aaaaaa');
     }
   }
 });
@@ -3217,10 +3205,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       folderTitle: ''
     };
   },
-  props: {// listIndex: {
-    //   type: Number,
-    //   required: true
-    // }
+  props: {
+    list: {
+      type: Array,
+      required: true
+    }
   },
   methods: {
     createFolder: function () {
@@ -3406,13 +3395,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     };
   },
   props: {
-    cards: {
+    list: {
       type: Object,
       required: true
     }
   },
   methods: {
-    // 投稿の内容をアクションへ渡す
+    // タスクを作成
     createTask: function () {
       var _createTask = _asyncToGenerator(
       /*#__PURE__*/
@@ -3426,14 +3415,18 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   // アクションは第2引数までしか引数を受け取れないので、
                   // 複数のデータをアクションへ渡すには、オブジェクト形式で渡す。
                   title: this.TaskCreateForm,
-                  folder_id: this.cards.folder_id,
-                  card_id: this.cards.id
+                  folder_id: this.list.folder_id,
+                  card_id: this.list.id
                 });
 
               case 2:
+                _context.next = 4;
+                return this.$store.dispatch('taskStore/setCardLists', this.list.folder_id);
+
+              case 4:
                 this.clearTaskCreateForm();
 
-              case 3:
+              case 5:
               case "end":
                 return _context.stop();
             }
@@ -8646,7 +8639,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.c-task--folder__trash {\r\n  display: block;\r\n  float: right;\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.c-task--folder__trash {\r\n  display: block;\r\n  float: right;\n}\n.folder--update{\r\n  display: inline-block;\n}\n.fa-edit{\r\n  margin-right: 5px\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -45482,7 +45475,7 @@ var render = function() {
                       _vm._v(" "),
                       _c("hr", { staticClass: "u-task-line" }),
                       _vm._v(" "),
-                      _c("TaskFolderAdd"),
+                      _c("TaskFolderAdd", { attrs: { list: _vm.FolderLists } }),
                       _vm._v(" "),
                       _c(
                         "div",
@@ -45585,7 +45578,7 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("TaskListAdd", { attrs: { cards: _vm.cards } }),
+          _c("TaskListAdd", { attrs: { list: _vm.cards } }),
           _vm._v(" "),
           _c(
             "draggable",
@@ -45785,6 +45778,7 @@ var render = function() {
           : _c(
               "form",
               {
+                staticClass: "folder--update",
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
@@ -45802,10 +45796,11 @@ var render = function() {
                         expression: "this.title"
                       }
                     ],
-                    staticClass: "c-input",
+                    staticClass: "c-input c-input--tasks",
                     attrs: { type: "text" },
                     domProps: { value: this.title },
                     on: {
+                      change: _vm.test,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
@@ -69306,9 +69301,9 @@ var actions = {
 
             case 11:
               console.log('ここまでアクションOK');
-              return _context7.abrupt("return", false);
+              commit('setCardLists', data);
 
-            case 14:
+            case 13:
             case "end":
               return _context7.stop();
           }

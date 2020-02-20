@@ -27,10 +27,10 @@ export default {
     }
   },
   props: {
-    // listIndex: {
-    //   type: Number,
-    //   required: true
-    // }
+    list: {
+      type: Array,
+      required: true
+    }
   },
   methods: {
     async createFolder(){

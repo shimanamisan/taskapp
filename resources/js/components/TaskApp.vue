@@ -9,46 +9,31 @@
                             <div class="c-task--sidebar">
                                 <TaskFolderProfile/>
                                 <hr class="u-task-line">
-                                <TaskFolderAdd/>
+                                <TaskFolderAdd :list="FolderLists"/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
-
                                     <draggable :list="FolderLists" tag="ul" v-bind="{animation:300}">
-
-                                        <TaskFolder
-                                        v-for = "(folders, index) in FolderLists"
-                                        :key = "folders.id"
-                                        :id = "folders.id"
-                                        :listIndex = "index"
-                                        :title = "folders.title"/>
-
+                                        <TaskFolder v-for = "(folders, index) in FolderLists" :key = "folders.id" :id = "folders.id" :listIndex = "index" :title = "folders.title"/>
                                     </draggable>
-
                                 </div>
-                                <!-- c-task--sidebar__wrapp -->
+                                <!-- end c-task--sidebar__wrapp -->
                             </div>
-                            <!-- c-task--sidebar -->
+                            <!-- end c-task--sidebar -->
+
                             <!-- TODOコンポーネント  -->
-                            
                             <!-- <draggable group="cards" class="c-task--card"> -->
-                              <div class="c-task--card">
-                                 
-                                  <TaskCard v-for="(cards, index) in CardLists" 
-                                  :key = "cards.id"
-                                  :id = "cards.id"
-                                  :listIndex = "index"
-                                  :cards = "cards"  
-                                  />
-                              <!-- </draggable> -->
-                              </div>
+                            <div class="c-task--card">
+                                <TaskCard v-for="(cards, index) in CardLists" :key = "cards.id" :id = "cards.id" :listIndex = "index" :cards = "cards" />
+                                <!-- </draggable> -->
+                            </div>
                             <TaskCardAdd/>
                         </div>
-                        <!-- c-task--borad03 -->
+                        <!-- end c-task--borad03 -->
                     </div>
-                    <!-- c-task--borad02 -->
+                    <!-- end c-task--borad02 -->
                 </div>
-                <!-- c-task--borad01 -->
+                <!-- end c-task--borad01 -->
             </div>
-            <!-- c-task-content -->
+            <!-- end c-task-content -->
         </div>
     </div>
 </template>
