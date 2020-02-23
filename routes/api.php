@@ -75,7 +75,7 @@ Route::patch('/folder/{folder_id}/card/{card_id}/update', 'TaskController@delete
 // タスク登録
 Route::post('/folder/{folder_id}/card/{card_id}/task/create', 'TaskController@createTask')->name('task.createTask');
 // タスク削除
-Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
+Route::delete('/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
 // タスク更新
 Route::patch('/folder/{folder_id}/card/{card_id}/task/{task_id}/update', 'TaskController@deleteTask')->name('task.updateTask');
 

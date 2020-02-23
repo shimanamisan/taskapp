@@ -20,9 +20,9 @@ class TaskController extends Controller
 
     $user_id = $user->id;
 
-    $allData = User::with('folders')->find($user_id);
+    $folderData = User::with('folders')->find($user_id);
     
-    return $allData;
+    return $folderData;
   }    
 
   public function createFolder(Request $request)
@@ -143,9 +143,9 @@ class TaskController extends Controller
 
   }
 
-  public function deleteTask($folder_id, $card_id, $task_id)
+  public function deleteTask($task_id)
   {
-    // dd('タスクの削除処理です');
+    dd('タスクの削除処理です');
 
     $user = Auth::user();
 
