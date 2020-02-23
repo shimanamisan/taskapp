@@ -4,20 +4,22 @@
     
     <div class="c-task--card__inner">
       <div class="c-task--todo">
-        <div class="c-task--todo__header">{{ cards.title }}
+        <div class="c-task--todo__header">{{ title_data }}
           <label for="" class="c-task--todo--counter">{{ listCounter }}</label>
             <div class="c-task--todo--list--del">
                <i class="fas fa-times" @click="deleteCard"></i>
             </div>
         </div>
-        <TaskListAdd :list="cards"/>
+        <TaskListAdd :cards="cards"/>
         <!-- c-task--todo--push -->
-        <draggable :list="cards.tasks" tag="div" v-bind="{animation:300}" group="cards">
+        <draggable :list="cards.tasks" tag="div" v-bind="{animation:300}" group="cards" @change="update">
            <TaskList v-for="(task, index) in cards.tasks"
            :key = "task.id"
            :id = "task.id"
-           :task = "task"
+           :title = "task.title"
+           :status = "task.status"
            :listIndex = "index"
+           :cards="cards"
            />
         </draggable>
       </div>
@@ -35,8 +37,7 @@ import TaskCardAdd from './TaskCardAdd'
 export default {
   data(){
       return{
-        // listCounter()メソッドで使うデータプロパティ
-        // data: this.cards,
+        title_data: this.cards.title
     }
   },
   props: {
@@ -79,6 +80,9 @@ export default {
         // 削除後更新されるので、選択されていたものがそのまま表示されている様に呼び出す
         await this.$store.dispatch('taskStore/setCardLists', folder_id )
       }
+    },
+    update(){
+      console.log('chnage')
     }
   },
 }

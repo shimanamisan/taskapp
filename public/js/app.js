@@ -2827,14 +2827,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {// listCounter()メソッドで使うデータプロパティ
-      // data: this.cards,
+    return {
+      title_data: this.cards.title
     };
   },
   props: {
@@ -2903,7 +2905,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return deleteCard;
-    }()
+    }(),
+    update: function update() {
+      console.log('chnage');
+    }
   }
 });
 
@@ -3055,14 +3060,14 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       current_folder_id: '',
       isActiveFolder: false,
-      editFlag: true
+      editFlag: true,
+      title_data: this.title
     };
   },
   components: {
@@ -3314,6 +3319,14 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -3325,12 +3338,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
-    return {};
+    return {
+      folder_id: this.cards.folder_id,
+      card_id: this.cards.id
+    };
   },
   props: {
-    task: {
-      type: Object,
-      required: true
+    title: {
+      type: String
+    },
+    status: {
+      type: String
     },
     id: {
       type: Number,
@@ -3339,13 +3357,44 @@ __webpack_require__.r(__webpack_exports__);
     listIndex: {
       type: Number,
       required: true
+    },
+    cards: {
+      type: Object,
+      required: true
     }
   },
   computed: {},
   methods: {
-    logfunc: function logfunc(value) {
-      console.log(value);
-    }
+    deleteTask: function () {
+      var _deleteTask = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                if (!window.confirm('タスクを削除しますか？')) {
+                  _context.next = 3;
+                  break;
+                }
+
+                _context.next = 3;
+                return this.$store.dispatch('taskStore/deleteTask', this.id);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function deleteTask() {
+        return _deleteTask.apply(this, arguments);
+      }
+
+      return deleteTask;
+    }()
   }
 });
 
@@ -3391,11 +3440,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   data: function data() {
     return {
       TaskEdit_flg: null,
-      TaskCreateForm: ''
+      TaskCreateForm: '',
+      folder_id: this.cards.folder_id,
+      card_id: this.cards.id
     };
   },
   props: {
-    list: {
+    cards: {
       type: Object,
       required: true
     }
@@ -3415,18 +3466,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   // アクションは第2引数までしか引数を受け取れないので、
                   // 複数のデータをアクションへ渡すには、オブジェクト形式で渡す。
                   title: this.TaskCreateForm,
-                  folder_id: this.list.folder_id,
-                  card_id: this.list.id
+                  folder_id: this.folder_id,
+                  card_id: this.card_id
                 });
 
               case 2:
-                _context.next = 4;
-                return this.$store.dispatch('taskStore/setCardLists', this.list.folder_id);
-
-              case 4:
+                // 削除後更新されるので、選択されていたものがそのまま表示されている様に呼び出す
+                // await this.$store.dispatch('taskStore/setCardLists', this.cards.folder_id )
                 this.clearTaskCreateForm();
 
-              case 5:
+              case 3:
               case "end":
                 return _context.stop();
             }
@@ -45563,7 +45612,7 @@ var render = function() {
         { staticClass: "c-task--todo" },
         [
           _c("div", { staticClass: "c-task--todo__header" }, [
-            _vm._v(_vm._s(_vm.cards.title) + "\n        "),
+            _vm._v(_vm._s(_vm.title_data) + "\n        "),
             _c(
               "label",
               { staticClass: "c-task--todo--counter", attrs: { for: "" } },
@@ -45578,12 +45627,15 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _c("TaskListAdd", { attrs: { list: _vm.cards } }),
+          _c("TaskListAdd", { attrs: { cards: _vm.cards } }),
           _vm._v(" "),
           _c(
             "draggable",
             _vm._b(
-              { attrs: { list: _vm.cards.tasks, tag: "div", group: "cards" } },
+              {
+                attrs: { list: _vm.cards.tasks, tag: "div", group: "cards" },
+                on: { change: _vm.update }
+              },
               "draggable",
               { animation: 300 },
               false
@@ -45591,7 +45643,13 @@ var render = function() {
             _vm._l(_vm.cards.tasks, function(task, index) {
               return _c("TaskList", {
                 key: task.id,
-                attrs: { id: task.id, task: task, listIndex: index }
+                attrs: {
+                  id: task.id,
+                  title: task.title,
+                  status: task.status,
+                  listIndex: index,
+                  cards: _vm.cards
+                }
               })
             }),
             1
@@ -45770,11 +45828,18 @@ var render = function() {
         _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
         _vm._v(" "),
         _vm.editFlag
-          ? _c("span", { staticClass: "c-task--folder__tips" }, [
-              _c("span", { staticClass: "c-task--folder__item" }, [
-                _vm._v(_vm._s(_vm.title))
-              ])
-            ])
+          ? _c(
+              "span",
+              {
+                staticClass: "c-task--folder__tips",
+                on: { dblclick: _vm.editFolder }
+              },
+              [
+                _c("span", { staticClass: "c-task--folder__item" }, [
+                  _vm._v(_vm._s(_vm.title_data))
+                ])
+              ]
+            )
           : _c(
               "form",
               {
@@ -45792,20 +45857,21 @@ var render = function() {
                       {
                         name: "model",
                         rawName: "v-model",
-                        value: this.title,
-                        expression: "this.title"
+                        value: _vm.title_data,
+                        expression: "title_data"
                       }
                     ],
                     staticClass: "c-input c-input--tasks",
                     attrs: { type: "text" },
-                    domProps: { value: this.title },
+                    domProps: { value: _vm.title_data },
                     on: {
+                      blur: _vm.editFolder,
                       change: _vm.test,
                       input: function($event) {
                         if ($event.target.composing) {
                           return
                         }
-                        _vm.$set(this, "title", $event.target.value)
+                        _vm.title_data = $event.target.value
                       }
                     }
                   })
@@ -45814,11 +45880,6 @@ var render = function() {
             ),
         _vm._v(" "),
         _c("div", { staticClass: "c-task--folder__trash" }, [
-          _c("i", {
-            staticClass: "fas fa-edit",
-            on: { click: _vm.editFolder }
-          }),
-          _vm._v(" "),
           _c("i", {
             staticClass: "fas fa-trash-alt",
             on: { click: _vm.deleteFolder }
@@ -46010,22 +46071,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    { staticClass: "c-task--todo--list", on: { click: _vm.logfunc } },
-    [_vm._v("\n  " + _vm._s(_vm.task.title) + "\n  "), _vm._m(0)]
-  )
+  return _c("div", { staticClass: "c-task--todo--list" }, [
+    _vm._v("\n  " + _vm._s(_vm.title) + "\n  "),
+    _c(
+      "div",
+      {
+        staticClass: "c-task--todo--list--del",
+        on: { dbclick: _vm.deleteTask }
+      },
+      [_c("i", { staticClass: "fas fa-times" })]
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "c-task--todo--list--del" }, [
-      _c("i", { staticClass: "fas fa-times" })
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -69199,9 +69257,6 @@ var actions = {
               return _context5.abrupt("return", false);
 
             case 11:
-              commit('setCardLists', data);
-
-            case 12:
             case "end":
               return _context5.stop();
           }
@@ -69288,7 +69343,6 @@ var actions = {
 
             case 6:
               response = _context7.sent;
-              // /folder/{folder_id}/card/{card_id}/task/create
               data = response.data.cards;
 
               if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
@@ -69300,10 +69354,9 @@ var actions = {
               return _context7.abrupt("return", false);
 
             case 11:
-              console.log('ここまでアクションOK');
-              commit('setCardLists', data);
+              console.log('ここまでアクションOK'); // commit('setCardLists', data)
 
-            case 13:
+            case 12:
             case "end":
               return _context7.stop();
           }
@@ -69321,36 +69374,32 @@ var actions = {
   deleteTask: function () {
     var _deleteTask = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref11, _ref12) {
-      var commit, folderId, cardId, response, data;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref11, task_id) {
+      var commit, response, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
               commit = _ref11.commit;
-              folderId = _ref12.folderId, cardId = _ref12.cardId;
-              console.log('カード削除のアクションが動作しています');
-              _context8.next = 5;
-              return axios["delete"]('/api/folder/' + folderId + '/card/' + cardId + '/delete')["catch"](function (error) {
+              console.log('カード削除のアクションが動作しています' + task_id);
+              _context8.next = 4;
+              return axios["delete"]('/api/task/' + task_id + '/delete')["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 5:
+            case 4:
               response = _context8.sent;
               data = response.data.cards;
 
               if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
-                _context8.next = 10;
+                _context8.next = 9;
                 break;
               }
 
               console.log('INTERNAL_SERVER_ERRORです');
               return _context8.abrupt("return", false);
 
-            case 10:
-              commit('setCardLists', data);
-
-            case 11:
+            case 9:
             case "end":
               return _context8.stop();
           }

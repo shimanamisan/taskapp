@@ -23,10 +23,13 @@ export default {
     return{
       TaskEdit_flg: null,
       TaskCreateForm: '',
+      folder_id: this.cards.folder_id,
+      card_id: this.cards.id
+
     }
   },
   props: {
-    list: {
+    cards: {
       type: Object,
       required: true
     }
@@ -39,12 +42,12 @@ export default {
         // アクションは第2引数までしか引数を受け取れないので、
         // 複数のデータをアクションへ渡すには、オブジェクト形式で渡す。
         title: this.TaskCreateForm,
-        folder_id: this.list.folder_id,
-        card_id: this.list.id
+        folder_id: this.folder_id,
+        card_id: this.card_id
       })
 
       // 削除後更新されるので、選択されていたものがそのまま表示されている様に呼び出す
-      await this.$store.dispatch('taskStore/setCardLists', this.list.folder_id )
+      // await this.$store.dispatch('taskStore/setCardLists', this.cards.folder_id )
 
       this.clearTaskCreateForm()
     },

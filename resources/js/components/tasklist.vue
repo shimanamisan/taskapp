@@ -1,7 +1,7 @@
 <template>
-  <div class="c-task--todo--list" @click="logfunc">
-    {{task.title}}
-    <div class="c-task--todo--list--del">
+  <div class="c-task--todo--list">
+    {{title}}
+    <div class="c-task--todo--list--del"  @dbclick="deleteTask">
       <i class="fas fa-times"></i>
     </div>
   </div>
@@ -12,13 +12,17 @@
 export default {
   data(){
     return {
-
+      folder_id: this.cards.folder_id,
+      card_id: this.cards.id
     }
   },
   props: {
-    task: {
-      type: Object,
-      required: true
+    title: {
+      type: String,
+      
+    },
+    status: {
+      type: String
     },
     id: {
       type: Number,
@@ -26,6 +30,10 @@ export default {
     },
     listIndex: {
       type: Number,
+      required: true
+    },
+    cards: {
+      type: Object,
       required: true
     }
   },
@@ -35,8 +43,9 @@ export default {
     
   },
   methods:{
-    logfunc(value){
-      console.log(value)
+    async deleteTask(){
+       if(window.confirm('タスクを削除しますか？')){
+        await this.$store.dispatch('taskStore/deleteTask', this.id)}
     }
   }
 }

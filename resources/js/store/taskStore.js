@@ -103,7 +103,7 @@ const actions = {
       console.log('INTERNAL_SERVER_ERRORです')
       return false
     }
-    commit('setCardLists', data)
+    
   },
   // カードの削除
   async deleteCard( { commit }, {folderId, cardId}){
@@ -126,7 +126,6 @@ const actions = {
     // titleプロパティにフォームの値をセット
     task.title = title
     const response = await axios.post('/api/folder/' + folder_id + '/card/' + card_id + '/task/create', task ).catch(error => error.response || error)
-    // /folder/{folder_id}/card/{card_id}/task/create
     var data = response.data.cards
     if(response.status === INTERNAL_SERVER_ERROR){
       console.log('INTERNAL_SERVER_ERRORです')
@@ -134,18 +133,18 @@ const actions = {
     }
     console.log('ここまでアクションOK')
     
-    commit('setCardLists', data)
+    // commit('setCardLists', data)
   },
   // タスクの削除
-  async deleteTask( { commit }, {folderId, cardId}){
-    console.log('カード削除のアクションが動作しています')
-    const response = await axios.delete('/api/folder/' + folderId + '/card/' + cardId + '/delete').catch(error => error.response || error)
+  async deleteTask( { commit }, task_id){
+    console.log('カード削除のアクションが動作しています' + task_id)
+    const response = await axios.delete('/api/task/' + task_id + '/delete').catch(error => error.response || error)
     var data = response.data.cards
     if(response.status === INTERNAL_SERVER_ERROR){
       console.log('INTERNAL_SERVER_ERRORです')
       return false
     }
-    commit('setCardLists', data)
+    // commit('setCardLists', data)
   }
 
 
