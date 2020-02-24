@@ -40,8 +40,7 @@
     // overflow-y: hidden; // 縦方向スクロールバーを隠す
   }
 
-
-    // ここからサイドバー
+  // ここからサイドバー
     &--sidebar{
       width: 300px;
       padding: $space_xxl;
@@ -72,9 +71,7 @@
     }
 
     &--folder{
-        &__tips{
-          overflow: hidden;
-        }
+     
         &__drag{
           margin-right: 15px;
         }
@@ -90,7 +87,10 @@
             }
         }
         &__item{
-          vertical-align: baseline;
+          max-width: 210px;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: inline-block;
           &:hover{
             cursor: pointer;
           }
@@ -118,6 +118,12 @@
       margin: 0 15px 10px 0;
       overflow-y: auto;
       @include custumRadius(8px);
+        &--tips{
+          display: inline-block;
+          overflow: hidden;
+          max-width: 245px;
+          text-overflow: ellipsis;
+        }
         &--inputAreaWrapp{
           // background-color: #ccc;
           padding: 10px 0;
@@ -144,6 +150,9 @@
         &--counter{
           color: #7760f8;
           margin-left: 10px;
+        }
+        &--card--del{
+          float: right;
         }
         &--list{
           padding: 5px 10px;

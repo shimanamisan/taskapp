@@ -1,4 +1,10 @@
 .errors{
   color: red;
   font-style: 14px;
+    &--tasks{
+      margin-top: 7px;
+    }
+    &--bg{
+     background: #f7dcd9;
+    }
 }

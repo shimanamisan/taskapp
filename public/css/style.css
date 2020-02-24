@@ -360,7 +360,7 @@ input {
 
 .c-btn__login {
   display: inline-block;
-  background: #00BDA6;
+  background: #1e73be;
   color: #fff;
   font-weight: 600;
 }
@@ -725,10 +725,6 @@ input {
   border-radius: 50%;
 }
 
-.c-task--folder__tips {
-  overflow: hidden;
-}
-
 .c-task--folder__drag {
   margin-right: 15px;
 }
@@ -750,7 +746,10 @@ input {
 }
 
 .c-task--folder__item {
-  vertical-align: baseline;
+  max-width: 210px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: inline-block;
 }
 
 .c-task--folder__item:hover {
@@ -785,6 +784,13 @@ input {
   border-radius: 8px;
 }
 
+.c-task--todo--tips {
+  display: inline-block;
+  overflow: hidden;
+  max-width: 245px;
+  text-overflow: ellipsis;
+}
+
 .c-task--todo--inputAreaWrapp {
   padding: 10px 0;
   box-sizing: border-box;
@@ -814,6 +820,10 @@ input {
 .c-task--todo--counter {
   color: #7760f8;
   margin-left: 10px;
+}
+
+.c-task--todo--card--del {
+  float: right;
 }
 
 .c-task--todo--list {
@@ -897,6 +907,14 @@ input {
 .errors {
   color: red;
   font-style: 14px;
+}
+
+.errors--tasks {
+  margin-top: 7px;
+}
+
+.errors--bg {
+  background: #f7dcd9;
 }
 
 /***********************************************************************************
