@@ -32,11 +32,13 @@ class ProfileImageRequest extends FormRequest
         ];
     }
 
-    // // リクエストコントローラーでバリデーションメッセージを上書きできる
-    // public function messages()
-    // {
-    //     return [
-    //         'required' => '入力必須です'
-    //     ];
-    // }
+    // リクエストコントローラーでバリデーションメッセージを上書きできる
+    public function messages()
+    {
+        return [
+            'profilePhoto.required' => '写真を選択してください',
+            'profilePhoto.file' => '写真を選択してください',
+            'profilePhoto.mimes' => '画像ファイルのみ選択可能です',
+        ];
+    }
 }

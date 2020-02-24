@@ -30,7 +30,13 @@ class ProfilePasswordRequest extends FormRequest
             'password' => 'required|min:8',
             // パスワードフォームと一致していないとエラーを出す
             'password_confirmation' => 'required|min:8|same:password',
+        ];
+    }
 
+    public function messages()
+    {
+        return [
+            
         ];
     }
 }
