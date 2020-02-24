@@ -6,20 +6,21 @@
       <div class="c-task--todo">
         <div class="c-task--todo__header">{{ title_data }}
           <label for="" class="c-task--todo--counter">{{ listCounter }}</label>
-            <div class="c-task--todo--list--del">
+            <div class="c-task--todo--card--del">
                <i class="fas fa-times" @click="deleteCard"></i>
             </div>
         </div>
         <TaskListAdd :cards="cards"/>
         <!-- c-task--todo--push -->
-        <draggable :list="cards.tasks" tag="div" v-bind="{animation:300}" group="cards" @change="update">
+        <draggable :list="cards.tasks" tag="div" v-bind = "{group :'cards.tasks', animation: 300}" @change="update">
            <TaskList v-for="(task, index) in cards.tasks"
            :key = "task.id"
            :id = "task.id"
            :title = "task.title"
            :status = "task.status"
            :listIndex = "index"
-           :cards="cards"
+           :created_at = "task.created_at"
+           :cards = "cards"
            />
         </draggable>
       </div>
@@ -35,8 +36,8 @@ import TaskList from './TaskList'
 import TaskListAdd from './TaskListAdd'
 import TaskCardAdd from './TaskCardAdd'
 export default {
-  data(){
-      return{
+  data() {
+      return {
         title_data: this.cards.title
     }
   },
@@ -73,12 +74,12 @@ export default {
       if(window.confirm('カードを削除すると、全てのタスクリストも削除されます。\nフォルダーを削除しますか？')){
         await this.$store.dispatch('taskStore/deleteCard', 
         {
-          folderId: folder_id,
-          cardId: card_id
+          folder_id: folder_id,
+          card_id: card_id
         })
 
-        // 削除後更新されるので、選択されていたものがそのまま表示されている様に呼び出す
-        await this.$store.dispatch('taskStore/setCardLists', folder_id )
+        // 削除後データが更新されるので、選択されていたフォルダーを保持するための処理
+        await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
       }
     },
     update(){

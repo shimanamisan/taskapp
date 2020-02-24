@@ -4,13 +4,13 @@ const state = {
   FolderLists:[],
   CardLists:[],
   folder_id: '',
-  card_id: '',
-  task_id: '',
 
   /****************************************
   エラーメッセージ関係
   *****************************************/
-  requestErrorMessages: null,
+  folderRequestErrorMessages: null,
+  cardRequestErrorMessages: null,
+  taskRequestErrorMessages: null,
 }
 
 const getters = {
@@ -31,11 +31,14 @@ const mutations = {
   setFolder_id(state, id){
     state.folder_id = id
   },
-  setCard_id(state, id){
-    state.card_id = id
+  setFolderRequestErrorMessages(state, folderRequestErrorMessages){
+    state.folderRequestErrorMessages = folderRequestErrorMessages
   },
-  setTask_id(state, id){
-    state.task_id = id
+  setCardRequestErrorMessages(state, cardRequestErrorMessages){
+    state.cardRequestErrorMessages = cardRequestErrorMessages
+  },
+  setTaskRequestErrorMessages(state, taskRequestErrorMessages){
+    state.taskRequestErrorMessages = taskRequestErrorMessages
   },
 }
 
@@ -51,9 +54,10 @@ const actions = {
   /*************************************
   カードのデータを取得する
   *************************************/
-  // フォルダー配下のカードをステートにセット
-  async setCardLists( {commit} , folder_id){
-    console.log( 'アクションsetCardLists()です。フォルダー配下のカードを取得するために、CardListsストアを更新しています。')
+  // フォルダー配下のカードをステートにセットするアクション
+  async setCardListsAction( {commit} , folder_id){
+    console.log( 'アクションsetCardLists()です。フォルダー配下のカードを取得するために、CardListsストアを更新しています。'+ folder_id)
+    // ここでストアへフォルダーIDを登録
     commit('setFolder_id', folder_id)
     const response = await axios.get('/api/folder/' + folder_id + '/card/set').catch(error => error.response || error)
     var data = response.data.cards
@@ -64,14 +68,22 @@ const actions = {
   *************************************/
   // フォルダーの作成
   async createFolder( {commit}, payload ){
-    // commit('createFolder', payload)
     const response = await axios.post('/api/folder/create', payload).catch(error => error.response || error)
+    // メソッドを使うために配列を定義
     var data = []
     var datas = response.data.folders
     for(var key in datas){
       data.push(datas[key])
     }
-    commit('setFolderLists', data)
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      commit('setFolderRequestErrorMessages', response.data.errors)
+    } else {
+      commit('error/setCode', response.status, { root:true })
+      // ミューテーションへコミットする
+      commit('setFolderLists', data)
+    }
+    commit('error/setCode', response.status, { root: true })    
+    
   },
   // フォルダーの削除
   async deleteFolder( {commit}, folder_id ){
@@ -98,23 +110,34 @@ const actions = {
     // titleプロパティにフォームの値をセット
     card.title = title
     const response = await axios.post('/api/folder/' + folder_id + '/card/create', card ).catch(error => error.response || error)
-    var data = response.data.cards
-    if(response.status === INTERNAL_SERVER_ERROR){
-      console.log('INTERNAL_SERVER_ERRORです')
-      return false
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      commit('setCardRequestErrorMessages', response.data.errors)
+    } else {
+      console.log('通信成功時の処理:createTaskアクション：' + response.status)
+      commit('error/setCode', response.status, { root:true })
     }
-    
+    commit('error/setCode', response.status, { root: true })
+    // 追加後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
   },
   // カードの削除
-  async deleteCard( { commit }, {folderId, cardId}){
+  async deleteCard( { commit }, {folder_id, card_id}){
     console.log('カード削除のアクションが動作しています')
-    const response = await axios.delete('/api/folder/' + folderId + '/card/' + cardId + '/delete').catch(error => error.response || error)
-    var data = response.data.cards
-    if(response.status === INTERNAL_SERVER_ERROR){
-      console.log('INTERNAL_SERVER_ERRORです')
-      return false
-    }
-    commit('setCardLists', data)
+    const response = await axios.delete('/api/folder/' + folder_id + '/card/' + card_id + '/delete').catch(error => error.response || error)
+    // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
+
+      if(response.status === UNPROCESSABLE_ENTITY ){
+        commit('setTaskRequestErrorMessages', response.data.errors)
+      } else {
+        console.log('通信成功時の処理:createTaskアクション：' + response.status)
+        commit('error/setCode', response.status, { root:true })
+      }
+      commit('error/setCode', response.status, { root: true })
+    
+    // if(response.status === INTERNAL_SERVER_ERROR){
+    //   console.log('INTERNAL_SERVER_ERRORです')
+    //   return false
+    // }
+ 
   },
 
   /*************************************
@@ -126,29 +149,23 @@ const actions = {
     // titleプロパティにフォームの値をセット
     task.title = title
     const response = await axios.post('/api/folder/' + folder_id + '/card/' + card_id + '/task/create', task ).catch(error => error.response || error)
-    var data = response.data.cards
-    if(response.status === INTERNAL_SERVER_ERROR){
-      console.log('INTERNAL_SERVER_ERRORです')
-      return false
+    // var data = response.data.cards
+    // 422ステータスの処理
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      commit('setTaskRequestErrorMessages', response.data.errors)
+    } else {
+      console.log('通信成功時の処理:createTaskアクション：' + response.status)
+      commit('error/setCode', response.status, { root:true })
     }
-    console.log('ここまでアクションOK')
+    commit('error/setCode', response.status, { root: true })
     
-    // commit('setCardLists', data)
   },
   // タスクの削除
-  async deleteTask( { commit }, task_id){
+  async deleteTask( { commit }, {folder_id, card_id, task_id}){
     console.log('カード削除のアクションが動作しています' + task_id)
-    const response = await axios.delete('/api/task/' + task_id + '/delete').catch(error => error.response || error)
-    var data = response.data.cards
-    if(response.status === INTERNAL_SERVER_ERROR){
-      console.log('INTERNAL_SERVER_ERRORです')
-      return false
-    }
-    // commit('setCardLists', data)
-  }
-
-
-
+    const response = await axios.delete('/api/folder/' + folder_id + '/card/' + card_id + '/task/' + task_id + '/delete').catch(error => error.response || error)
+    // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
+   }
 }
 
 export default {

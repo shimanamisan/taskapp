@@ -1,17 +1,15 @@
 <template>
     <div class="v-div">
         <div v-show="!CardEdit_flg" class="c-task--todo--list c-task--todo--push" @click="CardEdit_flg = !CardEdit_flg">＋ 新しいカードを追加 </div>
-        <div v-show="CardEdit_flg" class="c-task--todo--inputAreaWrapp CardAdd">
+        <div v-show="CardEdit_flg" class="c-task--todo--inputAreaWrapp cardAdd">
             <form @submit.prevent>
-                <input type="text" class="c-task--todo--inputArea" v-model="CradCreateForm">
+                <input type="text" class="c-task--todo--inputArea" :class="{'errors--bg': cardRequestErrorMessages}" v-model="CradCreateForm">
+                <!-- バリデーションエラー --->
+                    <ul v-if="cardRequestErrorMessages" class="errors errors--tasks">
+                        <li v-for="(msg, index) in cardRequestErrorMessages.title" :key="index">{{ msg }}</li>
+                    </ul>
+                <!--- end errors -->
                 <div class="l-flex u-btn--wrapp">
-                    <!-- バリデーションエラー --->
-                    <div v-if="requestErrorMessages" class="errors">
-                        <ul v-if="requestErrorMessages">
-                            <li v-for="msg in requestErrorMessages" :key="msg">{{ msg }}</li>
-                        </ul>
-                    </div>
-                    <!--- end errors -->
                     <div class="u-btn__profile--margin">
                         <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="clearCradCreateForm">キャンセル</button>
                     </div>
@@ -35,9 +33,9 @@ export default {
     }
   },
   computed: {
-    requestErrorMessages(){
+    cardRequestErrorMessages(){
     // エラーメッセージがあった際にストアより取得
-    return this.$store.state.taskStore.requestErrorMessages
+    return this.$store.state.taskStore.cardRequestErrorMessages
     },
     getErrorCode(){
       return this.$store.state.error.code
@@ -57,13 +55,26 @@ export default {
         folder_id: this.folder_id
       })
 
-      this.clearCradCreateForm()
+        if(this.getErrorCode === 200){
+          await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id )
+          this.clearCradCreateForm()
+        }
+      // 通信が失敗時でも、リストを空にしない
+      await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id )
+
     },
     // 投稿後にフォームの中身を削除し、フォームを非表示にする
     clearCradCreateForm(){
     this.CradCreateForm = ''
     this.CardEdit_flg = !this.CardEdit_flg
-    }
+    this.clearError()
+    },
+    /*************************************************
+     * バリデーションメッセージを消すアクションを呼ぶ
+    **************************************************/
+    clearError(){
+      this.$store.commit('taskStore/setCardRequestErrorMessages', null)
+    },
   }
 }
 </script>
@@ -71,7 +82,7 @@ export default {
 .v-div{
   padding: 0 20px;
 }
-.CardAdd{
+.cardAdd{
   padding: 0 20px 0 0;
 }
 </style>

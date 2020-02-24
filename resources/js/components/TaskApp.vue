@@ -20,11 +20,11 @@
                             <!-- end c-task--sidebar -->
 
                             <!-- TODOコンポーネント  -->
-                            <!-- <draggable group="cards" class="c-task--card"> -->
-                            <div class="c-task--card">
+                            <draggable :list="CardLists" group="cards" class="c-task--card">
+                            <!-- <div class="c-task--card"> -->
                                 <TaskCard v-for="(cards, index) in CardLists" :key = "cards.id" :id = "cards.id" :listIndex = "index" :cards = "cards" />
-                                <!-- </draggable> -->
-                            </div>
+                                </draggable>
+                            <!-- </div> -->
                             <TaskCardAdd/>
                         </div>
                         <!-- end c-task--borad03 -->
@@ -70,10 +70,10 @@ export default {
         get(){
           return this.$store.state.taskStore.FolderLists
         },
-        set(value){
-          console.log(value)
-          this.$store.commit('taskStore/setFolderLists', value)
-        }
+        // set(value){
+        //   console.log(value)
+        //   this.$store.commit('taskStore/setFolderLists', value)
+        // }
       },
     CardLists: {
       get(){

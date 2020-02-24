@@ -127,7 +127,6 @@ const actions = {
           commit('setId', id )
           return false
         }
-
       commit('setApiStatus', false)
       // 422ステータスの処理
       if(response.status === UNPROCESSABLE_ENTITY ){
