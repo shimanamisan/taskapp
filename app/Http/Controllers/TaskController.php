@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Folder; // 追加 
 use App\User; //追加
+use App\Folder; // 追加 
 use Illuminate\Http\Request;
+use App\Http\Requests\TaskRequest; // フォームリクエストクラスを追加
 use Illuminate\Support\Facades\Auth; //追加
 
 class TaskController extends Controller
@@ -25,7 +26,7 @@ class TaskController extends Controller
     return $folderData;
   }    
 
-  public function createFolder(Request $request)
+  public function createFolder(TaskRequest $request)
   {  
     // Auth::user()はApp\Userのインスタンスを返す。モデルのこと
     // これで探しているのと同じ。User::find($id);
@@ -81,7 +82,7 @@ class TaskController extends Controller
     カード関連の処理
   *****************************************/
   // カードの作成
-  public function createCard(Request $request, $folder_id)
+  public function createCard(TaskRequest $request, $folder_id)
   {
     $user = Auth::user();
 
@@ -114,7 +115,7 @@ class TaskController extends Controller
 
     $cardData = $allData->folders->find($folder_id);
 
-    return $allData;
+    return $cardData;
   }
 
   public function updateCard($folder_id, $card_id)
@@ -125,7 +126,7 @@ class TaskController extends Controller
   /****************************************
     タスク関連の処理
   *****************************************/
-  public function createTask(Request $request, $folder_id, $card_id)
+  public function createTask(TaskRequest $request, $folder_id, $card_id)
   {
     // dd($folder_id);
 
@@ -141,11 +142,13 @@ class TaskController extends Controller
 
     $cardData = $allData->folders->find($folder_id);
 
+    return $cardData;
+
   }
 
-  public function deleteTask($task_id)
+  public function deleteTask($folder_id, $card_id, $task_id)
   {
-    dd('タスクの削除処理です');
+    // dd('タスクの削除処理です');
 
     $user = Auth::user();
 
@@ -158,6 +161,10 @@ class TaskController extends Controller
     $allData = User::with(['folders.cards.tasks'])->find($user_id);
 
     $cardData = $allData->folders->find($folder_id);
+    
+    dd('現在削除後のデータは返却していない');
+
+    return $cardData;
   }
 
   public function updateTask($folder_id, $card_id, $task_id)
