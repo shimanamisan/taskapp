@@ -53,7 +53,7 @@ Route::get('/folder', 'TaskController@index')->name('folder.index');
 // フォルダ登録
 Route::post('/folder/create', 'TaskController@createFolder')->name('folder.createFolder');
 // フォルダ更新
-Route::patch('/folder/{id}/update', 'TaskController@updateFolder')->name('folder.updateFolder');
+Route::put('/folder/{id}/update', 'TaskController@updateFolder')->name('folder.updateFolder');
 // フォルダ削除
 Route::delete('/folder/{folder_id}/delete', 'TaskController@deleteFolder')->name('folder.deleteFolder');
 // フォルダ配下のカード取得
@@ -64,21 +64,21 @@ Route::get('/folder/{folder_id}/card/set', 'TaskController@selectCrad')->name('f
 *****************************************/
 // カード登録
 Route::post('/folder/{folder_id}/card/create', 'TaskController@createCard')->name('card.createCard');
+// カードの更新
+Route::put('/folder/{folder_id}/card/{card_id}/update', 'TaskController@updateCard')->name('card.updateCard');
 // カードの削除
 Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'TaskController@deleteCard')->name('card.deleteCard');
-// カードの更新
-Route::patch('/folder/{folder_id}/card/{card_id}/update', 'TaskController@deleteCard')->name('card.updateCard');
+
 
 /****************************************
 タスク管理(更新・削除)
 *****************************************/
 // タスク登録
 Route::post('/folder/{folder_id}/card/{card_id}/task/create', 'TaskController@createTask')->name('task.createTask');
+// タスク更新
+Route::put('/folder/{folder_id}/card/{card_id}/task/{task_id}/update', 'TaskController@updateTask')->name('task.updateTask');
 // タスク削除
 Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
-// タスク更新
-Route::patch('/folder/{folder_id}/card/{card_id}/task/{task_id}/update', 'TaskController@deleteTask')->name('task.updateTask');
-
 
 
 

@@ -36,7 +36,6 @@ class TaskController extends Controller
     // https://programing-school.work/laravel-belongsto/
     $user->folders()->create($request->all());
     // 更新されたデータを新たに全て取得
-
     $allData = User::with('folders')->find($user_id);
 
     return $allData;
@@ -58,9 +57,19 @@ class TaskController extends Controller
 
   }
 
-  public function updateFolder($folder_id)
+  public function updateFolder(TaskRequest $request, $folder_id)
   {
-    dd('フォルダーののアップデート処理です');
+    // dd('フォルダーのアップデート処理です： '. $request->title . 'フォルダーID： ' . $folder_id);
+
+    $user = Auth::user();
+
+    $user_id = $user->id;
+
+    $user->folders()->find($folder_id)->update($request->all());
+
+    $folderData = User::with('folders')->find($user_id);
+
+    return $folderData;
   }
 
   // フォルダー配下のカードのデータを取得
@@ -118,9 +127,22 @@ class TaskController extends Controller
     return $cardData;
   }
 
-  public function updateCard($folder_id, $card_id)
+  public function updateCard(TaskRequest $request, $folder_id, $card_id)
   {
-    dd('カードのアップデート処理です');
+    // dd('カードのアップデート処理です');
+    $user = Auth::user();
+
+    $user_id = $user->id;
+
+    $folder = Folder::find($folder_id);
+
+    $folder->cards()->find($card_id)->update($request->all());
+
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    $cardData = $allData->folders->find($folder_id);
+
+    return $cardData;
   }
 
   /****************************************
@@ -162,13 +184,25 @@ class TaskController extends Controller
 
     $cardData = $allData->folders->find($folder_id);
     
-    dd('現在削除後のデータは返却していない');
-
     return $cardData;
   }
 
-  public function updateTask($folder_id, $card_id, $task_id)
+  public function updateTask(TaskRequest $request, $folder_id, $card_id, $task_id)
   {
-    dd('タスクのアップデート処理です');
+    // dd('タスクのアップデート処理です');
+
+    $user = Auth::user();
+
+    $user_id = $user->id;
+
+    $folder = Folder::find($folder_id);
+
+    $folder->cards()->find($card_id)->tasks()->find($task_id)->update($request->all());
+
+    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+
+    $cardData = $allData->folders->find($folder_id);
+    
+    return $cardData;
   }
 }
