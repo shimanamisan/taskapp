@@ -3,7 +3,10 @@
         <div v-show="!CardEdit_flg" class="c-task--todo--list c-task--todo--push" @click="CardEdit_flg = !CardEdit_flg">＋ 新しいカードを追加 </div>
         <div v-show="CardEdit_flg" class="c-task--todo--inputAreaWrapp cardAdd">
             <form @submit.prevent>
-                <input type="text" class="c-task--todo--inputArea" :class="{'errors--bg': cardRequestErrorMessages}" v-model="CradCreateForm">
+                <input type="text" class="c-task--todo--inputArea"
+                :class="{'errors--bg': cardRequestErrorMessages}"
+                v-model="CradCreateForm"
+                >
                 <!-- バリデーションエラー --->
                     <ul v-if="cardRequestErrorMessages" class="errors errors--tasks">
                         <li v-for="(msg, index) in cardRequestErrorMessages.title" :key="index">{{ msg }}</li>

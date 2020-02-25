@@ -2830,6 +2830,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -2837,7 +2843,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      title_data: this.cards.title
+      editFlag: false,
+      cardTitle: this.cards.title
     };
   },
   props: {
@@ -2863,6 +2870,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     listCounter: function listCounter() {
       return this.cards.tasks.length;
+    },
+    cardRequestErrorMessages: function cardRequestErrorMessages() {
+      // エラーメッセージがあった際にストアより取得
+      return this.$store.state.taskStore.cardRequestErrorMessages;
+    },
+    getErrorCode: function getErrorCode() {
+      return this.$store.state.error.code;
     }
   },
   methods: {
@@ -2878,7 +2892,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 folder_id = this.cards.folder_id;
                 card_id = this.cards.id; // console.log( 'これはカードid：' + folder_id + '  ' + 'これはフォルダid：' + card_id)
 
-                if (!window.confirm('カードを削除すると、全てのタスクリストも削除されます。\nフォルダーを削除しますか？')) {
+                if (!window.confirm('カードを削除すると、全てのタスクリストも削除されます。nフォルダーを削除しますか？')) {
                   _context.next = 7;
                   break;
                 }
@@ -2907,8 +2921,63 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return deleteCard;
     }(),
-    update: function update() {
-      console.log('chnage');
+    updateCardTitle: function () {
+      var _updateCardTitle = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var folder_id, card_id;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                folder_id = this.cards.folder_id;
+                card_id = this.cards.id;
+                _context2.next = 4;
+                return this.$store.dispatch('taskStore/updateCardTitle', {
+                  title: this.cardTitle,
+                  folder_id: folder_id,
+                  card_id: card_id
+                });
+
+              case 4:
+                _context2.next = 6;
+                return this.$store.dispatch('taskStore/setCardListsAction', folder_id);
+
+              case 6:
+                if (this.getErrorCode === 200) {
+                  this.editCard(); // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
+                }
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function updateCardTitle() {
+        return _updateCardTitle.apply(this, arguments);
+      }
+
+      return updateCardTitle;
+    }(),
+    editCard: function editCard() {
+      this.editFlag = !this.editFlag;
+      this.clearError();
+    },
+    cancelEdit: function cancelEdit() {
+      this.editFlag = false; // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
+
+      this.cardTitle = this.cards.title;
+      this.clearError();
+    },
+
+    /*************************************************
+    * バリデーションメッセージを消すアクションを呼ぶ
+    **************************************************/
+    clearError: function clearError() {
+      this.$store.commit('taskStore/setCardRequestErrorMessages', null);
     }
   }
 });
@@ -2932,6 +3001,9 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
 //
 //
 //
@@ -3076,14 +3148,25 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      current_folder_id: '',
-      isActiveFolder: false,
-      editFlag: true,
-      title_data: this.title
+      editFlag: false,
+      folderTitle: this.title
     };
   },
   components: {
@@ -3104,10 +3187,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   computed: {
-    classObject: function classObject() {
-      return {
-        'u-isActive--folder': this.isActiveFolder
-      };
+    folderRequestErrorMessages: function folderRequestErrorMessages() {
+      // エラーメッセージがあった際にストアより取得
+      return this.$store.state.taskStore.folderRequestErrorMessages;
+    },
+    getErrorCode: function getErrorCode() {
+      return this.$store.state.error.code;
     }
   },
   methods: {
@@ -3116,19 +3201,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _deleteFolder = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var folder_id;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
+                folder_id = this.id;
+
                 if (!window.confirm('フォルダーを削除すると、全てのカード及びタスクリストも削除されます。\nフォルダーを削除しますか？')) {
-                  _context.next = 3;
+                  _context.next = 4;
                   break;
                 }
 
-                _context.next = 3;
-                return this.$store.dispatch('taskStore/deleteFolder', this.id);
+                _context.next = 4;
+                return this.$store.dispatch('taskStore/deleteFolder', folder_id);
 
-              case 3:
+              case 4:
               case "end":
                 return _context.stop();
             }
@@ -3147,14 +3235,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _setCardLists = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var folder_id;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return this.$store.dispatch('taskStore/setCardListsAction', this.id);
+                folder_id = this.id;
+                _context2.next = 3;
+                return this.$store.dispatch('taskStore/setCardListsAction', folder_id);
 
-              case 2:
+              case 3:
               case "end":
                 return _context2.stop();
             }
@@ -3168,14 +3258,55 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return setCardLists;
     }(),
-    folderActive: function folderActive() {
-      this.isActiveFolder = !this.isActiveFolder;
-    },
     editFolder: function editFolder() {
       this.editFlag = !this.editFlag;
+      this.clearError();
     },
-    test: function test() {
-      console.log('aaaaaa');
+    cancelEdit: function cancelEdit() {
+      this.editFlag = false; // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
+
+      this.folderTitle = this.title;
+      this.clearError();
+    },
+    updateFolderTitle: function () {
+      var _updateFolderTitle = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.$store.dispatch('taskStore/updateFolderTitle', {
+                  title: this.folderTitle,
+                  folder_id: this.id
+                });
+
+              case 2:
+                if (this.getErrorCode === 200) {
+                  this.editFolder();
+                }
+
+              case 3:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function updateFolderTitle() {
+        return _updateFolderTitle.apply(this, arguments);
+      }
+
+      return updateFolderTitle;
+    }(),
+
+    /*************************************************
+    * バリデーションメッセージを消すアクションを呼ぶ
+    **************************************************/
+    clearError: function clearError() {
+      this.$store.commit('taskStore/setFolderRequestErrorMessages', null);
     }
   }
 });
@@ -3199,6 +3330,10 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
 //
 //
 //
@@ -3380,19 +3515,35 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
+      editFlag: false,
+      taskTitle: this.title,
       folder_id: this.cards.folder_id,
       card_id: this.cards.id,
-      task_id: this.id
+      task_id: this.id,
+      placeholder: '入力必須です' // リファクタ必要
+
     };
   },
   props: {
     title: {
-      type: String
-    },
-    status: {
       type: String
     },
     id: {
@@ -3412,7 +3563,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       required: true
     }
   },
-  computed: {},
+  computed: {
+    taskRequestErrorMessages: function taskRequestErrorMessages() {
+      // エラーメッセージがあった際にストアより取得
+      return this.$store.state.taskStore.taskRequestErrorMessages;
+    },
+    getErrorCode: function getErrorCode() {
+      return this.$store.state.error.code;
+    }
+  },
   methods: {
     deleteTask: function () {
       var _deleteTask = _asyncToGenerator(
@@ -3455,7 +3614,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       }
 
       return deleteTask;
-    }()
+    }(),
+    updateTaskTitle: function () {
+      var _updateTaskTitle = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var folder_id, card_id, task_id;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                folder_id = this.folder_id;
+                card_id = this.card_id;
+                task_id = this.task_id;
+                _context2.next = 5;
+                return this.$store.dispatch('taskStore/updateTaskTitle', {
+                  title: this.taskTitle,
+                  folder_id: folder_id,
+                  card_id: card_id,
+                  task_id: task_id
+                });
+
+              case 5:
+                _context2.next = 7;
+                return this.$store.dispatch('taskStore/setCardListsAction', folder_id);
+
+              case 7:
+                if (this.getErrorCode === 200) {
+                  this.editCard(); // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
+                }
+
+              case 8:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function updateTaskTitle() {
+        return _updateTaskTitle.apply(this, arguments);
+      }
+
+      return updateTaskTitle;
+    }(),
+    editCard: function editCard() {
+      this.editFlag = !this.editFlag;
+      this.clearError();
+    },
+    cancelEdit: function cancelEdit() {
+      this.editFlag = false; // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
+
+      this.taskTitle = this.title;
+      this.clearError();
+    },
+
+    /*************************************************
+    * バリデーションメッセージを消すアクションを呼ぶ
+    **************************************************/
+    clearError: function clearError() {
+      this.$store.commit('taskStore/setTaskRequestErrorMessages', null);
+    }
   }
 });
 
@@ -8787,7 +9006,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.c-task--folder__trash {\r\n  display: block;\r\n  float: right;\n}\n.folder--update{\r\n  display: inline-block;\n}\n.fa-edit{\r\n  margin-right: 5px\n}\r\n\r\n", ""]);
+exports.push([module.i, "\n.c-task--folder__trash {\r\n  display: block;\r\n  float: right;\n}\n.fa-edit{\r\n  margin-right: 5px\n}\r\n\r\n", ""]);
 
 // exports
 
@@ -45683,7 +45902,13 @@ var render = function() {
                           _c(
                             "draggable",
                             _vm._b(
-                              { attrs: { list: _vm.FolderLists, tag: "ul" } },
+                              {
+                                attrs: {
+                                  list: _vm.FolderLists,
+                                  tag: "ul",
+                                  handle: ".hand-icon"
+                                }
+                              },
                               "draggable",
                               { animation: 300 },
                               false
@@ -45763,11 +45988,94 @@ var render = function() {
         { staticClass: "c-task--todo" },
         [
           _c("div", { staticClass: "c-task--todo__header" }, [
-            _vm._v(_vm._s(_vm.title_data) + "\n        "),
+            !_vm.editFlag
+              ? _c("span", { on: { dblclick: _vm.editCard } }, [
+                  _vm._v(_vm._s(_vm.cardTitle) + " ")
+                ])
+              : _c(
+                  "form",
+                  {
+                    staticClass: "c-updateFrom",
+                    on: {
+                      submit: function($event) {
+                        $event.preventDefault()
+                      }
+                    }
+                  },
+                  [
+                    _vm.cardRequestErrorMessages
+                      ? _c(
+                          "ul",
+                          { staticClass: "errors errors--tasks" },
+                          _vm._l(_vm.cardRequestErrorMessages.title, function(
+                            msg,
+                            index
+                          ) {
+                            return _c("li", { key: index }, [
+                              _vm._v(_vm._s(msg) + " ")
+                            ])
+                          }),
+                          0
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.cardTitle,
+                          expression: "cardTitle"
+                        }
+                      ],
+                      staticClass: "c-input c-input--tasks",
+                      class: { "errors--bg": _vm.cardRequestErrorMessages },
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.cardTitle },
+                      on: {
+                        keypress: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k(
+                              $event.keyCode,
+                              "enter",
+                              13,
+                              $event.key,
+                              "Enter"
+                            )
+                          ) {
+                            return null
+                          }
+                          return _vm.updateCardTitle($event)
+                        },
+                        keyup: function($event) {
+                          if (
+                            !$event.type.indexOf("key") &&
+                            _vm._k($event.keyCode, "esc", 27, $event.key, [
+                              "Esc",
+                              "Escape"
+                            ])
+                          ) {
+                            return null
+                          }
+                          return _vm.cancelEdit($event)
+                        },
+                        blur: _vm.cancelEdit,
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.cardTitle = $event.target.value
+                        }
+                      }
+                    })
+                  ]
+                ),
+            _vm._v(" "),
             _c(
               "label",
               { staticClass: "c-task--todo--counter", attrs: { for: "" } },
-              [_vm._v(_vm._s(_vm.listCounter))]
+              [_vm._v(_vm._s(_vm.listCounter) + " ")]
             ),
             _vm._v(" "),
             _c("div", { staticClass: "c-task--todo--card--del" }, [
@@ -45783,10 +46091,7 @@ var render = function() {
           _c(
             "draggable",
             _vm._b(
-              {
-                attrs: { list: _vm.cards.tasks, tag: "div" },
-                on: { change: _vm.update }
-              },
+              { attrs: { list: _vm.cards.tasks, tag: "div" } },
               "draggable",
               { group: "cards.tasks", animation: 300 },
               false
@@ -45797,7 +46102,6 @@ var render = function() {
                 attrs: {
                   id: task.id,
                   title: task.title,
-                  status: task.status,
                   listIndex: index,
                   created_at: task.created_at,
                   cards: _vm.cards
@@ -45972,27 +46276,23 @@ var render = function() {
   return _c("div", [
     _c(
       "li",
-      {
-        staticClass: "c-task--folder__wrapp",
-        class: _vm.classObject,
-        on: { click: _vm.setCardLists }
-      },
+      { staticClass: "c-task--folder__wrapp", on: { click: _vm.setCardLists } },
       [
         _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
         _vm._v(" "),
-        _vm.editFlag
+        !_vm.editFlag
           ? _c(
               "span",
               {
                 staticClass: "c-task--folder__item",
                 on: { dblclick: _vm.editFolder }
               },
-              [_vm._v(_vm._s(_vm.title_data))]
+              [_vm._v(_vm._s(_vm.folderTitle))]
             )
           : _c(
               "form",
               {
-                staticClass: "folder--update",
+                staticClass: "c-updateFrom",
                 on: {
                   submit: function($event) {
                     $event.preventDefault()
@@ -46000,26 +46300,61 @@ var render = function() {
                 }
               },
               [
+                _vm.folderRequestErrorMessages
+                  ? _c(
+                      "ul",
+                      { staticClass: "errors errors--tasks" },
+                      _vm._l(_vm.folderRequestErrorMessages.title, function(
+                        msg,
+                        index
+                      ) {
+                        return _c("li", { key: index }, [_vm._v(_vm._s(msg))])
+                      }),
+                      0
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
                 _c("input", {
                   directives: [
                     {
                       name: "model",
                       rawName: "v-model",
-                      value: _vm.title_data,
-                      expression: "title_data"
+                      value: _vm.folderTitle,
+                      expression: "folderTitle"
                     }
                   ],
                   staticClass: "c-input c-input--tasks",
+                  class: { "errors--bg": _vm.folderRequestErrorMessages },
                   attrs: { type: "text" },
-                  domProps: { value: _vm.title_data },
+                  domProps: { value: _vm.folderTitle },
                   on: {
-                    blur: _vm.editFolder,
-                    change: _vm.test,
+                    keypress: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.updateFolderTitle($event)
+                    },
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "esc", 27, $event.key, [
+                          "Esc",
+                          "Escape"
+                        ])
+                      ) {
+                        return null
+                      }
+                      return _vm.cancelEdit($event)
+                    },
+                    blur: _vm.cancelEdit,
                     input: function($event) {
                       if ($event.target.composing) {
                         return
                       }
-                      _vm.title_data = $event.target.value
+                      _vm.folderTitle = $event.target.value
                     }
                   }
                 })
@@ -46115,9 +46450,18 @@ var render = function() {
               ],
               staticClass: "c-task--todo--inputArea",
               class: { "errors--bg": _vm.folderRequestErrorMessages },
-              attrs: { type: "input" },
+              attrs: { type: "text" },
               domProps: { value: _vm.folderTitle },
               on: {
+                keydown: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.createFolder($event)
+                },
                 input: function($event) {
                   if ($event.target.composing) {
                     return
@@ -46234,9 +46578,69 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "c-task--todo--list" }, [
-    _c("span", { staticClass: "c-task--todo--tips" }, [
-      _vm._v(_vm._s(_vm.title))
-    ]),
+    !_vm.editFlag
+      ? _c(
+          "span",
+          { staticClass: "c-task--todo--tips", on: { dblclick: _vm.editCard } },
+          [_vm._v(_vm._s(_vm.title))]
+        )
+      : _c(
+          "form",
+          {
+            staticClass: "c-updateFrom c-updateFrom--TaskList",
+            on: {
+              submit: function($event) {
+                $event.preventDefault()
+              }
+            }
+          },
+          [
+            _c("input", {
+              directives: [
+                {
+                  name: "model",
+                  rawName: "v-model",
+                  value: _vm.taskTitle,
+                  expression: "taskTitle"
+                }
+              ],
+              staticClass: "c-input c-input--tasks u-taskListInput",
+              class: { "errors--bg": _vm.taskRequestErrorMessages },
+              attrs: { type: "text", placeholder: _vm.placeholder },
+              domProps: { value: _vm.taskTitle },
+              on: {
+                keypress: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                  ) {
+                    return null
+                  }
+                  return _vm.updateTaskTitle($event)
+                },
+                keyup: function($event) {
+                  if (
+                    !$event.type.indexOf("key") &&
+                    _vm._k($event.keyCode, "esc", 27, $event.key, [
+                      "Esc",
+                      "Escape"
+                    ])
+                  ) {
+                    return null
+                  }
+                  return _vm.cancelEdit($event)
+                },
+                blur: _vm.cancelEdit,
+                input: function($event) {
+                  if ($event.target.composing) {
+                    return
+                  }
+                  _vm.taskTitle = $event.target.value
+                }
+              }
+            })
+          ]
+        ),
     _vm._v(" "),
     _c(
       "div",
@@ -69229,6 +69633,10 @@ var state = {
   cardRequestErrorMessages: null,
   taskRequestErrorMessages: null
 };
+/*******************************
+ゲッター
+********************************/
+
 var getters = {};
 /*******************************
 ミューテーション
@@ -69339,7 +69747,7 @@ var actions = {
     var _createFolder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(_ref3, payload) {
-      var commit, response, data, datas, key;
+      var commit, response, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
         while (1) {
           switch (_context3.prev = _context3.next) {
@@ -69353,12 +69761,7 @@ var actions = {
             case 3:
               response = _context3.sent;
               // メソッドを使うために配列を定義
-              data = [];
-              datas = response.data.folders;
-
-              for (key in datas) {
-                data.push(datas[key]);
-              }
+              data = response.data.folders;
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
                 commit('setFolderRequestErrorMessages', response.data.errors);
@@ -69374,7 +69777,7 @@ var actions = {
                 root: true
               });
 
-            case 9:
+            case 7:
             case "end":
               return _context3.stop();
           }
@@ -69439,6 +69842,79 @@ var actions = {
 
     return deleteFolder;
   }(),
+  // フォルダータイトルの更新
+  updateFolderTitle: function () {
+    var _updateFolderTitle = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, _ref6) {
+      var commit, title, folder_id, folderTitle, response, data;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+        while (1) {
+          switch (_context5.prev = _context5.next) {
+            case 0:
+              commit = _ref5.commit;
+              title = _ref6.title, folder_id = _ref6.folder_id;
+              folderTitle = {};
+              folderTitle.title = title;
+              _context5.next = 6;
+              return axios.put('/api/folder/' + folder_id + '/update', folderTitle)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 6:
+              response = _context5.sent;
+              data = response.data.folders;
+
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                commit('setFolderRequestErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                }); // ミューテーションへコミットする
+
+                commit('setFolderLists', data);
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 10:
+            case "end":
+              return _context5.stop();
+          }
+        }
+      }, _callee5);
+    }));
+
+    function updateFolderTitle(_x9, _x10) {
+      return _updateFolderTitle.apply(this, arguments);
+    }
+
+    return updateFolderTitle;
+  }(),
+  // フォルダーの並び替えの更新
+  updateFolderSort: function () {
+    var _updateFolderSort = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+        while (1) {
+          switch (_context6.prev = _context6.next) {
+            case 0:
+            case "end":
+              return _context6.stop();
+          }
+        }
+      }, _callee6);
+    }));
+
+    function updateFolderSort() {
+      return _updateFolderSort.apply(this, arguments);
+    }
+
+    return updateFolderSort;
+  }(),
 
   /*************************************
   カードの作成・更新・削除・並び替え
@@ -69447,30 +69923,29 @@ var actions = {
   createCard: function () {
     var _createCard = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, _ref6) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref7, _ref8) {
       var commit, title, folder_id, card, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
-          switch (_context5.prev = _context5.next) {
+          switch (_context7.prev = _context7.next) {
             case 0:
-              commit = _ref5.commit;
-              title = _ref6.title, folder_id = _ref6.folder_id;
+              commit = _ref7.commit;
+              title = _ref8.title, folder_id = _ref8.folder_id;
               // Laravel側へオブジェクトとしてデータを渡すために作成
               card = {}; // titleプロパティにフォームの値をセット
 
               card.title = title;
-              _context5.next = 6;
+              _context7.next = 6;
               return axios.post('/api/folder/' + folder_id + '/card/create', card)["catch"](function (error) {
                 return error.response || error;
               });
 
             case 6:
-              response = _context5.sent;
+              response = _context7.sent;
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
                 commit('setCardRequestErrorMessages', response.data.errors);
               } else {
-                console.log('通信成功時の処理:createTaskアクション：' + response.status);
                 commit('error/setCode', response.status, {
                   root: true
                 });
@@ -69482,13 +69957,13 @@ var actions = {
 
             case 9:
             case "end":
-              return _context5.stop();
+              return _context7.stop();
           }
         }
-      }, _callee5);
+      }, _callee7);
     }));
 
-    function createCard(_x9, _x10) {
+    function createCard(_x11, _x12) {
       return _createCard.apply(this, arguments);
     }
 
@@ -69498,28 +69973,26 @@ var actions = {
   deleteCard: function () {
     var _deleteCard = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref7, _ref8) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref9, _ref10) {
       var commit, folder_id, card_id, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
         while (1) {
-          switch (_context6.prev = _context6.next) {
+          switch (_context8.prev = _context8.next) {
             case 0:
-              commit = _ref7.commit;
-              folder_id = _ref8.folder_id, card_id = _ref8.card_id;
-              console.log('カード削除のアクションが動作しています');
-              _context6.next = 5;
+              commit = _ref9.commit;
+              folder_id = _ref10.folder_id, card_id = _ref10.card_id;
+              _context8.next = 4;
               return axios["delete"]('/api/folder/' + folder_id + '/card/' + card_id + '/delete')["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 5:
-              response = _context6.sent;
+            case 4:
+              response = _context8.sent;
 
               // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                commit('setTaskRequestErrorMessages', response.data.errors);
+                commit('setCardRequestErrorMessages', response.data.errors);
               } else {
-                console.log('通信成功時の処理:createTaskアクション：' + response.status);
                 commit('error/setCode', response.status, {
                   root: true
                 });
@@ -69527,24 +70000,93 @@ var actions = {
 
               commit('error/setCode', response.status, {
                 root: true
-              }); // if(response.status === INTERNAL_SERVER_ERROR){
-              //   console.log('INTERNAL_SERVER_ERRORです')
-              //   return false
-              // }
+              });
 
-            case 8:
+            case 7:
             case "end":
-              return _context6.stop();
+              return _context8.stop();
           }
         }
-      }, _callee6);
+      }, _callee8);
     }));
 
-    function deleteCard(_x11, _x12) {
+    function deleteCard(_x13, _x14) {
       return _deleteCard.apply(this, arguments);
     }
 
     return deleteCard;
+  }(),
+  // カードタイトルの更新
+  updateCardTitle: function () {
+    var _updateCardTitle = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref11, _ref12) {
+      var commit, title, folder_id, card_id, cardTitle, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
+        while (1) {
+          switch (_context9.prev = _context9.next) {
+            case 0:
+              commit = _ref11.commit;
+              title = _ref12.title, folder_id = _ref12.folder_id, card_id = _ref12.card_id;
+              cardTitle = {};
+              cardTitle.title = title;
+              _context9.next = 6;
+              return axios.put('/api/folder/' + folder_id + '/card/' + card_id + '/update', cardTitle)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 6:
+              response = _context9.sent;
+
+              // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log(JSON.stringify(response.data.errors));
+                commit('setCardRequestErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 9:
+            case "end":
+              return _context9.stop();
+          }
+        }
+      }, _callee9);
+    }));
+
+    function updateCardTitle(_x15, _x16) {
+      return _updateCardTitle.apply(this, arguments);
+    }
+
+    return updateCardTitle;
+  }(),
+  // カードの並び替えの更新
+  updateCardSort: function () {
+    var _updateCardSort = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
+        while (1) {
+          switch (_context10.prev = _context10.next) {
+            case 0:
+            case "end":
+              return _context10.stop();
+          }
+        }
+      }, _callee10);
+    }));
+
+    function updateCardSort() {
+      return _updateCardSort.apply(this, arguments);
+    }
+
+    return updateCardSort;
   }(),
 
   /*************************************
@@ -69554,24 +70096,24 @@ var actions = {
   createTask: function () {
     var _createTask = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref9, _ref10) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(_ref13, _ref14) {
       var commit, title, folder_id, card_id, task, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
         while (1) {
-          switch (_context7.prev = _context7.next) {
+          switch (_context11.prev = _context11.next) {
             case 0:
-              commit = _ref9.commit;
-              title = _ref10.title, folder_id = _ref10.folder_id, card_id = _ref10.card_id;
+              commit = _ref13.commit;
+              title = _ref14.title, folder_id = _ref14.folder_id, card_id = _ref14.card_id;
               task = {}; // titleプロパティにフォームの値をセット
 
               task.title = title;
-              _context7.next = 6;
+              _context11.next = 6;
               return axios.post('/api/folder/' + folder_id + '/card/' + card_id + '/task/create', task)["catch"](function (error) {
                 return error.response || error;
               });
 
             case 6:
-              response = _context7.sent;
+              response = _context11.sent;
 
               // var data = response.data.cards
               // 422ステータスの処理
@@ -69590,13 +70132,13 @@ var actions = {
 
             case 9:
             case "end":
-              return _context7.stop();
+              return _context11.stop();
           }
         }
-      }, _callee7);
+      }, _callee11);
     }));
 
-    function createTask(_x13, _x14) {
+    function createTask(_x17, _x18) {
       return _createTask.apply(this, arguments);
     }
 
@@ -69606,36 +70148,108 @@ var actions = {
   deleteTask: function () {
     var _deleteTask = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref11, _ref12) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(_ref15, _ref16) {
       var commit, folder_id, card_id, task_id, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
         while (1) {
-          switch (_context8.prev = _context8.next) {
+          switch (_context12.prev = _context12.next) {
             case 0:
-              commit = _ref11.commit;
-              folder_id = _ref12.folder_id, card_id = _ref12.card_id, task_id = _ref12.task_id;
+              commit = _ref15.commit;
+              folder_id = _ref16.folder_id, card_id = _ref16.card_id, task_id = _ref16.task_id;
               console.log('カード削除のアクションが動作しています' + task_id);
-              _context8.next = 5;
+              _context12.next = 5;
               return axios["delete"]('/api/folder/' + folder_id + '/card/' + card_id + '/task/' + task_id + '/delete')["catch"](function (error) {
                 return error.response || error;
               });
 
             case 5:
-              response = _context8.sent;
+              response = _context12.sent;
 
             case 6:
             case "end":
-              return _context8.stop();
+              return _context12.stop();
           }
         }
-      }, _callee8);
+      }, _callee12);
     }));
 
-    function deleteTask(_x15, _x16) {
+    function deleteTask(_x19, _x20) {
       return _deleteTask.apply(this, arguments);
     }
 
     return deleteTask;
+  }(),
+  // タスクタイトルの更新
+  updateTaskTitle: function () {
+    var _updateTaskTitle = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee13(_ref17, _ref18) {
+      var commit, title, folder_id, card_id, task_id, taskTitle, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee13$(_context13) {
+        while (1) {
+          switch (_context13.prev = _context13.next) {
+            case 0:
+              commit = _ref17.commit;
+              title = _ref18.title, folder_id = _ref18.folder_id, card_id = _ref18.card_id, task_id = _ref18.task_id;
+              taskTitle = {};
+              taskTitle.title = title;
+              _context13.next = 6;
+              return axios.put('/api/folder/' + folder_id + '/card/' + card_id + '/task/' + task_id + '/update', taskTitle)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 6:
+              response = _context13.sent;
+
+              // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log(JSON.stringify(response.data.errors));
+                commit('setTaskRequestErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 9:
+            case "end":
+              return _context13.stop();
+          }
+        }
+      }, _callee13);
+    }));
+
+    function updateTaskTitle(_x21, _x22) {
+      return _updateTaskTitle.apply(this, arguments);
+    }
+
+    return updateTaskTitle;
+  }(),
+  // タスクの並べ替えの更新
+  updateTaskSort: function () {
+    var _updateTaskSort = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14() {
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee14$(_context14) {
+        while (1) {
+          switch (_context14.prev = _context14.next) {
+            case 0:
+            case "end":
+              return _context14.stop();
+          }
+        }
+      }, _callee14);
+    }));
+
+    function updateTaskSort() {
+      return _updateTaskSort.apply(this, arguments);
+    }
+
+    return updateTaskSort;
   }()
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

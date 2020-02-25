@@ -33,3 +33,10 @@
 .c-form__item+.c-form__item{
   margin-top: $space_xl;
 }
+
+.c-updateFrom{
+  display: inline-block;
+    &--TaskList{
+      margin-bottom: 5px;
+    }
+}

@@ -12,11 +12,12 @@ const state = {
   cardRequestErrorMessages: null,
   taskRequestErrorMessages: null,
 }
-
+/*******************************
+ゲッター
+********************************/
 const getters = {
   
 }
-
 /*******************************
 ミューテーション
 ********************************/
@@ -41,7 +42,6 @@ const mutations = {
     state.taskRequestErrorMessages = taskRequestErrorMessages
   },
 }
-
 /*******************************
 アクション
 ********************************/
@@ -70,11 +70,7 @@ const actions = {
   async createFolder( {commit}, payload ){
     const response = await axios.post('/api/folder/create', payload).catch(error => error.response || error)
     // メソッドを使うために配列を定義
-    var data = []
-    var datas = response.data.folders
-    for(var key in datas){
-      data.push(datas[key])
-    }
+    var data = response.data.folders
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
@@ -100,6 +96,25 @@ const actions = {
     }
     commit('setFolderLists', data)
   },
+  // フォルダータイトルの更新
+  async updateFolderTitle( {commit} , {title, folder_id}){
+    const folderTitle = {}
+    folderTitle.title = title
+    const response = await axios.put('/api/folder/' + folder_id + '/update', folderTitle).catch(error => error.response || error)
+    var data = response.data.folders
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      commit('setFolderRequestErrorMessages', response.data.errors)
+    } else {
+      commit('error/setCode', response.status, { root:true })
+      // ミューテーションへコミットする
+      commit('setFolderLists', data) 
+    }
+    commit('error/setCode', response.status, { root: true })
+  },
+  // フォルダーの並び替えの更新
+  async updateFolderSort(){
+
+  },
   /*************************************
   カードの作成・更新・削除・並び替え
   *************************************/
@@ -113,7 +128,6 @@ const actions = {
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setCardRequestErrorMessages', response.data.errors)
     } else {
-      console.log('通信成功時の処理:createTaskアクション：' + response.status)
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true })
@@ -121,25 +135,33 @@ const actions = {
   },
   // カードの削除
   async deleteCard( { commit }, {folder_id, card_id}){
-    console.log('カード削除のアクションが動作しています')
     const response = await axios.delete('/api/folder/' + folder_id + '/card/' + card_id + '/delete').catch(error => error.response || error)
     // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
-
       if(response.status === UNPROCESSABLE_ENTITY ){
-        commit('setTaskRequestErrorMessages', response.data.errors)
+        commit('setCardRequestErrorMessages', response.data.errors)
       } else {
-        console.log('通信成功時の処理:createTaskアクション：' + response.status)
+        commit('error/setCode', response.status, { root:true })
+      }
+      commit('error/setCode', response.status, { root: true }) 
+  },
+  // カードタイトルの更新
+  async updateCardTitle({commit} , {title, folder_id, card_id }){
+      const cardTitle = {}
+      cardTitle.title = title
+      const response = await axios.put('/api/folder/' + folder_id + '/card/' + card_id + '/update', cardTitle).catch(error => error.response || error)
+      // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
+      if(response.status === UNPROCESSABLE_ENTITY ){
+        console.log(JSON.stringify(response.data.errors))
+        commit('setCardRequestErrorMessages', response.data.errors)
+      } else {
         commit('error/setCode', response.status, { root:true })
       }
       commit('error/setCode', response.status, { root: true })
-    
-    // if(response.status === INTERNAL_SERVER_ERROR){
-    //   console.log('INTERNAL_SERVER_ERRORです')
-    //   return false
-    // }
- 
   },
+  // カードの並び替えの更新
+  async updateCardSort(){
 
+  },
   /*************************************
   タスクの作成・更新・削除・並び替え
   *************************************/
@@ -165,7 +187,25 @@ const actions = {
     console.log('カード削除のアクションが動作しています' + task_id)
     const response = await axios.delete('/api/folder/' + folder_id + '/card/' + card_id + '/task/' + task_id + '/delete').catch(error => error.response || error)
     // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
-   }
+  },
+  // タスクタイトルの更新
+  async updateTaskTitle({commit} , {title, folder_id, card_id, task_id }){
+    const taskTitle = {}
+    taskTitle.title = title
+    const response = await axios.put('/api/folder/' + folder_id + '/card/' + card_id + '/task/' + task_id  + '/update', taskTitle).catch(error => error.response || error)
+    // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
+    if(response.status === UNPROCESSABLE_ENTITY ){
+      console.log(JSON.stringify(response.data.errors))
+      commit('setTaskRequestErrorMessages', response.data.errors)
+    } else {
+      commit('error/setCode', response.status, { root:true })
+    }
+    commit('error/setCode', response.status, { root: true })
+  },
+  // タスクの並べ替えの更新
+  async updateTaskSort(){
+
+  }
 }
 
 export default {

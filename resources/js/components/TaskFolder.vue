@@ -1,10 +1,23 @@
 <template>
     <div>
-      <li class="c-task--folder__wrapp" :class="classObject" @click="setCardLists">
+      <li class="c-task--folder__wrapp" @click="setCardLists">
+
             <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
-              <span class="c-task--folder__item" v-if="editFlag" @dblclick="editFolder" >{{title_data}}</span> 
-            <form class="folder--update" @submit.prevent v-else>
-              <input type="text" class="c-input c-input--tasks" v-model="title_data" @blur="editFolder" @change="test" >
+              <span class="c-task--folder__item" v-if="!editFlag" @dblclick="editFolder" >{{folderTitle}}</span> 
+          
+            <form class="c-updateFrom" @submit.prevent v-else>
+                <!-- バリデーションエラー --->
+                <ul v-if="folderRequestErrorMessages" class="errors errors--tasks">
+                <li v-for="(msg, index) in folderRequestErrorMessages.title" :key="index">{{ msg }}</li>
+                </ul>
+                <!--- end errors -->
+              <input type="text" class="c-input c-input--tasks"
+              v-model="folderTitle"
+              @keypress.enter="updateFolderTitle"
+              @keyup.esc="cancelEdit"
+              @blur="cancelEdit"
+              :class="{'errors--bg': folderRequestErrorMessages}"
+              >
             </form>
             <div class="c-task--folder__trash">
                <i class="fas fa-trash-alt" @click="deleteFolder"></i>
@@ -17,10 +30,8 @@ import draggable from 'vuedraggable'
 export default {
   data(){
     return {
-      current_folder_id: '',
-      isActiveFolder: false,
-      editFlag: true,
-      title_data: this.title
+      editFlag: false,
+      folderTitle: this.title
     }
   },
   components: {
@@ -41,34 +52,55 @@ export default {
     }
   },
   computed: {
-    classObject(){
-      return {
-        'u-isActive--folder': this.isActiveFolder
-      }
+    folderRequestErrorMessages(){
+    // エラーメッセージがあった際にストアより取得
+    return this.$store.state.taskStore.folderRequestErrorMessages
+    },
+    getErrorCode(){
+      return this.$store.state.error.code
     }
   },
   methods: {
     // フォルダーを削除する
     async deleteFolder(){
+      const folder_id = this.id
       if(window.confirm('フォルダーを削除すると、全てのカード及びタスクリストも削除されます。\nフォルダーを削除しますか？')){
-        await this.$store.dispatch('taskStore/deleteFolder', this.id )
+        await this.$store.dispatch('taskStore/deleteFolder', folder_id )
       }
     },
     // フォルダーを選択したら、そのフォルダーのカードリストを取得
     async setCardLists(){
-      await this.$store.dispatch('taskStore/setCardListsAction', this.id )
-    },
-    folderActive(){
-      this.isActiveFolder = !this.isActiveFolder
+      const folder_id = this.id
+      await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
     },
     editFolder(){
       this.editFlag = !this.editFlag
+      this.clearError()
     },
-    test(){
-      console.log('aaaaaa')
+    cancelEdit(){
+      this.editFlag = false
+      // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
+      this.folderTitle = this.title
+      this.clearError()
+    },
+    async updateFolderTitle(){
       
-    }
+      await this.$store.dispatch('taskStore/updateFolderTitle',
+      {
+        title: this.folderTitle,
+        folder_id: this.id
+      })
 
+      if(this.getErrorCode === 200){
+        this.editFolder()
+      }
+    },
+    /*************************************************
+    * バリデーションメッセージを消すアクションを呼ぶ
+    **************************************************/
+    clearError(){
+      this.$store.commit('taskStore/setFolderRequestErrorMessages', null)
+    },
   }
 }
 </script>
@@ -76,9 +108,6 @@ export default {
 .c-task--folder__trash {
   display: block;
   float: right;
-}
-.folder--update{
-  display: inline-block;
 }
 
 .fa-edit{

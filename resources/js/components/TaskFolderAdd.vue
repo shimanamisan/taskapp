@@ -3,7 +3,11 @@
         <div v-show="!folderEdit_flg" class="c-task--todo--list c-task--todo--push" @click="folderEdit_flg = !folderEdit_flg">＋ 新しいフォルダを追加 </div>
         <div v-show="folderEdit_flg" class="c-task--todo--inputAreaWrapp">
             <form @submit.prevent>
-                <input type="input" class="c-task--todo--inputArea" :class="{'errors--bg': folderRequestErrorMessages}" v-model="folderTitle">
+                <input type="text" class="c-task--todo--inputArea"
+                :class="{'errors--bg': folderRequestErrorMessages}"
+                v-model="folderTitle"
+                @keydown.enter="createFolder"
+                >
                 <!-- バリデーションエラー --->
                 <ul v-if="folderRequestErrorMessages" class="errors errors--tasks">
                     <li v-for="(msg, index) in folderRequestErrorMessages.title" :key="index">{{ msg }}</li>

@@ -11,7 +11,7 @@
                                 <hr class="u-task-line">
                                 <TaskFolderAdd :list="FolderLists"/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
-                                    <draggable :list="FolderLists" tag="ul" v-bind="{animation:300}">
+                                    <draggable :list="FolderLists" tag="ul" v-bind="{animation:300}" handle='.hand-icon'>
                                         <TaskFolder v-for = "(folders, index) in FolderLists" :key = "folders.id" :id = "folders.id" :listIndex = "index" :title = "folders.title"/>
                                     </draggable>
                                 </div>
