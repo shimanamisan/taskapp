@@ -11,8 +11,8 @@
                                 <hr class="u-task-line">
                                 <TaskFolderAdd :list="FolderLists"/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
-                                    <draggable :list="FolderLists" tag="ul" v-bind="{animation:300}" handle='.hand-icon'>
-                                        <TaskFolder v-for = "(folders, index) in FolderLists" :key = "folders.id" :id = "folders.id" :listIndex = "index" :title = "folders.title"/>
+                                    <draggable :list="FolderLists" tag="ul" v-bind="{animation:300, delay: 50}" handle='.hand-icon'>
+                                        <TaskFolder v-for="(folders, index) in FolderLists" :key="folders.id" :id="folders.id" :listIndex="index" :title = "folders.title"/>
                                     </draggable>
                                 </div>
                                 <!-- end c-task--sidebar__wrapp -->
@@ -20,11 +20,9 @@
                             <!-- end c-task--sidebar -->
 
                             <!-- TODOコンポーネント  -->
-                            <draggable :list="CardLists" group="cards" class="c-task--card">
-                            <!-- <div class="c-task--card"> -->
-                                <TaskCard v-for="(cards, index) in CardLists" :key = "cards.id" :id = "cards.id" :listIndex = "index" :cards = "cards" />
-                                </draggable>
-                            <!-- </div> -->
+                            <div class="c-task--card">
+                                <TaskCard v-for="(cards, index) in CardLists" :key="cards.id" :id="cards.id" :listIndex="index" :cards="cards"/>
+                            </div>
                             <TaskCardAdd/>
                         </div>
                         <!-- end c-task--borad03 -->
@@ -70,14 +68,18 @@ export default {
         get(){
           return this.$store.state.taskStore.FolderLists
         },
-        // set(value){
-        //   console.log(value)
-        //   this.$store.commit('taskStore/setFolderLists', value)
-        // }
+        set(value){
+          console.log(value)
+          this.$store.commit('taskStore/setFolderLists', value)
+        }
       },
     CardLists: {
       get(){
         return this.$store.state.taskStore.CardLists
+      },
+        set(value){
+        console.log(value)
+        this.$store.commit('taskStore/setFolderLists', value)
       }
     }
     // ...mapState("taskStore",['FolderLists'])
@@ -97,7 +99,7 @@ export default {
       }).catch( error => {
         console.log(error)
       })
-    },
+    }
   },
   created(){
     this.getFolderLists()

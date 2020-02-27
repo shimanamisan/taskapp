@@ -2661,8 +2661,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
 
 
 
@@ -2691,15 +2689,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     FolderLists: {
       get: function get() {
         return this.$store.state.taskStore.FolderLists;
-      } // set(value){
-      //   console.log(value)
-      //   this.$store.commit('taskStore/setFolderLists', value)
-      // }
-
+      },
+      set: function set(value) {
+        console.log(value);
+        this.$store.commit('taskStore/setFolderLists', value);
+      }
     },
     CardLists: {
       get: function get() {
         return this.$store.state.taskStore.CardLists;
+      },
+      set: function set(value) {
+        console.log(value);
+        this.$store.commit('taskStore/setFolderLists', value);
       }
     } // ...mapState("taskStore",['FolderLists'])
 
@@ -2798,6 +2800,17 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2978,6 +2991,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     **************************************************/
     clearError: function clearError() {
       this.$store.commit('taskStore/setCardRequestErrorMessages', null);
+    },
+    updateDraggable: function updateDraggable(taskId, cardId) {
+      axios.put('/api/task/' + taskId, {
+        card_id: cardId
+      }).then(function (response) {
+        console.log(response);
+      });
+    },
+    onAdd: function onAdd(event) {
+      var fromCradId = event.from.getAttribute("data-card-id");
+      var taskId = event.item.getAttribute("data-task-id");
+      var toCardId = event.to.getAttribute("data-card-id");
+      console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId);
+      this.updateDraggable(taskId, toCardId);
     }
   }
 });
@@ -3496,12 +3523,16 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
+/* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3524,17 +3555,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
-//
-//
-//
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
       editFlag: false,
-      taskTitle: this.title,
+      tasks: this.cards.tasks,
       folder_id: this.cards.folder_id,
       card_id: this.cards.id,
       task_id: this.id,
@@ -3542,12 +3568,20 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
     };
   },
-  props: {
-    title: {
-      type: String
+  components: {
+    draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_1___default.a
+  },
+  props: _defineProperty({
+    cards: {
+      type: Object,
+      required: true
     },
     id: {
       type: Number,
+      required: true
+    },
+    title: {
+      type: String,
       required: true
     },
     listIndex: {
@@ -3557,12 +3591,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     created_at: {
       type: String,
       required: true
-    },
-    cards: {
-      type: Object,
-      required: true
     }
-  },
+  }, "cards", {
+    type: Object,
+    required: true
+  }),
   computed: {
     taskRequestErrorMessages: function taskRequestErrorMessages() {
       // エラーメッセージがあった際にストアより取得
@@ -3674,7 +3707,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     **************************************************/
     clearError: function clearError() {
       this.$store.commit('taskStore/setTaskRequestErrorMessages', null);
-    }
+    } // onAdd(event){
+    // let fromCradId = event.from.getAttribute("data-card-id")
+    // let taskId = event.item.getAttribute("data-task-id");
+    // let toCardId = event.to.getAttribute("data-card-id")
+    // console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
+    // }
+
   }
 });
 
@@ -45910,7 +45949,7 @@ var render = function() {
                                 }
                               },
                               "draggable",
-                              { animation: 300 },
+                              { animation: 300, delay: 50 },
                               false
                             ),
                             _vm._l(_vm.FolderLists, function(folders, index) {
@@ -45933,11 +45972,8 @@ var render = function() {
                   ),
                   _vm._v(" "),
                   _c(
-                    "draggable",
-                    {
-                      staticClass: "c-task--card",
-                      attrs: { list: _vm.CardLists, group: "cards" }
-                    },
+                    "div",
+                    { staticClass: "c-task--card" },
                     _vm._l(_vm.CardLists, function(cards, index) {
                       return _c("TaskCard", {
                         key: cards.id,
@@ -46091,7 +46127,14 @@ var render = function() {
           _c(
             "draggable",
             _vm._b(
-              { attrs: { list: _vm.cards.tasks, tag: "div" } },
+              {
+                attrs: {
+                  list: _vm.cards.tasks,
+                  handle: ".hand-icon",
+                  "data-card-id": _vm.cards.id
+                },
+                on: { add: _vm.onAdd }
+              },
               "draggable",
               { group: "cards.tasks", animation: 300 },
               false
@@ -46577,83 +46620,95 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "c-task--todo--list" }, [
-    !_vm.editFlag
-      ? _c(
-          "span",
-          { staticClass: "c-task--todo--tips", on: { dblclick: _vm.editCard } },
-          [_vm._v(_vm._s(_vm.title))]
-        )
-      : _c(
-          "form",
-          {
-            staticClass: "c-updateFrom c-updateFrom--TaskList",
-            on: {
-              submit: function($event) {
-                $event.preventDefault()
-              }
-            }
-          },
-          [
-            _c("input", {
-              directives: [
-                {
-                  name: "model",
-                  rawName: "v-model",
-                  value: _vm.taskTitle,
-                  expression: "taskTitle"
-                }
-              ],
-              staticClass: "c-input c-input--tasks u-taskListInput",
-              class: { "errors--bg": _vm.taskRequestErrorMessages },
-              attrs: { type: "text", placeholder: _vm.placeholder },
-              domProps: { value: _vm.taskTitle },
+  return _c(
+    "div",
+    { staticClass: "c-task--todo--list", attrs: { "data-task-id": this.id } },
+    [
+      _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
+      _vm._v(" "),
+      !_vm.editFlag
+        ? _c(
+            "span",
+            {
+              staticClass: "c-task--todo--tips",
+              on: { dblclick: _vm.editCard }
+            },
+            [_vm._v(_vm._s(_vm.title))]
+          )
+        : _c(
+            "form",
+            {
+              staticClass: "c-updateFrom c-updateFrom--TaskList",
               on: {
-                keypress: function($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                  ) {
-                    return null
-                  }
-                  return _vm.updateTaskTitle($event)
-                },
-                keyup: function($event) {
-                  if (
-                    !$event.type.indexOf("key") &&
-                    _vm._k($event.keyCode, "esc", 27, $event.key, [
-                      "Esc",
-                      "Escape"
-                    ])
-                  ) {
-                    return null
-                  }
-                  return _vm.cancelEdit($event)
-                },
-                blur: _vm.cancelEdit,
-                input: function($event) {
-                  if ($event.target.composing) {
-                    return
-                  }
-                  _vm.taskTitle = $event.target.value
+                submit: function($event) {
+                  $event.preventDefault()
                 }
               }
-            })
-          ]
-        ),
-    _vm._v(" "),
-    _c(
-      "div",
-      { staticClass: "c-task--todo--list--del", on: { click: _vm.deleteTask } },
-      [_c("i", { staticClass: "fas fa-times" })]
-    ),
-    _vm._v(" "),
-    _c("i", { staticClass: "far fa-clock" }, [
-      _c("span", { staticClass: "c-task--todo--clock" }, [
-        _vm._v(_vm._s(_vm.created_at))
+            },
+            [
+              _c("input", {
+                directives: [
+                  {
+                    name: "model",
+                    rawName: "v-model",
+                    value: _vm.taskTitle,
+                    expression: "taskTitle"
+                  }
+                ],
+                staticClass: "c-input c-input--tasks u-taskListInput",
+                class: { "errors--bg": _vm.taskRequestErrorMessages },
+                attrs: { type: "text", placeholder: _vm.placeholder },
+                domProps: { value: _vm.taskTitle },
+                on: {
+                  keypress: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                    ) {
+                      return null
+                    }
+                    return _vm.updateTaskTitle($event)
+                  },
+                  keyup: function($event) {
+                    if (
+                      !$event.type.indexOf("key") &&
+                      _vm._k($event.keyCode, "esc", 27, $event.key, [
+                        "Esc",
+                        "Escape"
+                      ])
+                    ) {
+                      return null
+                    }
+                    return _vm.cancelEdit($event)
+                  },
+                  blur: _vm.cancelEdit,
+                  input: function($event) {
+                    if ($event.target.composing) {
+                      return
+                    }
+                    _vm.taskTitle = $event.target.value
+                  }
+                }
+              })
+            ]
+          ),
+      _vm._v(" "),
+      _c(
+        "div",
+        {
+          staticClass: "c-task--todo--list--del",
+          on: { click: _vm.deleteTask }
+        },
+        [_c("i", { staticClass: "fas fa-times" })]
+      ),
+      _vm._v(" "),
+      _c("i", { staticClass: "far fa-clock" }, [
+        _c("span", { staticClass: "c-task--todo--clock" }, [
+          _vm._v(_vm._s(_vm.created_at))
+        ])
       ])
-    ])
-  ])
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

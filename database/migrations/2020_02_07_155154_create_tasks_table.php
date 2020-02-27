@@ -17,6 +17,7 @@ class CreateTasksTable extends Migration
             $table->bigIncrements('id');
             $table->string('title', 20);
             $table->unsignedBigInteger('card_id');
+            $table->integer('priority')->nullable();
             $table->timestamps();
 
             // 外部キーを設定する

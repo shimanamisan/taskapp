@@ -1,50 +1,52 @@
 <template>
-  <div class="c-task--todo--list">
-    <span class="c-task--todo--tips" v-if="!editFlag" @dblclick="editCard">{{title}}</span>
-    <form class="c-updateFrom c-updateFrom--TaskList" @submit.prevent v-else>
-                    <!-- バリデーションエラー --->
-                    <!-- <ul v-if="taskRequestErrorMessages" class="errors errors--tasks">
-                        <li v-for="(msg, index) in taskRequestErrorMessages.title" :key="index">{{ msg }} </li>
-                    </ul> -->
-                    <!--- end errors -->
-                    <input type="text" class="c-input c-input--tasks u-taskListInput"
-                    v-model="taskTitle"
-                    @keypress.enter="updateTaskTitle"
-                    @keyup.esc="cancelEdit"
-                    @blur="cancelEdit"
-                    :class="{'errors--bg': taskRequestErrorMessages}"
-                    :placeholder="placeholder"
-                    >
-      </form>
-     <div class="c-task--todo--list--del" @click="deleteTask">
-      <i class="fas fa-times"></i>
-    </div>
-    <i class="far fa-clock">
-      <span class="c-task--todo--clock">{{created_at}}</span>
-    </i>
-   
-  </div>
+ 
+      <div class="c-task--todo--list" :data-task-id="this.id">
+        <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
+        <span class="c-task--todo--tips" v-if="!editFlag" @dblclick="editCard">{{title}}</span>
+        <form class="c-updateFrom c-updateFrom--TaskList" @submit.prevent v-else>
+          <!-- バリデーションエラー --->
+          <!-- <ul v-if="taskRequestErrorMessages" class="errors errors--tasks">
+                                <li v-for="(msg, index) in taskRequestErrorMessages.title" :key="index">{{ msg }} </li>
+                            </ul> -->
+          <!--- end errors -->
+          <input type="text" class="c-input c-input--tasks u-taskListInput" v-model="taskTitle" @keypress.enter="updateTaskTitle" @keyup.esc="cancelEdit" @blur="cancelEdit" :class="{'errors--bg': taskRequestErrorMessages}" :placeholder="placeholder" >
+        </form>
+        <div class="c-task--todo--list--del" @click="deleteTask">
+          <i class="fas fa-times"></i>
+        </div>
+        <i class="far fa-clock">
+          <span class="c-task--todo--clock">{{created_at}}</span>
+        </i>
+      </div>
+
 </template>
-
 <script>
-
+import draggable from 'vuedraggable'
 export default {
   data(){
     return {
       editFlag: false,
-      taskTitle: this.title,
+      tasks: this.cards.tasks,
       folder_id: this.cards.folder_id,
       card_id: this.cards.id,
       task_id: this.id,
       placeholder: '入力必須です' // リファクタ必要
     }
   },
+  components:{
+  draggable
+  },
   props: {
-    title: {
-      type: String,
+    cards: {
+      type: Object,
+      required: true
     },
     id: {
       type: Number,
+      required: true
+    },
+    title: {
+      type: String,
       required: true
     },
     listIndex: {
@@ -120,10 +122,18 @@ export default {
     clearError(){
       this.$store.commit('taskStore/setTaskRequestErrorMessages', null)
     },
+    // onAdd(event){
+
+    // let fromCradId = event.from.getAttribute("data-card-id")
+    // let taskId = event.item.getAttribute("data-task-id");
+    // let toCardId = event.to.getAttribute("data-card-id")
+
+
+    // console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
+    // }
   }
 }
 </script>
-
 <style>
 .fa-clock{
 display: block; 

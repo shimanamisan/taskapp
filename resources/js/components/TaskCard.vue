@@ -26,9 +26,20 @@
                 </div>
                 <TaskListAdd :cards="cards"/>
                 <!-- c-task--todo--push -->
-                <draggable :list="cards.tasks" tag="div" v-bind="{group :'cards.tasks', animation: 300}">
-                    <TaskList v-for="(task, index) in cards.tasks" :key="task.id" :id="task.id" :title="task.title" :listIndex="index" :created_at="task.created_at" :cards = "cards" />
+                <draggable
+                :list="cards.tasks"
+                v-bind="{group :'cards.tasks', animation: 300}"
+                @add="onAdd" handle='.hand-icon'
+                :data-card-id="cards.id" >
+                    <TaskList v-for="(task, index) in cards.tasks"
+                    :key="task.id"
+                    :id="task.id"
+                    :title="task.title"
+                    :listIndex="index"
+                    :created_at="task.created_at"
+                    :cards="cards"/>
                 </draggable>
+                <!-- <TaskList :cards="cards" /> -->
             </div>
             <!-- end c-task--todo -->
         </div>
@@ -129,6 +140,22 @@ export default {
     clearError(){
       this.$store.commit('taskStore/setCardRequestErrorMessages', null)
     },
+    updateDraggable(taskId, cardId){
+      axios.put('/api/task/' + taskId,
+      {
+        card_id: cardId
+      }).then(response => {
+        console.log(response)
+      })
+    },
+    onAdd(event){
+    let fromCradId = event.from.getAttribute("data-card-id")
+    let taskId = event.item.getAttribute("data-task-id")
+    let toCardId = event.to.getAttribute("data-card-id")
+    console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
+
+    this.updateDraggable(taskId, toCardId)
+    }
   },
 }
 </script>
