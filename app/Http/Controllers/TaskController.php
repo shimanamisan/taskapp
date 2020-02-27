@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Task;
 use App\User; //追加
 use App\Folder; // 追加 
 use Illuminate\Http\Request;
-use App\Http\Requests\TaskRequest; // フォームリクエストクラスを追加
 use Illuminate\Support\Facades\Auth; //追加
+use App\Http\Requests\TaskRequest; // フォームリクエストクラスを追加
 
 class TaskController extends Controller
 { 
@@ -51,7 +52,7 @@ class TaskController extends Controller
 
     $user->folders()->find($folder_id)->delete();
 
-    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+    $allData = User::with('folders')->find($user_id);
 
     return $allData;
 
@@ -204,5 +205,19 @@ class TaskController extends Controller
     $cardData = $allData->folders->find($folder_id);
     
     return $cardData;
+  }
+
+  public function updateDraggable(Request $request, $task_id)
+  { 
+    
+    $user = Auth::user();
+
+    $user_id = $user->id;
+
+    $task = Task::find($task_id);
+
+    $task->update($request->all());
+
+    return $task;
   }
 }

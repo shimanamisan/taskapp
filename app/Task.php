@@ -9,11 +9,10 @@ class Task extends Model
     protected $fillable = [
         'title',
         'card_id',
-        'status'
 
     ];
 
-    public function cards()
+    public function card()
     {
         return $this->belongsTo('App\Card');
     }

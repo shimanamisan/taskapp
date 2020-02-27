@@ -77,6 +77,8 @@ Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'TaskController@delet
 Route::post('/folder/{folder_id}/card/{card_id}/task/create', 'TaskController@createTask')->name('task.createTask');
 // タスク更新
 Route::put('/folder/{folder_id}/card/{card_id}/task/{task_id}/update', 'TaskController@updateTask')->name('task.updateTask');
+// タスク並び替え更新
+Route::put('/task/{id}', 'TaskController@updateDraggable')->name('task.updateDraggable');
 // タスク削除
 Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
 

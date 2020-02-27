@@ -11,7 +11,7 @@ class Card extends Model
         'folder_id'
     ];
 
-    public function folders()
+    public function folder()
     {
         return $this->belongsTo('App\Folder');
     }
