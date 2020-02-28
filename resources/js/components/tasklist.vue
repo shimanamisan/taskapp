@@ -27,6 +27,7 @@ export default {
     return {
       editFlag: false,
       tasks: this.cards.tasks,
+      taskTitle: this.title,
       folder_id: this.cards.folder_id,
       card_id: this.cards.id,
       task_id: this.id,
@@ -122,15 +123,6 @@ export default {
     clearError(){
       this.$store.commit('taskStore/setTaskRequestErrorMessages', null)
     },
-    // onAdd(event){
-
-    // let fromCradId = event.from.getAttribute("data-card-id")
-    // let taskId = event.item.getAttribute("data-task-id");
-    // let toCardId = event.to.getAttribute("data-card-id")
-
-
-    // console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
-    // }
   }
 }
 </script>

@@ -1,17 +1,8 @@
 <template>
-    <div class="message">
-      更新しました
+    <div class="msg_cover msg_hide msg_appear">
+        <p>更新されました</p>
     </div>
 </template>
-
-<script>
-export default {
-
-}
-</script>
-
 <style>
-.message{
-  color: red;
-}
+ 
 </style>

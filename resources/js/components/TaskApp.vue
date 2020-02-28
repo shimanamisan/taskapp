@@ -11,7 +11,7 @@
                                 <hr class="u-task-line">
                                 <TaskFolderAdd :list="FolderLists"/>
                                 <div class="c-task--sidebar__wrapp c-task--folder">
-                                    <draggable :list="FolderLists" tag="ul" v-bind="{animation:300, delay: 50}" handle='.hand-icon'>
+                                    <draggable :list="FolderLists" tag="ul" v-bind="{animation:300, delay: 50}" handle='.hand-icon' @change='onChange'>
                                         <TaskFolder v-for="(folders, index) in FolderLists" :key="folders.id" :id="folders.id" :listIndex="index" :title = "folders.title"/>
                                     </draggable>
                                 </div>
@@ -49,7 +49,7 @@
 export default {
   data(){
     return{
-
+      folderData: ''
     }
   },
   components:{
@@ -91,12 +91,24 @@ export default {
     async getFolderLists(){
       await axios.get('/api/folder').then( response => {
       var data = response.data.folders
+      this.folderData = data
       this.setFolderLists(data)
       }).catch( error => {
         console.log(error)
       })
+    },
+    async updateFolderSort(newFolders){
+      await this.$store.dispatch('taskStore/updateFolderSort', newFolders)
+    },
+    onChange(){
+      let newFolders = this.folderData.map((folder, index) => {
+        folder.priority = index +1
+        return folder
+      })
+      this.updateFolderSort(newFolders)
     }
   },
+  // クリエイトライフサイクルフック
   created(){
     this.getFolderLists()
   }

@@ -167,7 +167,7 @@ export default {
     },
     // draggableのイベントハンドラー：動作が開始され要素のコピーが行われた時
     // https://www.ritolab.com/entry/173
-    onChange(event){
+    onChange(){
       let newTasks = this.cards.tasks.map((task, index) =>{
         task.priority = index +1
         return task

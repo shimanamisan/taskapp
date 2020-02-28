@@ -19,7 +19,7 @@ export default {
   data(){
     return{
       img: '',
-      dummy: 'https://placehold.jp/150x150.png'
+      dummy: 'https://placehold.jp/150x150.png',
     }
   },
   computed:{

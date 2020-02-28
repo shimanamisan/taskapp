@@ -1,0 +1,21 @@
+/*基本スタイル*/
+.msg_cover {
+  text-align: center;
+  width: 230px;
+  padding: 10px 0;
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
+  background: #30c8d6;
+  color: white;
+  z-index: 100;
+  @include custumRadius(10px);
+}
+.msg_hide {
+  position: fixed;
+  right: 20px;
+}
+/*画面上部に表示させる*/
+.msg_appear {
+  top: 10px;
+}   

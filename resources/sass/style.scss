@@ -24,7 +24,6 @@
 @import 'object/component/logo';
 @import 'object/component/image';
 @import 'object/component/input';
-@import 'object/component/label';
 @import 'object/component/modal';
 @import 'object/component/form';
 @import 'object/component/logo';
@@ -35,12 +34,12 @@
 /***********************************************************************************
  プロジェクト ページ単体でのみ使用されるオブジェクト(モジュール)で汎用性が低いもの
 ************************************************************************************/
-@import 'object/component/project/contact_form';
 @import 'object/component/project/nav';
 @import 'object/component/project/card';
 @import 'object/component/project/eyecatch';
 @import 'object/component/project/title';
 @import 'object/component/project/header_icon';
+@import 'object/component/project/messages';
 
 /***********************************************************************************
  ユーティリティ 一時的な対処のために利用する

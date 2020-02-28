@@ -108,7 +108,14 @@ const actions = {
     commit('error/setCode', response.status, { root: true })
   },
   // フォルダーの並び替えの更新
-  async updateFolderSort(){
+  async updateFolderSort({commit}, newFolder){
+    const response = await axios.patch('/api/folder/update-all', {folders: newFolder}).catch(error => error.response || error)
+    if(response.status ===   UNPROCESSABLE_ENTITY ){
+    
+    } else {
+      commit('error/setCode', response.status, { root:true })
+    }
+    commit('error/setCode', response.status, { root: true })
 
   },
   /*************************************
