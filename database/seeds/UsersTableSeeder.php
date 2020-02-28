@@ -16,7 +16,7 @@ class UsersTableSeeder extends Seeder
     // ユーザーレコードの追加
         DB::table('users')->insert([
         [
-            'name' => 'しまなみさん',
+            'name' => 'テストユーザー',
             'email' => 'mikan.sup.all@gmail.com',
             'password' => bcrypt('password'), // パスワードをハッシュ化している
             'created_at' => Carbon::now(), // 現在時刻を取得できる

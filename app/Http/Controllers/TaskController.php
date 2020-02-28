@@ -81,9 +81,17 @@ class TaskController extends Controller
 
     $user_id = $user->id;
     
-    $allData = User::with(['folders.cards.tasks'])->find($user_id);
+    $allData = User::with(['folders.cards.tasks' => function($query){
+      $query->orderBy('priority', 'asc');
+    }])->find($user_id);
 
     $cardData = $allData->folders->find($folder_id);
+
+    // $cardData = Auth::user()->folders->load(['cards.tasks' => function($query){
+    //   $query->orderBy('priority', 'asc');
+    // }]);
+
+    // dd($cardData);
 
     return $cardData;
   }
@@ -207,17 +215,40 @@ class TaskController extends Controller
     return $cardData;
   }
 
-  public function updateDraggable(Request $request, $task_id)
+  public function updateTaskDraggable(Request $request, $task_id)
   { 
-    
+    // dd($request->id);
+
     $user = Auth::user();
 
     $user_id = $user->id;
 
     $task = Task::find($task_id);
 
+    // dd($task);
+
     $task->update($request->all());
 
     return $task;
+  }
+
+  public function updateTaskSort(Request $request){
+    // dd('タスクのソート処理です'. $request->task);
+
+    $newTasks = $request->tasks;
+
+    $tasks = Task::all();
+
+    foreach($tasks as $task){
+
+      foreach($newTasks as $newTask){
+        if($newTask['id'] == $task->id ){
+          // update(['カラム名'] => $更新する値の変数['key']); のように仕様することも出来る
+          $task->update(['priority' => $newTask['priority']]);
+        }
+      }
+    } 
+
+    return;
   }
 }

@@ -9,6 +9,7 @@ class Task extends Model
     protected $fillable = [
         'title',
         'card_id',
+        'priority'
 
     ];
 
