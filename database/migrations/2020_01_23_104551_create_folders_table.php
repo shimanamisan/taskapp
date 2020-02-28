@@ -18,6 +18,7 @@ class CreateFoldersTable extends Migration
             $table->string('title', 20);
             // unsigned()：整数カラムを符号なしに設定(MySQLのみ)：外部キーを付けていたらこれだとエラーになる、unsignedBigInteger()へ変更
             $table->unsignedBigInteger('user_id');
+            $table->integer('priority')->nullable();
             $table->timestamps();
 
             // 外部制約キーを追加

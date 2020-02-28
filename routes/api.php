@@ -54,6 +54,8 @@ Route::get('/folder', 'TaskController@index')->name('folder.index');
 Route::post('/folder/create', 'TaskController@createFolder')->name('folder.createFolder');
 // フォルダ更新
 Route::put('/folder/{id}/update', 'TaskController@updateFolder')->name('folder.updateFolder');
+// フォルダソートの並び替え更新
+Route::patch('/folder/update-all', 'TaskController@updateFolderSort')->name('folder.updateFolderSort');
 // フォルダ削除
 Route::delete('/folder/{folder_id}/delete', 'TaskController@deleteFolder')->name('folder.deleteFolder');
 // フォルダ配下のカード取得

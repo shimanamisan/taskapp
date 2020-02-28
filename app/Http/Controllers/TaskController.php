@@ -22,7 +22,9 @@ class TaskController extends Controller
 
     $user_id = $user->id;
 
-    $folderData = User::with('folders')->find($user_id);
+    $folderData = User::with(['folders' => function($query){
+      $query->orderBy('priority', 'asc');
+    }])->find($user_id);
     
     return $folderData;
   }    
@@ -57,11 +59,9 @@ class TaskController extends Controller
     return $allData;
 
   }
-
+  // フォルダーのタイトル更新
   public function updateFolder(TaskRequest $request, $folder_id)
   {
-    // dd('フォルダーのアップデート処理です： '. $request->title . 'フォルダーID： ' . $folder_id);
-
     $user = Auth::user();
 
     $user_id = $user->id;
@@ -71,6 +71,27 @@ class TaskController extends Controller
     $folderData = User::with('folders')->find($user_id);
 
     return $folderData;
+  }
+
+  // フォルダーのソート更新
+  public function updateFolderSort(Request $request){
+    
+    $newFolders = $request->folders;
+
+    $folders = Folder::all();
+
+    foreach($folders as $folder){
+
+      foreach($newFolders as $newFolder){
+        if($newFolder['id'] == $folder->id ){
+          // update(['カラム名'] => $更新する値の変数['key']); のように仕様することも出来る
+          $folder->update(['priority' => $newFolder['priority']]);
+        }
+      }
+    } 
+
+    return response(['success'], 200);
+
   }
 
   // フォルダー配下のカードのデータを取得
@@ -86,12 +107,6 @@ class TaskController extends Controller
     }])->find($user_id);
 
     $cardData = $allData->folders->find($folder_id);
-
-    // $cardData = Auth::user()->folders->load(['cards.tasks' => function($query){
-    //   $query->orderBy('priority', 'asc');
-    // }]);
-
-    // dd($cardData);
 
     return $cardData;
   }
@@ -198,8 +213,6 @@ class TaskController extends Controller
 
   public function updateTask(TaskRequest $request, $folder_id, $card_id, $task_id)
   {
-    // dd('タスクのアップデート処理です');
-
     $user = Auth::user();
 
     $user_id = $user->id;
@@ -217,7 +230,6 @@ class TaskController extends Controller
 
   public function updateTaskDraggable(Request $request, $task_id)
   { 
-    // dd($request->id);
 
     $user = Auth::user();
 
@@ -225,7 +237,6 @@ class TaskController extends Controller
 
     $task = Task::find($task_id);
 
-    // dd($task);
 
     $task->update($request->all());
 
@@ -233,7 +244,6 @@ class TaskController extends Controller
   }
 
   public function updateTaskSort(Request $request){
-    // dd('タスクのソート処理です'. $request->task);
 
     $newTasks = $request->tasks;
 
@@ -243,12 +253,12 @@ class TaskController extends Controller
 
       foreach($newTasks as $newTask){
         if($newTask['id'] == $task->id ){
-          // update(['カラム名'] => $更新する値の変数['key']); のように仕様することも出来る
+          // update(['カラム名'] => $更新する値の変数['key']); のように使用することも出来る
           $task->update(['priority' => $newTask['priority']]);
         }
       }
     } 
 
-    return;
+    return response(['success'], 200);
   }
 }

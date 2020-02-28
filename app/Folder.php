@@ -8,7 +8,8 @@ class Folder extends Model
 {
     protected $fillable = [
         'title',
-        'user_id'
+        'user_id',
+        'priority'
     ];
 
     public function user()
