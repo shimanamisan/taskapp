@@ -2744,12 +2744,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               case 0:
                 _context2.next = 2;
                 return axios.get('/api/folder').then(function (response) {
-                  var data = [];
-                  var datas = response.data.folders;
-
-                  for (var key in datas) {
-                    data.push(datas[key]);
-                  }
+                  var data = response.data.folders;
 
                   _this.setFolderLists(data);
                 })["catch"](function (error) {
@@ -2849,6 +2844,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 
@@ -2893,6 +2890,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }
   },
   methods: {
+    // カードを削除する
     deleteCard: function () {
       var _deleteCard = _asyncToGenerator(
       /*#__PURE__*/
@@ -2934,6 +2932,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return deleteCard;
     }(),
+    // カードのタイトルを更新する
     updateCardTitle: function () {
       var _updateCardTitle = _asyncToGenerator(
       /*#__PURE__*/
@@ -2975,10 +2974,67 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return updateCardTitle;
     }(),
+    // タスクリストの列の入れ替えを更新するアクションを呼ぶ
+    updateTaskDraggable: function () {
+      var _updateTaskDraggable = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3(cardId, taskId) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.$store.dispatch('taskStore/updateTaskDraggable', {
+                  cardId: cardId,
+                  task_id: taskId
+                });
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function updateTaskDraggable(_x, _x2) {
+        return _updateTaskDraggable.apply(this, arguments);
+      }
+
+      return updateTaskDraggable;
+    }(),
+    // タスクリストのソートを更新するアクションを呼ぶ
+    updateTaskSort: function () {
+      var _updateTaskSort = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(newTasks) {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                _context4.next = 2;
+                return this.$store.dispatch('taskStore/updateTaskSort', newTasks);
+
+              case 2:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4, this);
+      }));
+
+      function updateTaskSort(_x3) {
+        return _updateTaskSort.apply(this, arguments);
+      }
+
+      return updateTaskSort;
+    }(),
+    // カードの更新フォームを呼び出す動作
     editCard: function editCard() {
       this.editFlag = !this.editFlag;
       this.clearError();
     },
+    // カードの更新フォームをキャンセルしたときの動作
     cancelEdit: function cancelEdit() {
       this.editFlag = false; // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
 
@@ -2992,19 +3048,22 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     clearError: function clearError() {
       this.$store.commit('taskStore/setCardRequestErrorMessages', null);
     },
-    updateDraggable: function updateDraggable(taskId, cardId) {
-      axios.put('/api/task/' + taskId, {
-        card_id: cardId
-      }).then(function (response) {
-        console.log(response);
-      });
-    },
+    // draggableのイベントハンドラー：配列に要素が追加されたときに発火
     onAdd: function onAdd(event) {
       var fromCradId = event.from.getAttribute("data-card-id");
       var taskId = event.item.getAttribute("data-task-id");
-      var toCardId = event.to.getAttribute("data-card-id");
-      console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId);
-      this.updateDraggable(taskId, toCardId);
+      var toCardId = event.to.getAttribute("data-card-id"); // console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
+
+      this.updateTaskDraggable(toCardId, taskId);
+    },
+    // draggableのイベントハンドラー：動作が開始され要素のコピーが行われた時
+    // https://www.ritolab.com/entry/173
+    onChange: function onChange(event) {
+      var newTasks = this.cards.tasks.map(function (task, index) {
+        task.priority = index + 1;
+        return task;
+      });
+      this.updateTaskSort(newTasks);
     }
   }
 });
@@ -46133,7 +46192,7 @@ var render = function() {
                   handle: ".hand-icon",
                   "data-card-id": _vm.cards.id
                 },
-                on: { add: _vm.onAdd }
+                on: { add: _vm.onAdd, change: _vm.onChange }
               },
               "draggable",
               { group: "cards.tasks", animation: 300 },
@@ -69766,20 +69825,19 @@ var actions = {
           switch (_context2.prev = _context2.next) {
             case 0:
               commit = _ref2.commit;
-              console.log('アクションsetCardLists()です。フォルダー配下のカードを取得するために、CardListsストアを更新しています。' + folder_id); // ここでストアへフォルダーIDを登録
-
+              // ここでストアへフォルダーIDを登録
               commit('setFolder_id', folder_id);
-              _context2.next = 5;
+              _context2.next = 4;
               return axios.get('/api/folder/' + folder_id + '/card/set')["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 5:
+            case 4:
               response = _context2.sent;
               data = response.data.cards;
               commit('setCardLists', data);
 
-            case 8:
+            case 7:
             case "end":
               return _context2.stop();
           }
@@ -69851,39 +69909,36 @@ var actions = {
     var _deleteFolder = _asyncToGenerator(
     /*#__PURE__*/
     _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4, folder_id) {
-      var commit, response, data, datas, key;
+      var commit, response, data;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
               commit = _ref4.commit;
-              console.log('フォルダー削除のアクションが動作しています。' + ' フォルダーID：' + folder_id);
-              _context4.next = 4;
+              _context4.next = 3;
               return axios["delete"]('/api/folder/' + folder_id + '/delete')["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 4:
+            case 3:
               response = _context4.sent;
-              data = [];
-              datas = response.data.folders;
+              data = response.data.folders;
 
-              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
-                _context4.next = 10;
-                break;
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                commit('setFolderRequestErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                }); // ミューテーションへコミットする
+
+                commit('setFolderLists', data);
               }
 
-              console.log('INTERNAL_SERVER_ERRORです');
-              return _context4.abrupt("return", false);
+              commit('error/setCode', response.status, {
+                root: true
+              });
 
-            case 10:
-              for (key in datas) {
-                data.push(datas[key]);
-              }
-
-              commit('setFolderLists', data);
-
-            case 12:
+            case 7:
             case "end":
               return _context4.stop();
           }
@@ -70095,7 +70150,6 @@ var actions = {
 
               // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log(JSON.stringify(response.data.errors));
                 commit('setCardRequestErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -70258,7 +70312,6 @@ var actions = {
 
               // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
-                console.log(JSON.stringify(response.data.errors));
                 commit('setTaskRequestErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -70284,15 +70337,46 @@ var actions = {
 
     return updateTaskTitle;
   }(),
-  // タスクの並べ替えの更新
-  updateTaskSort: function () {
-    var _updateTaskSort = _asyncToGenerator(
+  // タスクリストの列の入れ替え更新
+  updateTaskDraggable: function () {
+    var _updateTaskDraggable = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14() {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee14(_ref19, _ref20) {
+      var commit, cardId, task_id, card_id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee14$(_context14) {
         while (1) {
           switch (_context14.prev = _context14.next) {
             case 0:
+              commit = _ref19.commit;
+              cardId = _ref20.cardId, task_id = _ref20.task_id;
+              console.log('updateTaskDraggable'); // card_idは数値のみで渡ってくるので、key:value の形で渡してやるために一度オブジェクト形式で代入している
+              // こうしなければ、Laravel側で$requestで受け取る際に、keyが無いものとしてnull値になってしまう
+              // $request->card_id でキーを指定するとLaravel側でタスクIDの7が取得できる
+              // カラムで指定している名前と合わせる(card_id)
+
+              card_id = {
+                card_id: cardId
+              }; // card_idはオブジェクト形式で、{id: 7} の様に入ってくる。
+
+              _context14.next = 6;
+              return axios.put('/api/task/' + task_id, card_id)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 6:
+              response = _context14.sent;
+
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {} else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 9:
             case "end":
               return _context14.stop();
           }
@@ -70300,7 +70384,53 @@ var actions = {
       }, _callee14);
     }));
 
-    function updateTaskSort() {
+    function updateTaskDraggable(_x23, _x24) {
+      return _updateTaskDraggable.apply(this, arguments);
+    }
+
+    return updateTaskDraggable;
+  }(),
+  // タスクリストのソート更新
+  updateTaskSort: function () {
+    var _updateTaskSort = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee15(_ref21, newTask) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee15$(_context15) {
+        while (1) {
+          switch (_context15.prev = _context15.next) {
+            case 0:
+              commit = _ref21.commit;
+              console.log('updateTaskSort');
+              _context15.next = 4;
+              return axios.patch('/api/task/update-all', {
+                tasks: newTask
+              })["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 4:
+              response = _context15.sent;
+
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {} else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 7:
+            case "end":
+              return _context15.stop();
+          }
+        }
+      }, _callee15);
+    }));
+
+    function updateTaskSort(_x25, _x26) {
       return _updateTaskSort.apply(this, arguments);
     }
 

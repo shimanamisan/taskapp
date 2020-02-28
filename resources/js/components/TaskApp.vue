@@ -90,11 +90,7 @@ export default {
     },
     async getFolderLists(){
       await axios.get('/api/folder').then( response => {
-      var data = []
-      var datas = response.data.folders
-      for(var key in datas){
-        data.push(datas[key])
-      }
+      var data = response.data.folders
       this.setFolderLists(data)
       }).catch( error => {
         console.log(error)

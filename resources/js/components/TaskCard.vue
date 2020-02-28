@@ -29,8 +29,10 @@
                 <draggable
                 :list="cards.tasks"
                 v-bind="{group :'cards.tasks', animation: 300}"
-                @add="onAdd" handle='.hand-icon'
-                :data-card-id="cards.id" >
+                @add="onAdd"
+                @change="onChange"
+                handle='.hand-icon'
+                :data-card-id="cards.id">
                     <TaskList v-for="(task, index) in cards.tasks"
                     :key="task.id"
                     :id="task.id"
@@ -92,6 +94,7 @@ export default {
     }
   },
   methods: {
+    // カードを削除する
     async deleteCard(){
       const folder_id = this.cards.folder_id
       const card_id = this.cards.id
@@ -107,6 +110,7 @@ export default {
         await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
       }
     },
+    // カードのタイトルを更新する
     async updateCardTitle(){
       const folder_id = this.cards.folder_id
       const card_id = this.cards.id
@@ -121,13 +125,26 @@ export default {
       if(this.getErrorCode === 200){
         this.editCard()
       // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
-        
       }
     },
-     editCard(){
+    // タスクリストの列の入れ替えを更新するアクションを呼ぶ
+    async updateTaskDraggable(cardId, taskId){
+      await this.$store.dispatch('taskStore/updateTaskDraggable',
+      {
+        cardId: cardId,
+        task_id: taskId
+      })
+    },
+    // タスクリストのソートを更新するアクションを呼ぶ
+    async updateTaskSort(newTasks){
+      await this.$store.dispatch('taskStore/updateTaskSort', newTasks)
+    },
+    // カードの更新フォームを呼び出す動作
+    editCard(){
       this.editFlag = !this.editFlag
       this.clearError()
     },
+    // カードの更新フォームをキャンセルしたときの動作
     cancelEdit(){
       this.editFlag = false
       // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
@@ -140,21 +157,22 @@ export default {
     clearError(){
       this.$store.commit('taskStore/setCardRequestErrorMessages', null)
     },
-    updateDraggable(taskId, cardId){
-      axios.put('/api/task/' + taskId,
-      {
-        card_id: cardId
-      }).then(response => {
-        console.log(response)
-      })
-    },
+    // draggableのイベントハンドラー：配列に要素が追加されたときに発火
     onAdd(event){
-    let fromCradId = event.from.getAttribute("data-card-id")
-    let taskId = event.item.getAttribute("data-task-id")
-    let toCardId = event.to.getAttribute("data-card-id")
-    console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
-
-    this.updateDraggable(taskId, toCardId)
+      let fromCradId = event.from.getAttribute("data-card-id")
+      let taskId = event.item.getAttribute("data-task-id")
+      let toCardId = event.to.getAttribute("data-card-id")
+      // console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
+      this.updateTaskDraggable(toCardId, taskId)
+    },
+    // draggableのイベントハンドラー：動作が開始され要素のコピーが行われた時
+    // https://www.ritolab.com/entry/173
+    onChange(event){
+      let newTasks = this.cards.tasks.map((task, index) =>{
+        task.priority = index +1
+        return task
+      })
+      this.updateTaskSort(newTasks)
     }
   },
 }
