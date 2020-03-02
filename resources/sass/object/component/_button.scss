@@ -1,10 +1,10 @@
 .c-btn{
-  padding: 0 1.5rem;
   @include custumRadius(3px);
-  cursor: pointer;
+  padding: 0 1.5rem;
   height: 50px;
   line-height: 50px;
   transition: $transition_s;
+  cursor: pointer;
   &:hover{
     opacity: 0.6;
   }
@@ -42,6 +42,9 @@
       display: block; // inlineとblockの中間（並びはinline、中の要素はblock）
       width: 120px;
       @include custumRadius(30px);
+      @include mq(){
+        width: 80%;
+      }
       &--login{
         background-color: #FFFFFF;
       }
@@ -74,6 +77,12 @@
     color: #62ABF8;
     padding: 20px 45px;
     @include custumRadius(30px);
+    @include mq(){
+      @include custumRadius(0px);
+      padding: 0 1.5rem;
+      background: none;
+      color: #fff;
+    }
     &:hover{
       opacity: 0.6;
     }

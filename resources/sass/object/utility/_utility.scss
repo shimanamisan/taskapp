@@ -1,6 +1,25 @@
 /********************************************** 
+トップページ用
+**********************************************/
+.u-index{
+
+  &--inner{
+    padding: 3rem;
+    @include mq(){
+      padding: 10px;
+      box-sizing: border-box;
+    }
+  }
+}
+
+/********************************************** 
 ログイン・新規登録フォーム用
 **********************************************/
+.u-appvue--wrapp{
+  @include mq(){
+    height: 100%;
+  }
+}
 .u-form__line{
   margin-top: $space_xxl;
   margin-bottom: $space_xxl;
@@ -14,7 +33,6 @@
   margin-top: $space_xxl;
   margin-bottom: $space_xxl;
 }
-
 // 内側のpadding用
 .u-inner{
   padding: 3rem;
@@ -25,7 +43,6 @@
 .u-inner--l{
   padding: 1rem;
 }
-
 // タイトル用
 .u-title{
   margin-bottom: 25px;

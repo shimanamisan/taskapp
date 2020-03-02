@@ -1,8 +1,8 @@
 <template>
-    <footer class="l-footer">c MY TODOAPP. All Rights Reserved. 
+    <footer class="l-footer">© TaskApp. All Rights Reserved. 
         <div class="l-footer-container">
-            <a href="" class="l-footer-link">利用規約</a>
-            <a href="" class="l-footer-link">プライバシーポリシー</a>
+            <router-link to="/rule" class="l-footer-link">利用規約</router-link>
+            <router-link to="/privacy" class="l-footer-link">プライバシーポリシー</router-link>
         </div>
     </footer>
 </template>

@@ -216,6 +216,12 @@ input {
           justify-content: center;
 }
 
+@media screen and (max-width: 414px) {
+  .l-section-wrapp__flex {
+    display: block;
+  }
+}
+
 /********************************************** 
 タスクページ用
 **********************************************/
@@ -247,15 +253,51 @@ input {
   padding-top: 50px;
 }
 
+.l-wrapper--login {
+  height: 100%;
+}
+
+.l-main {
+  width: 100%;
+}
+
+.l-main__anaunsu {
+  margin: 0 auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  width: 75%;
+}
+
+@media screen and (max-width: 414px) {
+  .l-main__anaunsu {
+    width: 100%;
+    padding: 25px 15px 30px 15px;
+    box-sizing: border-box;
+  }
+}
+
 .l-main__auth {
   width: 31rem;
   margin: 0 auto;
-  padding: 25px 0px 30px 0px;
+  padding: 25px 5px 30px 5px;
   box-sizing: border-box;
+}
+
+@media screen and (max-width: 414px) {
+  .l-main__auth {
+    width: 100%;
+    padding: 25px 10px 30px 10px;
+  }
 }
 
 .l-main__auth--profile {
   width: 774px;
+}
+
+@media screen and (max-width: 414px) {
+  .l-main__auth--profile {
+    width: 100%;
+  }
 }
 
 .l-card__container {
@@ -266,6 +308,13 @@ input {
   box-sizing: border-box;
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08);
   margin-bottom: 40px;
+}
+
+@media screen and (max-width: 414px) {
+  .l-card__container {
+    width: 100%;
+    padding: 15px;
+  }
 }
 
 .l-card__container__content {
@@ -283,12 +332,88 @@ input {
           justify-content: flex-end;
 }
 
-.l-header__top {
+.l-header {
   height: 100px;
   background: #62ABF8;
+  padding-right: 20px;
+  padding-left: 20px;
+  z-index: 2;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: center;
+  align-items: center;
 }
 
-.l-header__nav {
+@media screen and (max-width: 414px) {
+  .l-header__menu--item {
+    padding: 15px;
+    font-size: 30px;
+  }
+}
+
+.l-header__menu--trigger {
+  display: none;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  box-sizing: border-box;
+  position: relative;
+  width: 40px;
+  height: 32px;
+  z-index: 3;
+}
+
+@media screen and (max-width: 414px) {
+  .l-header__menu--trigger {
+    display: inline-block;
+  }
+}
+
+.l-header__menu--trigger span {
+  display: inline-block;
+  -webkit-transition: all 0.4s;
+  transition: all 0.4s;
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  width: 100%;
+  background-color: white;
+  border-radius: 4px;
+  height: 4px;
+}
+
+.l-header__menu--trigger span:nth-of-type(1) {
+  top: 0;
+}
+
+.l-header__menu--trigger span:nth-of-type(2) {
+  top: 14px;
+}
+
+.l-header__menu--trigger span:nth-of-type(3) {
+  bottom: 0;
+}
+
+.l-header__menu--trigger.active span:nth-of-type(1) {
+  -webkit-transform: translateY(12px) rotate(-45deg);
+          transform: translateY(12px) rotate(-45deg);
+}
+
+.l-header__menu--trigger.active span:nth-of-type(2) {
+  opacity: 0;
+}
+
+.l-header__menu--trigger.active span:nth-of-type(3) {
+  -webkit-transform: translateY(-15px) rotate(45deg);
+          transform: translateY(-15px) rotate(45deg);
+}
+
+.l-header__nav--wrapp {
+  display: block;
+}
+
+.l-header__nav--list {
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: justify;
@@ -297,17 +422,38 @@ input {
           align-items: center;
 }
 
-.l-header__nav nav ul {
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-          align-items: center;
+@media screen and (max-width: 414px) {
+  .l-header__nav--list {
+    display: block;
+    text-align: center;
+  }
 }
 
-.l-header__top nav ul li {
-  margin-right: 30px;
+@media screen and (max-width: 414px) {
+  .l-header .sp-menu {
+    display: block;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    background: rgba(98, 171, 248, 0.822);
+    width: 100%;
+    height: 100vh;
+    -webkit-transition: all 0.5s;
+    transition: all 0.5s;
+    padding-top: 70px;
+    position: fixed;
+    z-index: 2;
+    opacity: 0;
+  }
+}
+
+.l-header .sp-menu-Active {
+  opacity: 1;
+  -webkit-transition: all 0.5s;
+  transition: all 0.5s;
+  -webkit-transform: translateX(-100%);
+          transform: translateX(-100%);
+  z-index: 2;
 }
 
 /********************************************** 
@@ -318,6 +464,12 @@ input {
   overflow: hidden;
   font-size: 18px;
   padding: 0 20px;
+}
+
+@media screen and (max-width: 414px) {
+  .l-footer {
+    text-align: center;
+  }
 }
 
 .l-footer-container {
@@ -335,13 +487,13 @@ input {
 *******************************************************************************/
 
 .c-btn {
-  padding: 0 1.5rem;
   border-radius: 3px;
-  cursor: pointer;
+  padding: 0 1.5rem;
   height: 50px;
   line-height: 50px;
   -webkit-transition: 0.3s;
   transition: 0.3s;
+  cursor: pointer;
 }
 
 .c-btn:hover {
@@ -390,6 +542,12 @@ input {
   border-radius: 30px;
 }
 
+@media screen and (max-width: 414px) {
+  .c-btn__footer {
+    width: 80%;
+  }
+}
+
 .c-btn__footer--login {
   background-color: #FFFFFF;
 }
@@ -423,6 +581,15 @@ input {
   border-radius: 30px;
 }
 
+@media screen and (max-width: 414px) {
+  .c-header__signin {
+    border-radius: 0px;
+    padding: 0 1.5rem;
+    background: none;
+    color: #fff;
+  }
+}
+
 .c-header__signin:hover {
   opacity: 0.6;
 }
@@ -441,9 +608,6 @@ input {
   margin-left: auto;
   margin-right: auto;
   /********************************************** 
-  共通ヘッダー用のロゴ
-  **********************************************/
-  /********************************************** 
   トップページ用のマージン
   **********************************************/
   /********************************************** 
@@ -451,8 +615,10 @@ input {
   **********************************************/
 }
 
-.c-logo-ind__header {
-  margin-left: 30px;
+@media screen and (max-width: 414px) {
+  .c-logo {
+    width: 140px;
+  }
 }
 
 .c-logo__header {
@@ -543,10 +709,17 @@ input {
   box-sizing: border-box;
   padding: 30px;
   z-index: 99;
+  overflow: auto;
   border-radius: 8px;
   -webkit-transform: translate(-50%, -50%);
           transform: translate(-50%, -50%);
   background-color: #fff;
+}
+
+@media screen and (max-width: 414px) {
+  .c-modal--body {
+    width: 90%;
+  }
 }
 
 .c-modal--inner {
@@ -625,9 +798,6 @@ input {
   margin-left: auto;
   margin-right: auto;
   /********************************************** 
-  共通ヘッダー用のロゴ
-  **********************************************/
-  /********************************************** 
   トップページ用のマージン
   **********************************************/
   /********************************************** 
@@ -635,8 +805,10 @@ input {
   **********************************************/
 }
 
-.c-logo-ind__header {
-  margin-left: 30px;
+@media screen and (max-width: 414px) {
+  .c-logo {
+    width: 140px;
+  }
 }
 
 .c-logo__header {
@@ -957,6 +1129,13 @@ input {
   background: #fff;
 }
 
+@media screen and (max-width: 414px) {
+  .p-card {
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
+}
+
 .p-card-border {
   box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.5);
   border-radius: 5px;
@@ -978,6 +1157,12 @@ input {
   font-weight: 600;
 }
 
+@media screen and (max-width: 414px) {
+  .p-card-content {
+    font-size: 24px;
+  }
+}
+
 .p-card-content__third {
   font-weight: 500;
 }
@@ -986,6 +1171,12 @@ input {
   padding: 15px;
   width: 50%;
   text-align: center;
+}
+
+@media screen and (max-width: 414px) {
+  .p-card__third {
+    width: 100%;
+  }
 }
 
 .p-card__third--right {
@@ -1024,21 +1215,39 @@ input {
   padding: 4rem;
 }
 
+@media screen and (max-width: 414px) {
+  .p-eyecatch__inner {
+    padding: 10px;
+  }
+}
+
 .p-eyecatch__layout {
   position: relative;
   top: 50px;
 }
 
-.p-eyecatch__sub {
+.p-eyecatch__flex {
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: justify;
           justify-content: space-between;
 }
 
+@media screen and (max-width: 414px) {
+  .p-eyecatch__flex {
+    display: block;
+  }
+}
+
 .p-eyecatch__header {
   font-size: 30px;
   color: #fff;
+}
+
+@media screen and (max-width: 414px) {
+  .p-eyecatch__header {
+    margin: 16px 0;
+  }
 }
 
 /********************************************** 
@@ -1051,6 +1260,12 @@ input {
   font-weight: 600;
 }
 
+@media screen and (max-width: 414px) {
+  .p-title {
+    font-size: 30px;
+  }
+}
+
 .p-header {
   color: #fff;
   font-size: 18px;
@@ -1061,8 +1276,20 @@ input {
   margin-right: 10px;
 }
 
+@media screen and (max-width: 414px) {
+  .p-header--icon {
+    padding: 0 1.5rem;
+  }
+}
+
 .p-header--title {
   margin-left: 10px;
+}
+
+@media screen and (max-width: 414px) {
+  .p-header--title {
+    font-size: 30px;
+  }
 }
 
 /*基本スタイル*/
@@ -1096,8 +1323,29 @@ input {
 ************************************************************************************/
 
 /********************************************** 
+トップページ用
+**********************************************/
+
+.u-index--inner {
+  padding: 3rem;
+}
+
+@media screen and (max-width: 414px) {
+  .u-index--inner {
+    padding: 10px;
+    box-sizing: border-box;
+  }
+}
+
+/********************************************** 
 ログイン・新規登録フォーム用
 **********************************************/
+
+@media screen and (max-width: 414px) {
+  .u-appvue--wrapp {
+    height: 100%;
+  }
+}
 
 .u-form__line {
   margin-top: 30px;

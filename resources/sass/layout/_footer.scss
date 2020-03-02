@@ -5,6 +5,9 @@
   overflow: hidden;
   font-size: $font-size-l;
   padding: 0 $space_xl;
+  @include mq(){
+    text-align: center;
+  }
     &-container{
       float: right;
     }

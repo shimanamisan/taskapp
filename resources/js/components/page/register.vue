@@ -1,5 +1,5 @@
 <template>
-    <div class="l-wrapper">
+    <div class="l-wrapper l-wrapper--register">
         <section class="l-main__auth">
             <div class="c-logo__header">
                 <router-link to="/">

@@ -5,4 +5,7 @@
   text-align: center;
   font-size: $font-size_3l;
   font-weight: 600;
+  @include mq(){
+    font-size: 30px;
+  }
 }

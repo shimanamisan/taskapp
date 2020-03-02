@@ -3,18 +3,27 @@
   background-image: url(../../img/top-backgrond.jpg);
   background-size: cover;
   &__inner{
+    @include mq(){
+      padding: 10px;
+    }
     padding: 4rem;
   }
   &__layout{
     position: relative;
     top: 50px;
   }
-    &__sub{
-      display: flex;
-      justify-content: space-between;
+  &__flex{
+    display: flex;
+    justify-content: space-between;
+    @include mq(){
+      display: block;
     }
-}
-.p-eyecatch__header{
-  font-size: 30px;
-  color: #fff;
+  }
+  &__header{
+    font-size: 30px;
+    color: #fff;
+    @include mq(){
+      margin: 16px 0;
+    }
+  }
 }

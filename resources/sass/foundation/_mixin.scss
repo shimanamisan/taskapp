@@ -7,6 +7,12 @@ $breackpoints: ('sm':'screen and (max-width: 414px)',
   'xl': 'screen and (max-width: 1200px)'
 ) !default;
 
+@mixin mq($breackpoint: sm){
+  @media #{map-get($breackpoints, $breackpoint)}{
+    @content;
+  }
+}
+
 // ボーダーラディウス
 @mixin custumRadius($value: 3){
   -moz-border-radius: $value;

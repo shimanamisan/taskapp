@@ -6,7 +6,7 @@
                 <div class="p-eyecatch">
                     <div class="p-eyecatch__inner">
                         <div class="p-eyecatch__layout">
-                            <div class="p-eyecatch__sub u-ind-wrapp__sub">
+                            <div class="p-eyecatch__flex u-ind-wrapp__sub">
                                 <div class="c-logo__header c-logo__clear-margin">
                                     <img src="../../img/log-top.png" alt="logo" class="c-logo__top">
                                     <h1 class="p-eyecatch__header">簡単な操作で軽快にタスクをこなそう</h1>
@@ -21,7 +21,7 @@
                 </div>
             </section>
             <section class="l-section l-section__second">
-                <div class="u-inner">
+                <div class="u-index--inner">
                     <h2 class="u-title p-title">こんなことでお悩みではないですか？</h2>
                     <div class="l-section-wrapp l-section-wrapp__flex">
                         <div class="p-card p-card-border">
@@ -46,14 +46,14 @@
                 </div>
             </section>
             <section class="l-section l-section__third">
-                <div class="u-inner">
+                <div class="u-index--inner">
                     <div class="l-section-wrapp l-section-wrapp__flex">
-                        <div class="p-card__third u-inner">
+                        <div class="p-card__third u-index--inner">
                             <div class="p-card__body">
                                 <div class="p-card-title">
-                                    <p>直感的に使えまっせ的なフレーズ </p>
+                                    <p class="p-title">ドラッグ＆ドロップで<br>簡単に使えます！</p>
                                 </div>
-                                <div class="p-card-content__third u-inner__l">
+                                <div class="p-card-content__third u-index--inner__l">
                                     <p>サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 </p>
                                 </div>
                             </div>
@@ -65,16 +65,16 @@
                 </div>
             </section>
             <section class="l-section l-section__fourth">
-                <div class="u-inner">
+                <div class="u-index--inner">
                     <div class="l-section-wrapp l-section-wrapp__flex">
-                        <div class="p-card__third u-inner">
+                        <div class="p-card__third u-index--inner">
                             <div class="p-card__body">
-                                <div class="p-card-content__third u-inner__l">
+                                <div class="p-card-content__third u-index--inner__l">
                                     <p>サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-card__third u-inner">
+                        <div class="p-card__third u-index--inner">
                             <router-link tag="button" to="login" class="p-card__third--right c-btn c-btn__footer c-btn__footer--login">ログイン</router-link>
                             <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--message">
                                 <i class="far fa-envelope u-icon u-icon__message"></i>お問い合わせ
@@ -92,8 +92,8 @@
     </div>
 </template>
 <script>
-  import Header from './Header'
-  import Footer from './footer'
+import Header from './Header'
+import Footer from './footer'
 export default {
     data(){
         return {

@@ -4,8 +4,14 @@
   &--icon{
     font-size: $font-size_xxl;
     margin-right: $space_m;
+    @include mq(){
+      padding: 0 1.5rem;
+    }
   }
   &--title{
     margin-left: $space_m;
+    @include mq(){
+      font-size: 30px;
+    }
   }
 }

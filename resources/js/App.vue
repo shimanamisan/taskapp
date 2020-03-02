@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="u-appvue--wrapp">
       <!-- <Loading v-show="loading"></Loading> -->
       <transition name="fade" mode="out-in">
-        <router-view ></router-view>
+        <router-view></router-view>
       </transition>
   </div>
 </template>
@@ -48,7 +48,7 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 .fade-enter,
 .fade-leave-to {
   opacity: 0;

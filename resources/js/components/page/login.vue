@@ -1,5 +1,5 @@
 <template>
-    <div class="l-wrapper">
+    <div class="l-wrapper l-wrapper--login">
         <section class="l-main__auth">
             <div class="c-logo__header">
                 <router-link to="/">
@@ -51,7 +51,7 @@
                     </form>
                     <hr class="u-form__line">
                     <div class="u-social__item">
-                        <a href="" class="c-btn c-btn__twitter">Twitterログインする</a>
+                        <button class="c-btn c-btn__twitter" @click="twitterlogin">Twitterログインする</button>
                     </div>
                 </div>
                 <!-- c-form__container -->
@@ -109,6 +109,13 @@ export default {
     },
     clearError(){
       this.$store.commit('auth/setLoginErrorMessages', null)
+    },
+    async twitterlogin(){
+      await this.$store.dispatch('auth/twitterLogin');
+        if(this.apiStatus){
+        // 通信が成功（apiStatusがtureの場合）したら移動する
+        this.$router.push('/tasklist');
+        }
     }
   },
   created(){

@@ -16,9 +16,14 @@
     box-sizing: border-box;
     padding: 30px;
     z-index: 99;
+    overflow: auto;
     @include custumRadius(8px);
     transform: translate(-50%, -50%);
     background-color: #fff;
+    @include mq(){
+      width: 90%;
+
+    }
   }
   &--inner{
     margin-top: 30px;

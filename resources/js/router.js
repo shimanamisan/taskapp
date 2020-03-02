@@ -6,6 +6,8 @@ import VueRouter from 'vue-router'
 import Index from './components/index'
 import TaskApp from './components/TaskApp'
 import Profile from './components/Profile'
+import Privacy from './components/Privacy'
+import Rule from './components/Rule'
 import Login from './components/page/Login'
 import Register from './components/page/Register'
 import PasswordReminder from './components/page/PasswordReminder'
@@ -104,9 +106,22 @@ export default new VueRouter({
       }
     },
     {
+      // プライバシーポリシー
+      path: '/privacy',
+      component: Privacy
+    },
+    {
+      // 利用規約
+      path: '/rule',
+      component: Rule
+    },
+    {
       // エラーページ
       path: '/500',
       component: SystemError
     }
-  ]
+  ],
+  scrollBehavior(){
+    console.log('scrollBehavior')
+  }
 })

@@ -136,6 +136,10 @@ const actions = {
       }
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
+  async twitterLogin({commit}){
+    console.log('twitterログイン')
+    const response = await axios.get('/api/login/twitter').catch(error => error.response || error)
+  },
   /****************************************
   ログアウト
   *****************************************/

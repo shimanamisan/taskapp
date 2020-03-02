@@ -6,6 +6,10 @@
   margin: $space_xl;
   padding: $space_xxl;
   background: $background-body-color;
+  @include mq(){
+    width: 100%;
+    margin: 0 0 20px 0;
+  }
     &-border{
       box-shadow: 0 4px 12px 0 rgba(0,0,0,.5);
       @include custumRadius(5px);
@@ -22,6 +26,9 @@
       text-align: center;
       font-size: $font-size_l;
       font-weight: 600;
+      @include mq(){
+        font-size: 24px;
+      }
         &__third{
           font-weight:500;
         }
@@ -30,6 +37,9 @@
       padding: $space_l;
       width: 50%;
       text-align: center;
+      @include mq(){
+        width: 100%;
+      }
       &--right{
         margin: $space_xl auto;
       }
