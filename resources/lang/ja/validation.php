@@ -150,7 +150,5 @@ return [
         'email' => 'メールアドレス',
         'password' => 'パスワード',
         'password_confirmation' => 'パスワード再入力'
-    ],
-    ''
-
+    ]
 ];

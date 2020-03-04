@@ -1974,8 +1974,8 @@ __webpack_require__.r(__webpack_exports__);
       return this.$store.state.error.code;
     }
   },
-  // ストアのステートを算出プロパティで参照し、それをウォッチャーで監視する
   watch: {
+    // ストアのステートを算出プロパティで参照し、それをウォッチャーで監視する
     errorCode: {
       handler: function handler(val) {
         if (val === _statusCode__WEBPACK_IMPORTED_MODULE_0__["INTERNAL_SERVER_ERROR"]) {
@@ -2517,18 +2517,30 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return ProfileImageEdit;
     }(),
-    ProfileUserDelete: function () {
-      var _ProfileUserDelete = _asyncToGenerator(
+    userSoftDelete: function () {
+      var _userSoftDelete = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _context2.next = 2;
-                return this.$store.dispatch('auth/ProfileUserDelete');
+                if (!window.confirm('退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？')) {
+                  _context2.next = 4;
+                  break;
+                }
 
-              case 2:
+                _context2.next = 3;
+                return this.$store.dispatch('auth/userSoftDelete');
+
+              case 3:
+                // if(this.getErrorCode === 200){
+                //   this.showSuccess()
+                //   setTimeout(this.showSuccess, 3000)
+                // }
+                this.$router.push('/index');
+
+              case 4:
               case "end":
                 return _context2.stop();
             }
@@ -2536,11 +2548,11 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }, _callee2, this);
       }));
 
-      function ProfileUserDelete() {
-        return _ProfileUserDelete.apply(this, arguments);
+      function userSoftDelete() {
+        return _userSoftDelete.apply(this, arguments);
       }
 
-      return ProfileUserDelete;
+      return userSoftDelete;
     }(),
     ProfileNameEdit: function () {
       var _ProfileNameEdit = _asyncToGenerator(
@@ -46311,7 +46323,7 @@ var render = function() {
                     {
                       staticClass: "c-btn c-btn__danger",
                       attrs: { type: "submit" },
-                      on: { click: _vm.ProfileUserDelete }
+                      on: { click: _vm.userSoftDelete }
                     },
                     [_vm._v("削除する")]
                   )
@@ -46350,7 +46362,7 @@ var staticRenderFns = [
     return _c("div", { staticClass: "c-form__container" }, [
       _c("p", [
         _vm._v(
-          "退会処理を行います。現在管理者 であるプロジェクトは全て削除され復旧はできません。"
+          "退会処理を行います。現在管理者であるプロジェクトは全て削除され復旧はできません。"
         )
       ])
     ])
@@ -69876,12 +69888,23 @@ var actions = {
 
             case 4:
               response = _context2.sent;
+              console.log(response); // 200ステータスの処理
 
               if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                _context2.next = 16;
+                _context2.next = 21;
                 break;
               }
 
+              if (!response.data.errors) {
+                _context2.next = 11;
+                break;
+              }
+
+              console.log(response.data.errors);
+              commit('setLoginErrorMessages', response.data.errors);
+              return _context2.abrupt("return", false);
+
+            case 11:
               username = response.data.name;
               email = response.data.email;
               profileImage = response.data.pic;
@@ -69895,7 +69918,7 @@ var actions = {
               commit('setId', id);
               return _context2.abrupt("return", false);
 
-            case 16:
+            case 21:
               commit('setApiStatus', false); // 422ステータスの処理
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
@@ -69910,7 +69933,7 @@ var actions = {
                 root: true
               }); //{ root: ture }で違うファイルのミューテーションを呼べる
 
-            case 19:
+            case 24:
             case "end":
               return _context2.stop();
           }
@@ -69964,38 +69987,54 @@ var actions = {
   logout: function () {
     var _logout = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(context) {
-      var response;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee4(_ref4) {
+      var commit, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee4$(_context4) {
         while (1) {
           switch (_context4.prev = _context4.next) {
             case 0:
-              context.commit('setApiStatus', null);
-              _context4.next = 3;
-              return axios.post('/api/logout');
+              commit = _ref4.commit;
+              commit('setApiStatus', null);
+              _context4.next = 4;
+              return axios.post('/api/logout')["catch"](function (error) {
+                return error.response || error;
+              });
 
-            case 3:
+            case 4:
               response = _context4.sent;
 
-              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
-                _context4.next = 11;
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
+                _context4.next = 9;
                 break;
               }
 
-              context.commit('setApiStatus', null);
-              context.commit('setUser', null);
-              context.commit('setEmail', null);
-              context.commit('setPic', null);
-              context.commit('setId', null);
+              commit('error/setCode', response.status, {
+                root: true
+              });
+              _context4.next = 17;
+              break;
+
+            case 9:
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context4.next = 17;
+                break;
+              }
+
+              console.log('処理されています「');
+              commit('setApiStatus', null);
+              commit('setUser', null);
+              commit('setEmail', null);
+              commit('setPic', null);
+              commit('setId', null);
               return _context4.abrupt("return", false);
 
-            case 11:
-              context.commit('setApiStatus', false);
-              context.commit('error/setCode', response.status, {
+            case 17:
+              commit('setApiStatus', false);
+              commit('error/setCode', response.status, {
                 root: true
               });
 
-            case 13:
+            case 19:
             case "end":
               return _context4.stop();
           }
@@ -70017,13 +70056,13 @@ var actions = {
   ProfileImageEdit: function () {
     var _ProfileImageEdit = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref4, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee5(_ref5, data) {
       var commit, id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee5$(_context5) {
         while (1) {
           switch (_context5.prev = _context5.next) {
             case 0:
-              commit = _ref4.commit;
+              commit = _ref5.commit;
               id = state.user_id;
               _context5.next = 4;
               return axios.post('/api/profile/image/' + id, data)["catch"](function (error) {
@@ -70064,13 +70103,13 @@ var actions = {
   ProfileNameEdit: function () {
     var _ProfileNameEdit = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref5, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee6(_ref6, data) {
       var commit, id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee6$(_context6) {
         while (1) {
           switch (_context6.prev = _context6.next) {
             case 0:
-              commit = _ref5.commit;
+              commit = _ref6.commit;
               id = state.user_id;
               _context6.next = 4;
               return axios.post('/api/profile/name/' + id, data)["catch"](function (error) {
@@ -70115,13 +70154,13 @@ var actions = {
   ProfileEmailEdit: function () {
     var _ProfileEmailEdit = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref6, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee7(_ref7, data) {
       var commit, id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee7$(_context7) {
         while (1) {
           switch (_context7.prev = _context7.next) {
             case 0:
-              commit = _ref6.commit;
+              commit = _ref7.commit;
               id = state.user_id;
               _context7.next = 4;
               return axios.post('/api/profile/email/' + id, data)["catch"](function (error) {
@@ -70162,13 +70201,13 @@ var actions = {
   ProfilPasswordeEdit: function () {
     var _ProfilPasswordeEdit = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref7, data) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee8(_ref8, data) {
       var commit, id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee8$(_context8) {
         while (1) {
           switch (_context8.prev = _context8.next) {
             case 0:
-              commit = _ref7.commit;
+              commit = _ref8.commit;
               id = state.user_id;
               _context8.next = 4;
               return axios.post('/api/profile/password/' + id, data)["catch"](function (error) {
@@ -70206,27 +70245,58 @@ var actions = {
     return ProfilPasswordeEdit;
   }(),
   // ユーザー削除
-  ProfileUserDelete: function () {
-    var _ProfileUserDelete = _asyncToGenerator(
+  userSoftDelete: function () {
+    var _userSoftDelete = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref8) {
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee9(_ref9) {
       var commit, id, response;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee9$(_context9) {
         while (1) {
           switch (_context9.prev = _context9.next) {
             case 0:
-              commit = _ref8.commit;
+              commit = _ref9.commit;
+              commit('setApiStatus', null);
               id = state.user_id;
-              _context9.next = 4;
+              _context9.next = 5;
               return axios["delete"]('/api/profile/delete/' + id)["catch"](function (error) {
                 return error.response || error;
               });
 
-            case 4:
+            case 5:
               response = _context9.sent;
-              console.log('ユーザー削除メソッドです' + console.log(response));
 
-            case 6:
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
+                _context9.next = 10;
+                break;
+              }
+
+              commit('error/setCode', response.status, {
+                root: true
+              });
+              _context9.next = 18;
+              break;
+
+            case 10:
+              if (!(response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                _context9.next = 18;
+                break;
+              }
+
+              console.log('処理されています');
+              commit('setApiStatus', null);
+              commit('setUser', null);
+              commit('setEmail', null);
+              commit('setPic', null);
+              commit('setId', null);
+              return _context9.abrupt("return", false);
+
+            case 18:
+              commit('setApiStatus', false);
+              commit('error/setCode', response.status, {
+                root: true
+              });
+
+            case 20:
             case "end":
               return _context9.stop();
           }
@@ -70234,11 +70304,11 @@ var actions = {
       }, _callee9);
     }));
 
-    function ProfileUserDelete(_x15) {
-      return _ProfileUserDelete.apply(this, arguments);
+    function userSoftDelete(_x15) {
+      return _userSoftDelete.apply(this, arguments);
     }
 
-    return ProfileUserDelete;
+    return userSoftDelete;
   }(),
 
   /****************************************
@@ -70247,28 +70317,29 @@ var actions = {
   currentUser: function () {
     var _currentUser = _asyncToGenerator(
     /*#__PURE__*/
-    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(context) {
-      var response, loginUser;
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee10(_ref10) {
+      var commit, response, loginUser;
       return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee10$(_context10) {
         while (1) {
           switch (_context10.prev = _context10.next) {
             case 0:
-              _context10.next = 2;
+              commit = _ref10.commit;
+              _context10.next = 3;
               return axios.get('/api/user');
 
-            case 2:
+            case 3:
               response = _context10.sent;
               loginUser = response.data || null;
 
               if (loginUser) {
-                context.commit('setApiStatus', true);
-                context.commit('setUser', loginUser.name);
-                context.commit('setEmail', loginUser.email);
-                context.commit('setPic', loginUser.pic);
-                context.commit('setId', loginUser.id);
+                commit('setApiStatus', true);
+                commit('setUser', loginUser.name);
+                commit('setEmail', loginUser.email);
+                commit('setPic', loginUser.pic);
+                commit('setId', loginUser.id);
               }
 
-            case 5:
+            case 6:
             case "end":
               return _context10.stop();
           }

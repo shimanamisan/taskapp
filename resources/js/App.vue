@@ -31,8 +31,8 @@ export default {
       return this.$store.state.error.code
     }
   },
-  // ストアのステートを算出プロパティで参照し、それをウォッチャーで監視する
   watch: {
+     // ストアのステートを算出プロパティで参照し、それをウォッチャーで監視する
     errorCode: {
       handler (val) {
         if (val === INTERNAL_SERVER_ERROR) {

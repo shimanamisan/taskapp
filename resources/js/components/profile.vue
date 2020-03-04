@@ -134,10 +134,10 @@
           </div>
           <hr class="u-form__line">
           <div class="c-form__container">
-            <p>退会処理を行います。現在管理者 であるプロジェクトは全て削除され復旧はできません。</p>
+            <p>退会処理を行います。現在管理者であるプロジェクトは全て削除され復旧はできません。</p>
           </div>
           <div class="c-form__action c-form__action__item">
-            <button type="submit" class="c-btn c-btn__danger" @click="ProfileUserDelete">削除する</button>
+            <button type="submit" class="c-btn c-btn__danger" @click="userSoftDelete">削除する</button>
           </div>
         </div>
         <!-- l-card__container -->
@@ -254,13 +254,18 @@ export default {
         }
         this.showProfileImage = !this.showProfileImage
       },
-      async ProfileUserDelete(){
-        // アクションを呼びに行く
-        await this.$store.dispatch('auth/ProfileUserDelete')
-        // if(this.getErrorCode === 200){
-        //   this.showSuccess()
-        //   setTimeout(this.showSuccess, 3000)
-        // }
+      async userSoftDelete(){
+        if(window.confirm('退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？')){
+          // アクションを呼びに行く
+          await this.$store.dispatch('auth/userSoftDelete')
+          // if(this.getErrorCode === 200){
+          //   this.showSuccess()
+          //   setTimeout(this.showSuccess, 3000)
+          // }
+
+          this.$router.push('/index')
+
+        }
       },
       async ProfileNameEdit(){
         // アクションへファイル情報を渡す

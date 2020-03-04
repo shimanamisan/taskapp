@@ -11,6 +11,9 @@
       justify-content: space-around;
       padding: $space_xl;
       margin-bottom: $space_xxl;
+      @include mq(){
+        display: block;
+      }
     }
   } 
   &-lavel{

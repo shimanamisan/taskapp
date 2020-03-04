@@ -111,9 +111,15 @@ const actions = {
     commit('setApiStatus', null)
       // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
       const response = await axios.post('/api/login', data).catch(error => error.response || error)
-
+        console.log(response);
         // 200ステータスの処理
         if(response.status === OK){
+
+            if(response.data.errors){
+              console.log(response.data.errors)
+              commit('setLoginErrorMessages', response.data.errors)
+              return false;
+            }
           const username = response.data.name
           const email = response.data.email
           const profileImage = response.data.pic
@@ -143,20 +149,23 @@ const actions = {
   /****************************************
   ログアウト
   *****************************************/
-  async logout (context) {
-    context.commit('setApiStatus', null)
-    const response = await axios.post('/api/logout')
-    if (response.status === OK) {
-      context.commit('setApiStatus', null)
-      context.commit('setUser', null)
-      context.commit('setEmail', null) 
-      context.commit('setPic', null) 
-      context.commit('setId', null)
+  async logout ({commit}) {
+    commit('setApiStatus', null)
+    const response = await axios.post('/api/logout').catch(error => error.response || error)
+    if(response.status === INTERNAL_SERVER_ERROR ){
+      commit('error/setCode', response.status, { root:true })
+    }else if(response.status === OK){
+      console.log('処理されています「')
+      commit('setApiStatus', null)
+      commit('setUser', null)
+      commit('setEmail', null) 
+      commit('setPic', null) 
+      commit('setId', null)
       return false
     }
 
-    context.commit('setApiStatus', false)
-    context.commit('error/setCode', response.status, { root: true })
+    commit('setApiStatus', false)
+    commit('error/setCode', response.status, { root: true })
   },
   /****************************************
   プロフィール編集
@@ -215,23 +224,36 @@ const actions = {
     commit('error/setCode', response.status, { root: true })
   },
   // ユーザー削除
-  async ProfileUserDelete({ commit }){
+  async userSoftDelete({ commit }){
+    commit('setApiStatus', null)
     const id = state.user_id
     const response = await axios.delete('/api/profile/delete/' + id).catch(error => error.response || error)
-    console.log('ユーザー削除メソッドです' + console.log(response))
+    if(response.status === INTERNAL_SERVER_ERROR ){
+      commit('error/setCode', response.status, { root:true })
+    }else if(response.status === OK){
+      console.log('処理されています')
+      commit('setApiStatus', null)
+      commit('setUser', null)
+      commit('setEmail', null) 
+      commit('setPic', null) 
+      commit('setId', null)
+      return false
+    }
+    commit('setApiStatus', false)
+    commit('error/setCode', response.status, { root: true })
   },
   /****************************************
   リロード時にログインチェック
   *****************************************/
-  async currentUser (context) {
+  async currentUser ({commit}) {
     const response = await axios.get('/api/user')    
     const loginUser = response.data || null
     if(loginUser){
-      context.commit('setApiStatus', true)
-      context.commit('setUser', loginUser.name) 
-      context.commit('setEmail', loginUser.email) 
-      context.commit('setPic', loginUser.pic) 
-      context.commit('setId', loginUser.id )
+      commit('setApiStatus', true)
+      commit('setUser', loginUser.name) 
+      commit('setEmail', loginUser.email) 
+      commit('setPic', loginUser.pic) 
+      commit('setId', loginUser.id )
     }
   }
 

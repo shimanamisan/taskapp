@@ -112,7 +112,6 @@ return [
     'starts_with' => 'The :attribute must start with one of the following: :values',
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid zone.',
-    // 'unique' => 'このメールアドレスは既に登録済みです。',
     'unique' => 'The :attribute has already been taken.',
     'uploaded' => 'The :attribute failed to upload.',
     'url' => 'The :attribute format is invalid.',
@@ -145,8 +144,4 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
-
-    // バリデーション本文の、attributes を日本語に変更している
-    'attributes' => [],
-
 ];
