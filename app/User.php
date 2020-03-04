@@ -19,7 +19,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'pic'
+        'pic',
+        'delete_flg'
     ];
 
     /**

@@ -29,6 +29,7 @@ class ProfileImageRequest extends FormRequest
             // response.data.errors で拾える
             'profilePhoto' => 'required|file|mimes:jpg,jpeg,png,gif|max:10240',
 
+
         ];
     }
 
@@ -39,6 +40,7 @@ class ProfileImageRequest extends FormRequest
             'profilePhoto.required' => '写真を選択してください',
             'profilePhoto.file' => '写真を選択してください',
             'profilePhoto.mimes' => '画像ファイルのみ選択可能です',
+           
         ];
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class TaskRequest extends FormRequest
+class LoginRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -12,9 +12,8 @@ class TaskRequest extends FormRequest
      * @return bool
      */
     public function authorize()
-    {   
-        // デフォルトはfalseなのでtrueにする
-        return true;
+    {
+        return true; // trueにする
     }
 
     /**
@@ -25,15 +24,17 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'bail|required|max:20'
+            'email' => 'bail|required',
+            'password' => 'bail|required|min:8',
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => '入力必須です',
-            'title.max' => '20文字以内で入力してください',
+            'email.required' => '入力必須です',
+            'password.required' => '入力必須です',
+            'password.min' => '8文字以上で入力してください',
         ];
     }
 }

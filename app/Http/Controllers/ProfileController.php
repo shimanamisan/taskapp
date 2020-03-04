@@ -3,14 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\User;
-use App\UserDelete;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ProfileNameRequest;
 use App\Http\Requests\ProfileEmailRequest;
 use App\Http\Requests\ProfileImageRequest;
+use Illuminate\Support\Facades\Auth; // 追加
 use App\Http\Requests\ProfilePasswordRequest;
 
 class ProfileController extends Controller
@@ -27,10 +26,7 @@ class ProfileController extends Controller
 
      /**
      * プロフィール変更
-     * @param ProfileImageRequest $request
-     * @param ProfileNameRequest $request
-     * @param ProfileEmailRequest $request
-     * @param ProfilePasswordRequest $request
+     * @param ProfileEditRequest $request
      * @return \Illuminate\Http\Response
      */
     public function ProfileImageEdit(ProfileImageRequest $request)
@@ -106,11 +102,21 @@ class ProfileController extends Controller
     /****************************************
     ユーザー削除用
     ****************************************/
-    public function ProfileUserDelete(Request $request, $id)
+    public function userSoftDelete(Request $request, $id)
     {
         // DBファサードではなく、Eloquent ORM にてdelete()メソッドを実行する事
         // https://www.ritolab.com/entry/53#environment_development
-        $user = UserDelete::find($id);
-        $user->delete();
+        $user = User::find($id);
+        
+        if($user->delete_flg === 0){
+            $user->delete_flg = 1;
+            $user->save();
+            // これでログアウト処理
+            Auth::logout();
+            // ヘルパ関数を利用。セッションをクリア＆セッションIDを再発行(Illuminate\Session\Store::invalidate)
+            $request->session()->invalidate();
+
+            return response()->json();
+        }
     }
 }

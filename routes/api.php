@@ -31,6 +31,10 @@ Route::get('/user', function () {
     return Auth::user();
     })->name('user');
 
+// twitterログイン
+Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider');
+Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+
 /****************************************
 プロフィール変更
 *****************************************/
@@ -43,7 +47,7 @@ Route::post('/profile/email/{id}', 'ProfileController@ProfileEmailEdit')->name('
 // パスワード変更
 Route::post('/profile/password/{id}', 'ProfileController@ProfilPasswordeEdit')->name('profile.ProfilPasswordeEdit');
 // ユーザー論理削除
-Route::delete('/profile/delete/{id}', 'ProfileController@ProfileUserDelete')->name('profile.ProfileUserDelete');
+Route::delete('/profile/delete/{id}', 'ProfileController@userSoftDelete')->name('profile.userSoftDelete');
 
 /****************************************
 タスク管理(一覧・登録)

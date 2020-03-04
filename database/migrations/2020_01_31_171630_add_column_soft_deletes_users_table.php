@@ -14,7 +14,8 @@ class AddColumnSoftDeletesUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->softDeletes();
+            // $table->softDeletes();
+            $table->integer('delete_flg')->default(0);
         });
     }
 
@@ -26,7 +27,8 @@ class AddColumnSoftDeletesUsersTable extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('deleted_at');
+            // $table->dropColumn('deleted_at');
+            $table->dropColumn('delete_flg');
         });
     }
 }

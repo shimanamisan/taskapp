@@ -27,7 +27,7 @@ class ProfilePasswordRequest extends FormRequest
             // ここでのバリデーションはファイルサイズも入れたほうが良い？(10MBを上限とする)
             // ここで指定した profilePhoto というキーが、ajax通信で返ってくる response の中に入っている
             // response.data.errors で拾える
-            'password' => 'required|min:8',
+            'password' => 'bail|required|min:8',
             // パスワードフォームと一致していないとエラーを出す
             'password_confirmation' => 'required|min:8|same:password',
         ];
