@@ -14,6 +14,8 @@ body{
 p,
 a{
   -webkit-font-smoothing: antialiased; // フォントを見やすくさせる
+  overflow-wrap : break-word;
+  white-space: pre-wrap;
 }
 
 a{

@@ -72,10 +72,11 @@
 
 // ヘッダー用ボタン
 .c-header{
-  &__signin{
-    background: #fff;
-    color: #62ABF8;
-    padding: 20px 45px;
+  &__btn{
+    // background: #fff;
+    // color: #62ABF8;
+    color: #fff;
+    padding: 20px 10px;
     @include custumRadius(30px);
     @include mq(){
       @include custumRadius(0px);
@@ -86,9 +87,6 @@
     &:hover{
       opacity: 0.6;
     }
-  }
-  &__login{
-    color: #fff;
   }
 }
 

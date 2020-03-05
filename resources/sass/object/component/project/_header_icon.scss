@@ -3,7 +3,7 @@
   font-size: $font-size_l;
   &--icon{
     font-size: $font-size_xxl;
-    margin-right: $space_m;
+    margin-right: 20px;
     @include mq(){
       padding: 0 1.5rem;
     }
