@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Notifications\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -45,5 +46,12 @@ class User extends Authenticatable
     public function folders()
     {
         return $this->hasMany('App\Folder');
+    }
+
+    // パスワードリセットリンクを送信するための通知クラス及び、その中のメソッドをオーバーライド
+    public function sendPasswordResetNotification($token)
+    {
+
+    $this->notify(new ResetPasswordNotification($token));
     }
 }
