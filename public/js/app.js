@@ -1944,7 +1944,15 @@ module.exports = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./statusCode */ "./resources/js/statusCode.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./statusCode */ "./resources/js/statusCode.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -1977,11 +1985,55 @@ __webpack_require__.r(__webpack_exports__);
   watch: {
     // ストアのステートを算出プロパティで参照し、それをウォッチャーで監視する
     errorCode: {
-      handler: function handler(val) {
-        if (val === _statusCode__WEBPACK_IMPORTED_MODULE_0__["INTERNAL_SERVER_ERROR"]) {
-          this.$router.push('/500');
+      handler: function () {
+        var _handler = _asyncToGenerator(
+        /*#__PURE__*/
+        _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee(val) {
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+            while (1) {
+              switch (_context.prev = _context.next) {
+                case 0:
+                  if (!(val === _statusCode__WEBPACK_IMPORTED_MODULE_1__["INTERNAL_SERVER_ERROR"])) {
+                    _context.next = 4;
+                    break;
+                  }
+
+                  this.$router.push('/500');
+                  _context.next = 12;
+                  break;
+
+                case 4:
+                  if (!(val === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNAUTHORIZED"])) {
+                    _context.next = 12;
+                    break;
+                  }
+
+                  _context.next = 7;
+                  return axios.get('api/refresh-token');
+
+                case 7:
+                  // ストアのユーザー情報をクリア
+                  this.$store.commit('auth/setUser', null);
+                  this.$store.commit('auth/setEmail', null);
+                  this.$store.commit('auth/setPic', null);
+                  this.$store.commit('auth/setId', null); // ログイン画面へ
+
+                  this.$router.push('/index');
+
+                case 12:
+                case "end":
+                  return _context.stop();
+              }
+            }
+          }, _callee, this);
+        }));
+
+        function handler(_x) {
+          return _handler.apply(this, arguments);
         }
-      },
+
+        return handler;
+      }(),
       immediate: true
     },
     $route: function $route() {
@@ -2053,9 +2105,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -2065,9 +2114,6 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   computed: {
     isLogin: function isLogin() {
       return this.$store.getters['auth/check'];
-    },
-    username: function username() {
-      return this.$store.getters['auth/getUserName'];
     },
     apiStatus: function apiStatus() {
       // authモジュールのapiStatusを参照
@@ -2483,8 +2529,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // プロフィール画像保存の処理
+                this.clearError(); // プロフィール画像保存の処理
                 // FormDataオブジェクトをインスタンス化
+
                 formData = new FormData(); // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
                 // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
                 // 常にリクエストが空とみなされてバリデーションに引っかかる
@@ -2492,10 +2539,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 formData.append('profilePhoto', this.profileData.profileImage); // アクションへファイル情報を渡す
 
-                _context.next = 4;
+                _context.next = 5;
                 return this.$store.dispatch('auth/ProfileImageEdit', formData);
 
-              case 4:
+              case 5:
                 if (this.getErrorCode === 200) {
                   this.showSuccess();
                   setTimeout(this.showSuccess, 3000);
@@ -2503,7 +2550,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
                 this.showProfileImage = !this.showProfileImage;
 
-              case 6:
+              case 7:
               case "end":
                 return _context.stop();
             }
@@ -2534,11 +2581,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 return this.$store.dispatch('auth/userSoftDelete');
 
               case 3:
-                // if(this.getErrorCode === 200){
-                //   this.showSuccess()
-                //   setTimeout(this.showSuccess, 3000)
-                // }
-                this.$router.push('/index');
+                this.$router.push('/register');
 
               case 4:
               case "end":
@@ -2562,19 +2605,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context3.prev = _context3.next) {
               case 0:
-                _context3.next = 2;
+                this.clearError(); // アクションへファイル情報を渡す
+
+                _context3.next = 3;
                 return this.$store.dispatch('auth/ProfileNameEdit', {
                   name: this.profileData.name
                 });
 
-              case 2:
+              case 3:
                 if (this.getErrorCode === 200) {
                   this.showName = !this.showName;
                   this.showSuccess();
                   setTimeout(this.showSuccess, 3000);
                 }
 
-              case 3:
+              case 4:
               case "end":
                 return _context3.stop();
             }
@@ -2596,19 +2641,21 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context4.prev = _context4.next) {
               case 0:
-                _context4.next = 2;
+                this.clearError(); // アクションへファイル情報を渡す
+
+                _context4.next = 3;
                 return this.$store.dispatch('auth/ProfileEmailEdit', {
                   email: this.profileData.email
                 });
 
-              case 2:
+              case 3:
                 if (this.getErrorCode === 200) {
                   this.showEmail = !this.showEmail;
                   this.showSuccess();
                   setTimeout(this.showSuccess, 3000);
                 }
 
-              case 3:
+              case 4:
               case "end":
                 return _context4.stop();
             }
@@ -2630,14 +2677,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) {
             switch (_context5.prev = _context5.next) {
               case 0:
-                _context5.next = 2;
+                this.clearError(); // アクションへファイル情報を渡す
+
+                _context5.next = 3;
                 return this.$store.dispatch('auth/ProfilPasswordeEdit', {
                   // これでkey:valueの形でデータをコントローラーへ渡せる
                   password: this.profileData.password,
                   password_confirmation: this.profileData.password_confirmation
                 });
 
-              case 2:
+              case 3:
                 if (this.getErrorCode === 200) {
                   // 送信後入力フォームを空にする
                   this.profileData.password = '', this.profileData.password_confirmation = '';
@@ -2647,7 +2696,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   setTimeout(this.showSuccess, 3000);
                 }
 
-              case 3:
+              case 4:
               case "end":
                 return _context5.stop();
             }
@@ -2661,15 +2710,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
       return ProfilPasswordeEdit;
     }(),
+    cancelName: function cancelName() {
+      this.clearError();
+      this.showName = !this.showName;
+    },
+    canselEmail: function canselEmail() {
+      this.clearError();
+      this.showEmail = !this.showEmail;
+    },
     cancelPassword: function cancelPassword() {
       this.profileData.password = '';
       this.profileData.password_confirmation = "";
       this.clearError();
       this.showPassword = !this.showPassword;
-    },
-    cancelName: function cancelName() {
-      this.clearError();
-      this.showName = !this.showName;
     },
     ShowPasswordTrigger: function ShowPasswordTrigger() {
       this.profileData.password = '';
@@ -3181,7 +3234,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 folder_id = this.cards.folder_id;
                 card_id = this.cards.id; // console.log( 'これはカードid：' + folder_id + '  ' + 'これはフォルダid：' + card_id)
 
-                if (!window.confirm('カードを削除すると、全てのタスクリストも削除されます。nフォルダーを削除しますか？')) {
+                if (!window.confirm('カードを削除すると、全てのタスクリストも削除されます。\nフォルダーを削除しますか？')) {
                   _context.next = 7;
                   break;
                 }
@@ -3359,6 +3412,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../statusCode */ "./resources/js/statusCode.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3393,6 +3447,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3416,14 +3471,28 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _createCard = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var data;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                // ストアからフォルダーIDを呼び出す
-                this.folder_id = this.$store.state.taskStore.folder_id; // 呼び出したフォルダーIDをフォームの内容をアクションへ渡す
+                this.$store.commit('taskStore/setCardRequestErrorMessages', null); // ストアからフォルダーIDを呼び出す
 
-                _context.next = 3;
+                this.folder_id = this.$store.state.taskStore.folder_id;
+
+                if (this.folder_id) {
+                  _context.next = 6;
+                  break;
+                }
+
+                data = {
+                  title: ['フォルダーを選択してタスクを登録してください']
+                };
+                this.$store.commit('taskStore/setCardRequestErrorMessages', data);
+                return _context.abrupt("return", false);
+
+              case 6:
+                _context.next = 8;
                 return this.$store.dispatch('taskStore/createCard', {
                   // アクションは第2引数までしか引数を受け取れないので、
                   // 複数のデータをアクションへ渡すには、オブジェクト形式で渡す。
@@ -3431,23 +3500,23 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   folder_id: this.folder_id
                 });
 
-              case 3:
-                if (!(this.getErrorCode === 200)) {
-                  _context.next = 7;
+              case 8:
+                if (!(this.getErrorCode === _statusCode__WEBPACK_IMPORTED_MODULE_1__["OK"])) {
+                  _context.next = 12;
                   break;
                 }
 
-                _context.next = 6;
+                _context.next = 11;
                 return this.$store.dispatch('taskStore/setCardListsAction', this.folder_id);
 
-              case 6:
+              case 11:
                 this.clearCradCreateForm();
 
-              case 7:
-                _context.next = 9;
+              case 12:
+                _context.next = 14;
                 return this.$store.dispatch('taskStore/setCardListsAction', this.folder_id);
 
-              case 9:
+              case 14:
               case "end":
                 return _context.stop();
             }
@@ -3492,6 +3561,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuedraggable */ "./node_modules/vuedraggable/dist/vuedraggable.common.js");
 /* harmony import */ var vuedraggable__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vuedraggable__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../statusCode */ "./resources/js/statusCode.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
@@ -3525,6 +3595,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -3647,7 +3718,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                if (this.getErrorCode === 200) {
+                if (this.getErrorCode === _statusCode__WEBPACK_IMPORTED_MODULE_2__["OK"]) {
                   this.editFolder();
                 }
 
@@ -4521,6 +4592,15 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _statusCode__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../statusCode */ "./resources/js/statusCode.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
 //
 //
 //
@@ -4555,7 +4635,66 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      sendEmail: ''
+    };
+  },
+  computed: {
+    sendEmailMessages: function sendEmailMessages() {
+      // エラーメッセージがあった際にストアより取得
+      return this.$store.state.auth.sendEmailMessages;
+    },
+    sendPasswordErrorMessages: function sendPasswordErrorMessages() {
+      // エラーメッセージがあった際にストアより取得
+      return this.$store.state.auth.sendPasswordErrorMessages;
+    },
+    getErrorCode: function getErrorCode() {
+      return this.$store.state.error.code;
+    }
+  },
+  methods: {
+    sendResetLinkEmail: function () {
+      var _sendResetLinkEmail = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var sendEmail;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                sendEmail = this.sendEmail;
+                _context.next = 3;
+                return this.$store.dispatch('auth/sendResetLinkEmail', sendEmail);
+
+              case 3:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function sendResetLinkEmail() {
+        return _sendResetLinkEmail.apply(this, arguments);
+      }
+
+      return sendResetLinkEmail;
+    }()
+  }
+});
 
 /***/ }),
 
@@ -4568,6 +4707,21 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -4602,7 +4756,93 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-/* harmony default export */ __webpack_exports__["default"] = ({});
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      form: {
+        email: '',
+        password: '',
+        password_confirmation: '',
+        token: ''
+      },
+      requestURL: ''
+    };
+  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+    isLogin: function isLogin(state) {
+      return getters['auth/check'];
+    },
+    apiStatus: function apiStatus(state) {
+      return getters['auth/apiStatus'];
+    },
+    passResetErrors: function passResetErrors(state) {
+      return state.auth.passResetErrors;
+    }
+  })),
+  methods: {
+    resetPassword: function () {
+      var _resetPassword = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return this.$store.dispatch('auth/resetPassword', this.form).then(function (response) {
+                  return console.log('これはvueがわ' + response);
+                });
+
+              case 2:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this);
+      }));
+
+      function resetPassword() {
+        return _resetPassword.apply(this, arguments);
+      }
+
+      return resetPassword;
+    }(),
+    setQuery: function setQuery() {
+      // this.requestURL = this.$route.query.queryURL || ''; // パスワードリセットAPIのURL
+      this.form.token = this.$route.query.token || ''; // パスワードリセットするために必要なToken
+    }
+  },
+  created: function created() {
+    this.setQuery();
+  }
+});
 
 /***/ }),
 
@@ -9370,7 +9610,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.c-task--cardbtn--inner{\r\n margin: 10px;\n}\n::-webkit-scrollbar{\r\n  width: 10px;\n}\n::-webkit-scrollbar-track{\r\n  background: #fff;\r\n  border: none;\r\n  border-radius: 10px;\r\n  box-shadow: inset 0 0 2px #777;\n}\n::-webkit-scrollbar-thumb{\r\n  background: #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: none;\n}\r\n", ""]);
+exports.push([module.i, "\n::-webkit-scrollbar{\r\n  width: 10px;\n}\n::-webkit-scrollbar-track{\r\n  background: #fff;\r\n  border: none;\r\n  border-radius: 10px;\r\n  box-shadow: inset 0 0 2px #777;\n}\n::-webkit-scrollbar-thumb{\r\n  background: #ccc;\r\n  border-radius: 10px;\r\n  box-shadow: none;\n}\r\n", ""]);
 
 // exports
 
@@ -9389,7 +9629,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.v-div{\r\n  padding: 0 20px;\n}\n.cardAdd{\r\n  padding: 0 20px 0 0;\n}\r\n", ""]);
+exports.push([module.i, "\n.v-div{\r\n  padding: 0 20px;\r\n  max-width: 220px;\n}\n.cardAdd{\r\n  padding: 0 20px 0 0;\n}\r\n", ""]);
 
 // exports
 
@@ -45572,31 +45812,21 @@ var render = function() {
       _c("nav", { staticClass: "sp-menu", class: _vm.spMenuItem }, [
         _vm.apiStatus
           ? _c("ul", { staticClass: "l-header__nav--list" }, [
-              _vm.isLogin
-                ? _c(
-                    "li",
-                    { staticClass: "l-header__menu--item" },
-                    [
-                      _c("router-link", { attrs: { to: "/tasklist" } }, [
-                        _c(
-                          "i",
-                          {
-                            staticClass:
-                              "fas fa-user-tie p-header p-header--icon"
-                          },
-                          [
-                            _c(
-                              "span",
-                              { staticClass: "p-header p-header--title" },
-                              [_vm._v(_vm._s(_vm.username))]
-                            )
-                          ]
-                        )
-                      ])
-                    ],
-                    1
+              _c(
+                "li",
+                { staticClass: "l-header__menu--item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "c-btn c-header__btn",
+                      attrs: { to: "/index" }
+                    },
+                    [_vm._v("TOP")]
                   )
-                : _vm._e(),
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "li",
@@ -45605,7 +45835,23 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "c-btn c-header__signin",
+                      staticClass: "c-btn c-header__btn",
+                      attrs: { to: "/tasklist" }
+                    },
+                    [_vm._v("タスク管理ページ")]
+                  )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _c(
+                "li",
+                { staticClass: "l-header__menu--item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "c-btn c-header__btn",
                       attrs: { to: "/profile" }
                     },
                     [_vm._v("プロフィール編集")]
@@ -45616,9 +45862,9 @@ var render = function() {
               _vm._v(" "),
               _c("li", { staticClass: "l-header__menu--item" }, [
                 _c(
-                  "div",
+                  "span",
                   {
-                    staticClass: "c-btn c-header__login",
+                    staticClass: "c-btn c-header__btn",
                     on: { click: _vm.logout }
                   },
                   [_vm._v("ログアウト")]
@@ -45626,23 +45872,21 @@ var render = function() {
               ])
             ])
           : _c("ul", { staticClass: "l-header__nav--list" }, [
-              _vm.isLogin
-                ? _c("li", { staticClass: "l-header__menu--item" }, [
-                    _c(
-                      "i",
-                      {
-                        staticClass: "fas fa-user-tie p-header p-header--icon"
-                      },
-                      [
-                        _c(
-                          "span",
-                          { staticClass: "p-header p-header--title" },
-                          [_vm._v(_vm._s(_vm.username))]
-                        )
-                      ]
-                    )
-                  ])
-                : _vm._e(),
+              _c(
+                "li",
+                { staticClass: "l-header__menu--item" },
+                [
+                  _c(
+                    "router-link",
+                    {
+                      staticClass: "c-btn c-header__btn",
+                      attrs: { to: "/index" }
+                    },
+                    [_vm._v("TOP")]
+                  )
+                ],
+                1
+              ),
               _vm._v(" "),
               _c(
                 "li",
@@ -45651,7 +45895,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "c-btn c-header__signin",
+                      staticClass: "c-btn c-header__btn",
                       attrs: { to: "register" }
                     },
                     [_vm._v("新規登録")]
@@ -45667,7 +45911,7 @@ var render = function() {
                   _c(
                     "router-link",
                     {
-                      staticClass: "c-btn c-header__login",
+                      staticClass: "c-btn c-header__btn",
                       attrs: { to: "login" }
                     },
                     [_vm._v("ログイン")]
@@ -46096,11 +46340,7 @@ var render = function() {
                             {
                               staticClass:
                                 "c-btn c-btn--profile c-btn--profile__cancel",
-                              on: {
-                                click: function($event) {
-                                  _vm.showEmail = !_vm.showEmail
-                                }
-                              }
+                              on: { click: _vm.canselEmail }
                             },
                             [_vm._v("キャンセル")]
                           )
@@ -46551,9 +46791,11 @@ var render = function() {
         [
           _c("div", { staticClass: "c-task--todo__header" }, [
             !_vm.editFlag
-              ? _c("span", { on: { dblclick: _vm.editCard } }, [
-                  _vm._v(_vm._s(_vm.cardTitle) + " ")
-                ])
+              ? _c(
+                  "span",
+                  { on: { dblclick: _vm.editCard, touchstart: _vm.editCard } },
+                  [_vm._v(_vm._s(_vm.cardTitle) + " ")]
+                )
               : _c(
                   "form",
                   {
@@ -46784,7 +47026,7 @@ var render = function() {
                     msg,
                     index
                   ) {
-                    return _c("li", { key: index }, [_vm._v(_vm._s(msg))])
+                    return _c("p", { key: index }, [_vm._v(_vm._s(msg))])
                   }),
                   0
                 )
@@ -46854,7 +47096,7 @@ var render = function() {
               "span",
               {
                 staticClass: "c-task--folder__item",
-                on: { dblclick: _vm.editFolder }
+                on: { dblclick: _vm.editFolder, touchstart: _vm.editFolder }
               },
               [_vm._v(_vm._s(_vm.folderTitle))]
             )
@@ -47157,7 +47399,7 @@ var render = function() {
             "span",
             {
               staticClass: "c-task--todo--tips",
-              on: { dblclick: _vm.editCard }
+              on: { dblclick: _vm.editCard, touchstart: _vm.editCard }
             },
             [_vm._v(_vm._s(_vm.title))]
           )
@@ -47449,7 +47691,7 @@ var render = function() {
         _vm._m(2),
         _vm._v(" "),
         _c("section", { staticClass: "l-section l-section__fourth" }, [
-          _c("div", { staticClass: "u-index--inner" }, [
+          _c("div", { staticClass: "u-inner--index" }, [
             _c(
               "div",
               { staticClass: "l-section-wrapp l-section-wrapp__flex" },
@@ -47458,7 +47700,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "p-card__third u-index--inner" },
+                  { staticClass: "p-card__third u-inner--index" },
                   [
                     _c(
                       "router-link",
@@ -47527,7 +47769,11 @@ var staticRenderFns = [
               _vm._v(" "),
               _c("div", [
                 _c("img", {
-                  attrs: { src: "https://placehold.jp/550x350.png", alt: "" }
+                  staticStyle: { width: "500px", height: "500px" },
+                  attrs: {
+                    src: __webpack_require__(/*! ../../img/eyecatch-img.png */ "./resources/img/eyecatch-img.png"),
+                    alt: "top画像"
+                  }
                 })
               ])
             ])
@@ -47541,7 +47787,7 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "l-section l-section__second" }, [
-      _c("div", { staticClass: "u-index--inner" }, [
+      _c("div", { staticClass: "u-inner--index" }, [
         _c("h2", { staticClass: "u-title p-title" }, [
           _vm._v("こんなことでお悩みではないですか？")
         ]),
@@ -47585,9 +47831,9 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("section", { staticClass: "l-section l-section__third" }, [
-      _c("div", { staticClass: "u-index--inner" }, [
+      _c("div", { staticClass: "u-inner--index" }, [
         _c("div", { staticClass: "l-section-wrapp l-section-wrapp__flex" }, [
-          _c("div", { staticClass: "p-card__third u-index--inner" }, [
+          _c("div", { staticClass: "p-card__third u-inner--index" }, [
             _c("div", { staticClass: "p-card__body" }, [
               _c("div", { staticClass: "p-card-title" }, [
                 _c("p", { staticClass: "p-title" }, [
@@ -47597,17 +47843,13 @@ var staticRenderFns = [
                 ])
               ]),
               _vm._v(" "),
-              _c(
-                "div",
-                { staticClass: "p-card-content__third u-index--inner__l" },
-                [
-                  _c("p", [
-                    _vm._v(
-                      "サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 "
-                    )
-                  ])
-                ]
-              )
+              _c("div", { staticClass: "p-card-content__third u-inner__l" }, [
+                _c("p", [
+                  _vm._v(
+                    "サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 "
+                  )
+                ])
+              ])
             ])
           ]),
           _vm._v(" "),
@@ -47625,9 +47867,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "p-card__third u-index--inner" }, [
+    return _c("div", { staticClass: "p-card__third u-inner--index" }, [
       _c("div", { staticClass: "p-card__body" }, [
-        _c("div", { staticClass: "p-card-content__third u-index--inner__l" }, [
+        _c("div", { staticClass: "p-card-content__third u-inner__l" }, [
           _c("p", [
             _vm._v(
               "サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 "
@@ -47901,7 +48143,88 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(0),
+      _c("div", { staticClass: "l-card__container" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("hr", { staticClass: "u-form__line" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "c-form__container" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "c-form" }, [
+                _c(
+                  "label",
+                  { staticClass: "c-form-lavel", attrs: { for: "" } },
+                  [_vm._v("登録メールアドレス")]
+                ),
+                _vm._v(" "),
+                _vm.sendEmailMessages
+                  ? _c("ul", { staticClass: "message" }, [
+                      _c("span", [_vm._v(_vm._s(_vm.sendEmailMessages))])
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.sendPasswordErrorMessages
+                  ? _c(
+                      "ul",
+                      { staticClass: "errors errors--tasks" },
+                      _vm._l(_vm.sendPasswordErrorMessages.email, function(
+                        msg,
+                        index
+                      ) {
+                        return _c("li", { key: index }, [
+                          _vm._v(_vm._s(msg) + " ")
+                        ])
+                      }),
+                      0
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.sendEmail,
+                      expression: "sendEmail"
+                    }
+                  ],
+                  staticClass: "c-input",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.sendEmail },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.sendEmail = $event.target.value
+                    }
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "c-form__action c-form__action__item" }, [
+            _c(
+              "button",
+              {
+                staticClass: "c-btn c-btn__signin",
+                on: { click: _vm.sendResetLinkEmail }
+              },
+              [_vm._v("送信する")]
+            )
+          ])
+        ])
+      ]),
       _vm._v(" "),
       _c(
         "div",
@@ -47920,31 +48243,9 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "l-card__container" }, [
-      _c("div", { staticClass: "p-card__container" }, [
-        _c("p", { staticClass: "p-card__title" }, [
-          _vm._v("パスワード再設定する")
-        ])
-      ]),
-      _vm._v(" "),
-      _c("hr", { staticClass: "u-form__line" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "c-form__container" }, [
-        _c("form", { attrs: { action: "" } }, [
-          _c("div", { staticClass: "c-form" }, [
-            _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
-              _vm._v("登録メールアドレス")
-            ]),
-            _vm._v(" "),
-            _c("input", { staticClass: "c-input", attrs: { type: "text" } })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "c-form__action c-form__action__item" }, [
-          _c("a", { staticClass: "c-btn c-btn__signin", attrs: { href: "" } }, [
-            _vm._v("送信する")
-          ])
-        ])
+    return _c("div", { staticClass: "p-card__container" }, [
+      _c("p", { staticClass: "p-card__title" }, [
+        _vm._v("パスワード再設定する")
       ])
     ])
   }
@@ -47986,18 +48287,178 @@ var render = function() {
         1
       ),
       _vm._v(" "),
-      _vm._m(0),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "u-redirect__login" },
-        [
-          _c("router-link", { attrs: { to: "/reminder" } }, [
-            _vm._v("⇦パスワード再発行メールを再度送信する")
+      _c("div", { staticClass: "l-card__container" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        _c("hr", { staticClass: "u-form__line" }),
+        _vm._v(" "),
+        _c("div", { staticClass: "c-form__container" }, [
+          _c(
+            "form",
+            {
+              on: {
+                submit: function($event) {
+                  $event.preventDefault()
+                }
+              }
+            },
+            [
+              _c("div", { staticClass: "c-form__item" }, [
+                _c(
+                  "label",
+                  { staticClass: "c-form-lavel", attrs: { for: "" } },
+                  [_vm._v("メールアドレス")]
+                ),
+                _vm._v(" "),
+                _vm.passResetErrors
+                  ? _c("div", { staticClass: "errors" }, [
+                      _vm.passResetErrors.email
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.passResetErrors.email, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(_vm._s(msg))
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.email,
+                      expression: "form.email"
+                    }
+                  ],
+                  staticClass: "c-input",
+                  attrs: { type: "text" },
+                  domProps: { value: _vm.form.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "email", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "c-form__item" }, [
+                _c(
+                  "label",
+                  { staticClass: "c-form-lavel", attrs: { for: "" } },
+                  [_vm._v("パスワード")]
+                ),
+                _vm._v(" "),
+                _vm.passResetErrors
+                  ? _c("div", { staticClass: "errors" }, [
+                      _vm.passResetErrors.password
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.passResetErrors.password, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(_vm._s(msg))
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.password,
+                      expression: "form.password"
+                    }
+                  ],
+                  staticClass: "c-input",
+                  attrs: { type: "password" },
+                  domProps: { value: _vm.form.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.form, "password", $event.target.value)
+                    }
+                  }
+                })
+              ]),
+              _vm._v(" "),
+              _c("div", { staticClass: "c-form__item" }, [
+                _c(
+                  "label",
+                  { staticClass: "c-form-lavel", attrs: { for: "" } },
+                  [_vm._v("パスワード再入力")]
+                ),
+                _vm._v(" "),
+                _vm.passResetErrors
+                  ? _c("div", { staticClass: "errors" }, [
+                      _vm.passResetErrors.password
+                        ? _c(
+                            "ul",
+                            _vm._l(_vm.passResetErrors.password, function(msg) {
+                              return _c("li", { key: msg }, [
+                                _vm._v(_vm._s(msg))
+                              ])
+                            }),
+                            0
+                          )
+                        : _vm._e()
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.form.password_confirmation,
+                      expression: "form.password_confirmation"
+                    }
+                  ],
+                  staticClass: "c-input",
+                  attrs: { type: "password" },
+                  domProps: { value: _vm.form.password_confirmation },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.form,
+                        "password_confirmation",
+                        $event.target.value
+                      )
+                    }
+                  }
+                })
+              ])
+            ]
+          ),
+          _vm._v(" "),
+          _c("div", { staticClass: "c-form__action c-form__action__item" }, [
+            _c(
+              "button",
+              {
+                staticClass: "c-btn c-btn__signin",
+                on: { click: _vm.resetPassword }
+              },
+              [_vm._v("送信する")]
+            )
           ])
-        ],
-        1
-      )
+        ])
+      ])
     ])
   ])
 }
@@ -48006,30 +48467,8 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "l-card__container" }, [
-      _c("div", { staticClass: "p-card__container" }, [
-        _c("p", { staticClass: "p-card__title" }, [_vm._v("認証画面")])
-      ]),
-      _vm._v(" "),
-      _c("hr", { staticClass: "u-form__line" }),
-      _vm._v(" "),
-      _c("div", { staticClass: "c-form__container" }, [
-        _c("form", { attrs: { action: "" } }, [
-          _c("div", { staticClass: "c-form" }, [
-            _c("label", { staticClass: "c-form-lavel", attrs: { for: "" } }, [
-              _vm._v("認証キー")
-            ]),
-            _vm._v(" "),
-            _c("input", { staticClass: "c-input", attrs: { type: "text" } })
-          ])
-        ]),
-        _vm._v(" "),
-        _c("div", { staticClass: "c-form__action c-form__action__item" }, [
-          _c("a", { staticClass: "c-btn c-btn__signin", attrs: { href: "" } }, [
-            _vm._v("送信する")
-          ])
-        ])
-      ])
+    return _c("div", { staticClass: "p-card__container" }, [
+      _c("p", { staticClass: "p-card__title" }, [_vm._v("パスワード再設定")])
     ])
   }
 ]
@@ -67795,6 +68234,17 @@ module.exports = function(module) {
 
 /***/ }),
 
+/***/ "./resources/img/eyecatch-img.png":
+/*!****************************************!*\
+  !*** ./resources/img/eyecatch-img.png ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/eyecatch-img.png?729b108dc35433895d515d233b537b5e";
+
+/***/ }),
+
 /***/ "./resources/img/log-top.png":
 /*!***********************************!*\
   !*** ./resources/img/log-top.png ***!
@@ -69624,7 +70074,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     component: _components_page_PasswordReminder__WEBPACK_IMPORTED_MODULE_9__["default"]
   }, {
     // パスワードリセット
-    path: '/password/reset',
+    path: '/reset',
     component: _components_page_PasswordReset__WEBPACK_IMPORTED_MODULE_10__["default"]
   }, {
     // タスク管理ページ
@@ -69679,7 +70129,7 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 /*!************************************!*\
   !*** ./resources/js/statusCode.js ***!
   \************************************/
-/*! exports provided: OK, CREATED, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY */
+/*! exports provided: OK, CREATED, INTERNAL_SERVER_ERROR, UNPROCESSABLE_ENTITY, UNAUTHORIZED, NOT_FOUND */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -69688,6 +70138,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CREATED", function() { return CREATED; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "INTERNAL_SERVER_ERROR", function() { return INTERNAL_SERVER_ERROR; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNPROCESSABLE_ENTITY", function() { return UNPROCESSABLE_ENTITY; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "UNAUTHORIZED", function() { return UNAUTHORIZED; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "NOT_FOUND", function() { return NOT_FOUND; });
 // レスポンスコードを元に、どの様なエラーか判断する
 // アプリケーション的に意味のある数字がハードコードされるのを避けるためにステータスコードの定義を追加
 var OK = 200;
@@ -69695,7 +70147,11 @@ var CREATED = 201;
 var INTERNAL_SERVER_ERROR = 500; // 4xxはクライアントエラー（クライアントからのリクエストが成功しなかった場合に返される）
 
 var UNPROCESSABLE_ENTITY = 422; // リクエスト情報が正しいものの、処理できなかった場合に返答されるステータスコードである。
-// Method Not Allowed 405
+// 認証切れのレスポンスコード
+
+var UNAUTHORIZED = 419; // ページが見つからないとき
+
+var NOT_FOUND = 404; // Method Not Allowed 405
 
 /***/ }),
 
@@ -69728,11 +70184,18 @@ var state = {
   // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
 
   /****************************************
+  メール送信メッセージ
+  *****************************************/
+  sendEmailMessages: null,
+
+  /****************************************
   エラーメッセージ関係
   *****************************************/
   loginErrorMessages: null,
   registerErrorMessages: null,
-  profileErrorMessages: null
+  profileErrorMessages: null,
+  sendPasswordErrorMessages: null,
+  resetPasswordErrorMessages: null
 };
 /***********************************
 ゲッター（アロー関数で短縮形で記述）
@@ -69742,6 +70205,9 @@ var getters = {
   // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
   check: function check(state) {
     return !!state.username;
+  },
+  apiStatus: function apiStatus(state) {
+    return state.apiStatus ? state.apiStatus : '';
   },
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   getUserName: function getUserName(state) {
@@ -69792,6 +70258,18 @@ var mutations = {
   // プロフィールバリデーションメッセージをセット
   setProfileErrorMessages: function setProfileErrorMessages(state, messages) {
     state.profileErrorMessages = messages;
+  },
+  // パスワードリセットメール送信時のエラーメッセージ用ミューテーション
+  resetEmailErrorMessages: function resetEmailErrorMessages(state, message) {
+    state.resetEmailErrorMessages = message;
+  },
+  // パスワード再設定時のエラーメッセージ用ミューテーション
+  sendPasswordErrorMessages: function sendPasswordErrorMessages(state, message) {
+    state.resetPasswordErrorMessages = message;
+  },
+  // パスワード送信時のメッセージを格納するミューテーション
+  sendEmailMessages: function sendEmailMessages(state, message) {
+    state.sendEmailMessages = message;
   }
 }; // アクション→コミットでミューテーション呼び出し→ステート更新
 
@@ -70352,6 +70830,96 @@ var actions = {
     }
 
     return currentUser;
+  }(),
+
+  /****************************************
+  パスワードリマインダー
+  *****************************************/
+  sendResetLinkEmail: function () {
+    var _sendResetLinkEmail = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee11(_ref11, data) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee11$(_context11) {
+        while (1) {
+          switch (_context11.prev = _context11.next) {
+            case 0:
+              commit = _ref11.commit;
+              _context11.next = 3;
+              return axios.post('/api/password/reminder', {
+                email: data
+              })["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 3:
+              response = _context11.sent;
+              // 422ステータスの処理
+              console.log(response);
+
+              if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                commit('sendPasswordErrorMessages', response.data.errors);
+              } else {
+                commit('error/setCode', response.status, {
+                  root: true
+                });
+              }
+
+              commit('sendEmailMessages', response.data.success);
+              commit('error/setCode', response.status, {
+                root: true
+              }); //{ root: ture }で違うファイルのミューテーションを呼べる
+
+            case 8:
+            case "end":
+              return _context11.stop();
+          }
+        }
+      }, _callee11);
+    }));
+
+    function sendResetLinkEmail(_x17, _x18) {
+      return _sendResetLinkEmail.apply(this, arguments);
+    }
+
+    return sendResetLinkEmail;
+  }(),
+
+  /****************************************
+  パスワードリセット
+  *****************************************/
+  resetPassword: function () {
+    var _resetPassword = _asyncToGenerator(
+    /*#__PURE__*/
+    _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee12(_ref12, data) {
+      var commit, response;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee12$(_context12) {
+        while (1) {
+          switch (_context12.prev = _context12.next) {
+            case 0:
+              commit = _ref12.commit;
+              _context12.next = 3;
+              return axios.post('/api/password/reset', data)["catch"](function (error) {
+                return error.response || error;
+              });
+
+            case 3:
+              response = _context12.sent;
+              console.log(response);
+
+            case 5:
+            case "end":
+              return _context12.stop();
+          }
+        }
+      }, _callee12);
+    }));
+
+    function resetPassword(_x19, _x20) {
+      return _resetPassword.apply(this, arguments);
+    }
+
+    return resetPassword;
   }()
 };
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -70582,6 +71150,7 @@ var actions = {
               data = response.data.folders;
 
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
+                console.log(response);
                 commit('setFolderRequestErrorMessages', response.data.errors);
               } else {
                 commit('error/setCode', response.status, {
@@ -70634,7 +71203,9 @@ var actions = {
               } else {
                 commit('error/setCode', response.status, {
                   root: true
-                }); // ミューテーションへコミットする
+                }); // カードを作るためにセットしたフォルダーIDを一度リセットする
+
+                commit('setFolder_id', null); // フォルダー削除後のデータをセットする
 
                 commit('setFolderLists', data);
               }

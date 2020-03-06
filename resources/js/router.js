@@ -71,7 +71,7 @@ export default new VueRouter({
     },
     {
       // パスワードリセット
-      path: '/password/reset',
+      path: '/reset',
       component: PasswordReset
     },
     {

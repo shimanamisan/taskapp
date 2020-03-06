@@ -12,7 +12,7 @@
                                     <h1 class="p-eyecatch__header">簡単な操作で軽快にタスクをこなそう</h1>
                                 </div>
                                 <div>
-                                    <img src="https://placehold.jp/550x350.png" alt="">
+                                    <img src="../../img/eyecatch-img.png" alt="top画像" style="width: 500px; height: 500px;">
                                 </div>
                             </div>
                         </div>
@@ -21,7 +21,7 @@
                 </div>
             </section>
             <section class="l-section l-section__second">
-                <div class="u-index--inner">
+                <div class="u-inner--index">
                     <h2 class="u-title p-title">こんなことでお悩みではないですか？</h2>
                     <div class="l-section-wrapp l-section-wrapp__flex">
                         <div class="p-card p-card-border">
@@ -46,14 +46,14 @@
                 </div>
             </section>
             <section class="l-section l-section__third">
-                <div class="u-index--inner">
+                <div class="u-inner--index">
                     <div class="l-section-wrapp l-section-wrapp__flex">
-                        <div class="p-card__third u-index--inner">
+                        <div class="p-card__third u-inner--index">
                             <div class="p-card__body">
                                 <div class="p-card-title">
                                     <p class="p-title">ドラッグ＆ドロップで<br>簡単に使えます！</p>
                                 </div>
-                                <div class="p-card-content__third u-index--inner__l">
+                                <div class="p-card-content__third u-inner__l">
                                     <p>サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 </p>
                                 </div>
                             </div>
@@ -65,16 +65,16 @@
                 </div>
             </section>
             <section class="l-section l-section__fourth">
-                <div class="u-index--inner">
+                <div class="u-inner--index">
                     <div class="l-section-wrapp l-section-wrapp__flex">
-                        <div class="p-card__third u-index--inner">
+                        <div class="p-card__third u-inner--index">
                             <div class="p-card__body">
-                                <div class="p-card-content__third u-index--inner__l">
+                                <div class="p-card-content__third u-inner__l">
                                     <p>サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-card__third u-index--inner">
+                        <div class="p-card__third u-inner--index">
                             <router-link tag="button" to="login" class="p-card__third--right c-btn c-btn__footer c-btn__footer--login">ログイン</router-link>
                             <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--message">
                                 <i class="far fa-envelope u-icon u-icon__message"></i>お問い合わせ

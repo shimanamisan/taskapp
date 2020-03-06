@@ -9,7 +9,7 @@
                 >
                 <!-- バリデーションエラー --->
                     <ul v-if="cardRequestErrorMessages" class="errors errors--tasks">
-                        <li v-for="(msg, index) in cardRequestErrorMessages.title" :key="index">{{ msg }}</li>
+                        <p v-for="(msg, index) in cardRequestErrorMessages.title" :key="index">{{ msg }}</p>
                     </ul>
                 <!--- end errors -->
                 <div class="l-flex u-btn--wrapp">
@@ -27,6 +27,8 @@
     </div>
 </template>
 <script>
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../statusCode'
+
 export default {
   data(){
     return{
@@ -47,8 +49,21 @@ export default {
   methods: {
     // 投稿の内容をアクションへ渡す
     async createCard(){
+      this.$store.commit('taskStore/setCardRequestErrorMessages', null)
       // ストアからフォルダーIDを呼び出す
       this.folder_id = this.$store.state.taskStore.folder_id
+
+      if(!this.folder_id){
+        const data = {
+            title: [
+              'フォルダーを選択してタスクを登録してください'
+            ]
+        }
+        this.$store.commit('taskStore/setCardRequestErrorMessages', data)
+
+        return false
+      }
+      
       // 呼び出したフォルダーIDをフォームの内容をアクションへ渡す
       await this.$store.dispatch('taskStore/createCard',
       { 
@@ -58,7 +73,7 @@ export default {
         folder_id: this.folder_id
       })
 
-        if(this.getErrorCode === 200){
+        if(this.getErrorCode === OK){
           await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id )
           this.clearCradCreateForm()
         }
@@ -84,6 +99,7 @@ export default {
 <style>
 .v-div{
   padding: 0 20px;
+  max-width: 220px;
 }
 .cardAdd{
   padding: 0 20px 0 0;

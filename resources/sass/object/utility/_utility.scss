@@ -1,14 +1,20 @@
 /********************************************** 
 トップページ用
 **********************************************/
-.u-index{
+.u-inner{
+  // 内側のpadding用
+  padding: 3rem;
 
-  &--inner{
+  &--index{
     padding: 3rem;
     @include mq(){
-      padding: 10px;
+      padding: 15px;
       box-sizing: border-box;
     }
+  }
+
+  &__l{
+    padding: 1rem;
   }
 }
 
@@ -33,16 +39,7 @@
   margin-top: $space_xxl;
   margin-bottom: $space_xxl;
 }
-// 内側のpadding用
-.u-inner{
-  padding: 3rem;
-    &__l{
-      padding: 1rem;
-    }
-}
-.u-inner--l{
-  padding: 1rem;
-}
+
 // タイトル用
 .u-title{
   margin-bottom: 25px;

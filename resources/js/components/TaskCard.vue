@@ -4,7 +4,7 @@
         <div class="c-task--card__inner">
             <div class="c-task--todo">
                 <div class="c-task--todo__header">
-                    <span v-if="!editFlag" @dblclick="editCard">{{ cardTitle }} </span>
+                    <span v-if="!editFlag" @dblclick="editCard" @touchstart="editCard">{{ cardTitle }} </span>
                     <form class="c-updateFrom" @submit.prevent v-else>
                         <!-- バリデーションエラー --->
                         <ul v-if="cardRequestErrorMessages" class="errors errors--tasks">
@@ -99,7 +99,7 @@ export default {
       const folder_id = this.cards.folder_id
       const card_id = this.cards.id
       // console.log( 'これはカードid：' + folder_id + '  ' + 'これはフォルダid：' + card_id)
-      if(window.confirm('カードを削除すると、全てのタスクリストも削除されます。nフォルダーを削除しますか？')){
+      if(window.confirm('カードを削除すると、全てのタスクリストも削除されます。\nフォルダーを削除しますか？')){
         await this.$store.dispatch('taskStore/deleteCard', 
         {
           folder_id: folder_id,

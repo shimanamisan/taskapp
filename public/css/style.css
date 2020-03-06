@@ -158,6 +158,8 @@ body {
 p,
 a {
   -webkit-font-smoothing: antialiased;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
 }
 
 a {
@@ -246,7 +248,7 @@ input {
 }
 
 .l-wrapper__reminder {
-  height: 100vh;
+  height: 100%;
 }
 
 .l-wrapper__profile {
@@ -344,6 +346,10 @@ input {
   justify-content: space-between;
   -webkit-box-align: center;
   align-items: center;
+}
+
+.l-header__menu--item {
+  margin-left: 20px;
 }
 
 @media screen and (max-width: 414px) {
@@ -574,15 +580,14 @@ input {
   opacity: 0.6;
 }
 
-.c-header__signin {
-  background: #fff;
-  color: #62ABF8;
-  padding: 20px 45px;
+.c-header__btn {
+  color: #fff;
+  padding: 20px 10px;
   border-radius: 30px;
 }
 
 @media screen and (max-width: 414px) {
-  .c-header__signin {
+  .c-header__btn {
     border-radius: 0px;
     padding: 0 1.5rem;
     background: none;
@@ -590,12 +595,8 @@ input {
   }
 }
 
-.c-header__signin:hover {
+.c-header__btn:hover {
   opacity: 0.6;
-}
-
-.c-header__login {
-  color: #fff;
 }
 
 /********************************************** 
@@ -672,6 +673,7 @@ input {
   .c-input--profile {
     width: 100%;
     height: 100%;
+    margin-bottom: 16px;
   }
 }
 
@@ -773,6 +775,7 @@ input {
 
 .c-form-lavel {
   display: inline-block;
+  margin-bottom: 10px;
 }
 
 .c-form-lavel__profile {
@@ -905,7 +908,15 @@ input {
 .c-task--sidebar__wrapp {
   width: 100%;
   padding: 10px;
+  overflow-y: auto;
+  max-height: 370px;
   box-sizing: border-box;
+}
+
+@media screen and (max-width: 414px) {
+  .c-task--sidebar__wrapp {
+    max-height: 450px;
+  }
 }
 
 .c-task__avater {
@@ -920,14 +931,13 @@ input {
 
 .c-task--folder__drag {
   margin-right: 15px;
+  margin-bottom: 15px;
 }
 
 .c-task--folder__wrapp {
   box-sizing: border-box;
-  padding: 5px;
+  padding: 5px 10px;
   margin-top: 10px;
-  -webkit-box-align: center;
-          align-items: center;
   -webkit-transition: 0.5s;
   transition: 0.5s;
 }
@@ -1110,6 +1120,12 @@ input {
   background: #f7dcd9;
 }
 
+.message {
+  color: red;
+  font-style: 14px;
+  margin-bottom: 7px;
+}
+
 /***********************************************************************************
  プロジェクト ページ単体でのみ使用されるオブジェクト(モジュール)で汎用性が低いもの
 ************************************************************************************/
@@ -1242,8 +1258,7 @@ input {
 .p-eyecatch__flex {
   display: -webkit-box;
   display: flex;
-  -webkit-box-pack: justify;
-          justify-content: space-between;
+  justify-content: space-around;
 }
 
 @media screen and (max-width: 414px) {
@@ -1286,7 +1301,7 @@ input {
 
 .p-header--icon {
   font-size: 30px;
-  margin-right: 10px;
+  margin-right: 20px;
 }
 
 @media screen and (max-width: 414px) {
@@ -1339,15 +1354,23 @@ input {
 トップページ用
 **********************************************/
 
-.u-index--inner {
+.u-inner {
+  padding: 3rem;
+}
+
+.u-inner--index {
   padding: 3rem;
 }
 
 @media screen and (max-width: 414px) {
-  .u-index--inner {
-    padding: 10px;
+  .u-inner--index {
+    padding: 15px;
     box-sizing: border-box;
   }
+}
+
+.u-inner__l {
+  padding: 1rem;
 }
 
 /********************************************** 
@@ -1374,18 +1397,6 @@ input {
 .u-redirect__login {
   margin-top: 30px;
   margin-bottom: 30px;
-}
-
-.u-inner {
-  padding: 3rem;
-}
-
-.u-inner__l {
-  padding: 1rem;
-}
-
-.u-inner--l {
-  padding: 1rem;
 }
 
 .u-title {
@@ -1441,6 +1452,6 @@ input {
 **********************************************/
 
 .u-taskListInput {
-  width: 235px;
+  width: 200px;
 }
 

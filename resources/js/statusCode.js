@@ -6,5 +6,10 @@ export const INTERNAL_SERVER_ERROR = 500
 
 // 4xxはクライアントエラー（クライアントからのリクエストが成功しなかった場合に返される）
 export const UNPROCESSABLE_ENTITY = 422 // リクエスト情報が正しいものの、処理できなかった場合に返答されるステータスコードである。
+// 認証切れのレスポンスコード
+export const UNAUTHORIZED = 419
+// ページが見つからないとき
+export const NOT_FOUND = 404
+
 
 // Method Not Allowed 405

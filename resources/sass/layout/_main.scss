@@ -38,7 +38,7 @@
     background: $background-color;
     }
     &__reminder{
-      height: 100vh;
+      height: 100%;
     }
     &__profile{
       padding-top: 50px;
@@ -52,6 +52,7 @@
 }
 .l-main{
   width: 100%;
+  
   &__anaunsu{
     margin: 0 auto;
     padding-top: 50px;

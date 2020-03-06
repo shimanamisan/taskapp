@@ -12,14 +12,24 @@
                 </div>
                 <hr class="u-form__line">
                 <div class="c-form__container">
-                    <form action="">
+                    <form @submit.prevent>
                         <div class="c-form">
                             <label for="" class="c-form-lavel">登録メールアドレス</label>
-                            <input type="text" class="c-input">
+                                <!-- メッセージ表示用 --->
+                                <ul v-if="sendEmailMessages" class="message">
+                                    <span>{{ sendEmailMessages }}</span>
+                                </ul>
+                                <!--- end message -->
+                            <!-- バリデーションエラー --->
+                            <ul v-if="sendPasswordErrorMessages" class="errors errors--tasks">
+                                <li v-for="(msg, index) in sendPasswordErrorMessages.email" :key="index">{{ msg }} </li>
+                            </ul>
+                            <!--- end errors -->
+                            <input type="text" class="c-input" v-model="sendEmail">
                         </div>
                     </form>
                     <div class="c-form__action c-form__action__item">
-                        <a href="" class="c-btn c-btn__signin">送信する</a>
+                        <button class="c-btn c-btn__signin" @click="sendResetLinkEmail">送信する</button>
                     </div>
                 </div>
             </div>
@@ -33,8 +43,33 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-export default {
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../../statusCode'
 
+export default {
+    data(){
+        return{
+            sendEmail: ''
+        }
+    },
+        computed: {
+        sendEmailMessages(){
+            // エラーメッセージがあった際にストアより取得
+            return this.$store.state.auth.sendEmailMessages
+        },
+        sendPasswordErrorMessages(){
+            // エラーメッセージがあった際にストアより取得
+            return this.$store.state.auth.sendPasswordErrorMessages
+        },
+        getErrorCode(){
+            return this.$store.state.error.code
+        }
+    },
+    methods: {
+        async sendResetLinkEmail(){
+            const sendEmail = this.sendEmail
+            await this.$store.dispatch('auth/sendResetLinkEmail', sendEmail)
+        }
+    }
 }
 </script>
 <style>

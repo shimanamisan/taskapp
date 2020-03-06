@@ -1,10 +1,16 @@
-.errors{
+.errors {
   color: red;
   font-style: 14px;
-      &--tasks{
+    &--tasks{
       margin-top: 7px;
     }
     &--bg{
      background: #f7dcd9;
     }
+}
+
+.message {
+  color: red;
+  font-style: 14px;
+  margin-bottom: 7px;
 }

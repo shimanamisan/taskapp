@@ -13,31 +13,28 @@
        
                 <nav class="sp-menu" :class="spMenuItem" >
                     <ul class="l-header__nav--list" v-if="apiStatus">
-                        <li class="l-header__menu--item" v-if="isLogin">
-                            <router-link to="/tasklist">
-                                <i class="fas fa-user-tie p-header p-header--icon">
-                                    <span class="p-header p-header--title">{{ username }}</span>
-                                </i>
-                            </router-link>
+                        <li class="l-header__menu--item">
+                            <router-link to="/index" class="c-btn c-header__btn">TOP</router-link>
                         </li>
                         <li class="l-header__menu--item">
-                            <router-link to="/profile" class="c-btn c-header__signin">プロフィール編集</router-link>
+                            <router-link to="/tasklist" class="c-btn c-header__btn">タスク管理ページ</router-link>
                         </li>
                         <li class="l-header__menu--item">
-                            <div @click="logout" class="c-btn c-header__login">ログアウト</div>
+                            <router-link to="/profile" class="c-btn c-header__btn">プロフィール編集</router-link>
+                        </li>
+                        <li class="l-header__menu--item">
+                            <span @click="logout" class="c-btn c-header__btn">ログアウト</span>
                         </li>
                     </ul>
                     <ul class="l-header__nav--list" v-else>
-                        <li class="l-header__menu--item" v-if="isLogin">
-                            <i class="fas fa-user-tie p-header p-header--icon">
-                                <span class="p-header p-header--title">{{ username }}</span>
-                            </i>
+                        <li class="l-header__menu--item">
+                            <router-link to="/index" class="c-btn c-header__btn">TOP</router-link>
                         </li>
                         <li class="l-header__menu--item">
-                            <router-link to="register" class="c-btn c-header__signin">新規登録</router-link>
+                            <router-link to="register" class="c-btn c-header__btn">新規登録</router-link>
                         </li>
                         <li class="l-header__menu--item">
-                            <router-link to="login" class="c-btn c-header__login">ログイン</router-link>
+                            <router-link to="login" class="c-btn c-header__btn">ログイン</router-link>
                         </li>
                     </ul>
                 </nav>
@@ -55,9 +52,6 @@ export default {
     computed: {
       isLogin(){
        return this.$store.getters['auth/check']
-      },
-      username(){
-        return this.$store.getters['auth/getUserName']
       },
       apiStatus(){
         // authモジュールのapiStatusを参照

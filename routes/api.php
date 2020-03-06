@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Http\Request;
+use Illuminate\Http\Request; // トークンリフレッシュで使う
+use App\Http\Controllers\Auth\ResetPasswordController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,10 +31,14 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
+// パスワード再設定メール
+Route::post('/password/reminder', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+// パスワードリマインダー
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 // twitterログイン
 Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
 
 /****************************************
 プロフィール変更
@@ -90,10 +95,13 @@ Route::patch('/task/update-all', 'TaskController@updateTaskSort')->name('task.up
 // タスク削除
 Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
 
-
-
-
-
+/****************************************
+トークンをリフレッシュ
+*****************************************/
+Route::get('/refresh-token', function(Request $request){
+    $request->session()->regenerateToken();
+    return response()->json();
+});
 
 
 

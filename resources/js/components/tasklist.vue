@@ -2,7 +2,7 @@
  
       <div class="c-task--todo--list" :data-task-id="this.id">
         <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
-        <span class="c-task--todo--tips" v-if="!editFlag" @dblclick="editCard">{{title}}</span>
+        <span class="c-task--todo--tips" v-if="!editFlag" @dblclick="editCard" @touchstart="editCard">{{title}}</span>
         <form class="c-updateFrom c-updateFrom--TaskList" @submit.prevent v-else>
           <!-- バリデーションエラー --->
           <!-- <ul v-if="taskRequestErrorMessages" class="errors errors--tasks">

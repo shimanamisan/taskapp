@@ -3,7 +3,7 @@
       <li class="c-task--folder__wrapp" @click="setCardLists">
 
             <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
-              <span class="c-task--folder__item" v-if="!editFlag" @dblclick="editFolder" >{{folderTitle}}</span> 
+              <span class="c-task--folder__item" v-if="!editFlag" @dblclick="editFolder" @touchstart="editFolder">{{folderTitle}}</span> 
           
             <form class="c-updateFrom" @submit.prevent v-else>
                 <!-- バリデーションエラー --->
@@ -27,6 +27,8 @@
 </template>
 <script>
 import draggable from 'vuedraggable'
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../statusCode'
+
 export default {
   data(){
     return {
@@ -91,7 +93,7 @@ export default {
         folder_id: this.id
       })
 
-      if(this.getErrorCode === 200){
+      if(this.getErrorCode === OK){
         this.editFolder()
       }
     },

@@ -9,11 +9,18 @@ const state = {
   apiStatus: null, // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
 
   /****************************************
+  メール送信メッセージ
+  *****************************************/
+  sendEmailMessages: null,
+
+  /****************************************
   エラーメッセージ関係
   *****************************************/
   loginErrorMessages: null,
   registerErrorMessages: null,
   profileErrorMessages: null,
+  sendPasswordErrorMessages: null,
+  resetPasswordErrorMessages: null,
 }
 
 /***********************************
@@ -22,6 +29,8 @@ const state = {
 const getters = {
   // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
   check: state => !! state.username,
+
+  apiStatus: state => state.apiStatus ? state.apiStatus : '',
 
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   getUserName: state => state.username ? state.username : '',
@@ -69,6 +78,18 @@ const mutations = {
   // プロフィールバリデーションメッセージをセット
   setProfileErrorMessages(state, messages){
     state.profileErrorMessages = messages
+  },
+  // パスワードリセットメール送信時のエラーメッセージ用ミューテーション
+  resetEmailErrorMessages(state, message){
+    state.resetEmailErrorMessages = message
+  },
+  // パスワード再設定時のエラーメッセージ用ミューテーション
+  sendPasswordErrorMessages(state, message){
+    state.resetPasswordErrorMessages = message
+  },
+  // パスワード送信時のメッセージを格納するミューテーション
+  sendEmailMessages(state, message){
+    state.sendEmailMessages = message
   }
 }
 
@@ -255,6 +276,28 @@ const actions = {
       commit('setPic', loginUser.pic) 
       commit('setId', loginUser.id )
     }
+  },
+  /****************************************
+  パスワードリマインダー
+  *****************************************/
+  async sendResetLinkEmail({commit}, data){
+    const response = await axios.post('/api/password/reminder', {email: data}).catch(error => error.response || error)
+      // 422ステータスの処理
+      console.log(response)
+      if(response.status === UNPROCESSABLE_ENTITY ){
+        commit('sendPasswordErrorMessages', response.data.errors)
+      } else {
+        commit('error/setCode', response.status, { root:true })
+      }
+      commit('sendEmailMessages', response.data.success)
+      commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
+  },
+  /****************************************
+  パスワードリセット
+  *****************************************/
+  async resetPassword({commit}, data){
+    const response = await axios.post('/api/password/reset', data ).catch(error => error.response || error)
+    console.log(response)
   }
 
 }

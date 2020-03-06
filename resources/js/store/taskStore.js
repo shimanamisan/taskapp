@@ -70,7 +70,9 @@ const actions = {
     const response = await axios.post('/api/folder/create', payload).catch(error => error.response || error)
     // メソッドを使うために配列を定義
     var data = response.data.folders
+
     if(response.status === UNPROCESSABLE_ENTITY ){
+      console.log(response)
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
@@ -87,7 +89,9 @@ const actions = {
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
-      // ミューテーションへコミットする
+      // カードを作るためにセットしたフォルダーIDを一度リセットする
+      commit('setFolder_id', null)
+      // フォルダー削除後のデータをセットする
       commit('setFolderLists', data)
     }
     commit('error/setCode', response.status, { root: true })   

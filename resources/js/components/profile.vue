@@ -77,7 +77,7 @@
               <!-- 変更用ボタン -->
               <div class="l-flex u-btn--wrapp" v-show="showEmail">
                 <div class="u-btn__profile--margin">
-                  <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="showEmail = !showEmail">キャンセル</button>
+                  <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="canselEmail">キャンセル</button>
                 </div>
                 <div class="u-btn__profile--margin">
                   <button class="c-btn c-btn--profile" @click="ProfileEmailEdit">変更</button>
@@ -238,6 +238,7 @@ export default {
       },
       // プロフィール写真変更
       async ProfileImageEdit(){
+        this.clearError()
         // プロフィール画像保存の処理
         // FormDataオブジェクトをインスタンス化
         const formData = new FormData()
@@ -258,16 +259,11 @@ export default {
         if(window.confirm('退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？')){
           // アクションを呼びに行く
           await this.$store.dispatch('auth/userSoftDelete')
-          // if(this.getErrorCode === 200){
-          //   this.showSuccess()
-          //   setTimeout(this.showSuccess, 3000)
-          // }
-
-          this.$router.push('/index')
-
+          this.$router.push('/register')
         }
       },
       async ProfileNameEdit(){
+        this.clearError()
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileNameEdit', { name: this.profileData.name } )
         if(this.getErrorCode === 200){
@@ -277,6 +273,7 @@ export default {
         }
       },
       async ProfileEmailEdit(){
+        this.clearError()
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileEmailEdit', { email: this.profileData.email } )
         if(this.getErrorCode === 200){
@@ -286,6 +283,7 @@ export default {
         }
       },
       async ProfilPasswordeEdit(){
+        this.clearError()
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfilPasswordeEdit', 
         { 
@@ -304,15 +302,19 @@ export default {
           setTimeout(this.showSuccess, 3000)
         }
       },
+      cancelName(){
+        this.clearError()
+        this.showName = !this.showName
+      },
+      canselEmail(){
+        this.clearError()
+        this.showEmail = !this.showEmail
+      },
       cancelPassword(){
         this.profileData.password = ''
         this.profileData.password_confirmation = ""
         this.clearError()
         this.showPassword = !this.showPassword
-      },
-      cancelName(){
-        this.clearError()
-        this.showName = !this.showName
       },
       ShowPasswordTrigger(){
         this.profileData.password = ''

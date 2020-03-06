@@ -115,11 +115,6 @@ export default {
 }
 </script>
 <style>
-.c-task--cardbtn--inner{
- margin: 10px; 
-}
-
-
 ::-webkit-scrollbar{
   width: 10px;
 }
