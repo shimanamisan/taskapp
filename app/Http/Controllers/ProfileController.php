@@ -115,6 +115,8 @@ class ProfileController extends Controller
             Auth::logout();
             // ヘルパ関数を利用。セッションをクリア＆セッションIDを再発行(Illuminate\Session\Store::invalidate)
             $request->session()->invalidate();
+            // 次回フォームで認証エラーが出ないようにトークンをリフレッシュ
+            // $request->session()->regenerateToken();
 
             return response()->json();
         }
