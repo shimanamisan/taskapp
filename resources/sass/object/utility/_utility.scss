@@ -61,6 +61,10 @@
 .u-icon{
   font-size: $font-size_l;
   
+  &--wrapp{
+    text-align: center;
+  }
+  
   &__message{
     vertical-align: middle;
     margin-right: $space_s;

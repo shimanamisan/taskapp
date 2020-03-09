@@ -14,8 +14,6 @@ body{
 p,
 a{
   -webkit-font-smoothing: antialiased; // フォントを見やすくさせる
-  overflow-wrap : break-word;
-  white-space: pre-wrap;
 }
 
 a{
@@ -40,4 +38,11 @@ input{
 
 *, :after, :before {
   box-sizing: inherit; // 親要素の値を継承する
+}
+
+br{
+  display: none;
+  @include mq(){
+    display: block;
+  }
 }

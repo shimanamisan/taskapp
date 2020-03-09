@@ -4383,6 +4383,15 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -45788,7 +45797,7 @@ var render = function() {
           _c("router-link", { attrs: { to: "/" } }, [
             _c("img", {
               staticClass: "c-logo",
-              attrs: { src: __webpack_require__(/*! ../../img/log-top.png */ "./resources/img/log-top.png"), alt: "logo" }
+              attrs: { src: __webpack_require__(/*! ../../img/header-logo.png */ "./resources/img/header-logo.png"), alt: "logo" }
             })
           ])
         ],
@@ -47700,7 +47709,7 @@ var render = function() {
                 _vm._v(" "),
                 _c(
                   "div",
-                  { staticClass: "p-card__third u-inner--index" },
+                  { staticClass: "p-card__third u-inner--index u-icon--wrapp" },
                   [
                     _c(
                       "router-link",
@@ -47756,20 +47765,22 @@ var staticRenderFns = [
                   _c("img", {
                     staticClass: "c-logo__top",
                     attrs: {
-                      src: __webpack_require__(/*! ../../img/log-top.png */ "./resources/img/log-top.png"),
+                      src: __webpack_require__(/*! ../../img/eyecatch-logo.png */ "./resources/img/eyecatch-logo.png"),
                       alt: "logo"
                     }
                   }),
                   _vm._v(" "),
-                  _c("h1", { staticClass: "p-eyecatch__header" }, [
-                    _vm._v("簡単な操作で軽快にタスクをこなそう")
+                  _c("h1", { staticClass: "p-eyecatch__title" }, [
+                    _vm._v("簡単な操作で軽快に"),
+                    _c("br"),
+                    _vm._v("タスクをこなそう")
                   ])
                 ]
               ),
               _vm._v(" "),
               _c("div", [
                 _c("img", {
-                  staticStyle: { width: "500px", height: "500px" },
+                  staticClass: "p-eyecatch__img",
                   attrs: {
                     src: __webpack_require__(/*! ../../img/eyecatch-img.png */ "./resources/img/eyecatch-img.png"),
                     alt: "top画像"
@@ -47844,9 +47855,13 @@ var staticRenderFns = [
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "p-card-content__third u-inner__l" }, [
-                _c("p", [
+                _c("p", { staticClass: "p-eyecatch--p" }, [
                   _vm._v(
-                    "サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 "
+                    "\n                                    難しい操作は必要ありません。自由にタスクを追加・移動しタスクを管理するだけです！"
+                  ),
+                  _c("br"),
+                  _vm._v(
+                    "\n                                    TaskAppでは直感的な操作で完結できるので、専門知識がなくても使いやすいシンプルな機能、デザインです。\n                                "
                   )
                 ])
               ])
@@ -47870,9 +47885,19 @@ var staticRenderFns = [
     return _c("div", { staticClass: "p-card__third u-inner--index" }, [
       _c("div", { staticClass: "p-card__body" }, [
         _c("div", { staticClass: "p-card-content__third u-inner__l" }, [
-          _c("p", [
+          _c("div", { staticClass: "p-card-title" }, [
+            _c("p", { staticClass: "p-title" }, [
+              _vm._v("TaskAppは個人で"),
+              _c("br"),
+              _vm._v("気軽に使えるタスク"),
+              _c("br"),
+              _vm._v("管理アプリです")
+            ])
+          ]),
+          _vm._v(" "),
+          _c("p", { staticClass: "p-eyecatch--p" }, [
             _vm._v(
-              "サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 "
+              "\n                                    仕事や家の用事など、生活スタイルに合わせて使うことが出来ます。\n                                    TaskAppを使用して、効率よく日々のタスクをこなしましょう！\n                                "
             )
           ])
         ])
@@ -68245,14 +68270,25 @@ module.exports = "/images/eyecatch-img.png?729b108dc35433895d515d233b537b5e";
 
 /***/ }),
 
-/***/ "./resources/img/log-top.png":
-/*!***********************************!*\
-  !*** ./resources/img/log-top.png ***!
-  \***********************************/
+/***/ "./resources/img/eyecatch-logo.png":
+/*!*****************************************!*\
+  !*** ./resources/img/eyecatch-logo.png ***!
+  \*****************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/log-top.png?b7d43bf230f56d5612519c40b8d73ae8";
+module.exports = "/images/eyecatch-logo.png?5fde5fdb6008dfa218155e722dfe87c0";
+
+/***/ }),
+
+/***/ "./resources/img/header-logo.png":
+/*!***************************************!*\
+  !*** ./resources/img/header-logo.png ***!
+  \***************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+module.exports = "/images/header-logo.png?d07f59776ee7c222ae3742fb9a1f8775";
 
 /***/ }),
 
@@ -68263,7 +68299,7 @@ module.exports = "/images/log-top.png?b7d43bf230f56d5612519c40b8d73ae8";
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/images/logo.png?addb348c40a4090195d9f16dd4138a7d";
+module.exports = "/images/logo.png?5fde5fdb6008dfa218155e722dfe87c0";
 
 /***/ }),
 

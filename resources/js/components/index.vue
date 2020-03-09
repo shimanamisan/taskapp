@@ -8,11 +8,11 @@
                         <div class="p-eyecatch__layout">
                             <div class="p-eyecatch__flex u-ind-wrapp__sub">
                                 <div class="c-logo__header c-logo__clear-margin">
-                                    <img src="../../img/log-top.png" alt="logo" class="c-logo__top">
-                                    <h1 class="p-eyecatch__header">簡単な操作で軽快にタスクをこなそう</h1>
+                                    <img src="../../img/eyecatch-logo.png" alt="logo" class="c-logo__top">
+                                    <h1 class="p-eyecatch__title">簡単な操作で軽快に<br>タスクをこなそう</h1>
                                 </div>
                                 <div>
-                                    <img src="../../img/eyecatch-img.png" alt="top画像" style="width: 500px; height: 500px;">
+                                    <img src="../../img/eyecatch-img.png" alt="top画像" class="p-eyecatch__img">
                                 </div>
                             </div>
                         </div>
@@ -54,7 +54,10 @@
                                     <p class="p-title">ドラッグ＆ドロップで<br>簡単に使えます！</p>
                                 </div>
                                 <div class="p-card-content__third u-inner__l">
-                                    <p>サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 </p>
+                                    <p class="p-eyecatch--p">
+                                        難しい操作は必要ありません。自由にタスクを追加・移動しタスクを管理するだけです！<br>
+                                        TaskAppでは直感的な操作で完結できるので、専門知識がなくても使いやすいシンプルな機能、デザインです。
+                                    </p>
                                 </div>
                             </div>
                         </div>
@@ -70,11 +73,17 @@
                         <div class="p-card__third u-inner--index">
                             <div class="p-card__body">
                                 <div class="p-card-content__third u-inner__l">
-                                    <p>サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。サンプルアプリです。 </p>
+                                    <div class="p-card-title">
+                                        <p class="p-title">TaskAppは個人で<br>気軽に使えるタスク<br>管理アプリです</p>
+                                    </div>
+                                    <p class="p-eyecatch--p">
+                                        仕事や家の用事など、生活スタイルに合わせて使うことが出来ます。
+                                        TaskAppを使用して、効率よく日々のタスクをこなしましょう！
+                                    </p>
                                 </div>
                             </div>
                         </div>
-                        <div class="p-card__third u-inner--index">
+                        <div class="p-card__third u-inner--index u-icon--wrapp">
                             <router-link tag="button" to="login" class="p-card__third--right c-btn c-btn__footer c-btn__footer--login">ログイン</router-link>
                             <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--message">
                                 <i class="far fa-envelope u-icon u-icon__message"></i>お問い合わせ

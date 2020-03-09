@@ -146,7 +146,7 @@ body {
   height: 100%;
   color: #707070;
   font-size: 16px;
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Hiragino Sans", "\30D2\30E9\30AE\30CE\89D2\30B4   ProN W3", Hiragino Kaku Gothic ProN, Arial, Meiryo, sans-serif;
+  font-family: "\6E38\30B4\30B7\30C3\30AF\4F53", "Helvetica Neue", "Hiragino Sans", "\30D2\30E9\30AE\30CE\89D2\30B4   ProN W3", Hiragino Kaku Gothic ProN, Arial, Meiryo, sans-serif;
   line-height: 1.6;
   -webkit-text-size-adjust: 100%;
      -moz-text-size-adjust: 100%;
@@ -158,8 +158,6 @@ body {
 p,
 a {
   -webkit-font-smoothing: antialiased;
-  overflow-wrap: break-word;
-  white-space: pre-wrap;
 }
 
 a {
@@ -188,6 +186,16 @@ input {
 :after,
 :before {
   box-sizing: inherit;
+}
+
+br {
+  display: none;
+}
+
+@media screen and (max-width: 414px) {
+  br {
+    display: block;
+  }
 }
 
 /*********************************************
@@ -248,7 +256,7 @@ input {
 }
 
 .l-wrapper__reminder {
-  height: 100%;
+  height: 100vh;
 }
 
 .l-wrapper__profile {
@@ -1199,7 +1207,6 @@ input {
 .p-card__third {
   padding: 15px;
   width: 50%;
-  text-align: center;
 }
 
 @media screen and (max-width: 414px) {
@@ -1237,7 +1244,15 @@ input {
 .p-eyecatch {
   height: 100vh;
   background-image: url(/images/top-backgrond.jpg?41c8c8f404b1a3d72f43a1e010eb5960);
+  background-color: rgba(255, 255, 255, 0.8);
+  background-blend-mode: lighten;
   background-size: cover;
+}
+
+@media screen and (max-width: 414px) {
+  .p-eyecatch {
+    height: 100%;
+  }
 }
 
 .p-eyecatch__inner {
@@ -1246,7 +1261,7 @@ input {
 
 @media screen and (max-width: 414px) {
   .p-eyecatch__inner {
-    padding: 10px;
+    padding: 15px;
   }
 }
 
@@ -1267,15 +1282,33 @@ input {
   }
 }
 
-.p-eyecatch__header {
-  font-size: 30px;
-  color: #fff;
+.p-eyecatch__title {
+  font-size: 35px;
+  color: #707070;
+  font-weight: bold;
 }
 
 @media screen and (max-width: 414px) {
-  .p-eyecatch__header {
+  .p-eyecatch__title {
+    text-align: center;
     margin: 16px 0;
   }
+}
+
+.p-eyecatch__img {
+  width: 500px;
+  height: 500px;
+}
+
+@media screen and (max-width: 414px) {
+  .p-eyecatch__img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.p-eyecatch--p {
+  font-size: 1.25rem;
 }
 
 /********************************************** 
@@ -1286,6 +1319,7 @@ input {
   text-align: center;
   font-size: 38px;
   font-weight: 600;
+  margin-bottom: 30px;
 }
 
 @media screen and (max-width: 414px) {
@@ -1418,6 +1452,10 @@ input {
 
 .u-icon {
   font-size: 18px;
+}
+
+.u-icon--wrapp {
+  text-align: center;
 }
 
 .u-icon__message {

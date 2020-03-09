@@ -36,7 +36,6 @@
     &__third{
       padding: $space_l;
       width: 50%;
-      text-align: center;
       @include mq(){
         width: 100%;
       }
