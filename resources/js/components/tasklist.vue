@@ -1,18 +1,24 @@
 <template>
  
       <div class="c-task--todo--list" :data-task-id="this.id">
-        <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
-        <span class="c-task--todo--tips" v-if="!editFlag" @dblclick="editCard" @touchstart="editCard">{{title}}</span>
-        <form class="c-updateFrom c-updateFrom--TaskList" @submit.prevent v-else>
-          <!-- バリデーションエラー --->
-          <!-- <ul v-if="taskRequestErrorMessages" class="errors errors--tasks">
-                                <li v-for="(msg, index) in taskRequestErrorMessages.title" :key="index">{{ msg }} </li>
-                            </ul> -->
-          <!--- end errors -->
-          <input type="text" class="c-input c-input--tasks u-taskListInput" v-model="taskTitle" @keypress.enter="updateTaskTitle" @keyup.esc="cancelEdit" @blur="cancelEdit" :class="{'errors--bg': taskRequestErrorMessages}" :placeholder="placeholder" >
-        </form>
-        <div class="c-task--todo--list--del" @click="deleteTask">
-          <i class="fas fa-times"></i>
+        <div class="c-task--todo--wrapp">
+          <div class="c-task--dragicon">
+            <i class="fas fa-bars hand-icon"></i>
+          </div>
+          <span class="c-task--todo--tips" v-if="!editFlag" @dblclick="editCard" @touchstart="editCard">{{title}}</span>
+          <form class="c-updateFrom c-updateFrom--TaskList" @submit.prevent v-else>
+            <!-- バリデーションエラー --->
+            <!-- <ul v-if="taskRequestErrorMessages" class="errors errors--tasks">
+                                  <li v-for="(msg, index) in taskRequestErrorMessages.title" :key="index">{{ msg }} </li>
+                              </ul> -->
+            <!--- end errors -->
+            <input type="text" class="c-input c-input--tasks" v-model="taskTitle" @keypress.enter="updateTaskTitle" @keyup.esc="cancelEdit" @blur="cancelEdit" :class="{'errors--bg': taskRequestErrorMessages}" :placeholder="placeholder" >
+          </form>
+          <div class="c-task--todo--list--del" >
+            <i class="fas fa-edit c-task--folder--icon" @click="editCard"></i>
+            <i class="fas fa-times" @click="deleteTask"></i>
+          </div>
+
         </div>
         <i class="far fa-clock">
           <span class="c-task--todo--clock">{{created_at}}</span>

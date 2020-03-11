@@ -1,9 +1,10 @@
 <template>
     <div>
       <li class="c-task--folder__wrapp" @click="setCardLists">
-
-            <i class="fas fa-bars c-task--folder__drag hand-icon"></i>
-              <span class="c-task--folder__item" v-if="!editFlag" @dblclick="editFolder" @touchstart="editFolder">{{folderTitle}}</span> 
+            <div class="c-task--dragicon">
+              <i class="fas fa-bars hand-icon"></i>
+            </div>
+              <span class="c-task--folder__item" v-if="!editFlag">{{folderTitle}}</span> 
           
             <form class="c-updateFrom" @submit.prevent v-else>
                 <!-- バリデーションエラー --->
@@ -20,7 +21,8 @@
               >
             </form>
             <div class="c-task--folder__trash">
-               <i class="fas fa-trash-alt" @click="deleteFolder"></i>
+              <i class="fas fa-edit c-task--folder--icon" @click="editFolder"></i>
+              <i class="fas fa-trash-alt" @click="deleteFolder"></i>
             </div>
         </li>
     </div>

@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   data(){
     return{
@@ -41,20 +42,26 @@ export default {
       required: true
     }
   },
-   computed: {
-    folderRequestErrorMessages(){
-    // エラーメッセージがあった際にストアより取得
-    return this.$store.state.taskStore.folderRequestErrorMessages
-    },
-    getErrorCode(){
-      return this.$store.state.error.code
-    }
-   },
+  computed: {
+    ...mapState({
+      folderRequestErrorMessages: state => state.taskStore.folderRequestErrorMessages
+    }),
+    ...mapGetters({
+      getCode: 'error/getCode'
+    })
+    // folderRequestErrorMessages(){
+    // // エラーメッセージがあった際にストアより取得
+    // return this.$store.state.taskStore.folderRequestErrorMessages
+    // },
+    // getErrorCode(){
+    //   return this.$store.state.error.code
+    // }
+  },
   methods: {
     async createFolder(){
       await this.$store.dispatch('taskStore/createFolder', { title: this.folderTitle })
 
-      if(this.getErrorCode === 200){
+      if(this.getCode === 200){
         this.clearFolderCreateForm()
       }
     },

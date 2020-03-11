@@ -15,7 +15,7 @@
             <div class="c-form__item">
               <label for="" class="c-form-lavel c-form-lavel__profile">プロフィール画像</label>
               <!-- バリデーションエラー --->
-              <div v-if="profileUploadErrors" class="errors">
+              <div v-if="profileUploadErrors" class="errors errors--profile">
                 <ul v-if="profileUploadErrors.profilePhoto">
                   <li v-for="msg in profileUploadErrors.profilePhoto" :key="msg">{{ msg }}</li>
                 </ul>
@@ -24,13 +24,13 @@
               <label class="c-input--profile" >
                 <input type="file" class="c-input--profile__drop" @change="fileSelected" @focus="imagefocus">
                 <output v-if="preview">
-                  <img v-bind:src="preview" alt="プロフィール画像" class="c-form__output">
+                  <img v-bind:src="preview" alt="プロフィール画像" class="c-form__outputImg">
                   <p v-show="PreviewProfileImage">
                     <img v-bind:src="profileData.pic" alt="プロフィール画像" class="c-form__output">
                   </p>
                 </output>
               </label>
-              <div class="l-flex u-btn--wrapp" v-show="showProfileImage">
+              <div class="l-flex l-flex--center u-btn--wrapp" v-show="showProfileImage">
                 <div class="u-btn__profile--margin">
                   <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="reset">キャンセル</button>
                 </div>
@@ -148,7 +148,7 @@
   </div>
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 import Header from './Header'
 import Message from './Message'
 
@@ -186,34 +186,33 @@ export default {
   computed: {
     // mapStateだと、メソッド内でthis.~で呼び出せなかった。
     // エラーコードで処理の振り分けを行うので、this.getErrorCodeで呼び出す必要があった
-    // ...mapState({
-    //   profileUploadErrors: state => state.auth.profileErrorMessages,
-    //   getErrorCode: state => getters['error/code']
-    // }),
-    profileUploadErrors(){
-      // エラーメッセージがあった際にストアより取得
-      return this.$store.state.auth.profileErrorMessages
-    },
-    getErrorCode(){
-      return this.$store.state.error.code
-    }
+    ...mapState({
+      profileUploadErrors: state => state.auth.profileErrorMessages,
+      // getErrorCode: state => getters['error/getCode']
+    }),
+    ...mapGetters({
+      getCode: 'error/getCode'
+    })
+    // profileUploadErrors(){
+    //   // エラーメッセージがあった際にストアより取得
+    //   return this.$store.state.auth.profileErrorMessages
+    // },
+    // getErrorCode(){
+    //   return this.$store.state.error.code
+    // }
   },
   methods: {
       // フォームでファイルが選択されたら実行
       fileSelected(event){
-        // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
-        console.log(event)
-        // ファイル情報をdataプロパティに保存
-        this.profileImage = event.target.files[0]
-        // 何も選択されていなかったら処理を中断
-        if(event.target.files.length === 0){
-          this.reset() // プレビューの入力値を消すメソッドを作る
+        // ファイルが画像でなかったら処理を中断
+        if(!event.target.files[0].type.match('image.*')){
+          this.$store.commit('auth/setProfileErrorMessages', {profilePhoto: ['画像を選択してください']})
+          this.$el.querySelector('input[type="file"]').value = null
           return false
         }
-        // ファイルが画像でなかったら処理を中断
-        // if(event.target.files[0].type.match('image.*')){
-        //   return false
-        // }
+        // ファイル情報をdataプロパティに保存
+        // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
+        this.profileImage = event.target.files[0]  
         // FileReaderクラスのインスタンスを取得
         const reader = new FileReader()
         // ファイルを読み込み終わったタイミングで実行する処理
@@ -229,11 +228,8 @@ export default {
       reset(){
         // エラーメッセージが出ていたら消す
         this.clearError()
-        // コンポーネントに持たせたデータを消す
-        // this.preview = ""
-        // this.profileImage = null
         // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
-        // this.$el.querySelector('input[type="file"]').value = null
+        this.$el.querySelector('input[type="file"]').value = null
         this.showProfileImage = !this.showProfileImage
       },
       // プロフィール写真変更
@@ -266,7 +262,7 @@ export default {
         this.clearError()
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileNameEdit', { name: this.profileData.name } )
-        if(this.getErrorCode === 200){
+        if(this.getCode === 200){
           this.showName = !this.showName
           this.showSuccess()
           setTimeout(this.showSuccess, 3000)
@@ -276,7 +272,7 @@ export default {
         this.clearError()
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileEmailEdit', { email: this.profileData.email } )
-        if(this.getErrorCode === 200){
+        if(this.getCode === 200){
           this.showEmail = !this.showEmail
           this.showSuccess()
           setTimeout(this.showSuccess, 3000)
@@ -292,7 +288,7 @@ export default {
           password_confirmation: this.profileData.password_confirmation
         })
   
-        if(this.getErrorCode === 200){
+        if(this.getCode === 200){
           // 送信後入力フォームを空にする
           this.profileData.password = '',
           this.profileData.password_confirmation = ''
@@ -364,7 +360,7 @@ export default {
           this.profileData.email = response.data.email
           this.preview = response.data.pic
         }).catch({
-
+          
         })
       }
   },

@@ -103,5 +103,9 @@
 **********************************************/
 .l-flex{
   display: flex;
-  justify-content: flex-end;
+  justify-content: end;
+}
+.l-flex--center{
+  justify-content: center;
+  margin-bottom: 15px;
 }

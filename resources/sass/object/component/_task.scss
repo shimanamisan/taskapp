@@ -8,7 +8,13 @@
   display: flex;
   flex-flow: column;
   overflow-y: hidden;
-
+  &--dragicon{
+    margin-right: 10px !important;
+    vertical-align: baseline;
+    & > i{
+      vertical-align: baseline;
+    }
+  }
   &--content{
     width: 100%;
     height: 100%;
@@ -61,9 +67,9 @@
             overflow-y: auto;
             max-height: 370px;
             box-sizing: border-box;
-            @include mq(){
-              max-height: 450px;
-            }
+            // @include mq(){
+            //   max-height: 450px;
+            // }
           }
     }
     &__avater{
@@ -76,16 +82,18 @@
     }
 
     &--folder{
-     
-        &__drag{
-          margin-right: 15px;
-          margin-bottom: 15px;
-        }
+     overflow: hidden;
+     overflow-y: auto;
         &__wrapp{
+          display: flex;
+          justify-content: flex-end;
           box-sizing: border-box;
           padding: 5px 10px;
           margin-top: 10px;
           transition: .5s;
+          &>:last-child{
+            margin-left: auto;
+          }
             &:hover{
               background: #36363638;
               transition: .5s;
@@ -99,6 +107,9 @@
           &:hover{
             cursor: pointer;
           }
+        }
+        &--icon{
+          margin-right: 10px !important;
         }
     }
 
@@ -123,6 +134,15 @@
       margin: 0 15px 10px 0;
       overflow-y: auto;
       @include custumRadius(8px);
+        &--wrapp{
+          display: flex;
+          justify-content: flex-end;
+          margin-bottom: 7px;
+          &>:last-child{
+            margin-left: auto;
+          }
+  
+        }
         &--tips{
           display: inline-block;
           overflow: hidden;
@@ -151,13 +171,15 @@
         }
         &__header{
           padding: 10px 0;
+          display: flex;
+          justify-content: flex-end;
+            &>:last-child{
+              margin-left: auto;
+            }
         }
         &--counter{
           color: #7760f8;
           margin-left: 10px;
-        }
-        &--card--del{
-          float: right;
         }
         &--list{
           padding: 5px 10px;
@@ -170,7 +192,7 @@
           &--del{
             float: right;
             & > i {
-              vertical-align: text-top;
+              vertical-align: baseline;
             }
           }
         }

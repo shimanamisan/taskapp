@@ -2282,6 +2282,12 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -2461,41 +2467,31 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     Header: _Header__WEBPACK_IMPORTED_MODULE_2__["default"],
     Message: _Message__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
-  computed: {
-    // mapStateだと、メソッド内でthis.~で呼び出せなかった。
-    // エラーコードで処理の振り分けを行うので、this.getErrorCodeで呼び出す必要があった
-    // ...mapState({
-    //   profileUploadErrors: state => state.auth.profileErrorMessages,
-    //   getErrorCode: state => getters['error/code']
-    // }),
-    profileUploadErrors: function profileUploadErrors() {
-      // エラーメッセージがあった際にストアより取得
-      return this.$store.state.auth.profileErrorMessages;
-    },
-    getErrorCode: function getErrorCode() {
-      return this.$store.state.error.code;
-    }
-  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+    profileUploadErrors: function profileUploadErrors(state) {
+      return state.auth.profileErrorMessages;
+    } // getErrorCode: state => getters['error/getCode']
+
+  }), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    getCode: 'error/getCode'
+  })),
   methods: {
     // フォームでファイルが選択されたら実行
     fileSelected: function fileSelected(event) {
       var _this = this;
 
-      // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
-      console.log(event); // ファイル情報をdataプロパティに保存
-
-      this.profileImage = event.target.files[0]; // 何も選択されていなかったら処理を中断
-
-      if (event.target.files.length === 0) {
-        this.reset(); // プレビューの入力値を消すメソッドを作る
-
+      // ファイルが画像でなかったら処理を中断
+      if (!event.target.files[0].type.match('image.*')) {
+        this.$store.commit('auth/setProfileErrorMessages', {
+          profilePhoto: ['画像を選択してください']
+        });
+        this.$el.querySelector('input[type="file"]').value = null;
         return false;
-      } // ファイルが画像でなかったら処理を中断
-      // if(event.target.files[0].type.match('image.*')){
-      //   return false
-      // }
-      // FileReaderクラスのインスタンスを取得
+      } // ファイル情報をdataプロパティに保存
+      // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
 
+
+      this.profileImage = event.target.files[0]; // FileReaderクラスのインスタンスを取得
 
       var reader = new FileReader(); // ファイルを読み込み終わったタイミングで実行する処理
 
@@ -2511,12 +2507,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     },
     reset: function reset() {
       // エラーメッセージが出ていたら消す
-      this.clearError(); // コンポーネントに持たせたデータを消す
-      // this.preview = ""
-      // this.profileImage = null
-      // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
-      // this.$el.querySelector('input[type="file"]').value = null
+      this.clearError(); // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
 
+      this.$el.querySelector('input[type="file"]').value = null;
       this.showProfileImage = !this.showProfileImage;
     },
     // プロフィール写真変更
@@ -2613,7 +2606,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
-                if (this.getErrorCode === 200) {
+                if (this.getCode === 200) {
                   this.showName = !this.showName;
                   this.showSuccess();
                   setTimeout(this.showSuccess, 3000);
@@ -2649,7 +2642,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
-                if (this.getErrorCode === 200) {
+                if (this.getCode === 200) {
                   this.showEmail = !this.showEmail;
                   this.showSuccess();
                   setTimeout(this.showSuccess, 3000);
@@ -2687,7 +2680,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 3:
-                if (this.getErrorCode === 200) {
+                if (this.getCode === 200) {
                   // 送信後入力フォームを空にする
                   this.profileData.password = '', this.profileData.password_confirmation = '';
                   this.showPassword = !this.showPassword;
@@ -3595,6 +3588,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+//
+//
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
@@ -3759,12 +3754,19 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
 
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3794,6 +3796,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3807,15 +3810,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       required: true
     }
   },
-  computed: {
-    folderRequestErrorMessages: function folderRequestErrorMessages() {
-      // エラーメッセージがあった際にストアより取得
-      return this.$store.state.taskStore.folderRequestErrorMessages;
-    },
-    getErrorCode: function getErrorCode() {
-      return this.$store.state.error.code;
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapState"])({
+    folderRequestErrorMessages: function folderRequestErrorMessages(state) {
+      return state.taskStore.folderRequestErrorMessages;
     }
-  },
+  }), {}, Object(vuex__WEBPACK_IMPORTED_MODULE_1__["mapGetters"])({
+    getCode: 'error/getCode'
+  })),
   methods: {
     createFolder: function () {
       var _createFolder = _asyncToGenerator(
@@ -3831,7 +3832,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 });
 
               case 2:
-                if (this.getErrorCode === 200) {
+                if (this.getCode === 200) {
                   this.clearFolderCreateForm();
                 }
 
@@ -3875,6 +3876,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vuex__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vuex */ "./node_modules/vuex/dist/vuex.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 //
 //
 //
@@ -3891,6 +3899,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -3898,11 +3907,9 @@ __webpack_require__.r(__webpack_exports__);
       dummy: 'https://placehold.jp/150x150.png'
     };
   },
-  computed: {
-    username: function username() {
-      return this.$store.getters['auth/getUserName'];
-    }
-  },
+  computed: _objectSpread({}, Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])({
+    username: 'auth/getUserName'
+  })),
   methods: {
     profileimage: function profileimage() {
       var _this = this;
@@ -3941,6 +3948,12 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46081,7 +46094,7 @@ var render = function() {
                     ),
                     _vm._v(" "),
                     _vm.profileUploadErrors
-                      ? _c("div", { staticClass: "errors" }, [
+                      ? _c("div", { staticClass: "errors errors--profile" }, [
                           _vm.profileUploadErrors.profilePhoto
                             ? _c(
                                 "ul",
@@ -46109,7 +46122,7 @@ var render = function() {
                       _vm.preview
                         ? _c("output", [
                             _c("img", {
-                              staticClass: "c-form__output",
+                              staticClass: "c-form__outputImg",
                               attrs: {
                                 src: _vm.preview,
                                 alt: "プロフィール画像"
@@ -46153,7 +46166,7 @@ var render = function() {
                             expression: "showProfileImage"
                           }
                         ],
-                        staticClass: "l-flex u-btn--wrapp"
+                        staticClass: "l-flex l-flex--center u-btn--wrapp"
                       },
                       [
                         _c("div", { staticClass: "u-btn__profile--margin" }, [
@@ -47098,17 +47111,12 @@ var render = function() {
       "li",
       { staticClass: "c-task--folder__wrapp", on: { click: _vm.setCardLists } },
       [
-        _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
+        _vm._m(0),
         _vm._v(" "),
         !_vm.editFlag
-          ? _c(
-              "span",
-              {
-                staticClass: "c-task--folder__item",
-                on: { dblclick: _vm.editFolder, touchstart: _vm.editFolder }
-              },
-              [_vm._v(_vm._s(_vm.folderTitle))]
-            )
+          ? _c("span", { staticClass: "c-task--folder__item" }, [
+              _vm._v(_vm._s(_vm.folderTitle))
+            ])
           : _c(
               "form",
               {
@@ -47183,6 +47191,11 @@ var render = function() {
         _vm._v(" "),
         _c("div", { staticClass: "c-task--folder__trash" }, [
           _c("i", {
+            staticClass: "fas fa-edit c-task--folder--icon",
+            on: { click: _vm.editFolder }
+          }),
+          _vm._v(" "),
+          _c("i", {
             staticClass: "fas fa-trash-alt",
             on: { click: _vm.deleteFolder }
           })
@@ -47191,7 +47204,16 @@ var render = function() {
     )
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--dragicon" }, [
+      _c("i", { staticClass: "fas fa-bars hand-icon" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -47401,83 +47423,88 @@ var render = function() {
     "div",
     { staticClass: "c-task--todo--list", attrs: { "data-task-id": this.id } },
     [
-      _c("i", { staticClass: "fas fa-bars c-task--folder__drag hand-icon" }),
-      _vm._v(" "),
-      !_vm.editFlag
-        ? _c(
-            "span",
-            {
-              staticClass: "c-task--todo--tips",
-              on: { dblclick: _vm.editCard, touchstart: _vm.editCard }
-            },
-            [_vm._v(_vm._s(_vm.title))]
-          )
-        : _c(
-            "form",
-            {
-              staticClass: "c-updateFrom c-updateFrom--TaskList",
-              on: {
-                submit: function($event) {
-                  $event.preventDefault()
-                }
-              }
-            },
-            [
-              _c("input", {
-                directives: [
-                  {
-                    name: "model",
-                    rawName: "v-model",
-                    value: _vm.taskTitle,
-                    expression: "taskTitle"
-                  }
-                ],
-                staticClass: "c-input c-input--tasks u-taskListInput",
-                class: { "errors--bg": _vm.taskRequestErrorMessages },
-                attrs: { type: "text", placeholder: _vm.placeholder },
-                domProps: { value: _vm.taskTitle },
+      _c("div", { staticClass: "c-task--todo--wrapp" }, [
+        _vm._m(0),
+        _vm._v(" "),
+        !_vm.editFlag
+          ? _c(
+              "span",
+              {
+                staticClass: "c-task--todo--tips",
+                on: { dblclick: _vm.editCard, touchstart: _vm.editCard }
+              },
+              [_vm._v(_vm._s(_vm.title))]
+            )
+          : _c(
+              "form",
+              {
+                staticClass: "c-updateFrom c-updateFrom--TaskList",
                 on: {
-                  keypress: function($event) {
-                    if (
-                      !$event.type.indexOf("key") &&
-                      _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
-                    ) {
-                      return null
-                    }
-                    return _vm.updateTaskTitle($event)
-                  },
-                  keyup: function($event) {
-                    if (
-                      !$event.type.indexOf("key") &&
-                      _vm._k($event.keyCode, "esc", 27, $event.key, [
-                        "Esc",
-                        "Escape"
-                      ])
-                    ) {
-                      return null
-                    }
-                    return _vm.cancelEdit($event)
-                  },
-                  blur: _vm.cancelEdit,
-                  input: function($event) {
-                    if ($event.target.composing) {
-                      return
-                    }
-                    _vm.taskTitle = $event.target.value
+                  submit: function($event) {
+                    $event.preventDefault()
                   }
                 }
-              })
-            ]
-          ),
-      _vm._v(" "),
-      _c(
-        "div",
-        {
-          staticClass: "c-task--todo--list--del",
-          on: { click: _vm.deleteTask }
-        },
-        [_c("i", { staticClass: "fas fa-times" })]
-      ),
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.taskTitle,
+                      expression: "taskTitle"
+                    }
+                  ],
+                  staticClass: "c-input c-input--tasks",
+                  class: { "errors--bg": _vm.taskRequestErrorMessages },
+                  attrs: { type: "text", placeholder: _vm.placeholder },
+                  domProps: { value: _vm.taskTitle },
+                  on: {
+                    keypress: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")
+                      ) {
+                        return null
+                      }
+                      return _vm.updateTaskTitle($event)
+                    },
+                    keyup: function($event) {
+                      if (
+                        !$event.type.indexOf("key") &&
+                        _vm._k($event.keyCode, "esc", 27, $event.key, [
+                          "Esc",
+                          "Escape"
+                        ])
+                      ) {
+                        return null
+                      }
+                      return _vm.cancelEdit($event)
+                    },
+                    blur: _vm.cancelEdit,
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.taskTitle = $event.target.value
+                    }
+                  }
+                })
+              ]
+            ),
+        _vm._v(" "),
+        _c("div", { staticClass: "c-task--todo--list--del" }, [
+          _c("i", {
+            staticClass: "fas fa-edit c-task--folder--icon",
+            on: { click: _vm.editCard }
+          }),
+          _vm._v(" "),
+          _c("i", {
+            staticClass: "fas fa-times",
+            on: { click: _vm.deleteTask }
+          })
+        ])
+      ]),
       _vm._v(" "),
       _c("i", { staticClass: "far fa-clock" }, [
         _c("span", { staticClass: "c-task--todo--clock" }, [
@@ -47487,7 +47514,16 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "c-task--dragicon" }, [
+      _c("i", { staticClass: "fas fa-bars hand-icon" })
+    ])
+  }
+]
 render._withStripped = true
 
 
@@ -70980,6 +71016,11 @@ __webpack_require__.r(__webpack_exports__);
 var state = {
   code: null
 };
+var getters = {
+  getCode: function getCode(state) {
+    return state.code ? state.code : '';
+  }
+};
 var mutations = {
   setCode: function setCode(state, code) {
     state.code = code;
@@ -70988,7 +71029,8 @@ var mutations = {
 /* harmony default export */ __webpack_exports__["default"] = ({
   namespaced: true,
   state: state,
-  mutations: mutations
+  mutations: mutations,
+  getters: getters
 });
 
 /***/ }),
@@ -71559,12 +71601,11 @@ var actions = {
             case 6:
               response = _context11.sent;
 
-              // var data = response.data.cards
               // 422ステータスの処理
               if (response.status === _statusCode__WEBPACK_IMPORTED_MODULE_1__["UNPROCESSABLE_ENTITY"]) {
                 commit('setTaskRequestErrorMessages', response.data.errors);
               } else {
-                console.log('通信成功時の処理:createTaskアクション：' + response.status);
+                // 通信成功時のアクション
                 commit('error/setCode', response.status, {
                   root: true
                 });

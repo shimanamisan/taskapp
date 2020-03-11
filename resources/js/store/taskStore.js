@@ -177,12 +177,11 @@ const actions = {
     // titleプロパティにフォームの値をセット
     task.title = title
     const response = await axios.post('/api/folder/' + folder_id + '/card/' + card_id + '/task/create', task ).catch(error => error.response || error)
-    // var data = response.data.cards
     // 422ステータスの処理
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setTaskRequestErrorMessages', response.data.errors)
     } else {
-      console.log('通信成功時の処理:createTaskアクション：' + response.status)
+      // 通信成功時のアクション
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true })

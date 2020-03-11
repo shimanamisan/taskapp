@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   data(){
     return{
@@ -23,9 +24,12 @@ export default {
     }
   },
   computed:{
-    username(){
-    return this.$store.getters['auth/getUserName']
-    }
+    ...mapGetters({
+      username: 'auth/getUserName'
+    })
+    // username(){  
+    // return this.$store.getters['auth/getUserName']
+    // }
   },
   methods: {
     profileimage(){

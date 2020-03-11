@@ -339,7 +339,13 @@ br {
   display: -webkit-box;
   display: flex;
   -webkit-box-pack: end;
-          justify-content: flex-end;
+          justify-content: end;
+}
+
+.l-flex--center {
+  -webkit-box-pack: center;
+          justify-content: center;
+  margin-bottom: 15px;
 }
 
 .l-header {
@@ -679,9 +685,8 @@ br {
 
 @media screen and (max-width: 414px) {
   .c-input--profile {
-    width: 100%;
     height: 100%;
-    margin-bottom: 16px;
+    margin: 0px auto 16px;
   }
 }
 
@@ -763,7 +768,9 @@ br {
   text-align: center;
 }
 
-.c-form__output {
+.c-form__outputImg {
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
 }
 
@@ -806,10 +813,6 @@ br {
 
 .c-updateFrom {
   display: inline-block;
-}
-
-.c-updateFrom--TaskList {
-  margin-bottom: 5px;
 }
 
 /********************************************** 
@@ -857,6 +860,15 @@ br {
   -webkit-box-direction: normal;
           flex-flow: column;
   overflow-y: hidden;
+}
+
+.c-task--dragicon {
+  margin-right: 10px !important;
+  vertical-align: baseline;
+}
+
+.c-task--dragicon > i {
+  vertical-align: baseline;
 }
 
 .c-task--content {
@@ -921,12 +933,6 @@ br {
   box-sizing: border-box;
 }
 
-@media screen and (max-width: 414px) {
-  .c-task--sidebar__wrapp {
-    max-height: 450px;
-  }
-}
-
 .c-task__avater {
   margin-right: 20px;
   width: 70px;
@@ -937,17 +943,25 @@ br {
   border-radius: 50%;
 }
 
-.c-task--folder__drag {
-  margin-right: 15px;
-  margin-bottom: 15px;
+.c-task--folder {
+  overflow: hidden;
+  overflow-y: auto;
 }
 
 .c-task--folder__wrapp {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
   box-sizing: border-box;
   padding: 5px 10px;
   margin-top: 10px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+}
+
+.c-task--folder__wrapp > :last-child {
+  margin-left: auto;
 }
 
 .c-task--folder__wrapp:hover {
@@ -965,6 +979,10 @@ br {
 
 .c-task--folder__item:hover {
   cursor: pointer;
+}
+
+.c-task--folder--icon {
+  margin-right: 10px !important;
 }
 
 .c-task--card {
@@ -993,6 +1011,18 @@ br {
   margin: 0 15px 10px 0;
   overflow-y: auto;
   border-radius: 8px;
+}
+
+.c-task--todo--wrapp {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+  margin-bottom: 7px;
+}
+
+.c-task--todo--wrapp > :last-child {
+  margin-left: auto;
 }
 
 .c-task--todo--tips {
@@ -1026,15 +1056,19 @@ br {
 
 .c-task--todo__header {
   padding: 10px 0;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: end;
+          justify-content: flex-end;
+}
+
+.c-task--todo__header > :last-child {
+  margin-left: auto;
 }
 
 .c-task--todo--counter {
   color: #7760f8;
   margin-left: 10px;
-}
-
-.c-task--todo--card--del {
-  float: right;
 }
 
 .c-task--todo--list {
@@ -1052,7 +1086,7 @@ br {
 }
 
 .c-task--todo--list--del > i {
-  vertical-align: text-top;
+  vertical-align: baseline;
 }
 
 .c-task--todo--push {
@@ -1126,6 +1160,10 @@ br {
 
 .errors--bg {
   background: #f7dcd9;
+}
+
+.errors--profile {
+  text-align: center;
 }
 
 .message {
@@ -1483,13 +1521,5 @@ br {
 
 .u-btn__profile--margin {
   margin-left: 10px;
-}
-
-/********************************************** 
-タスクリスト更新用フォーム
-**********************************************/
-
-.u-taskListInput {
-  width: 200px;
 }
 
