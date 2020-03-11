@@ -56,6 +56,8 @@ class LoginController extends Controller
     {
     // セッションを再生成する（接続を一旦リセットしている？）
     $request->session()->regenerate();
+    // csrfトークンも一旦リセット
+    $request->session()->regenerateToken();
 
     return response()->json();
     }

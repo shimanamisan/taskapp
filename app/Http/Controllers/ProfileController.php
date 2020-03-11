@@ -24,47 +24,27 @@ class ProfileController extends Controller
         
     }
 
-     /**
-     * プロフィール変更
-     * @param ProfileEditRequest $request
-     * @return \Illuminate\Http\Response
-     */
+    // プロフィール写真を更新
     public function ProfileImageEdit(ProfileImageRequest $request)
     {
        
-        /****************************************
-        プロフィール写真編集の処理
-        ****************************************/
-
         // フォームリクエストされてきたファイル名を取得する
         // profilePhotoはvue側で指定した key:value のkeyを指定している
         $file_name = $request->profilePhoto->getClientOriginalName();
 
-        // strage/app/public/profile_imgフォルダへ保存
+        // storage/app/public/profile_imgフォルダへ保存
         $request->profilePhoto->storeAs('public/profile_img',$file_name);
 
         // 認証済みのユーザーでテーブルへ保存
         Auth::user()->update(['pic' => '/storage/profile_img/'.$file_name]);
-
-        /****************************************
-        ユーザー情報を更新
-        ****************************************/
-        // Auth::user()->update([
-        //     'name' => $request->input('name'),
-        //     'email' => $request->input('email'),
-        //     'password' => $request->input('password')
-        // ]);
         
-
         // 認証済みユーザー情報を返却
         return Auth::user();        
     }
 
+    // ユーザー名を更新
     public function ProfileNameEdit(ProfileNameRequest $request)
     {
-        /****************************************
-        ユーザー情報を更新
-        ****************************************/
         Auth::user()->update([
             'name' => $request->input('name')
         ]);
@@ -73,11 +53,10 @@ class ProfileController extends Controller
         return Auth::user(); 
     }
 
+    // Emailを更新
     public function ProfileEmailEdit(ProfileEmailRequest $request)
     {   
-        /****************************************
-        ユーザー情報を更新
-        ****************************************/
+
         Auth::user()->update([
             'email' => $request->input('email')
         ]);
@@ -86,12 +65,10 @@ class ProfileController extends Controller
         return Auth::user(); 
     }
 
+    // パスワードを更新
     public function ProfilPasswordeEdit(ProfilePasswordRequest $request)
     {
-        
-        /****************************************
-        パスワードを更新
-        ****************************************/
+    
         // password と password_confirmation のバリデーションはリクエストコントローラで行っている
         $user = Auth::user();
         $user->password = bcrypt($request->get('password'));
@@ -99,9 +76,7 @@ class ProfileController extends Controller
 
     }
 
-    /****************************************
-    ユーザー削除用
-    ****************************************/
+    // ユーザー削除（論理削除）
     public function userSoftDelete(Request $request, $id)
     {
         // DBファサードではなく、Eloquent ORM にてdelete()メソッドを実行する事
@@ -115,8 +90,8 @@ class ProfileController extends Controller
             Auth::logout();
             // ヘルパ関数を利用。セッションをクリア＆セッションIDを再発行(Illuminate\Session\Store::invalidate)
             $request->session()->invalidate();
-            // 次回フォームで認証エラーが出ないようにトークンをリフレッシュ
-            // $request->session()->regenerateToken();
+            // 次回フォームで認証エラーが出ないようにcsrfトークンをリフレッシュ
+            $request->session()->regenerateToken();
 
             return response()->json();
         }
