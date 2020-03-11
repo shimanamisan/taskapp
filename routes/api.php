@@ -14,9 +14,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 /****************************************
 ユーザー認証処理
@@ -31,6 +31,14 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
+/****************************************
+トークンをリフレッシュ
+*****************************************/
+Route::get('/refresh-token', function(Request $request){
+    $request->session()->regenerateToken();
+    return response()->json();
+});
+
 // パスワード再設定メール
 Route::post('/password/reminder', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 // パスワードリマインダー
@@ -58,27 +66,27 @@ Route::delete('/profile/delete/{id}', 'ProfileController@userSoftDelete')->name(
 タスク管理(一覧・登録)
 *****************************************/
 // フォルダー一覧
-Route::get('/folder', 'TaskController@index')->name('folder.index');
+Route::get('/folder', 'FolderController@index')->name('folder.index');
 // フォルダ登録
-Route::post('/folder/create', 'TaskController@createFolder')->name('folder.createFolder');
+Route::post('/folder/create', 'FolderController@createFolder')->name('folder.createFolder');
 // フォルダ更新
-Route::put('/folder/{id}/update', 'TaskController@updateFolder')->name('folder.updateFolder');
+Route::put('/folder/{id}/update', 'FolderController@updateFolder')->name('folder.updateFolder');
 // フォルダソートの並び替え更新
-Route::patch('/folder/update-all', 'TaskController@updateFolderSort')->name('folder.updateFolderSort');
+Route::patch('/folder/update-all', 'FolderController@updateFolderSort')->name('folder.updateFolderSort');
 // フォルダ削除
-Route::delete('/folder/{folder_id}/delete', 'TaskController@deleteFolder')->name('folder.deleteFolder');
+Route::delete('/folder/{folder_id}/delete', 'FolderController@deleteFolder')->name('folder.deleteFolder');
 // フォルダ配下のカード取得
-Route::get('/folder/{folder_id}/card/set', 'TaskController@selectCrad')->name('folder.selectCrad');
+Route::get('/folder/{folder_id}/card/set', 'FolderController@selectCrad')->name('folder.selectCrad');
 
 /****************************************
 カード管理(更新・削除)
 *****************************************/
 // カード登録
-Route::post('/folder/{folder_id}/card/create', 'TaskController@createCard')->name('card.createCard');
+Route::post('/folder/{folder_id}/card/create', 'CardController@createCard')->name('card.createCard');
 // カードの更新
-Route::put('/folder/{folder_id}/card/{card_id}/update', 'TaskController@updateCard')->name('card.updateCard');
+Route::put('/folder/{folder_id}/card/{card_id}/update', 'CardController@updateCard')->name('card.updateCard');
 // カードの削除
-Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'TaskController@deleteCard')->name('card.deleteCard');
+Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'CardController@deleteCard')->name('card.deleteCard');
 
 
 /****************************************
@@ -95,13 +103,7 @@ Route::patch('/task/update-all', 'TaskController@updateTaskSort')->name('task.up
 // タスク削除
 Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
 
-/****************************************
-トークンをリフレッシュ
-*****************************************/
-Route::get('/refresh-token', function(Request $request){
-    $request->session()->regenerateToken();
-    return response()->json();
-});
+
 
 
 
