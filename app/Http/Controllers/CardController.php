@@ -2,7 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\User; //追加
+use App\Folder; // 追加 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth; //追加
+use App\Http\Requests\TaskRequest; // フォームリクエストクラスを追加
 
 class CardController extends Controller
 {
