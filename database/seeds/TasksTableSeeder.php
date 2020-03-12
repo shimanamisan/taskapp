@@ -28,7 +28,8 @@ class TasksTableSeeder extends Seeder
         'JavaScriptの練習をする',
         'ブラウザテストやる',
         'インフラの復習する',
-        '職務履歴書作成する'
+        'トイレットペーパーを買う',
+        '健康診断'
         ];
 
         // $titlesに入っている配列の個数回ループが実行され、$titleに分解された値が入る

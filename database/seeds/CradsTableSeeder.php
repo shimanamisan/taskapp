@@ -14,7 +14,7 @@ class CradsTableSeeder extends Seeder
     public function run()
     {
           // カード用テストデータ挿入
-          $titles = ['PHP', 'CSS', 'JavaScript', 'Laravel'];
+          $titles = ['PHP', 'CSS', 'JavaScript', 'Laravel', 'HTML', 'jQuery'];
         
           // $titlesに入っている配列の個数回ループが実行され、$titleに分解された値が入る
           foreach($titles as $title){

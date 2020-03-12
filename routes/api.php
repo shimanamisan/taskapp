@@ -45,8 +45,8 @@ Route::post('/password/reminder', 'Auth\ForgotPasswordController@sendResetLinkEm
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
 
 // twitterログイン
-Route::get('/login/{provider}', 'Auth\LoginController@redirectToProvider');
-Route::get('/login/{provider}/callback', 'Auth\LoginController@handleProviderCallback');
+Route::get('/login/twitter', 'Auth\TwitterOAuthController@redirectToTwitter');
+Route::get('/login/twitter/callback', 'Auth\TwitterOAuthController@handleTwitterCallback');
 
 /****************************************
 プロフィール変更

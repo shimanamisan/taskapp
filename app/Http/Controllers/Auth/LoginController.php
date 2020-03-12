@@ -3,8 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User; // 追加
-use Socialite; // 追加
-use App\Models\UserDelete;
+use Illuminate\Http\JsonResponse;
 use App\Http\Requests\LoginRequest; // 追加
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request; // ★ 追加
@@ -60,45 +59,5 @@ class LoginController extends Controller
     $request->session()->regenerateToken();
 
     return response()->json();
-    }
-
-    // twitterログイン
-    /**
-     * OAuth認証先にリダイレクト
-     *
-     * @param str $provider
-     * @return \Illuminate\Http\Response
-     */
-    public function redirectToProvider($provider)
-    {   
-        // return Socialite::driver()->response(['provider'], $provider);
-        return Socialite::driver($provider)->redirect();
-    }
-
-    /**
-     * OAuth認証の結果受け取り
-     *
-     * @param str $provider
-     * @return \Illuminate\Http\Response
-     */
-    public function handleProviderCallback($provider)
-    {
-        try {
-            $providerUser = Socialite::with($provider)->user();
-        } catch(\Exception $e) {
-            return redirect('/login')->with('oauth_error', '予期せぬエラーが発生しました');
-        }
-
-        if ($email = $providerUser->getEmail()) {
-            Auth::login(User::firstOrCreate([
-                'email' => $email
-            ], [
-                'name' => $providerUser->getName()
-            ]));
-
-            return redirect($this->redirectTo);
-        } else {
-            return redirect('/login')->with('oauth_error', 'メールアドレスが取得できませんでした');
-        }
     }
 }

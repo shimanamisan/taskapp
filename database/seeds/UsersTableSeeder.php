@@ -16,29 +16,36 @@ class UsersTableSeeder extends Seeder
     // ユーザーレコードの追加
         DB::table('users')->insert([
         [
-            'name' => 'テストユーザー',
-            'email' => 'mikan.sup.all@gmail.com',
-            'password' => bcrypt('password'), // パスワードをハッシュ化している
-            'created_at' => Carbon::now(), // 現在時刻を取得できる
-            'updated_at' => Carbon::now(),
-        ],
-        [
-            'name' => 'かんきつさん',
+            'name' => 'しまなみさん',
             'email' => 'test01@mail.com',
             'password' => bcrypt('password'), // パスワードをハッシュ化している
             'created_at' => Carbon::now(), // 現在時刻を取得できる
             'updated_at' => Carbon::now(),
         ],
         [
-            'name' => 'しまなみさん',
+            'name' => 'かんきつさん',
             'email' => 'test02@mail.com',
             'password' => bcrypt('password'), // パスワードをハッシュ化している
             'created_at' => Carbon::now(), // 現在時刻を取得できる
             'updated_at' => Carbon::now(),
         ],
         [
-            'name' => 'しまなみさん',
+            'name' => 'みかんさん',
             'email' => 'test03@mail.com',
+            'password' => bcrypt('password'), // パスワードをハッシュ化している
+            'created_at' => Carbon::now(), // 現在時刻を取得できる
+            'updated_at' => Carbon::now(),
+        ],
+        [
+            'name' => 'はっさくさん',
+            'email' => 'test04@mail.com',
+            'password' => bcrypt('password'), // パスワードをハッシュ化している
+            'created_at' => Carbon::now(), // 現在時刻を取得できる
+            'updated_at' => Carbon::now(),
+        ],
+        [
+            'name' => 'でこぽんさん',
+            'email' => 'test05@mail.com',
             'password' => bcrypt('password'), // パスワードをハッシュ化している
             'created_at' => Carbon::now(), // 現在時刻を取得できる
             'updated_at' => Carbon::now(),

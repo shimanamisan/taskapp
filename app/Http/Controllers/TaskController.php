@@ -14,7 +14,6 @@ class TaskController extends Controller
 
   public function createTask(TaskRequest $request, $folder_id, $card_id)
   {
-    // dd($folder_id);
 
     $user = Auth::user();
 
