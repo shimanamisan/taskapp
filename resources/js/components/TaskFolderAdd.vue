@@ -49,6 +49,7 @@ export default {
     ...mapGetters({
       getCode: 'error/getCode'
     })
+    // mapStateなどをを使わない書き方
     // folderRequestErrorMessages(){
     // // エラーメッセージがあった際にストアより取得
     // return this.$store.state.taskStore.folderRequestErrorMessages

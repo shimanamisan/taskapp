@@ -184,11 +184,8 @@ export default {
     Message
   },
   computed: {
-    // mapStateだと、メソッド内でthis.~で呼び出せなかった。
-    // エラーコードで処理の振り分けを行うので、this.getErrorCodeで呼び出す必要があった
     ...mapState({
       profileUploadErrors: state => state.auth.profileErrorMessages,
-      // getErrorCode: state => getters['error/getCode']
     }),
     ...mapGetters({
       getCode: 'error/getCode'
@@ -245,13 +242,18 @@ export default {
         formData.append('profilePhoto', this.profileData.profileImage)
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileImageEdit', formData)
-        if(this.getErrorCode === 200){
+        if(this.getCode === 200){
           this.showSuccess()
           setTimeout(this.showSuccess, 3000)
         }
         this.showProfileImage = !this.showProfileImage
       },
       async userSoftDelete(){
+        if(this.$store.state.auth.user_id === 1){
+          alert('テストユーザーは退会出来ません')
+          return false
+        }
+
         if(window.confirm('退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？')){
           // アクションを呼びに行く
           await this.$store.dispatch('auth/userSoftDelete')
@@ -352,15 +354,15 @@ export default {
         this.success = !this.success
       },
       /*************************************************
-       * マイページアクセス時にユーザー情報を取得
+       * プロフィールアクセス時にユーザー情報を取得
       **************************************************/
       getProfile(){
         axios.get('/api/user').then(response => {
           this.profileData.name = response.data.name
           this.profileData.email = response.data.email
           this.preview = response.data.pic
-        }).catch({
-          
+        }).catch( error => {
+          console.log(error)
         })
       }
   },

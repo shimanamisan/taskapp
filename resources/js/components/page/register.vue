@@ -1,7 +1,7 @@
 <template>
     <div class="l-wrapper l-wrapper--register">
         <section class="l-main__auth">
-            <div class="c-logo__header">
+            <div class="c-logo__header" id="rink-id">
                 <router-link to="/">
                     <img src="../../../img/logo.png" alt="logo" class="c-logo">
                 </router-link>

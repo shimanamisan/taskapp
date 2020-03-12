@@ -44,7 +44,7 @@
   import TaskCard from './TaskCard'
   import TaskCardAdd from './TaskCardAdd'
   import Message from './Message'
-  import { mapState } from 'vuex'
+  import { mapState, mapGetters } from 'vuex'
 
 export default {
   data(){
@@ -64,25 +64,21 @@ export default {
   },
   computed:{
     // taskStore.jsのステート：FolderListsを常に参照している
-    FolderLists: {
-        get(){
-          return this.$store.state.taskStore.FolderLists
-        },
-        set(value){
-          console.log(value)
-          this.$store.commit('taskStore/setFolderLists', value)
-        }
-      },
-    CardLists: {
-      get(){
-        return this.$store.state.taskStore.CardLists
-      },
-        set(value){
-        console.log(value)
-        this.$store.commit('taskStore/setFolderLists', value)
-      }
-    }
-    // ...mapState("taskStore",['FolderLists'])
+    ...mapState({
+      FolderLists: state => state.taskStore.FolderLists,
+      CardLists: state => state.taskStore.CardLists
+    }),
+    // mapStateを使わない書き方
+    // FolderLists: {
+    //     get(){
+    //       return this.$store.state.taskStore.FolderLists
+    //     }
+    //   },
+    // CardLists: {
+    //   get(){
+    //     return this.$store.state.taskStore.CardLists
+    //   }
+    // }
   },
   methods:{
     async setFolderLists(data){

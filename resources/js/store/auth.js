@@ -6,7 +6,8 @@ const state = {
   email: null,
   password: null,
   profileImage: null,
-  apiStatus: null, // API呼び出しが成功したか否か判断するためのステート。このステートを元に処理を判断する
+  // レスポンスコードを格納するためのステート（200 403 500など）
+  apiStatus: null,
 
   /****************************************
   メール送信メッセージ
@@ -29,18 +30,14 @@ const state = {
 const getters = {
   // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
   check: state => !! state.username,
-
+  // レスポンスコードをステートから取得する
   apiStatus: state => state.apiStatus ? state.apiStatus : '',
-
   // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
   getUserName: state => state.username ? state.username : '',
-
   // email情報を呼び出す
   getEmail: state => state.email ? state.email : '',
-
   // プロフィール写真のパスを呼び出す
   getProfileImage: state => state.profileImage ? state.profileImage : '',
-
 }
 
 /*******************************
@@ -120,7 +117,7 @@ const actions = {
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setRegisterErrorMessages', response.data.errors)
     } else {
-      commit('error/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root: true })
     }
     commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
@@ -132,7 +129,6 @@ const actions = {
     commit('setApiStatus', null)
       // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
       const response = await axios.post('/api/login', data).catch(error => error.response || error)
-        console.log(response);
         // 200ステータスの処理
         if(response.status === OK){
 
@@ -159,13 +155,9 @@ const actions = {
       if(response.status === UNPROCESSABLE_ENTITY ){
         commit('setLoginErrorMessages', response.data.errors)
       } else {
-        commit('error/setCode', response.status, { root:true })
+        commit('error/setCode', response.status, { root: true })
       }
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
-  },
-  async twitterLogin({commit}){
-    console.log('twitterログイン')
-    const response = await axios.get('/api/login/twitter').catch(error => error.response || error)
   },
   /****************************************
   ログアウト
@@ -174,7 +166,7 @@ const actions = {
     commit('setApiStatus', null)
     const response = await axios.post('/api/logout').catch(error => error.response || error)
     if(response.status === INTERNAL_SERVER_ERROR ){
-      commit('error/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root: true })
     }else if(response.status === OK){
       console.log('処理されています「')
       commit('setApiStatus', null)
@@ -199,7 +191,7 @@ const actions = {
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setProfileErrorMessages', response.data.errors)
     } else {
-      commit('error/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root: true })
     }
     commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
@@ -211,7 +203,7 @@ const actions = {
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setProfileErrorMessages', response.data.errors)
     } else {
-      commit('error/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root: true })
     }
 
       if(response.data.name){
@@ -228,7 +220,7 @@ const actions = {
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setProfileErrorMessages', response.data.errors)
     } else {
-      commit('error/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root: true })
     }
     commit('error/setCode', response.status, { root: true })
   },
@@ -240,7 +232,7 @@ const actions = {
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setProfileErrorMessages', response.data.errors)
     } else {
-      commit('error/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root: true })
     }
     commit('error/setCode', response.status, { root: true })
   },
@@ -250,7 +242,7 @@ const actions = {
     const id = state.user_id
     const response = await axios.delete('/api/profile/delete/' + id).catch(error => error.response || error)
     if(response.status === INTERNAL_SERVER_ERROR ){
-      commit('error/setCode', response.status, { root:true })
+      commit('error/setCode', response.status, { root: true })
     }else if(response.status === OK){
       console.log('処理されています')
       commit('setApiStatus', null)
@@ -283,11 +275,10 @@ const actions = {
   async sendResetLinkEmail({commit}, data){
     const response = await axios.post('/api/password/reminder', {email: data}).catch(error => error.response || error)
       // 422ステータスの処理
-      console.log(response)
       if(response.status === UNPROCESSABLE_ENTITY ){
         commit('sendPasswordErrorMessages', response.data.errors)
       } else {
-        commit('error/setCode', response.status, { root:true })
+        commit('error/setCode', response.status, { root: true })
       }
       commit('sendEmailMessages', response.data.success)
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
@@ -297,9 +288,13 @@ const actions = {
   *****************************************/
   async resetPassword({commit}, data){
     const response = await axios.post('/api/password/reset', data ).catch(error => error.response || error)
-    console.log(response)
+    if(response.status === UNPROCESSABLE_ENTITY){
+      commit('setProfileErrorMessages', response.data.errors)
+    } else {
+      commit('error/setCode', response.status, { root:true })
+    }
+    commit('error/setCode', response.status, { root: true })
   }
-
 }
 
 export default {

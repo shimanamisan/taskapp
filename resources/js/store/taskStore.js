@@ -48,7 +48,6 @@ const mutations = {
 const actions = {
   // 全てのデータをステートにセット
   async setFolderLists( {commit} , payload){
-    console.log( 'アクションsetFolderLists()です。フォルダーの取得をして、FolderListsストアを更新しています。')
     commit('setFolderLists', payload)
   },
   /*************************************
@@ -72,7 +71,6 @@ const actions = {
     var data = response.data.folders
 
     if(response.status === UNPROCESSABLE_ENTITY ){
-      console.log(response)
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })

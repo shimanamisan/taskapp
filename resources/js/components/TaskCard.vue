@@ -50,6 +50,7 @@
     </div>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
 import draggable from 'vuedraggable'
 import TaskList from './TaskList'
 import TaskListAdd from './TaskListAdd'
@@ -85,13 +86,20 @@ export default {
     listCounter(){
       return this.cards.tasks.length
     },
-    cardRequestErrorMessages(){
-    // エラーメッセージがあった際にストアより取得
-    return this.$store.state.taskStore.cardRequestErrorMessages
-    },
-    getErrorCode(){
-      return this.$store.state.error.code
-    }
+    ...mapState({
+      cardRequestErrorMessages: state => state.taskStore.cardRequestErrorMessages
+    }),
+    ...mapGetters({
+      getCode: 'error/getCode'
+    })
+    // mapState,mapGettersを使わない書き方
+    // cardRequestErrorMessages(){
+    // // エラーメッセージがあった際にストアより取得
+    // return this.$store.state.taskStore.cardRequestErrorMessages
+    // },
+    // getErrorCode(){
+    //   return this.$store.state.error.code
+    // },
   },
   methods: {
     // カードを削除する
@@ -122,7 +130,7 @@ export default {
       })
       await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
 
-      if(this.getErrorCode === 200){
+      if(this.getCode === 200){
         this.editCard()
       // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
       }

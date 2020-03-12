@@ -122,6 +122,10 @@ export default new VueRouter({
     }
   ],
   scrollBehavior(){
-    console.log('scrollBehavior')
+    return new Promise(resolve => {
+      setTimeout( () => {
+        resolve({ x:0, y:0 })
+      }, 500)
+    })
   }
 })
