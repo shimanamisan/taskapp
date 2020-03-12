@@ -34,6 +34,7 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    // twitterトークン用の設定
     'twitter' => [
         'client_id' => env('TWITTER_CLIENT_ID'),
         'client_secret' => env('TWITTER_CLIENT_SECRET'),
