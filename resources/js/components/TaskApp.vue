@@ -68,17 +68,6 @@ export default {
       FolderLists: state => state.taskStore.FolderLists,
       CardLists: state => state.taskStore.CardLists
     }),
-    // mapStateを使わない書き方
-    // FolderLists: {
-    //     get(){
-    //       return this.$store.state.taskStore.FolderLists
-    //     }
-    //   },
-    // CardLists: {
-    //   get(){
-    //     return this.$store.state.taskStore.CardLists
-    //   }
-    // }
   },
   methods:{
     async setFolderLists(data){

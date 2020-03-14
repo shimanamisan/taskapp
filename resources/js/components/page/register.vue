@@ -57,8 +57,8 @@
                             <!-- end errors -->
                             <input type="password" class="c-input" v-model="registerForm.password_confirmation">
                         </div>
-                        <div class="">「
-                            <a href="">利用規約</a>」利用規約を必ずご確認ください
+                        <div class="">
+                            「<router-link to="/rule">利用規約</router-link>」利用規約を必ずご確認ください
                         </div>
                         <div class="c-form__action c-form__action__item">
                             <button type="submit" class="c-btn c-btn__signin">利用規約に同意して新規登録</button>
@@ -98,13 +98,13 @@ export default {
   },
   methods: {
     async register(){
-      // await:非同期なアクションの処理が完了するのを待ってから（難しく言うと Promise の解決を待ってから）ページ遷移する
-      // authストアのregisterアクションを呼び出す
-      await this.$store.dispatch('auth/register', this.registerForm)
-       if(this.apiStatus){
-         // 通信が成功（apiStatusがtureの場合）したらトップページに移動する
-         this.$router.push('/') 
-       }
+        // await:非同期なアクションの処理が完了するのを待ってから（難しく言うと Promise の解決を待ってから）ページ遷移する
+        // authストアのregisterアクションを呼び出す
+        await this.$store.dispatch('auth/register', this.registerForm)
+            if(this.apiStatus){
+                // 通信が成功（apiStatusがtureの場合）したら移動する
+                this.$router.push('/tasklist');
+            }
     },
     clearError(){
       this.$store.commit('auth/setRegisterErrorMessages', null)

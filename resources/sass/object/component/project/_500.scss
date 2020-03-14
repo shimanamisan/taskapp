@@ -1,0 +1,25 @@
+.container{
+  text-align: center;
+  height: 650px;
+  @include mq(){
+    height: auto;
+  }
+}
+.wrapp{
+  padding: 20px;
+  position: relative;
+  & > img{
+    width: auto;
+    height: 650px;
+    @include mq(){
+      position: absolute;
+      top: 50%;
+      left: 0%;
+      transform: translateY(50%);
+      -webkit-transform: translateY(50%);
+      -ms-transform: translateY(50%);
+      width: 100%;
+      height: auto;
+    }
+  }
+}

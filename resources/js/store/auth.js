@@ -102,7 +102,7 @@ const actions = {
     commit('setApiStatus', null)
     const response = await axios.post('/api/register', data).catch(error => error.response || error)
       // 200ステータスの処理
-      if(response.status === OK){
+      if(response.status === CREATED){
         const username = response.data.name;
         const id = response.data.id;
         // ログインステータスを変更する

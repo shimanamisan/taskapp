@@ -1,4 +1,37 @@
 /********************************************** 
+共通レイアウト
+**********************************************/
+.l-main{
+  width: 100%;
+  &__rule{
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 75%;
+    @include mq(){
+      width: 100%;
+      padding: 25px 15px 30px 15px;
+      box-sizing: border-box;
+    }
+  }
+  &__auth{
+    width: 31rem; // rem: ルート要素（html要素）に指定されたサイズを基準とした単
+    margin: 0 auto;
+    padding: 25px 5px 30px 5px;
+    box-sizing: border-box;
+    @include mq(){
+      width: 100%;
+      padding: 25px 10px 30px 10px;
+    }
+      &--profile{
+        width: 774px;
+        @include mq(){
+          width: 100%;
+        }
+      }
+  }
+}
+/********************************************** 
 トップページ用
 **********************************************/
 .l-section{
@@ -48,40 +81,12 @@
     // }
     &--login{
     height: 100%;
+    @include mq(){
+      height: auto;
+    }
     }
 }
-.l-main{
-  width: 100%;
-  
-  &__anaunsu{
-    margin: 0 auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 75%;
-    @include mq(){
-      width: 100%;
-      padding: 25px 15px 30px 15px;
-      box-sizing: border-box;
-    }
-  }
-  &__auth{
-    width: 31rem; // rem: ルート要素（html要素）に指定されたサイズを基準とした単
-    margin: 0 auto;
-    padding: 25px 5px 30px 5px;
-    box-sizing: border-box;
-    @include mq(){
-      width: 100%;
-      padding: 25px 10px 30px 10px;
-    }
-      &--profile{
-        width: 774px;
-        @include mq(){
-          width: 100%;
-        }
-      }
-  }
 
-}
 .l-card__container{
   @include mq(){
     width: 100%;

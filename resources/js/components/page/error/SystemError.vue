@@ -1,6 +1,8 @@
 <template>
-    <div class="l-container">
-        <h1>500 Internal Server Error </h1>
+    <div class="container">
+        <div class="wrapp">
+            <img src="../../../../img/systemError/500.png" alt="">
+        </div>
     </div>
 </template>
 <script>
