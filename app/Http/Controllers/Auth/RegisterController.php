@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\RegisterRequest; // 追加
+use Illuminate\Http\Request; // ★ 追加
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request; // ★ 追加
 
 class RegisterController extends Controller
 {
@@ -69,6 +70,21 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+    }
+
+    // リクエストコントローラーを適応するため、トレイトのメソッドをオーバーライド
+    // トレイト側でコントローラーを指定しても同じ動きだが、オーバーライドしたほうが
+    // 何かバリデーションの変更があった際に対応しやすいと考えた。
+    public function register(RegisterRequest $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        $this->guard()->login($user);
+
+        return $this->registered($request, $user)
+                        ?: redirect($this->redirectPath());
     }
     
     // メソッド追加（なぜ追加するのか？）
