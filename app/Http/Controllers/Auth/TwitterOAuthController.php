@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Auth;
 
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Illuminate\Http\JsonResponse;
-use Laravel\Socialite\Facades\Socialite;
 use App\User; // 追加
+use Illuminate\Support\Facades\Auth; // 追加
+use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
+use Laravel\Socialite\Facades\Socialite;
 
 class TwitterOAuthController extends Controller
 {
@@ -21,7 +22,7 @@ class TwitterOAuthController extends Controller
     public function handleTwitterCallback(): JsonResponse
     {
     
-        $socialUser = Socialite::driver('twitter')->user();
+        $socialUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
         // firstOrNew：第一引数にカラム名、第二引数に検索値を入れてデータベースを検索するメソッド
         // このメソッドは保存するにはsave()メソッドを呼ぶ必要がある。（類似：firstOrCreate）
@@ -39,6 +40,7 @@ class TwitterOAuthController extends Controller
         $user->name = $socialUser->getNickname();
         $user->email = $socialUser->getEmail();
         $user->twitter_id = $socialUser->getId();
+        $user->pic = $socialUser->getAvatar();
 
         $user->save();
 
