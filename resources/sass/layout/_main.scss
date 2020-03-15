@@ -14,6 +14,17 @@
       box-sizing: border-box;
     }
   }
+  &__policy{
+    margin: 0 auto;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    width: 75%;
+    @include mq(){
+      width: 100%;
+      padding: 25px 15px 30px 15px;
+      box-sizing: border-box;
+    }
+  }
   &__auth{
     width: 31rem; // rem: ルート要素（html要素）に指定されたサイズを基準とした単
     margin: 0 auto;

@@ -15,20 +15,19 @@
   &__text{
     margin-bottom: 20px;
     line-height: 1.8;
-    &--wrapp{
-
-    }
   }
   &__list{
     margin-bottom: 20px;
     counter-reset: list-counter;
-    line-height: 1.5;
-    padding-left: 15px;
+    padding-left: 20px;
     &--item{
       margin-bottom: 10px;
       &:before{
         content: counter(list-counter)". ";
         counter-increment: list-counter;
+      }
+      &--first{
+        margin-top: 10px;
       }
     }
   }

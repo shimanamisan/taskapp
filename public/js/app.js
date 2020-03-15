@@ -2164,10 +2164,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Privacy.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Privacy.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Policy.vue?vue&type=script&lang=js&":
+/*!*****************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Policy.vue?vue&type=script&lang=js& ***!
+  \*****************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2175,6 +2175,158 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.vue");
 /* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footer */ "./resources/js/components/footer.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2806,6 +2958,31 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Header__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Header */ "./resources/js/components/Header.vue");
 /* harmony import */ var _footer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./footer */ "./resources/js/components/footer.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -46139,10 +46316,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Privacy.vue?vue&type=template&id=311948ed&":
-/*!**********************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Privacy.vue?vue&type=template&id=311948ed& ***!
-  \**********************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Policy.vue?vue&type=template&id=4d092b46&":
+/*!*********************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Policy.vue?vue&type=template&id=4d092b46& ***!
+  \*********************************************************************************************************************************************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -46166,13 +46343,352 @@ var staticRenderFns = [
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "l-wrapper" }, [
-      _c("section", { staticClass: "l-main l-main__anaunsu" }, [
-        _c("div", [
-          _c("p", [
+      _c("section", { staticClass: "l-main__policy" }, [
+        _c("h1", { staticClass: "p-policy__title" }, [
+          _vm._v("プライバシーポリシー")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "p-policy__text" }, [
+          _vm._v(
+            "\r\n              TaskApp（以下，「当サイト」といいます。）は，本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における，\r\n              ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。\r\n          "
+          )
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第1条（個人情報）\r\n")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "p-policy__text" }, [
+          _vm._v(
+            "\r\n    「個人情報」とは，個人情報保護法にいう「個人情報」を指すものとし，生存する個人に関する情報であって，\r\n    当該情報に含まれる氏名，生年月日，住所，電話番号，連絡先その他の記述等により特定の個人を識別できる情報及び容貌，\r\n    指紋，声紋にかかるデータ，及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。\r\n"
+          )
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第2条（個人情報の収集方法）\r\n")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "p-policy__text" }, [
+          _vm._v(
+            "\r\n    当サイトは，ユーザーが利用登録をする際に氏名，生年月日，住所，電話番号，メールアドレス，銀行口座番号，クレジットカード番号，\r\n    運転免許証番号などの個人情報をお尋ねすることがあります。また，ユーザーと提携先などとの間でなされたユーザーの個人情報を含む取引記録や決済に関する情報を、\r\n    当サイトの提携先（情報提供元，広告主，広告配信先などを含みます。以下，｢提携先｣といいます。）などから収集することがあります。\r\n"
+          )
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第3条（個人情報を収集・利用する目的）\r\n")
+        ]),
+        _vm._v(
+          "\r\n    当サイトが個人情報を収集・利用する目的は，以下のとおりです。\r\n "
+        ),
+        _c("ol", { staticClass: "p-rule__list" }, [
+          _c(
+            "li",
+            { staticClass: "p-rule__list--item p-rule__list--item--first" },
+            [_vm._v("\r\n    当サイトサービスの提供・運営のため\r\n    ")]
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
             _vm._v(
-              "\r\n    プライバシーポリシー\r\n＿＿＿＿＿＿＿＿（以下，「当社」といいます。）は，本ウェブサイト上で提供するサービス（以下,「本サービス」といいます。）における，ユーザーの個人情報の取扱いについて，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。\r\n\r\n第1条（個人情報）\r\n「個人情報」とは，個人情報保護法にいう「個人情報」を指すものとし，生存する個人に関する情報であって，当該情報に含まれる氏名，生年月日，住所，電話番号，連絡先その他の記述等により特定の個人を識別できる情報及び容貌，指紋，声紋にかかるデータ，及び健康保険証の保険者番号などの当該情報単体から特定の個人を識別できる情報（個人識別情報）を指します。\r\n\r\n第2条（個人情報の収集方法）\r\n当社は，ユーザーが利用登録をする際に氏名，生年月日，住所，電話番号，メールアドレス，銀行口座番号，クレジットカード番号，運転免許証番号などの個人情報をお尋ねすることがあります。また，ユーザーと提携先などとの間でなされたユーザーの個人情報を含む取引記録や決済に関する情報を,当社の提携先（情報提供元，広告主，広告配信先などを含みます。以下，｢提携先｣といいます。）などから収集することがあります。\r\n\r\n第3条（個人情報を収集・利用する目的）\r\n当社が個人情報を収集・利用する目的は，以下のとおりです。\r\n\r\n当社サービスの提供・運営のため\r\nユーザーからのお問い合わせに回答するため（本人確認を行うことを含む）\r\nユーザーが利用中のサービスの新機能，更新情報，キャンペーン等及び当社が提供する他のサービスの案内のメールを送付するため\r\nメンテナンス，重要なお知らせなど必要に応じたご連絡のため\r\n利用規約に違反したユーザーや，不正・不当な目的でサービスを利用しようとするユーザーの特定をし，ご利用をお断りするため\r\nユーザーにご自身の登録情報の閲覧や変更，削除，ご利用状況の閲覧を行っていただくため\r\n有料サービスにおいて，ユーザーに利用料金を請求するため\r\n上記の利用目的に付随する目的\r\n第4条（利用目的の変更）\r\n当社は，利用目的が変更前と関連性を有すると合理的に認められる場合に限り，個人情報の利用目的を変更するものとします。\r\n利用目的の変更を行った場合には，変更後の目的について，当社所定の方法により，ユーザーに通知し，または本ウェブサイト上に公表するものとします。\r\n第5条（個人情報の第三者提供）\r\n当社は，次に掲げる場合を除いて，あらかじめユーザーの同意を得ることなく，第三者に個人情報を提供することはありません。ただし，個人情報保護法その他の法令で認められる場合を除きます。\r\n人の生命，身体または財産の保護のために必要がある場合であって，本人の同意を得ることが困難であるとき\r\n公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって，本人の同意を得ることが困難であるとき\r\n国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって，本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき\r\n予め次の事項を告知あるいは公表し，かつ当社が個人情報保護委員会に届出をしたとき\r\n利用目的に第三者への提供を含むこと\r\n第三者に提供されるデータの項目\r\n第三者への提供の手段または方法\r\n本人の求めに応じて個人情報の第三者への提供を停止すること\r\n本人の求めを受け付ける方法\r\n前項の定めにかかわらず，次に掲げる場合には，当該情報の提供先は第三者に該当しないものとします。\r\n当社が利用目的の達成に必要な範囲内において個人情報の取扱いの全部または一部を委託する場合\r\n合併その他の事由による事業の承継に伴って個人情報が提供される場合\r\n個人情報を特定の者との間で共同して利用する場合であって，その旨並びに共同して利用される個人情報の項目，共同して利用する者の範囲，利用する者の利用目的および当該個人情報の管理について責任を有する者の氏名または名称について，あらかじめ本人に通知し，または本人が容易に知り得る状態に置いた場合\r\n第6条（個人情報の開示）\r\n当社は，本人から個人情報の開示を求められたときは，本人に対し，遅滞なくこれを開示します。ただし，開示することにより次のいずれかに該当する場合は，その全部または一部を開示しないこともあり，開示しない決定をした場合には，その旨を遅滞なく通知します。なお，個人情報の開示に際しては，1件あたり1，000円の手数料を申し受けます。\r\n本人または第三者の生命，身体，財産その他の権利利益を害するおそれがある場合\r\n当社の業務の適正な実施に著しい支障を及ぼすおそれがある場合\r\nその他法令に違反することとなる場合\r\n前項の定めにかかわらず，履歴情報および特性情報などの個人情報以外の情報については，原則として開示いたしません。\r\n第7条（個人情報の訂正および削除）\r\nユーザーは，当社の保有する自己の個人情報が誤った情報である場合には，当社が定める手続きにより，当社に対して個人情報の訂正，追加または削除（以下，「訂正等」といいます。）を請求することができます。\r\n当社は，ユーザーから前項の請求を受けてその請求に応じる必要があると判断した場合には，遅滞なく，当該個人情報の訂正等を行うものとします。\r\n当社は，前項の規定に基づき訂正等を行った場合，または訂正等を行わない旨の決定をしたときは遅滞なく，これをユーザーに通知します。\r\n第8条（個人情報の利用停止等）\r\n当社は，本人から，個人情報が，利用目的の範囲を超えて取り扱われているという理由，または不正の手段により取得されたものであるという理由により，その利用の停止または消去（以下，「利用停止等」といいます。）を求められた場合には，遅滞なく必要な調査を行います。\r\n前項の調査結果に基づき，その請求に応じる必要があると判断した場合には，遅滞なく，当該個人情報の利用停止等を行います。\r\n当社は，前項の規定に基づき利用停止等を行った場合，または利用停止等を行わない旨の決定をしたときは，遅滞なく，これをユーザーに通知します。\r\n前2項にかかわらず，利用停止等に多額の費用を有する場合その他利用停止等を行うことが困難な場合であって，ユーザーの権利利益を保護するために必要なこれに代わるべき措置をとれる場合は，この代替策を講じるものとします。\r\n第9条（プライバシーポリシーの変更）\r\n本ポリシーの内容は，法令その他本ポリシーに別段の定めのある事項を除いて，ユーザーに通知することなく，変更することができるものとします。\r\n当社が別途定める場合を除いて，変更後のプライバシーポリシーは，本ウェブサイトに掲載したときから効力を生じるものとします。\r\n  "
+              "\r\n    ユーザーからのお問い合わせに回答するため（本人確認を行うことを含む）\r\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n    ユーザーが利用中のサービスの新機能，更新情報，キャンペーン等及び当サイトが提供する他のサービスの案内のメールを送付するため\r\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n    メンテナンス，重要なお知らせなど必要に応じたご連絡のため\r\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n    利用規約に違反したユーザーや，不正・不当な目的でサービスを利用しようとするユーザーの特定をし，ご利用をお断りするため\r\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n    ユーザーにご自身の登録情報の閲覧や変更，削除，ご利用状況の閲覧を行っていただくため\r\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n    有料サービスにおいて，ユーザーに利用料金を請求するため\r\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v("\r\n    上記の利用目的に付随する目的\r\n    ")
+          ])
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第4条（利用目的の変更）\r\n")
+        ]),
+        _vm._v(" "),
+        _c("ol", { staticClass: "p-rule__list" }, [
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n    当サイトは，利用目的が変更前と関連性を有すると合理的に認められる場合に限り，個人情報の利用目的を変更するものとします。\r\n    "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n    利用目的の変更を行った場合には，変更後の目的について，当サイト所定の方法により，ユーザーに通知し，または本ウェブサイト上に公表するものとします。\r\n       "
             )
           ])
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第5条（個人情報の第三者提供）\r\n")
+        ]),
+        _vm._v(" "),
+        _c("ol", { staticClass: "p-rule__list" }, [
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n        当サイトは，次に掲げる場合を除いて，あらかじめユーザーの同意を得ることなく，第三者に個人情報を提供することはありません。\r\n        ただし，個人情報保護法その他の法令で認められる場合を除きます\r\n            "
+            ),
+            _c("ol", { staticClass: "p-rule__list" }, [
+              _c(
+                "li",
+                { staticClass: "p-rule__list--item p-rule__list--item--first" },
+                [
+                  _vm._v(
+                    "\r\n                人の生命，身体または財産の保護のために必要がある場合であって，本人の同意を得ることが困難であるとき\r\n                "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n                公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって，本人の同意を得ることが困難であるとき\r\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n                国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって，\r\n                本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき\r\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n                予め次の事項を告知あるいは公表し，かつ当サイトが個人情報保護委員会に届出をしたとき\r\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("ol", { staticClass: "p-rule__list" }, [
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\r\n                        利用目的に第三者への提供を含むこと\r\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\r\n                        第三者に提供されるデータの項目\r\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\r\n                        第三者への提供の手段または方法\r\n                          "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\r\n                        本人の求めに応じて個人情報の第三者への提供を停止すること\r\n                        "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\r\n                        本人の求めを受け付ける方法\r\n                        "
+                  )
+                ])
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n          前項の定めにかかわらず，次に掲げる場合には，当該情報の提供先は第三者に該当しないものとします。\r\n            "
+            ),
+            _c("ol", { staticClass: "p-rule__list" }, [
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n                当サイトが利用目的の達成に必要な範囲内において個人情報の取扱いの全部または一部を委託する場合\r\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n                合併その他の事由による事業の承継に伴って個人情報が提供される場合\r\n                "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n                個人情報を特定の者との間で共同して利用する場合であって，その旨並びに共同して利用される個人情報の項目，共同して利用する者の範囲，\r\n                利用する者の利用目的および当該個人情報の管理について責任を有する者の氏名または名称について，あらかじめ本人に通知し，\r\n                または本人が容易に知り得る状態に置いた場合\r\n                "
+                )
+              ])
+            ])
+          ])
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第6条（個人情報の開示）\r\n    ")
+        ]),
+        _vm._v(" "),
+        _c("ol", { staticClass: "p-rule__list" }, [
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n        当サイトは，本人から個人情報の開示を求められたときは，本人に対し，遅滞なくこれを開示します。\r\n        ただし，開示することにより次のいずれかに該当する場合は，その全部または一部を開示しないこともあり，開示しない決定をした場合には，その旨を遅滞なく通知します。\r\n        なお，個人情報の開示に際しては，1件あたり1，000円の手数料を申し受けます。\r\n     \r\n            "
+            ),
+            _c("ol", { staticClass: "p-rule__list" }, [
+              _c(
+                "li",
+                { staticClass: "p-rule__list--item p-rule__list--item--first" },
+                [
+                  _vm._v(
+                    "\r\n              本人または第三者の生命，身体，財産その他の権利利益を害するおそれがある場合\r\n              "
+                  )
+                ]
+              ),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n              当サイトの業務の適正な実施に著しい支障を及ぼすおそれがある場合\r\n              "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\r\n              その他法令に違反することとなる場合\r\n              "
+                )
+              ])
+            ])
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n        前項の定めにかかわらず，履歴情報および特性情報などの個人情報以外の情報については，原則として開示いたしません。\r\n        "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第7条（個人情報の訂正および削除）\r\n    ")
+        ]),
+        _vm._v(" "),
+        _c("ol", { staticClass: "p-rule__list" }, [
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n      ユーザーは，当サイトの保有する自己の個人情報が誤った情報である場合には，当サイトが定める手続きにより，\r\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n      当サイトに対して個人情報の訂正，追加または削除（以下，「訂正等」といいます。）を請求することができます。\r\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n      当サイトは，ユーザーから前項の請求を受けてその請求に応じる必要があると判断した場合には，遅滞なく，当該個人情報の訂正等を行うものとします。\r\n      "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n      当サイトは，前項の規定に基づき訂正等を行った場合，または訂正等を行わない旨の決定をしたときは遅滞なく，これをユーザーに通知します。\r\n      "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第8条（個人情報の利用停止等）\r\n    ")
+        ]),
+        _vm._v(" "),
+        _c("ol", { staticClass: "p-rule__list" }, [
+          _c(
+            "li",
+            { staticClass: "p-rule__list--item p-rule__list--item--first" },
+            [
+              _vm._v(
+                "\r\n          当サイトは，本人から，個人情報が，利用目的の範囲を超えて取り扱われているという理由，または不正の手段により取得されたものであるという理由により，\r\n          その利用の停止または消去（以下，「利用停止等」といいます。）を求められた場合には，遅滞なく必要な調査を行います。\r\n        "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n        前項の調査結果に基づき，その請求に応じる必要があると判断した場合には，遅滞なく，当該個人情報の利用停止等を行います。\r\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n        当サイトは，前項の規定に基づき利用停止等を行った場合，または利用停止等を行わない旨の決定をしたときは，遅滞なく，これをユーザーに通知します。\r\n        "
+            )
+          ]),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n        前2項にかかわらず，利用停止等に多額の費用を有する場合その他利用停止等を行うことが困難な場合であって，\r\n        ユーザーの権利利益を保護するために必要なこれに代わるべき措置をとれる場合は，この代替策を講じるものとします。\r\n        "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    第9条（プライバシーポリシーの変更）\r\n    ")
+        ]),
+        _vm._v(" "),
+        _c("ol", { staticClass: "p-rule__list" }, [
+          _c(
+            "li",
+            { staticClass: "p-rule__list--item p-rule__list--item--first" },
+            [
+              _vm._v(
+                "\r\n      本ポリシーの内容は，法令その他本ポリシーに別段の定めのある事項を除いて，ユーザーに通知することなく，変更することができるものとします。\r\n      "
+              )
+            ]
+          ),
+          _vm._v(" "),
+          _c("li", { staticClass: "p-rule__list--item" }, [
+            _vm._v(
+              "\r\n      当サイトが別途定める場合を除いて，変更後のプライバシーポリシーは，本ウェブサイトに掲載したときから効力を生じるものとします。\r\n      "
+            )
+          ])
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n    免責事項\r\n    ")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "p-policy__text" }, [
+          _vm._v(
+            "\r\n      当サイトの情報は、一部のサービスを除き、無料で提供されています。当サイトを利用したウェブサイトの閲覧や情報収集については、\r\n      情報がユーザーの需要に適合するものか否か、情報の保存や複製その他ユーザーによる任意の利用方法により必要な法的権利を有しているか否か、\r\n      著作権、秘密保持、名誉毀損、品位保持および輸出に関する法規その他法令上の義務に従うことなど、\r\n      ユーザーご自身の責任において行っていただきますようお願いいたします。\r\n      当サイトの御利用につき、何らかのトラブルや損失・損害等につきましては一切責任を問わないものとします。\r\n      当サイトからリンクやバナーなどによって他のサイトに移動された場合、移動先サイトで提供される情報、サービス等について一切の責任を負いません。\r\n      "
+          )
+        ]),
+        _vm._v(" "),
+        _c("h2", { staticClass: "p-policy__title--sub" }, [
+          _vm._v("\r\n      お問い合わせ\r\n      ")
+        ]),
+        _vm._v(" "),
+        _c("p", { staticClass: "p-policy__text" }, [
+          _vm._v(
+            "\r\n        当サイトの個人情報の取扱いに関するお問い合わせはお問い合わせフォームよりご連絡ください。\r\n        "
+          )
         ])
       ])
     ])
@@ -46868,10 +47384,24 @@ var staticRenderFns = [
                 )
               ]),
               _vm._v(" "),
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                          利用登録の申請に際して虚偽の事項を届け出た場合 本規約に違反したことがある者からの申請である場合\n                          その他，当サイトが利用登録を相当でないと判断した場合 \n                          "
-                )
+              _c("ol", { staticClass: "p-rule__list" }, [
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\n                              利用登録の申請に際して虚偽の事項を届け出た場合\n                              "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\n                              違反したことがある者からの申請である場合\n                              "
+                  )
+                ]),
+                _vm._v(" "),
+                _c("li", { staticClass: "p-rule__list--item" }, [
+                  _vm._v(
+                    "\n                              その他，当サイトが利用登録を相当でないと判断した場合 \n                              "
+                  )
+                ])
               ])
             ]),
             _vm._v(" "),
@@ -47011,11 +47541,18 @@ var staticRenderFns = [
                   "\n                      当サイトは，以下のいずれかの事由があると判断した場合ユーザーに事前に通知することなく本サービスの全部または一部の提供を停止または中断することができるものとします。\n                        "
                 ),
                 _c("ol", { staticClass: "p-rule__list" }, [
-                  _c("li", { staticClass: "p-rule__list--item" }, [
-                    _vm._v(
-                      "\n                              本サービスにかかるコンピュータシステムの保守点検または更新を行う場合\n                              "
-                    )
-                  ]),
+                  _c(
+                    "li",
+                    {
+                      staticClass:
+                        "p-rule__list--item p-rule__list--item--first"
+                    },
+                    [
+                      _vm._v(
+                        "\n                              本サービスにかかるコンピュータシステムの保守点検または更新を行う場合\n                              "
+                      )
+                    ]
+                  ),
                   _vm._v(" "),
                   _c("li", { staticClass: "p-rule__list--item" }, [
                     _vm._v(
@@ -47051,7 +47588,51 @@ var staticRenderFns = [
             _c("ol", { staticClass: "p-rule__list" }, [
               _c("li", { staticClass: "p-rule__list--item" }, [
                 _vm._v(
-                  "\n                  当サイトは，ユーザーが以下のいずれかに該当する場合には，事前の通知なく，\n                  ユーザーに対して，本サービスの全部もしくは一部の利用を制限し，またはユーザーとしての登録を抹消することができるものとします。\n                  本規約のいずれかの条項に違反した場合 登録事項に虚偽の事実があることが判明した場合 料金等の支払債務の不履行があった場合\n                  当サイトからの連絡に対し，一定期間返答がない場合 本サービスについて，最終の利用から一定期間利用がない場合\n                  その他，当サイトが本サービスの利用を適当でないと判断した場合 当サイトは，本条に基づき当サイトが行った行為によりユーザーに生じた損害について，\n                  一切の責任を負いません。\n                  "
+                  "\n                      当サイトは，ユーザーが以下のいずれかに該当する場合には，事前の通知なく，ユーザーに対して，本サービスの全部もしくは一部の利用を制限し，またはユーザーとしての登録を抹消することができるものとします。\n                      本規約のいずれかの条項に違反した場合\n                          "
+                ),
+                _c("ol", { staticClass: "p-rule__list" }, [
+                  _c(
+                    "li",
+                    {
+                      staticClass:
+                        "p-rule__list--item p-rule__list--item--first"
+                    },
+                    [
+                      _vm._v(
+                        "\n                              登録事項に虚偽の事実があることが判明した場合\n                              "
+                      )
+                    ]
+                  ),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "p-rule__list--item" }, [
+                    _vm._v(
+                      "\n                              料金等の支払債務の不履行があった場合\n                              "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "p-rule__list--item" }, [
+                    _vm._v(
+                      "\n                              当サイトからの連絡に対し，一定期間返答がない場合\n                              "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "p-rule__list--item" }, [
+                    _vm._v(
+                      "\n                              本サービスについて，最終の利用から一定期間利用がない場合\n                              "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("li", { staticClass: "p-rule__list--item" }, [
+                    _vm._v(
+                      "\n                              その他，当サイトが本サービスの利用を適当でないと判断した場合\n                              "
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\n                      当サイトは，本条に基づき当サイトが行った行為によりユーザーに生じた損害について，一切の責任を負いません。\n                      "
                 )
               ])
             ]),
@@ -47060,12 +47641,10 @@ var staticRenderFns = [
               _vm._v("第7条（退会）")
             ]),
             _vm._v(" "),
-            _c("ol", { staticClass: "p-rule__list" }, [
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                  ユーザーは，当サイトの定める退会手続により，本サービスから退会できるものとします。\n                  "
-                )
-              ])
+            _c("p", { staticClass: "p-rule__text" }, [
+              _vm._v(
+                "\n                          ユーザーは，当サイトの定める退会手続により，本サービスから退会できるものとします。\n                      "
+              )
             ]),
             _vm._v(" "),
             _c("h2", { staticClass: "p-rule__title--sub" }, [
@@ -47075,7 +47654,25 @@ var staticRenderFns = [
             _c("ol", { staticClass: "p-rule__list" }, [
               _c("li", { staticClass: "p-rule__list--item" }, [
                 _vm._v(
-                  "\n                  当サイトは，本サービスに事実上または法律上の瑕疵（安全性，信頼性，正確性，完全性，有効性\n                  特定の目的への適合性，セキュリティなどに関する欠陥，エラーやバグ，権利侵害などを含みます。）\n                  がないことを明示的にも黙示的にも保証しておりません。 当サイトは，本サービスに起因してユーザーに生じたあらゆる損害について一切の責任を負いません。\n                  ただし，本サービスに関する当サイトとユーザーとの間の契約（本規約を含みます。）が消費者契約法に定める消費者契約となる場合，\n                  この免責規定は適用されません。 前項ただし書に定める場合であっても，当サイトは，当サイトの過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに\n                  生じた損害のうち特別な事情から生じた損害（当サイトまたはユーザーが損害発生につき予見し，または予見し得た場合を含みます。）\n                  について一切の責任を負いません。また，当サイトの過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに\n                  生じた損害の賠償は，ユーザーから当該損害が発生した月に受領した利用料の額を上限とします。 当サイトは，本サービスに関して，\n                  ユーザーと他のユーザーまたは第三者との間において生じた取引，連絡または紛争等について一切責任を負いません。 \n                  "
+                  "\n                          当サイトは，本サービスに事実上または法律上の瑕疵（安全性，信頼性，正確性，完全性，有効性\n                          特定の目的への適合性，セキュリティなどに関する欠陥，エラーやバグ，権利侵害などを含みます。）\n                          がないことを明示的にも黙示的にも保証しておりません。\n                          "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\n                          当サイトは，本サービスに起因してユーザーに生じたあらゆる損害について一切の責任を負いません。\n                          ただし，本サービスに関する当サイトとユーザーとの間の契約（本規約を含みます。）が消費者契約法に定める消費者契約となる場合，\n                          この免責規定は適用されません。\n                          "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\n                          前項ただし書に定める場合であっても，当サイトは，当サイトの過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに\n                          生じた損害のうち特別な事情から生じた損害（当サイトまたはユーザーが損害発生につき予見し，または予見し得た場合を含みます。）\n                          について一切の責任を負いません。また，当サイトの過失（重過失を除きます。）による債務不履行または不法行為によりユーザーに\n                          生じた損害の賠償は，ユーザーから当該損害が発生した月に受領した利用料の額を上限とします。\n                          "
+                )
+              ]),
+              _vm._v(" "),
+              _c("li", { staticClass: "p-rule__list--item" }, [
+                _vm._v(
+                  "\n                          当サイトは，本サービスに関して，ユーザーと他のユーザーまたは第三者との間において生じた取引，連絡または紛争等について一切責任を負いません。 \n                          "
                 )
               ])
             ]),
@@ -47084,72 +47681,60 @@ var staticRenderFns = [
               _vm._v("第9条（サービス内容の変更等）")
             ]),
             _vm._v(" "),
-            _c("ol", { staticClass: "p-rule__list" }, [
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                  当サイトは，ユーザーに通知することなく，本サービスの内容を変更しまたは本サービスの\n                  提供を中止することができるものとし，これによってユーザーに生じた損害について一切の責任を負いません。 \n                  "
-                )
-              ])
+            _c("p", { staticClass: "p-rule__text" }, [
+              _vm._v(
+                "\n                          当サイトは，ユーザーに通知することなく，本サービスの内容を変更しまたは本サービスの\n                          提供を中止することができるものとし，これによってユーザーに生じた損害について一切の責任を負いません。 \n                      "
+              )
             ]),
             _vm._v(" "),
             _c("h2", { staticClass: "p-rule__title--sub" }, [
               _vm._v("第10条（利用規約の変更） ")
             ]),
             _vm._v(" "),
-            _c("ol", { staticClass: "p-rule__list" }, [
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                  当サイトは，必要と判断した場合には，ユーザーに通知することなくいつでも本規約を変更す\n                  ることができるものとします。なお，本規約の変更後，本サービスの利用を開始した場合には，当該ユーザーは変更後の\n                  規約に同意したものとみなします。\n                  "
-                )
-              ])
+            _c("p", { staticClass: "p-rule__text" }, [
+              _vm._v(
+                "\n                            当サイトは，必要と判断した場合には，ユーザーに通知することなくいつでも本規約を変更す\n                            ることができるものとします。なお，本規約の変更後，本サービスの利用を開始した場合には，当該ユーザーは変更後の\n                            規約に同意したものとみなします。\n                      "
+              )
             ]),
             _vm._v(" "),
             _c("h2", { staticClass: "p-rule__title--sub" }, [
               _vm._v("第11条（個人情報の取扱い）")
             ]),
             _vm._v(" "),
-            _c("ol", { staticClass: "p-rule__list" }, [
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                  当サイトは，本サービスの利用によって取得する個人情報については，\n                  当サイト「プライバシーポリシー」に従い適切に取り扱うものとします。 \n                  "
-                )
-              ])
+            _c("p", { staticClass: "p-rule__text" }, [
+              _vm._v(
+                "\n                          当サイトは，本サービスの利用によって取得する個人情報については，\n                          当サイト「プライバシーポリシー」に従い適切に取り扱うものとします。 \n                      "
+              )
             ]),
             _vm._v(" "),
             _c("h2", { staticClass: "p-rule__title--sub" }, [
               _vm._v("第12条（通知または連絡）")
             ]),
             _vm._v(" "),
-            _c("ol", { staticClass: "p-rule__list" }, [
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                  ユーザーと当サイトとの間の通知または連絡は，\n                  当サイトの定める方法によって行うものとします。当サイトは,ユーザーから,当サイトが別途定める方式に従った変更届け出がない限り,\n                  現在登録されている連絡先が有効なものとみなして当該連絡先へ通知または連絡を行い,これらは,発信時にユーザーへ到達したものとみなします。\n                  "
-                )
-              ])
+            _c("p", { staticClass: "p-rule__text" }, [
+              _vm._v(
+                "\n                          ユーザーと当サイトとの間の通知または連絡は，\n                          当サイトの定める方法によって行うものとします。当サイトは,ユーザーから,当サイトが別途定める方式に従った変更届け出がない限り,\n                          現在登録されている連絡先が有効なものとみなして当該連絡先へ通知または連絡を行い,これらは,発信時にユーザーへ到達したものとみなします。\n                      "
+              )
             ]),
             _vm._v(" "),
             _c("h2", { staticClass: "p-rule__title--sub" }, [
               _vm._v("第13条（権利義務の譲渡の禁止）")
             ]),
             _vm._v(" "),
-            _c("ol", { staticClass: "p-rule__list" }, [
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                  ユーザーは，当サイトの書面による事前の承諾なく，\n                  利用契約上の地位または本規約に基づく権利もしくは義務を第三者に譲渡し，または担保に供することはできません。 \n                  "
-                )
-              ])
+            _c("p", { staticClass: "p-rule__text" }, [
+              _vm._v(
+                "\n                          ユーザーは，当サイトの書面による事前の承諾なく，\n                          利用契約上の地位または本規約に基づく権利もしくは義務を第三者に譲渡し，または担保に供することはできません。 \n                      "
+              )
             ]),
             _vm._v(" "),
             _c("h2", { staticClass: "p-rule__title--sub" }, [
               _vm._v("第14条（準拠法・裁判管轄）")
             ]),
             _vm._v(" "),
-            _c("ol", { staticClass: "p-rule__list" }, [
-              _c("li", { staticClass: "p-rule__list--item" }, [
-                _vm._v(
-                  "\n                  本規約の解釈にあたっては，日本法を準拠法とします。 \n                  本サービスに関して紛争が生じた場合には，当サイトの本店所在地を管轄する裁判所を専属的合意管轄とします。 \n                  "
-                )
-              ])
+            _c("p", { staticClass: "p-rule__text" }, [
+              _vm._v(
+                "\n                          本規約の解釈にあたっては，日本法を準拠法とします。 \n                          本サービスに関して紛争が生じた場合には，当サイトの本店所在地を管轄する裁判所を専属的合意管轄とします。 \n                      "
+              )
             ])
           ])
         ])
@@ -48175,7 +48760,7 @@ var render = function() {
         _vm._v(" "),
         _c(
           "router-link",
-          { staticClass: "l-footer-link", attrs: { to: "/privacy" } },
+          { staticClass: "l-footer-link", attrs: { to: "/policy" } },
           [_vm._v("プライバシーポリシー")]
         )
       ],
@@ -69232,17 +69817,17 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/js/components/Privacy.vue":
-/*!*********************************************!*\
-  !*** ./resources/js/components/Privacy.vue ***!
-  \*********************************************/
+/***/ "./resources/js/components/Policy.vue":
+/*!********************************************!*\
+  !*** ./resources/js/components/Policy.vue ***!
+  \********************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Privacy_vue_vue_type_template_id_311948ed___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Privacy.vue?vue&type=template&id=311948ed& */ "./resources/js/components/Privacy.vue?vue&type=template&id=311948ed&");
-/* harmony import */ var _Privacy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Privacy.vue?vue&type=script&lang=js& */ "./resources/js/components/Privacy.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Policy_vue_vue_type_template_id_4d092b46___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Policy.vue?vue&type=template&id=4d092b46& */ "./resources/js/components/Policy.vue?vue&type=template&id=4d092b46&");
+/* harmony import */ var _Policy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Policy.vue?vue&type=script&lang=js& */ "./resources/js/components/Policy.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -69252,9 +69837,9 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
-  _Privacy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
-  _Privacy_vue_vue_type_template_id_311948ed___WEBPACK_IMPORTED_MODULE_0__["render"],
-  _Privacy_vue_vue_type_template_id_311948ed___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  _Policy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Policy_vue_vue_type_template_id_4d092b46___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Policy_vue_vue_type_template_id_4d092b46___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
   false,
   null,
   null,
@@ -69264,38 +69849,38 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/js/components/Privacy.vue"
+component.options.__file = "resources/js/components/Policy.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./resources/js/components/Privacy.vue?vue&type=script&lang=js&":
-/*!**********************************************************************!*\
-  !*** ./resources/js/components/Privacy.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************/
+/***/ "./resources/js/components/Policy.vue?vue&type=script&lang=js&":
+/*!*********************************************************************!*\
+  !*** ./resources/js/components/Policy.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Privacy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Privacy.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Privacy.vue?vue&type=script&lang=js&");
-/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Privacy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Policy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Policy.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Policy.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Policy_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./resources/js/components/Privacy.vue?vue&type=template&id=311948ed&":
-/*!****************************************************************************!*\
-  !*** ./resources/js/components/Privacy.vue?vue&type=template&id=311948ed& ***!
-  \****************************************************************************/
+/***/ "./resources/js/components/Policy.vue?vue&type=template&id=4d092b46&":
+/*!***************************************************************************!*\
+  !*** ./resources/js/components/Policy.vue?vue&type=template&id=4d092b46& ***!
+  \***************************************************************************/
 /*! exports provided: render, staticRenderFns */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Privacy_vue_vue_type_template_id_311948ed___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Privacy.vue?vue&type=template&id=311948ed& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Privacy.vue?vue&type=template&id=311948ed&");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Privacy_vue_vue_type_template_id_311948ed___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Policy_vue_vue_type_template_id_4d092b46___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Policy.vue?vue&type=template&id=4d092b46& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Policy.vue?vue&type=template&id=4d092b46&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Policy_vue_vue_type_template_id_4d092b46___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Privacy_vue_vue_type_template_id_311948ed___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Policy_vue_vue_type_template_id_4d092b46___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
 
 
 
@@ -70579,7 +71164,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_index__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/index */ "./resources/js/components/index.vue");
 /* harmony import */ var _components_TaskApp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/TaskApp */ "./resources/js/components/TaskApp.vue");
 /* harmony import */ var _components_Profile__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Profile */ "./resources/js/components/Profile.vue");
-/* harmony import */ var _components_Privacy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Privacy */ "./resources/js/components/Privacy.vue");
+/* harmony import */ var _components_Policy__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Policy */ "./resources/js/components/Policy.vue");
 /* harmony import */ var _components_Rule__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Rule */ "./resources/js/components/Rule.vue");
 /* harmony import */ var _components_page_Login__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/page/Login */ "./resources/js/components/page/Login.vue");
 /* harmony import */ var _components_page_Register__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/page/Register */ "./resources/js/components/page/Register.vue");
@@ -70680,8 +71265,8 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
     }
   }, {
     // プライバシーポリシー
-    path: '/privacy',
-    component: _components_Privacy__WEBPACK_IMPORTED_MODULE_5__["default"]
+    path: '/policy',
+    component: _components_Policy__WEBPACK_IMPORTED_MODULE_5__["default"]
   }, {
     // 利用規約
     path: '/rule',

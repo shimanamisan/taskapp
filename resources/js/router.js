@@ -6,7 +6,7 @@ import VueRouter from 'vue-router'
 import Index from './components/index'
 import TaskApp from './components/TaskApp'
 import Profile from './components/Profile'
-import Privacy from './components/Privacy'
+import Policy from './components/Policy'
 import Rule from './components/Rule'
 import Login from './components/page/Login'
 import Register from './components/page/Register'
@@ -107,8 +107,8 @@ export default new VueRouter({
     },
     {
       // プライバシーポリシー
-      path: '/privacy',
-      component: Privacy
+      path: '/policy',
+      component: Policy
     },
     {
       // 利用規約
