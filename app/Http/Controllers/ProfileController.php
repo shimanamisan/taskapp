@@ -14,7 +14,7 @@ use App\Http\Requests\ProfilePasswordRequest;
 
 class ProfileController extends Controller
 {
-
+    
     protected $user;
 
     public function __construct()
@@ -83,17 +83,27 @@ class ProfileController extends Controller
         // https://www.ritolab.com/entry/53#environment_development
         $user = User::find($id);
         
-        if($user->delete_flg === 0){
-            $user->delete_flg = 1;
-            $user->save();
-            // これでログアウト処理
-            Auth::logout();
-            // ヘルパ関数を利用。セッションをクリア＆セッションIDを再発行(Illuminate\Session\Store::invalidate)
-            $request->session()->invalidate();
-            // 次回フォームで認証エラーが出ないようにcsrfトークンをリフレッシュ
-            $request->session()->regenerateToken();
+        $user->delete();
 
-            return response()->json();
-        }
+        Auth::logout();
+
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return response()->json();
+        
+        // if($user->delete_flg === 0){
+        //     $user->delete_flg = 1;
+        //     $user->save();
+        //     // これでログアウト処理
+        //     Auth::logout();
+        //     // ヘルパ関数を利用。セッションをクリア＆セッションIDを再発行(Illuminate\Session\Store::invalidate)
+        //     $request->session()->invalidate();
+        //     // 次回フォームで認証エラーが出ないようにcsrfトークンをリフレッシュ
+        //     $request->session()->regenerateToken();
+
+        //     return response()->json();
+        // }
     }
 }
