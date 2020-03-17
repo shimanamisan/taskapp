@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\RegisterRequest; // 追加
 use Illuminate\Http\Request; // ★ 追加
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Auth\Events\Registered; // 追加
 use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\RegisterRequest; // 追加
 use Illuminate\Foundation\Auth\RegistersUsers;
 
 class RegisterController extends Controller
@@ -42,12 +43,6 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
-    /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param  array  $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
     protected function validator(array $data)
     {
         return Validator::make($data, [
@@ -57,12 +52,6 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(array $data)
     {
         return User::create([
@@ -87,7 +76,7 @@ class RegisterController extends Controller
                         ?: redirect($this->redirectPath());
     }
     
-    // メソッド追加（なぜ追加するのか？）
+    // メソッド追加（なぜ追加するのか？）オーバーライド
     // Illuminate\Foundation\Auth\RegistersUsers トレイトを見てみましょう
     protected function registered(Request $request, $user)
     {
