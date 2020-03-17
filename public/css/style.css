@@ -514,6 +514,8 @@ br {
 @media screen and (max-width: 414px) {
   .l-footer {
     text-align: center;
+    padding: 0 5px;
+    font-size: 14px;
   }
 }
 
@@ -521,10 +523,23 @@ br {
   float: right;
 }
 
+@media screen and (max-width: 414px) {
+  .l-footer-container {
+    float: none;
+    text-align: center;
+  }
+}
+
 .l-footer-link {
   color: #707070;
   display: inline-block;
   margin-right: 30px;
+}
+
+@media screen and (max-width: 414px) {
+  .l-footer-link {
+    margin-right: 10px;
+  }
 }
 
 /******************************************************************************
@@ -1555,6 +1570,42 @@ br {
 
 .p-rule__list--item--first {
   margin-top: 10px;
+}
+
+.p-callback {
+  height: 100vh;
+}
+
+.p-callback__wrapp {
+  padding-top: 80px;
+}
+
+@media screen and (max-width: 414px) {
+  .p-callback__wrapp {
+    padding: 80px 15px 15px 15px;
+  }
+}
+
+.p-callback__wrapp--innner {
+  font-size: 20px;
+  text-align: center;
+  line-height: 200px;
+  height: 200px;
+  margin: 0px auto;
+  width: 600px;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(128, 181, 224, 0.6);
+  border-radius: 10px;
+}
+
+@media screen and (max-width: 414px) {
+  .p-callback__wrapp--innner {
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    height: 50%;
+  }
 }
 
 /***********************************************************************************

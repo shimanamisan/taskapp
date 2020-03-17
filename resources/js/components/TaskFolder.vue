@@ -28,6 +28,7 @@
     </div>
 </template>
 <script>
+import { mapState, mapGetters } from 'vuex'
 import draggable from 'vuedraggable'
 import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../statusCode'
 
@@ -56,13 +57,13 @@ export default {
     }
   },
   computed: {
-    folderRequestErrorMessages(){
-    // エラーメッセージがあった際にストアより取得
-    return this.$store.state.taskStore.folderRequestErrorMessages
-    },
-    getErrorCode(){
-      return this.$store.state.error.code
-    }
+    ...mapState({
+      // エラーメッセージがあった際にストアより取得
+      folderRequestErrorMessages: state => state.taskStore.folderRequestErrorMessages
+    }),
+    ...mapGetters({
+      getCode: 'error/getCode'
+    }),
   },
   methods: {
     // フォルダーを削除する
@@ -88,14 +89,12 @@ export default {
       this.clearError()
     },
     async updateFolderTitle(){
-      
       await this.$store.dispatch('taskStore/updateFolderTitle',
       {
         title: this.folderTitle,
         folder_id: this.id
       })
-
-      if(this.getErrorCode === OK){
+      if(this.getCode === OK){
         this.editFolder()
       }
     },

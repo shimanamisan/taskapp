@@ -105,6 +105,7 @@ const actions = {
     } else {
       commit('error/setCode', response.status, { root:true })
       // ミューテーションへコミットする
+      console.log(JSON.stringify(data))
       commit('setFolderLists', data) 
     }
     commit('error/setCode', response.status, { root: true })
@@ -113,12 +114,12 @@ const actions = {
   async updateFolderSort({commit}, newFolder){
     const response = await axios.patch('/api/folder/update-all', {folders: newFolder}).catch(error => error.response || error)
     if(response.status ===   UNPROCESSABLE_ENTITY ){
-    
+      commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
+      // commit('setFolderLists', )
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true })
-
   },
   /*************************************
   カードの作成・更新・削除・並び替え

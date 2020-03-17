@@ -82,10 +82,9 @@ export default {
   },
   methods: {
       async resetPassword(){    
-          await this.$store.dispatch('auth/resetPassword', this.form).then(response => console.log('これはvueがわ' + response))
+          await this.$store.dispatch('auth/resetPassword', this.form )
       },
       setQuery(){
-        // this.requestURL = this.$route.query.queryURL || ''; // パスワードリセットAPIのURL
         this.form.token = this.$route.query.token || '';    // パスワードリセットするために必要なToken
       }
 

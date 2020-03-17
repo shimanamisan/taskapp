@@ -15,4 +15,5 @@ mix.js('resources/js/app.js', 'public/js')
     .sass('resources/sass/style.scss', 'public/css')
     // コンパイルしたファイルのバージョニングを有効にする
     // ビルドするたびにコンパイルしたファイルの URL にランダムな文字列を付けてブラウザがキャッシュを読まないようにする
-    .version();
+    .version()
+    .sourceMaps();

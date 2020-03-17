@@ -7,13 +7,22 @@
   padding: 0 $space_xl;
   @include mq(){
     text-align: center;
+    padding: 0 5px;
+    font-size: 14px;
   }
     &-container{
       float: right;
+      @include mq(){
+        float: none;
+        text-align: center;
+      }
     }
     &-link{
       color: $font-color_default;
       display: inline-block;
       margin-right: $space_xxl;
+      @include mq(){
+        margin-right: 10px;
+      }
     }
 }

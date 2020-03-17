@@ -203,7 +203,7 @@ export default {
       fileSelected(event){
         // ファイルが画像でなかったら処理を中断
         if(!event.target.files[0].type.match('image.*')){
-          this.$store.commit('auth/setProfileErrorMessages', {profilePhoto: ['画像を選択してください']})
+          this.$store.commit('auth/setProfileErrorMessages', { profilePhoto: ['画像を選択してください'] })
           this.$el.querySelector('input[type="file"]').value = null
           return false
         }

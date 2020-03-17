@@ -8,6 +8,7 @@ import TaskApp from './components/TaskApp'
 import Profile from './components/Profile'
 import Policy from './components/Policy'
 import Rule from './components/Rule'
+import Callback from './components/Callback'
 import Login from './components/page/Login'
 import Register from './components/page/Register'
 import PasswordReminder from './components/page/PasswordReminder'
@@ -43,6 +44,7 @@ export default new VueRouter({
           component: Login,
           // ナビゲーションガード
           beforeEnter(to, from, next){
+            // ログインページにアクセスした際に、認証済みだったらタスクページに移動する
             if(store.getters['auth/check']){
               next('/tasklist')
             }else{
@@ -119,8 +121,14 @@ export default new VueRouter({
       // エラーページ
       path: '/500',
       component: SystemError
+    },
+    {
+      // コールバックページ
+      path: '/callback',
+      component: Callback
     }
   ],
+  // ページ下部のリンクから他のページに飛んでも、画面の位置を初期の位置に移動させるための処理
   scrollBehavior(){
     return new Promise(resolve => {
       setTimeout( () => {

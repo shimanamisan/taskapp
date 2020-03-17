@@ -107,8 +107,8 @@ export default {
       this.$store.commit('auth/setLoginErrorMessages', null)
     },
     async twitterlogin(){
-      await axios.get('/api/login/twitter').
-      then(response => {
+      await axios.get('/api/twitter')
+      .then(response => {
         const URL = response.data.redirect_url
         window.location = URL
       }).
