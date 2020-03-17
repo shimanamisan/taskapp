@@ -11,6 +11,7 @@ import Rule from './components/Rule'
 import Callback from './components/Callback'
 import Login from './components/page/Login'
 import Register from './components/page/Register'
+import Contact from './components/page/Contact'
 import PasswordReminder from './components/page/PasswordReminder'
 import PasswordReset from './components/page/PasswordReset'
 import SystemError from './components/page/error/SystemError.vue'
@@ -106,6 +107,11 @@ export default new VueRouter({
           next('/login')
         }
       }
+    },
+    {
+      // お問い合わせページ
+      path: '/contact',
+      component: Contact
     },
     {
       // プライバシーポリシー

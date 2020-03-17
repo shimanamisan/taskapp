@@ -25,14 +25,12 @@
   &--borad01{
     display: flex;
     height: 100%;
-
   }
   &--borad02{
     width: 100%;
     padding-right: 0;
     height: 100%;
     background-color: #fff;
-    
   }
   &--borad03{
     margin-top: 35px;
@@ -41,11 +39,9 @@
     width: 100%;
     white-space: nowrap;
     position: relative;
-    
     // overflow-x: scroll; // 横方向のスクロールバーを表示
     // overflow-y: hidden; // 縦方向スクロールバーを隠す
   }
-
   // ここからサイドバー
     &--sidebar{
       width: 300px;
@@ -59,8 +55,9 @@
           &__usertitle{
             font-size: $font-size-l;
             text-align: center;
+            text-overflow: ellipsis;
+            overflow: hidden;
           }
-
           &__wrapp{
             width: 100%;
             padding: 10px;
@@ -83,7 +80,7 @@
 
     &--folder{
      overflow: hidden;
-     overflow-y: auto;
+     overflow-y: scroll;
         &__wrapp{
           display: flex;
           justify-content: flex-end;
@@ -91,6 +88,7 @@
           padding: 5px 10px;
           margin-top: 10px;
           transition: .5s;
+          box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
           &>:last-child{
             margin-left: auto;
           }

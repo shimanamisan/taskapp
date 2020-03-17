@@ -6,7 +6,7 @@
           <img :src="this.img" alt="">
         </div>
         <div class="c-task__avater" v-else>
-          <img :src="this.dummy" alt="">
+          <img src="../../img/no_img/no_img.png" alt="">
         </div>
       </output>
       <h1 class="c-task--sidebar__usertitle">{{ username }}</h1>
@@ -20,7 +20,6 @@ export default {
   data(){
     return{
       img: '',
-      dummy: 'https://placehold.jp/150x150.png',
     }
   },
   computed:{

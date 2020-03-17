@@ -1,5 +1,8 @@
 .c-form{
   text-align: center;
+  &__contact--text{
+    text-align: end;
+  }
   &__outputImg{
     width: 100%;
     height: 100%;
@@ -7,7 +10,6 @@
   }
   &__container{
     // 未設定
-
     &--profile{
       display: flex;
       justify-content: space-around;
@@ -28,6 +30,10 @@
   }
   &__action{
     margin-top: $space_xxl;
+    &--wrapp{
+      display: flex;
+      justify-content: space-around;
+    }
     
     &__item{
       text-align: center;

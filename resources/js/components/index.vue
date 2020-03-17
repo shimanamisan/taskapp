@@ -51,7 +51,7 @@
                         <div class="p-card__third u-inner--index">
                             <div class="p-card__body">
                                 <div class="p-card-title">
-                                    <p class="p-title">ドラッグ＆ドロップで<br>簡単に使えます！</p>
+                                    <p class="p-title">タスクの整理が簡単に行えます！</p>
                                 </div>
                                 <div class="p-card-content__third u-inner__l">
                                     <p class="p-eyecatch--p">
@@ -62,7 +62,7 @@
                             </div>
                         </div>
                         <div class="p-card__third">
-                            <img src="https://placehold.jp/550x350.png" alt="" class="p-card-img__third">
+                            <img src="../../img/animation.gif" alt="" class="p-card-img__third">
                         </div>
                     </div>
                 </div>
@@ -85,9 +85,11 @@
                         </div>
                         <div class="p-card__third u-inner--index u-icon--wrapp">
                             <router-link tag="button" to="login" class="p-card__third--right c-btn c-btn__footer c-btn__footer--login">ログイン</router-link>
+                            <router-link to="/contact">
                             <button class="p-card__third--right c-btn c-btn__footer c-btn__footer--message">
                                 <i class="far fa-envelope u-icon u-icon__message"></i>お問い合わせ
                             </button>
+                            </router-link>
                             <i class="fab fa-twitter u-icon u-icon__sns"></i>
                             <i class="fab fa-facebook u-icon u-icon__sns"></i>
                             <i class="fab fa-instagram u-icon u-icon__sns"></i>

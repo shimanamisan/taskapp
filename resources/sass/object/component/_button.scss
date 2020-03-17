@@ -11,6 +11,15 @@
   &:focus{
     outline: none;
   }
+    &__contact{
+      width: 150px;
+      &--back{
+        background: rgb(0, 0, 0)!important;
+        &:hover{
+          opacity: 0.6;
+        }
+      }
+    }
     &-reminder{
       margin-top: $space_xxl;
       font-size: $font-size_s;

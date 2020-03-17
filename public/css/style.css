@@ -329,12 +329,6 @@ br {
   height: 100%;
 }
 
-@media screen and (max-width: 414px) {
-  .l-wrapper--login {
-    height: auto;
-  }
-}
-
 .l-card__container {
   height: 100%;
   padding: 30px 40px;
@@ -562,6 +556,18 @@ br {
 
 .c-btn:focus {
   outline: none;
+}
+
+.c-btn__contact {
+  width: 150px;
+}
+
+.c-btn__contact--back {
+  background: black !important;
+}
+
+.c-btn__contact--back:hover {
+  opacity: 0.6;
 }
 
 .c-btn-reminder {
@@ -808,6 +814,10 @@ br {
   text-align: center;
 }
 
+.c-form__contact--text {
+  text-align: end;
+}
+
 .c-form__outputImg {
   width: 100%;
   height: 100%;
@@ -840,6 +850,12 @@ br {
 
 .c-form__action {
   margin-top: 30px;
+}
+
+.c-form__action--wrapp {
+  display: -webkit-box;
+  display: flex;
+  justify-content: space-around;
 }
 
 .c-form__action__item {
@@ -963,6 +979,8 @@ br {
 .c-task--sidebar__usertitle {
   font-size: 18px;
   text-align: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .c-task--sidebar__wrapp {
@@ -985,7 +1003,7 @@ br {
 
 .c-task--folder {
   overflow: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .c-task--folder__wrapp {
@@ -998,6 +1016,7 @@ br {
   margin-top: 10px;
   -webkit-transition: 0.5s;
   transition: 0.5s;
+  box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
 }
 
 .c-task--folder__wrapp > :last-child {

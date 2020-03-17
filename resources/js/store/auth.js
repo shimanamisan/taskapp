@@ -22,6 +22,7 @@ const state = {
   profileErrorMessages: null,
   sendPasswordErrorMessages: null,
   resetPasswordErrorMessages: null,
+  contactMailErrorMessages: null
 }
 
 /***********************************
@@ -87,6 +88,9 @@ const mutations = {
   // パスワード送信時のメッセージを格納するミューテーション
   sendEmailMessages(state, message){
     state.sendEmailMessages = message
+  },
+  setContactMailErrorMessages(state, message){
+    state.contactMailErrorMessages = message
   }
 }
 
@@ -294,7 +298,21 @@ const actions = {
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true })
-  }
+  },
+  /****************************************
+  お問い合わせメール送信
+  *****************************************/
+  async contactMessage({commit}, data){
+    console.log(JSON.stringify(data))
+    return
+    const response = await axios.post('/api/contact', data).catch(error => error.response || error)
+      if(response.status === UNPROCESSABLE_ENTITY){
+        commit('setContactMailErrorMessages', response.data.errors)
+      } else {
+        commit('error/setCode', response.status, { root:true })
+      }
+      commit('error/setCode', response.status, { root:true })
+    }
 }
 
 export default {
