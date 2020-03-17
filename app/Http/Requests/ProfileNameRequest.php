@@ -27,7 +27,7 @@ class ProfileNameRequest extends FormRequest
             // ここでのバリデーションはファイルサイズも入れたほうが良い？(10MBを上限とする)
             // ここで指定した profilePhoto というキーが、ajax通信で返ってくる response の中に入っている
             // response.data.errors で拾える
-            'name' => 'bail|required|max:10',
+            'name' => 'bail|required|max:20',
         ];
     }
     
@@ -36,7 +36,7 @@ class ProfileNameRequest extends FormRequest
     {
         return [
             'name.required' => '入力必須です',
-            'name.max' => '10文字以内で入力してください'           
+            'name.max' => '20文字以内で入力してください'           
         ];
     }
 }

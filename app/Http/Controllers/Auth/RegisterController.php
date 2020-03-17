@@ -66,7 +66,7 @@ class RegisterController extends Controller
     // 何かバリデーションの変更があった際に対応しやすいと考えた。
     public function register(RegisterRequest $request)
     {
-        $this->validator($request->all())->validate();
+        // $this->validator($request->all())->validate();
 
         event(new Registered($user = $this->create($request->all())));
 

@@ -24,10 +24,9 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'bail|required|max:10',
+            'name' => 'bail|required|max:20',
             'email' => 'bail|required|email',
             'password' => 'bail|required|confirmed|min:8',
-            ''
         ];
     }
 
@@ -35,7 +34,7 @@ class RegisterRequest extends FormRequest
     {
         return [
             'name.required' => '入力必須です',
-            'name.max' => '10文字以内で入力してください',
+            'name.max' => '20文字以内で入力してください',
             'email.required' => '入力必須です',
             'email.email' => 'メールアドレスを入力してください',
             "password.required" => '入力必須です',

@@ -71,6 +71,24 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
+    // 入力フォームからバリデーションを行い、認証ユーザーを返すメソッド
+    // これをオーバーライド
+    protected function attemptLogin(Request $request)
+    {
+        // attempt()の引数内を配列にするとエラーになる。ドキュメントにはそう言う記法も書かれているがなぜ？
+        // おそらくkye = value の形になっていない
+        // return $this->guard()->attempt([
+        //     'email' => $request->email,
+        //     'password' => $request->password,
+        //     // delete_flgが0なら認証済みユーザーを返す
+        //     'delete_flg' => 0,
+        // ],$request->filled('remember'));
+
+        // 元のコード
+        return $this->guard()->attempt($this->credentials($request), $request->filled('remember'));
+      
+    }
+
     // authenticatedメソッドをコントローラー側でオーバーライドして使う。継承元のクラスでは authenticatedメソッドは空になっている
     protected function authenticated(Request $request, $user)
     {   
