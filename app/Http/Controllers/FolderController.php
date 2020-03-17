@@ -63,7 +63,9 @@ class FolderController extends Controller
 
     $user->folders()->find($folder_id)->update($request->all());
 
-    $folderData = User::with('folders')->find($user_id);
+    $folderData = User::with(['folders' => function($query){
+        $query->orderBy('priority', 'asc');
+    }])->find($user_id);
 
     return $folderData;
     }
@@ -84,7 +86,7 @@ class FolderController extends Controller
         }
         }
     } 
-
+    
     return response(['success'], 200);
 
     }
