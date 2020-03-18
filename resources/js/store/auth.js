@@ -20,7 +20,7 @@ const state = {
   loginErrorMessages: null,
   registerErrorMessages: null,
   profileErrorMessages: null,
-  sendPasswordErrorMessages: null,
+  reminderErrorMessages: null,
   resetPasswordErrorMessages: null,
   contactMailErrorMessages: null
 }
@@ -77,21 +77,25 @@ const mutations = {
   setProfileErrorMessages(state, messages){
     state.profileErrorMessages = messages
   },
+  // パスワードリマインダー時のエラーハンドリング
+  setReminderErrorMessages(state, message){
+  state.reminderErrorMessages = message
+  },
   // パスワードリセットメール送信時のエラーメッセージ用ミューテーション
-  resetEmailErrorMessages(state, message){
-    state.resetEmailErrorMessages = message
-  },
-  // パスワード再設定時のエラーメッセージ用ミューテーション
-  sendPasswordErrorMessages(state, message){
-    state.resetPasswordErrorMessages = message
-  },
-  // パスワード送信時のメッセージを格納するミューテーション
-  sendEmailMessages(state, message){
-    state.sendEmailMessages = message
+  setResetPasswordErrorMessages(state, message){
+  state.resetPasswordErrorMessages = message
   },
   setContactMailErrorMessages(state, message){
     state.contactMailErrorMessages = message
-  }
+  },
+
+
+  /****************************************
+  メール送信メッセージ
+  *****************************************/
+  sendEmailMessages(state, message){
+    state.sendEmailMessages = message
+  },
 }
 
 // アクション→コミットでミューテーション呼び出し→ステート更新
@@ -278,9 +282,10 @@ const actions = {
   *****************************************/
   async sendResetLinkEmail({commit}, data){
     const response = await axios.post('/api/password/reminder', {email: data}).catch(error => error.response || error)
+    console.log(response.data.errors)
       // 422ステータスの処理
       if(response.status === UNPROCESSABLE_ENTITY ){
-        commit('sendPasswordErrorMessages', response.data.errors)
+        commit('setReminderErrorMessages', response.data.errors)
       } else {
         commit('error/setCode', response.status, { root: true })
       }
@@ -293,7 +298,7 @@ const actions = {
   async resetPassword({commit}, data){
     const response = await axios.post('/api/password/reset', data ).catch(error => error.response || error)
     if(response.status === UNPROCESSABLE_ENTITY){
-      commit('setProfileErrorMessages', response.data.errors)
+      commit('setResetPasswordErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
     }

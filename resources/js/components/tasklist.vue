@@ -5,7 +5,7 @@
           <div class="c-task--dragicon">
             <i class="fas fa-bars hand-icon"></i>
           </div>
-          <span class="c-task--todo--tips" v-if="!editFlag" @dblclick="editCard" @touchstart="editCard">{{title}}</span>
+          <span class="c-task--todo--tips" v-if="!editFlag" >{{title}}</span>
           <form class="c-updateFrom c-updateFrom--TaskList" @submit.prevent v-else>
             <!-- バリデーションエラー --->
             <!-- <ul v-if="taskRequestErrorMessages" class="errors errors--tasks">

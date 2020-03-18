@@ -1,5 +1,5 @@
 <template>
-    <div class="l-wrapper l-wrapper__reminder">
+    <div class="l-wrapper l-wrapper__resetPass">
         <section class="l-main__auth">
             <div class="c-logo__header">
                 <router-link to="/">
@@ -16,9 +16,9 @@
                         <div class="c-form__item">
                             <label for="" class="c-form-lavel">メールアドレス</label>
                             <!-- バリデーションエラー -->
-                            <div v-if="passResetErrors" class="errors">
-                                <ul v-if="passResetErrors.email">
-                                    <li v-for="msg in passResetErrors.email" :key="msg">{{ msg }}</li>
+                            <div v-if="resetPasswordErrorMessages" class="errors">
+                                <ul v-if="resetPasswordErrorMessages.email">
+                                    <li v-for="msg in resetPasswordErrorMessages.email" :key="msg">{{ msg }}</li>
                                 </ul>
                             </div>
                             <!-- end errors -->
@@ -27,9 +27,9 @@
                         <div class="c-form__item">
                             <label for="" class="c-form-lavel">パスワード</label>
                             <!-- バリデーションエラー -->
-                            <div v-if="passResetErrors" class="errors">
-                                <ul v-if="passResetErrors.password">
-                                    <li v-for="msg in passResetErrors.password" :key="msg">{{ msg }}</li>
+                            <div v-if="resetPasswordErrorMessages" class="errors">
+                                <ul v-if="resetPasswordErrorMessages.password">
+                                    <li v-for="msg in resetPasswordErrorMessages.password" :key="msg">{{ msg }}</li>
                                 </ul>
                             </div>
                             <!-- end errors -->
@@ -38,9 +38,9 @@
                         <div class="c-form__item">
                             <label for="" class="c-form-lavel">パスワード再入力</label>
                             <!-- バリデーションエラー -->
-                            <div v-if="passResetErrors" class="errors">
-                                <ul v-if="passResetErrors.password">
-                                    <li v-for="msg in passResetErrors.password" :key="msg">{{ msg }}</li>
+                            <div v-if="resetPasswordErrorMessages" class="errors">
+                                <ul v-if="resetPasswordErrorMessages.password">
+                                    <li v-for="msg in resetPasswordErrorMessages.password" :key="msg">{{ msg }}</li>
                                 </ul>
                             </div>
                             <!-- end errors -->
@@ -59,7 +59,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   data (){
     return {
@@ -69,15 +69,16 @@ export default {
             password: '',
             password_confirmation: '',
             token: ''
-          },
-        requestURL: ''
+          }
     }
   },
   computed: {
       ...mapState({
-          isLogin: state => getters['auth/check'],
-          apiStatus: state => getters['auth/apiStatus'],
-          passResetErrors: state => state.auth.passResetErrors
+          apiStatus: state => state.auth.apiStatus,
+          resetPasswordErrorMessages: state => state.auth.resetPasswordErrorMessages
+      }),
+      ...mapGetters({
+          isLogin: 'auth/check'
       })
   },
   methods: {

@@ -21,11 +21,11 @@
                                 </ul>
                                 <!--- end message -->
                             <!-- バリデーションエラー --->
-                            <ul v-if="sendPasswordErrorMessages" class="errors errors--tasks">
-                                <li v-for="(msg, index) in sendPasswordErrorMessages.email" :key="index">{{ msg }} </li>
+                            <ul v-if="reminderErrorMessages" class="errors errors--tasks">
+                                <li v-for="(msg, index) in reminderErrorMessages.email" :key="index">{{ msg }} </li>
                             </ul>
                             <!--- end errors -->
-                            <input type="text" class="c-input" v-model="sendEmail">
+                            <input type="text" class="c-input" v-model="sendEmail" @blur="this.clearError">
                         </div>
                     </form>
                     <div class="c-form__action c-form__action__item">
@@ -56,9 +56,9 @@ export default {
             // エラーメッセージがあった際にストアより取得
             return this.$store.state.auth.sendEmailMessages
         },
-        sendPasswordErrorMessages(){
+        reminderErrorMessages(){
             // エラーメッセージがあった際にストアより取得
-            return this.$store.state.auth.sendPasswordErrorMessages
+            return this.$store.state.auth.reminderErrorMessages
         },
         getErrorCode(){
             return this.$store.state.error.code
@@ -68,7 +68,10 @@ export default {
         async sendResetLinkEmail(){
             const sendEmail = this.sendEmail
             await this.$store.dispatch('auth/sendResetLinkEmail', sendEmail)
-        }
+        },
+        clearError(){
+        this.$store.commit('auth/setReminderErrorMessages', null)
+      },
     }
 }
 </script>

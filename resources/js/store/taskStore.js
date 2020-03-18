@@ -113,10 +113,11 @@ const actions = {
   // フォルダーの並び替えの更新
   async updateFolderSort({commit}, newFolder){
     const response = await axios.patch('/api/folder/update-all', {folders: newFolder}).catch(error => error.response || error)
+    // var data = response.data.folders
     if(response.status ===   UNPROCESSABLE_ENTITY ){
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
-      // commit('setFolderLists', )
+      // commit('setFolderLists', data)
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true })
@@ -163,10 +164,6 @@ const actions = {
       }
       commit('error/setCode', response.status, { root: true })
   },
-  // カードの並び替えの更新
-  async updateCardSort(){
-
-  },
   /*************************************
   タスクの作成・更新・削除・並び替え
   *************************************/
@@ -188,7 +185,6 @@ const actions = {
   },
   // タスクの削除
   async deleteTask( { commit }, {folder_id, card_id, task_id}){
-    console.log('カード削除のアクションが動作しています' + task_id)
     const response = await axios.delete('/api/folder/' + folder_id + '/card/' + card_id + '/task/' + task_id + '/delete').catch(error => error.response || error)
     // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
   },
@@ -207,7 +203,6 @@ const actions = {
   },
   // タスクリストの列の入れ替え更新
   async updateTaskDraggable({commit}, {cardId, task_id}){
-    console.log('updateTaskDraggable')
     // card_idは数値のみで渡ってくるので、key:value の形で渡してやるために一度オブジェクト形式で代入している
     // こうしなければ、Laravel側で$requestで受け取る際に、keyが無いものとしてnull値になってしまう
     // $request->card_id でキーを指定するとLaravel側でタスクIDの7が取得できる
@@ -224,7 +219,6 @@ const actions = {
   },
   // タスクリストのソート更新
   async updateTaskSort({commit}, newTask){
-    console.log('updateTaskSort')
     const response = await axios.patch('/api/task/update-all', {tasks: newTask}).catch(error => error.response || error)
     if(response.status === UNPROCESSABLE_ENTITY ){
     

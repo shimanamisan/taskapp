@@ -104,7 +104,9 @@ Route::patch('/task/update-all', 'TaskController@updateTaskSort')->name('task.up
 // タスク削除
 Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
 
-
+Route::get('/mail', function(){
+    return view('mail.html.passwordreset');
+});
 
 
 

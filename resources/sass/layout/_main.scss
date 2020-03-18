@@ -87,9 +87,12 @@
     &__profile{
       padding-top: 50px;
     }
-    // &--register{
-
-    // }
+    &__resetPass{
+      width: 100%;
+      @include mq(){
+        height: 100vh;
+      }
+    }
     &--login{
     height: 100%;
     @include mq(){

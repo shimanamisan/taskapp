@@ -63,7 +63,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   data (){
     return {
@@ -75,24 +75,14 @@ export default {
     }
   },
   computed: {
-    // isLogin(){
-    //   return this.$store.getters['auth/check']
-    // },
-    // // 通信失敗の場合（apiStatusがfalse）の場合にはトップページの移動処理を行わない
-    // apiStatus(){
-    // // authモジュールのapiStatusを参照
-    // return this.$store.state.auth.apiStatus
-    // },
-    // // ログイン時にエラーがった場合にメッセージを表示する
-    // loginErrors(){
-    // return this.$store.state.auth.loginErrorMessages
-    // }
     // ...mapStateを使った書き方
     ...mapState({
-      isLogin: state => getters['auth/check'],
       apiStatus: state => state.auth.apiStatus, // ここもゲッターにできる？
       loginErrors: state => state.auth.loginErrorMessages
-    })
+    }),
+    // ...mapGetters({
+    //   loginErrors: 'auth/check'
+    // })
   },
   methods: {
     // authストアのloginアクションを呼び出す

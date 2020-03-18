@@ -325,6 +325,16 @@ br {
   padding-top: 50px;
 }
 
+.l-wrapper__resetPass {
+  width: 100%;
+}
+
+@media screen and (max-width: 414px) {
+  .l-wrapper__resetPass {
+    height: 100vh;
+  }
+}
+
 .l-wrapper--login {
   height: 100%;
 }

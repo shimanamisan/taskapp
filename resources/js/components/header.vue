@@ -43,6 +43,7 @@
 </template>
 
 <script>
+import {mapState, mapGetters} from 'vuex'
 export default {
     data(){
       return {
@@ -50,13 +51,19 @@ export default {
       }
     },
     computed: {
-      isLogin(){
-       return this.$store.getters['auth/check']
-      },
-      apiStatus(){
-        // authモジュールのapiStatusを参照
-        return this.$store.state.auth.apiStatus
-      },
+        ...mapState({
+            apiStatus: state => state.auth.apiStatus
+        }),
+        ...mapGetters({
+            isLogin:'auth/check'
+        }),
+    //   isLogin(){
+    //    return this.$store.getters['auth/check']
+    //   },
+    //   apiStatus(){
+    //     // authモジュールのapiStatusを参照
+    //     return this.$store.state.auth.apiStatus
+    //   },
       spMenuItem(){
         return {
             'sp-menu-Active': this.isActive,
