@@ -32,9 +32,9 @@ class LoginRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => '入力必須です',
-            'password.required' => '入力必須です',
-            'password.min' => '8文字以上で入力してください',
+            'email.required' => '入力必須です。',
+            'password.required' => '入力必須です。',
+            'password.min' => '8文字以上で入力してください。',
         ];
     }
 }

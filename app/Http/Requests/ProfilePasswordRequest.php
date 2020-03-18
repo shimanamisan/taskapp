@@ -36,9 +36,9 @@ class ProfilePasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            "password.required" => '入力必須です',
+            "password.required" => '入力必須です。',
             "password.confirmed" => '再入力フォームと一致していません。',
-            "password.min" => "8文字以上で入力してください"
+            "password.min" => "8文字以上で入力してください。"
         ];
     }
 }

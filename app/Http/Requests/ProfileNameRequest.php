@@ -35,8 +35,8 @@ class ProfileNameRequest extends FormRequest
     public function messages()
     {
         return [
-            'name.required' => '入力必須です',
-            'name.max' => '20文字以内で入力してください'           
+            'name.required' => '入力必須です。',
+            'name.max' => '20文字以内で入力してください。'           
         ];
     }
 }

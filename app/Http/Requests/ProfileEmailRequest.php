@@ -40,8 +40,8 @@ class ProfileEmailRequest  extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => '入力必須です',
-            'email.email' => 'メールアドレスを入力してください',
+            'email.required' => '入力必須です。',
+            'email.email' => 'メールアドレスを入力してください。',
         ];
     }
 }

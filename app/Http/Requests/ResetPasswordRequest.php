@@ -24,8 +24,7 @@ class ResetPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => 'required|email',
-            "token" => 'required',
+            "email" => 'bail|required|email',
             "password" => 'required|confirmed|min:8'
         ];
     }
@@ -33,7 +32,7 @@ class ResetPasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            "email.required" => '入力必須です',
+            "email.required" => '入力必須です。',
             "token.required" => '入力必須です',
             "password.required" => '入力必須です',
             "password.confirmed" => '再入力フォームと一致していません。',
