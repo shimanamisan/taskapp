@@ -41,11 +41,22 @@ class ForgotPasswordController extends Controller
     **************************************************************/
     public function sendResetLinkEmail(Request $request)
     {   
-
         $this->validateEmail($request);
-
+        // emailを検索してきたときに空だった場合に、未登録ユーザーはパスワード変更メールを飛ばせないようにする
+        
         $response = $this->broker()->sendResetLink($request->only('email'));
 
+        // dd($response);
+
+        // if($this->validateEmail($request) === null){
+        //     // vue側で取り出せるようにメッセージの格納を加工
+        //     return response()->json([
+        //         'errors' => [
+        //             'email' => ['ログイン情報が登録されていません。']
+        //         ]
+        //     ], 422);
+        // }
+        
         return $response == Password::RESET_LINK_SENT
             ? $this->sendResetLinkResponse($request, $response)
             : $this->sendResetLinkFailedResponse($request, $response);
@@ -54,12 +65,16 @@ class ForgotPasswordController extends Controller
 
     protected function sendResetLinkResponse($response)
     {
-        return response()->json(['success' => 'ご登録されているメールアドレスにパスワード再設定用のメールを送信しました。'],200);
+        return response()->json(['success' => 'ご登録されているメールアドレスにパスワード再設定用のメールを送信しました。'], 200);
     }
 
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-        return response()->json(['error' => '再設定メールの送信に失敗しました。'], 500);
+            return response()->json(
+                ['errors' => [
+                    'email' => ['再設定メールの送信に失敗しました。']
+                    ]
+        ], 422);
     }
 
     
@@ -67,11 +82,11 @@ class ForgotPasswordController extends Controller
     public function validateEmail(Request $request)
     {
         $rule = [
-            'email' => 'required|email'
+            'email' => 'bail|required|email|'
         ];
 
         $messages = [
-            'email.required' => '入力必須です'
+            'email.required' => '入力必須です。'
         ];
 
         $this->validate($request, $rule, $messages);
