@@ -39,14 +39,19 @@
     width: 100%;
     white-space: nowrap;
     position: relative;
-    // overflow-x: scroll; // 横方向のスクロールバーを表示
-    // overflow-y: hidden; // 縦方向スクロールバーを隠す
+    @include mq($breackpoint:ssm){
+      margin-top: 20px;
+    }
+    
   }
   // ここからサイドバー
     &--sidebar{
       width: 300px;
       padding: $space_xxl;
       position: absolute;
+      @include mq(ssm){
+        padding: 10px 10px 10px 30px;
+      }
           &__user{
             display: flex;
             align-items: center;
@@ -64,9 +69,13 @@
             overflow-y: auto;
             max-height: 370px;
             box-sizing: border-box;
-            // @include mq(){
-            //   max-height: 450px;
-            // }
+            @include mq(){
+              max-height: 450px;
+            }
+            @include mq($breackpoint: ssm){
+              padding: 5px;
+              max-height: 320px;
+            }
           }
     }
     &__avater{
@@ -80,7 +89,7 @@
 
     &--folder{
      overflow: hidden;
-     overflow-y: scroll;
+     overflow-y: auto;
         &__wrapp{
           display: flex;
           justify-content: flex-end;
@@ -118,6 +127,9 @@
         margin-left: 360px;
         &__inner{
           height: 85%;
+          @include mq($breackpoint: ssm){
+            height: 88%;
+          }
         }
     }
     &--todo{

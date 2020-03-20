@@ -117,7 +117,7 @@ const actions = {
     if(response.status ===   UNPROCESSABLE_ENTITY ){
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
-      // commit('setFolderLists', data)
+      // commit('setFolderList  s', data)
       commit('error/setCode', response.status, { root:true })
     }
     commit('error/setCode', response.status, { root: true })

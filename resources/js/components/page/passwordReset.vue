@@ -48,7 +48,7 @@
                         </div>
                     </form>
                     <div class="c-form__action c-form__action__item">
-                        <button class="c-btn c-btn__signin" @click="resetPassword">送信する</button>
+                        <button class="c-btn c-btn__signin" @click="resetPassword">パスワードをリセット</button>
                     </div>
                 </div>
             </div>
@@ -59,6 +59,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../../statusCode'
 import { mapState, mapGetters } from 'vuex'
 export default {
   data (){
@@ -74,16 +75,20 @@ export default {
   },
   computed: {
       ...mapState({
-          apiStatus: state => state.auth.apiStatus,
-          resetPasswordErrorMessages: state => state.auth.resetPasswordErrorMessages
+            apiStatus: state => state.auth.apiStatus,
+            resetPasswordErrorMessages: state => state.auth.resetPasswordErrorMessages
       }),
       ...mapGetters({
-          isLogin: 'auth/check'
+            isLogin: 'auth/check',
+            getCode: 'error/getCode'
       })
   },
   methods: {
       async resetPassword(){    
           await this.$store.dispatch('auth/resetPassword', this.form )
+          if(this.getCode === OK){
+              this.$router.push('/login')
+          }
       },
       setQuery(){
         this.form.token = this.$route.query.token || '';    // パスワードリセットするために必要なToken

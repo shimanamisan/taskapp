@@ -21,7 +21,7 @@ class TwitterOAuthController extends Controller
 
     public function handleTwitterCallback(): JsonResponse
     {
-    
+        
         $socialUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
 
         // firstOrNew：第一引数にカラム名、第二引数に検索値を入れてデータベースを検索するメソッド
@@ -30,6 +30,7 @@ class TwitterOAuthController extends Controller
         $user = User::firstOrNew([
             'email' => $socialUser->getEmail()
         ]);
+
         // exists：countメソッドの代わりに使用する。クエリで引っ張ってきたレコードが存在しているか判定する。（類似：doesntExist）
         // https://readouble.com/laravel/5.8/ja/queries.html
         if ($user->exists) {

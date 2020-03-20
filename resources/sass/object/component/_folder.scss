@@ -1,14 +1,12 @@
 .c-folder{
   display: flex;
-  
-  &--wrapp{
+    &--wrapp{
     display: flex;
     width: 40%;
     padding: 10px;
     box-sizing: border-box;
   }
   &--avatar{
-
     align-items: center;
     justify-content: center;
     &--title{

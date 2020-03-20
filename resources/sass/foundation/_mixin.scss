@@ -1,7 +1,9 @@
 // 各ファイルに散らかりがちなmixinを一元管理するファイル。
 
 // ブレークポイント
-$breackpoints: ('sm':'screen and (max-width: 414px)',
+$breackpoints: (
+  'ssm':'screen and (max-width: 360px)',
+  'sm':'screen and (max-width: 414px)',
   'md': 'screen and (max-width: 768px)',
   'lg': 'screen and (max-width: 1000px)',
   'xl': 'screen and (max-width: 1200px)'
