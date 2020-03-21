@@ -93,12 +93,7 @@
         height: 100vh;
       }
     }
-    &--login{
-    height: 100%;
-    @include mq(){
-      // height: auto;
-    }
-    }
+
 }
 
 .l-card__container{

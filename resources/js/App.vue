@@ -1,10 +1,8 @@
 <template>
-  <div class="u-appvue--wrapp">
       <!-- <Loading v-show="loading"></Loading> -->
       <transition name="fade" mode="out-in">  
         <router-view></router-view>
       </transition>
-  </div>
 </template>
 
 <script>
