@@ -76,7 +76,7 @@ class ProfileController extends Controller
 
     }
 
-    // ユーザー削除（論理削除）
+    // ユーザー削除（物理削除）
     public function userSoftDelete(Request $request, $id)
     {
         // DBファサードではなく、Eloquent ORM にてdelete()メソッドを実行する事
@@ -91,7 +91,7 @@ class ProfileController extends Controller
 
         $request->session()->regenerateToken();
 
-        return response()->json();
+        return response()->json(['success'], 200);
         
         // if($user->delete_flg === 0){
         //     $user->delete_flg = 1;
