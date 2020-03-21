@@ -33,6 +33,8 @@ import App from './App.vue'
 import store from './store/store'
 import router from './router'
 
+Vue.config.devtools = true;
+
 // Vueインスタンスを生成する前にログインチェックを行うように変更
 // 非同期処理をawaitするには、asyncメソッドの内部に配置する必要があるので関数にまとめた
 // createApp()の中にVueインスタンス生成もまとめている

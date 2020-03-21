@@ -17,11 +17,22 @@
                 <div class="c-form__container">
                     <form @submit.prevent="contactMessage">
                         <div class="c-form__item">
+                            <label for="contact-subject" class="c-form-lavel">件名</label>
+                            <!-- バリデーションエラー -->
+                            <div v-if="contactErrors" class="errors">
+                                <ul v-if="contactErrors.subject">
+                                    <li v-for="msg in contactErrors.subject" :key="msg">{{ msg }}</li>
+                                </ul>
+                            </div>
+                            <!-- end errors -->
+                            <input id="contact-subject" type="text" class="c-input" v-model="Form.subject">
+                        </div>
+                        <div class="c-form__item">
                             <label for="contact-name" class="c-form-lavel">お名前</label>
                             <!-- バリデーションエラー -->
                             <div v-if="contactErrors" class="errors">
                                 <ul v-if="contactErrors.name">
-                                    <li v-for="msg in contactErrors.password" :key="msg">{{ msg }}</li>
+                                    <li v-for="msg in contactErrors.name" :key="msg">{{ msg }}</li>
                                 </ul>
                             </div>
                             <!-- end errors -->
@@ -42,16 +53,16 @@
                         <!-- end c-form__item -->
 
                         <div class="c-form__item">
-                            <label for="conatct-subject" class="c-form-lavel">お問い合わせ内容</label>
+                            <label for="conatct-message" class="c-form-lavel">お問い合わせ内容</label>
                             <!-- バリデーションエラー -->
                             <div v-if="contactErrors" class="errors">
-                                <ul v-if="contactErrors.text">
-                                    <li v-for="msg in contactErrors.text" :key="msg">{{ msg }}</li>
+                                <ul v-if="contactErrors.message">
+                                    <li v-for="msg in contactErrors.message" :key="msg">{{ msg }}</li>
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <textarea id="conatct-subject" cols="30" rows="8" class="c-input" v-model="Form.subject"></textarea>
-                            <p class="c-form__contact--text">{{ textCounter }}/2000文字以内</p>
+                            <textarea id="conatct-message" cols="30" rows="8" class="c-input" v-model="Form.message"></textarea>
+                            <p class="c-form__contact--text">{{ textCounter }}/1000文字以内</p>
                         </div>
                         <!-- end c-form__item -->
                         <div class="c-form__action--wrapp">
@@ -80,25 +91,28 @@
 
 </template>
 <script>
+import { OK } from '../../statusCode'
 import { mapState } from 'vuex'
 export default {
   data (){
     return {
         Form: 
           {
+            subject: '',
             name:'',
             email:'',
-            subject:''
+            message:''
           }
     }
   },
   computed: {
     // ...mapStateを使った書き方
     ...mapState({
+      apiStatus: state => state.auth.apiStatus,
       contactErrors: state => state.auth.contactMailErrorMessages
     }),
     textCounter(){
-      return this.Form.subject.length
+      return this.Form.message.length
     }
   },
   methods: {
@@ -107,21 +121,17 @@ export default {
       if(window.confirm('お問い合わせ内容を送信します。\nよろしいですか？')){
         await this.$store.dispatch('auth/contactMessage', this.Form);
           if(this.apiStatus){
-            
+            alert('お問い合わせ内容は正しく送信されました。')
+            this.Form.subject = ''
+            this.Form.name = ''
+            this.Form.email = ''
+            this.Form.message = ''
           }
       }
     },
     clearError(){
-      this.$store.commit('auth/setLoginErrorMessages', null)
+      this.$store.commit('auth/setContactMailErrorMessages', null)
     },
-    async twitterlogin(){
-      await axios.get('/api/twitter')
-      .then(response => {
-        const URL = response.data.redirect_url
-        window.location = URL
-      }).
-      catch(error => error.response || error)
-    }
   },
     created(){
     // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す

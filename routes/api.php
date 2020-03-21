@@ -27,27 +27,26 @@ Route::post('/register', 'Auth\RegisterController@register')->name('register');
 Route::post('/login', 'Auth\LoginController@login')->name('login');
 // ログアウト
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+// パスワード再設定メール
+Route::post('/password/reminder', 'Auth\ForgotPasswordController@sendResetLinkEmail');
+// パスワードリマインダー
+Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
+// twitterログイン
+Route::get('/twitter', 'Auth\TwitterOAuthController@redirectToTwitter');
+// twitterログインコールバックURL
+Route::get('/callback', 'Auth\TwitterOAuthController@handleTwitterCallback');
 // ログインユーザー取得（ログインしているユーザーを返すだけなのでコントローラーは作成しない）、プロフィール一覧でも使う
 Route::get('/user', function () {
     return Auth::user();
     })->name('user');
 /****************************************
-トークンをリフレッシュ
+csrfトークンをリフレッシュする
 *****************************************/
 Route::get('/refresh-token', function(Request $request){
     $request->session()->regenerateToken();
     return response()->json();
 });
 
-// パスワード再設定メール
-Route::post('/password/reminder', 'Auth\ForgotPasswordController@sendResetLinkEmail');
-// パスワードリマインダー
-Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
-
-// twitterログイン
-Route::get('/twitter', 'Auth\TwitterOAuthController@redirectToTwitter');
-// コールバックURL
-Route::get('/callback', 'Auth\TwitterOAuthController@handleTwitterCallback');
 
 /****************************************
 プロフィール変更
@@ -108,8 +107,10 @@ Route::get('/mail', function(){
     return view('mail.html.passwordreset');
 });
 
-
-
+/****************************************
+お問い合わせメール送信
+*****************************************/
+Route::post('/contact', 'ContactController@postMessage')->name('contact.postMessage');
 
 
 // Route::post('/profile/{id}',function(){
