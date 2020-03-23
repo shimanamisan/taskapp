@@ -96,7 +96,7 @@ class TaskController extends Controller
           $task->update(['priority' => $newTask['priority']]);
         }
       }
-    } 
+    }
 
     return response(['success'], 200);
   }

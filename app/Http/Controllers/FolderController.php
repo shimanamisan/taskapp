@@ -87,7 +87,15 @@ class FolderController extends Controller
         }
     } 
     
-    return response(['success'], 200);
+    $user = Auth::user();
+
+    $user_id = $user->id;
+
+    $folderData = User::with(['folders' => function($query){
+        $query->orderBy('priority', 'asc');
+    }])->find($user_id);
+
+    return $folderData;
 
     }
 
