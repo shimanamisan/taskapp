@@ -16,7 +16,7 @@ const state = {
 ゲッター
 ********************************/
 const getters = {
-  
+  current_folderId: state => state.folder_id ? state.folder_id : ''
 }
 /*******************************
 ミューテーション
@@ -69,7 +69,6 @@ const actions = {
     const response = await axios.post('/api/folder/create', payload).catch(error => error.response || error)
     // メソッドを使うために配列を定義
     var data = response.data.folders
-
     if(response.status === UNPROCESSABLE_ENTITY ){
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
@@ -105,7 +104,6 @@ const actions = {
     } else {
       commit('error/setCode', response.status, { root:true })
       // ミューテーションへコミットする
-      console.log(JSON.stringify(data))
       commit('setFolderLists', data) 
     }
     commit('error/setCode', response.status, { root: true })
@@ -113,12 +111,13 @@ const actions = {
   // フォルダーの並び替えの更新
   async updateFolderSort({commit}, newFolder){
     const response = await axios.patch('/api/folder/update-all', {folders: newFolder}).catch(error => error.response || error)
-    // var data = response.data.folders
+    const data = response.data.folders
     if(response.status ===   UNPROCESSABLE_ENTITY ){
       commit('setFolderRequestErrorMessages', response.data.errors)
     } else {
-      // commit('setFolderList  s', data)
       commit('error/setCode', response.status, { root:true })
+      // ミューテーションへコミットする
+      commit('setFolderLists', data)
     }
     commit('error/setCode', response.status, { root: true })
   },
@@ -211,7 +210,7 @@ const actions = {
     // card_idはオブジェクト形式で、{id: 7} の様に入ってくる。
     const response = await axios.put('/api/task/' + task_id, card_id).catch(error => error.response || error)
     if(response.status === UNPROCESSABLE_ENTITY ){
-    
+      commit('setTaskRequestErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
     }
@@ -221,7 +220,7 @@ const actions = {
   async updateTaskSort({commit}, newTask){
     const response = await axios.patch('/api/task/update-all', {tasks: newTask}).catch(error => error.response || error)
     if(response.status === UNPROCESSABLE_ENTITY ){
-    
+      commit('setTaskRequestErrorMessages', response.data.errors)
     } else {
       commit('error/setCode', response.status, { root:true })
     }

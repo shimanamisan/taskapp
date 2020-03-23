@@ -76,6 +76,8 @@
 **********************************************/
 .l-wrapper{
   width: 100%;
+  height: auto;
+  min-height: 100vh;
   background: $background-color;
     &__top{
     width: 100%;

@@ -102,15 +102,20 @@
             margin-left: auto;
           }
             &:hover{
+              cursor: pointer;
               background: #36363638;
               transition: .5s;
             }
+          &--active{
+            background: #36363638;
+          }
         }
         &__item{
           max-width: 210px;
           text-overflow: ellipsis;
           overflow: hidden;
           display: inline-block;
+          user-select: none;
           &:hover{
             cursor: pointer;
           }
@@ -144,20 +149,22 @@
       margin: 0 15px 10px 0;
       overflow-y: auto;
       @include custumRadius(8px);
-        &--wrapp{
+        &__wrapp{
           display: flex;
           justify-content: flex-end;
           margin-bottom: 7px;
           &>:last-child{
             margin-left: auto;
+            user-select: none;
           }
   
         }
-        &--tips{
+        &__item{
           display: inline-block;
           overflow: hidden;
           max-width: 245px;
           text-overflow: ellipsis;
+          user-select: none;
         }
         &--inputAreaWrapp{
           // background-color: #ccc;

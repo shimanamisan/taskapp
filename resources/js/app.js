@@ -6,7 +6,7 @@
 
 require('./bootstrap');
 
-// window.Vue = require('vue');
+window.Vue = require('vue');
 
 /**
  * The following block of code may be used to automatically register your
@@ -33,7 +33,7 @@ import App from './App.vue'
 import store from './store/store'
 import router from './router'
 
-Vue.config.devtools = true;
+// Vue.config.devtools = false
 
 // Vueインスタンスを生成する前にログインチェックを行うように変更
 // 非同期処理をawaitするには、asyncメソッドの内部に配置する必要があるので関数にまとめた
@@ -50,12 +50,15 @@ const createApp = async function(){
       render: h => h(App)
     }).$mount('#app')
 
+    // new Vue({
+    //   el: '#app',
+    //   router, // ルーティングの定義を読み込む
+    //   store,
+    //   components: { App }, // ルートコンポーネントの使用を宣言する
+    //   template: '<App />' // ルートコンポーネントを描画する
+    // })
+
 }
 
 createApp()
 
-// ES5の書き方
-// const app = new Vue({
-//     el: '#app',
-//     components: { App }
-// });

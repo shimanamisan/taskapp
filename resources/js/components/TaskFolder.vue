@@ -1,6 +1,6 @@
 <template>
     <div>
-      <li class="c-task--folder__wrapp" @click="setCardLists">
+      <li class="c-task--folder__wrapp" :class="currentFolder(this.id)" @click="setCardLists">
             <div class="c-task--dragicon">
               <i class="fas fa-bars hand-icon"></i>
             </div>
@@ -29,14 +29,16 @@
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
+import { OK } from '../statusCode'
 import draggable from 'vuedraggable'
-import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../statusCode'
 
 export default {
   data(){
     return {
       editFlag: false,
-      folderTitle: this.title
+      folderTitle: this.title,
+      folderActive: 'c-task--folder__wrapp--active',
+      folderDisable: ''
     }
   },
   components: {
@@ -62,10 +64,24 @@ export default {
       folderRequestErrorMessages: state => state.taskStore.folderRequestErrorMessages
     }),
     ...mapGetters({
-      getCode: 'error/getCode'
+      getCode: 'error/getCode',
+      current_folderId: 'taskStore/current_folderId'
     }),
   },
   methods: {
+    // フォルダーを選択したら、そのフォルダーのカードリストをセットする
+    async setCardLists(){
+      const folder_id = this.id
+      await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+    },
+    //
+    currentFolder(folder_id){
+      if(folder_id === this.current_folderId){
+        return this.folderActive
+      } else {
+        return this.folderDisable
+      }
+    },
     // フォルダーを削除する
     async deleteFolder(){
       const folder_id = this.id
@@ -73,21 +89,19 @@ export default {
         await this.$store.dispatch('taskStore/deleteFolder', folder_id )
       }
     },
-    // フォルダーを選択したら、そのフォルダーのカードリストを取得
-    async setCardLists(){
-      const folder_id = this.id
-      await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
-    },
+    // 更新用のフォームを呼び出す
     editFolder(){
       this.editFlag = !this.editFlag
       this.clearError()
     },
+    // 更新フォームがキャンセルされたとき
     cancelEdit(){
       this.editFlag = false
       // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
       this.folderTitle = this.title
       this.clearError()
     },
+    // フォルダーのタイトルを更新する
     async updateFolderTitle(){
       await this.$store.dispatch('taskStore/updateFolderTitle',
       {

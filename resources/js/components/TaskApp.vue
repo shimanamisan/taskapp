@@ -49,7 +49,7 @@
 export default {
   data(){
     return{
-      folderData: ''
+      // folderData: ''
     }
   },
   components:{
@@ -76,7 +76,7 @@ export default {
     async getFolderLists(){
       await axios.get('/api/folder').then( response => {
       var data = response.data.folders
-      this.folderData = data
+      // this.folderData = data
       this.setFolderLists(data)
       }).catch( error => {
         console.log(error)
@@ -86,7 +86,8 @@ export default {
       await this.$store.dispatch('taskStore/updateFolderSort', newFolders)
     },
     onChange(){
-      let newFolders = this.folderData.map((folder, index) => {
+      // let newFolders = this.folderData.map((folder, index) => {
+      let newFolders = this.FolderLists.map((folder, index) => {
         folder.priority = index +1
         return folder
       })

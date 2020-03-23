@@ -308,12 +308,10 @@ const actions = {
   お問い合わせメール送信
   *****************************************/
   async contactMessage({commit}, data){
-    commit('setApiStatus', null)
     const response = await axios.post('/api/contact', data).catch(error => error.response || error)
       if(response.status === UNPROCESSABLE_ENTITY){
         commit('setContactMailErrorMessages', response.data.errors)
       } else {
-        commit('setApiStatus', true)
         commit('error/setCode', response.status, { root:true })
       }
       commit('error/setCode', response.status, { root:true })

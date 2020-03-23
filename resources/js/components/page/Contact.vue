@@ -92,7 +92,7 @@
 </template>
 <script>
 import { OK } from '../../statusCode'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 export default {
   data (){
     return {
@@ -108,8 +108,10 @@ export default {
   computed: {
     // ...mapStateを使った書き方
     ...mapState({
-      apiStatus: state => state.auth.apiStatus,
       contactErrors: state => state.auth.contactMailErrorMessages
+    }),
+    ...mapGetters({
+      getCode: 'error/getCode'
     }),
     textCounter(){
       return this.Form.message.length
@@ -120,12 +122,13 @@ export default {
     async contactMessage(){
       if(window.confirm('お問い合わせ内容を送信します。\nよろしいですか？')){
         await this.$store.dispatch('auth/contactMessage', this.Form);
-          if(this.apiStatus){
+          if(this.getCode === OK){
             alert('お問い合わせ内容は正しく送信されました。')
             this.Form.subject = ''
             this.Form.name = ''
             this.Form.email = ''
             this.Form.message = ''
+            this.clearError()
           }
       }
     },

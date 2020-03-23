@@ -1,11 +1,11 @@
 <template>
  
       <div class="c-task--todo--list" :data-task-id="this.id">
-        <div class="c-task--todo--wrapp">
+        <div class="c-task--todo__wrapp">
           <div class="c-task--dragicon">
             <i class="fas fa-bars hand-icon"></i>
           </div>
-          <span class="c-task--todo--tips" v-if="!editFlag" >{{title}}</span>
+          <span class="c-task--todo__item" v-if="!editFlag" >{{title}}</span>
           <form class="c-updateFrom c-updateFrom--TaskList" @submit.prevent v-else>
             <!-- バリデーションエラー --->
             <!-- <ul v-if="taskRequestErrorMessages" class="errors errors--tasks">

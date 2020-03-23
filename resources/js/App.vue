@@ -19,11 +19,11 @@ export default {
   components: {
       // Loading
   },
-  mounted(){
-    setTimeout( function(){
-      this.loading = false
-    }, 1000)
-  },
+  // mounted(){
+  //   setTimeout( function(){
+  //     this.loading = false
+  //   }, 1000)
+  // },
   computed: {
     errorCode(){
       return this.$store.state.error.code

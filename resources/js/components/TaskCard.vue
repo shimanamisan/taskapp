@@ -50,6 +50,7 @@
     </div>
 </template>
 <script>
+import { OK } from '../statusCode'
 import { mapState, mapGetters } from 'vuex'
 import draggable from 'vuedraggable'
 import TaskList from './TaskList'
@@ -114,8 +115,10 @@ export default {
           card_id: card_id
         })
 
-        // 削除後データが更新されるので、選択されていたフォルダーを保持するための処理
-        await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+        if(this.getCode === OK){
+          // 削除後データが更新されるので、選択されていたフォルダーを保持するための処理
+          await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+        }
       }
     },
     // カードのタイトルを更新する
@@ -128,9 +131,9 @@ export default {
         folder_id: folder_id,
         card_id: card_id
       })
-      await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
 
-      if(this.getCode === 200){
+      if(this.getCode === OK){
+        await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
         this.editCard()
       // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
       }
@@ -146,6 +149,11 @@ export default {
     // タスクリストのソートを更新するアクションを呼ぶ
     async updateTaskSort(newTasks){
       await this.$store.dispatch('taskStore/updateTaskSort', newTasks)
+      const folder_id = this.cards.folder_id
+      if(this.getCode === OK){
+        await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+      // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
+      }
     },
     // カードの更新フォームを呼び出す動作
     editCard(){

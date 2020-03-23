@@ -6,7 +6,10 @@
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <link rel="stylesheet" href="/css/style.css">
       <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
-      <title>TodoApp</title>
+      <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+      <title>TaskApp</title>
+      
+     <script src="{{ asset('js/app.js') }}"></script>
 
         <script>
             window.Laravel = {};
@@ -15,10 +18,8 @@
         </script>
     </head>
     <body>
-        <div id="app">
-        
-        </div>
+        <div id="app"></div>
     </body>
     
-    <script src="{{ mix('js/app.js') }}"></script>
+    <!-- <script src="{{ mix('js/app.js') }}"></script> -->
 </html>
