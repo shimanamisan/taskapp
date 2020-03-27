@@ -43,7 +43,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../../statusCode'
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../../statusCode';
 
 export default {
     data(){
@@ -66,11 +66,11 @@ export default {
     },
     methods: {
         async sendResetLinkEmail(){
-            const sendEmail = this.sendEmail
-            await this.$store.dispatch('auth/sendResetLinkEmail', sendEmail)
+            const sendEmail = this.sendEmail;
+            await this.$store.dispatch('auth/sendResetLinkEmail', sendEmail);
         },
         clearError(){
-        this.$store.commit('auth/setReminderErrorMessages', null)
+        this.$store.commit('auth/setReminderErrorMessages', null);
       },
     }
 }

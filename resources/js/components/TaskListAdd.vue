@@ -50,9 +50,9 @@ export default {
   methods:{
     // タスクを作成
     async createTask(){
-      const title = this.TaskCreateForm
-      const folder_id = this.folder_id
-      const card_id = this.card_id
+      const title = this.TaskCreateForm;
+      const folder_id = this.folder_id;
+      const card_id = this.card_id;
       await this.$store.dispatch('taskStore/createTask',
       { 
         // アクションは第2引数までしか引数を受け取れないので、
@@ -64,24 +64,24 @@ export default {
 
        if(this.getErrorCode === 200){
           // データが追加されて更新されても、選択されていたフォルダーがそのまま表示されている様に呼び出す
-          await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id )
-          this.clearTaskCreateForm()
+          await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id );
+          this.clearTaskCreateForm();
         }
       // 通信が失敗時でも、リストを空にしない
-      await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+      await this.$store.dispatch('taskStore/setCardListsAction', folder_id );
 
     },
     // タスク登録後、フォームの内容を空にして非表示にする
     clearTaskCreateForm(){
-      this.TaskCreateForm = ''
-      this.TaskEdit_flg = !this.TaskEdit_flg
-      this.clearError()
+      this.TaskCreateForm = '';
+      this.TaskEdit_flg = !this.TaskEdit_flg;
+      this.clearError();
     },
     /*************************************************
     * バリデーションメッセージを消すアクションを呼ぶ
     **************************************************/
     clearError(){
-      this.$store.commit('taskStore/setTaskRequestErrorMessages', null)
+      this.$store.commit('taskStore/setTaskRequestErrorMessages', null);
     },
   }
 }

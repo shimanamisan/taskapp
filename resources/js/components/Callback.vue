@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex'
+import { mapMutations } from 'vuex';
 export default {
     data(){
         return{
@@ -25,7 +25,7 @@ export default {
     },
     computed:{
         authentication(){
-            return !this.failMessages
+            return !this.failMessages;
         }
     },
     methods: {
@@ -35,20 +35,20 @@ export default {
                 params: this.$route.query
             })
             .then(response => {
-            this.setApiStatus(response.status)
-            this.setEmail(response.data.email)
-            this.setUser(response.data.name)
-            this.setPic(response.data.pic)
-            this.setId(response.data.id)
+            this.setApiStatus(response.status);
+            this.setEmail(response.data.email);
+            this.setUser(response.data.name);
+            this.setPic(response.data.pic);
+            this.setId(response.data.id);
             // Uncaught (in promise) undefined が発生。vue-router 3.1.xxから rjectされてPromisが返ってきたのに、
             // だれもキャッチしてくれなかったときに発生するエラー
             // https://qiita.com/Sa2Knight/items/4d4c6b7b14be340cf583
             // this.$router.push('/tasklist')
             // 以下の記述で解決
-               this.$router.push('/tasklist').catch(e => {})
+               this.$router.push('/tasklist').catch(e => {});
             })
             .catch(error => {
-                this.failMessages = error.message
+                this.failMessages = error.message;
             })
         },
         ...mapMutations({
@@ -62,7 +62,7 @@ export default {
         })
     },
     mounted(){
-        this.callbackTwitterLogin()
+        this.callbackTwitterLogin();
     }
 }
 </script>

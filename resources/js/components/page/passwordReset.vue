@@ -59,8 +59,8 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../../statusCode'
-import { mapState, mapGetters } from 'vuex'
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../../statusCode';
+import { mapState, mapGetters } from 'vuex';
 export default {
   data (){
     return {
@@ -87,16 +87,17 @@ export default {
       async resetPassword(){    
           await this.$store.dispatch('auth/resetPassword', this.form )
           if(this.getCode === OK){
-              this.$router.push('/login')
+              this.$router.push('/login');
           }
       },
       setQuery(){
-        this.form.token = this.$route.query.token || '';    // パスワードリセットするために必要なToken
+        // パスワードリセットするために必要なToken
+        this.form.token = this.$route.query.token || '';
       }
 
   },
   created(){
-      this.setQuery()
+      this.setQuery();
   }
 }
 </script>

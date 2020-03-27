@@ -76,7 +76,6 @@ class RegisterController extends Controller
                         ?: redirect($this->redirectPath());
     }
     
-    // メソッド追加（なぜ追加するのか？）オーバーライド
     // Illuminate\Foundation\Auth\RegistersUsers トレイトを見てみましょう
     protected function registered(Request $request, $user)
     {

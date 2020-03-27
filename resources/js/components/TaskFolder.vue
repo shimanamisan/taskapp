@@ -28,9 +28,9 @@
     </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
-import { OK } from '../statusCode'
-import draggable from 'vuedraggable'
+import { mapState, mapGetters } from 'vuex';
+import { OK } from '../statusCode';
+import draggable from 'vuedraggable';
 
 export default {
   data(){
@@ -71,35 +71,35 @@ export default {
   methods: {
     // フォルダーを選択したら、そのフォルダーのカードリストをセットする
     async setCardLists(){
-      const folder_id = this.id
-      await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+      const folder_id = this.id;
+      await this.$store.dispatch('taskStore/setCardListsAction', folder_id );
     },
     //
     currentFolder(folder_id){
       if(folder_id === this.current_folderId){
-        return this.folderActive
+        return this.folderActive;
       } else {
-        return this.folderDisable
+        return this.folderDisable;
       }
     },
     // フォルダーを削除する
     async deleteFolder(){
       const folder_id = this.id
       if(window.confirm('フォルダーを削除すると、全てのカード及びタスクリストも削除されます。\nフォルダーを削除しますか？')){
-        await this.$store.dispatch('taskStore/deleteFolder', folder_id )
+        await this.$store.dispatch('taskStore/deleteFolder', folder_id );
       }
     },
     // 更新用のフォームを呼び出す
     editFolder(){
-      this.editFlag = !this.editFlag
-      this.clearError()
+      this.editFlag = !this.editFlag;
+      this.clearError();
     },
     // 更新フォームがキャンセルされたとき
     cancelEdit(){
-      this.editFlag = false
+      this.editFlag = false;
       // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
-      this.folderTitle = this.title
-      this.clearError()
+      this.folderTitle = this.title;
+      this.clearError();
     },
     // フォルダーのタイトルを更新する
     async updateFolderTitle(){
@@ -109,14 +109,14 @@ export default {
         folder_id: this.id
       })
       if(this.getCode === OK){
-        this.editFolder()
+        this.editFolder();
       }
     },
     /*************************************************
     * バリデーションメッセージを消すアクションを呼ぶ
     **************************************************/
     clearError(){
-      this.$store.commit('taskStore/setFolderRequestErrorMessages', null)
+      this.$store.commit('taskStore/setFolderRequestErrorMessages', null);
     },
   }
 }

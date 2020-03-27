@@ -36,15 +36,15 @@
     </div>
 </template>
 <script>
-  import draggable from 'vuedraggable'
-  import Header from './Header'
-  import TaskFolderProfile from './TaskFolderProfile'
-  import TaskFolderAdd from './TaskFolderAdd'
-  import TaskFolder from './TaskFolder'
-  import TaskCard from './TaskCard'
-  import TaskCardAdd from './TaskCardAdd'
-  import Message from './Message'
-  import { mapState, mapGetters } from 'vuex'
+  import draggable from 'vuedraggable';
+  import Header from './Header';
+  import TaskFolderProfile from './TaskFolderProfile';
+  import TaskFolderAdd from './TaskFolderAdd';
+  import TaskFolder from './TaskFolder';
+  import TaskCard from './TaskCard';
+  import TaskCardAdd from './TaskCardAdd';
+  import Message from './Message';
+  import { mapState, mapGetters } from 'vuex';
 
 export default {
   data(){
@@ -71,32 +71,32 @@ export default {
   },
   methods:{
     async setFolderLists(data){
-      await this.$store.dispatch('taskStore/setFolderLists', data)
+      await this.$store.dispatch('taskStore/setFolderLists', data);
     },
     async getFolderLists(){
       await axios.get('/api/folder').then( response => {
-      var data = response.data.folders
+      var data = response.data.folders;
       // this.folderData = data
-      this.setFolderLists(data)
+      this.setFolderLists(data);
       }).catch( error => {
-        console.log(error)
+        console.log(error);
       })
     },
     async updateFolderSort(newFolders){
-      await this.$store.dispatch('taskStore/updateFolderSort', newFolders)
+      await this.$store.dispatch('taskStore/updateFolderSort', newFolders);
     },
     onChange(){
       // let newFolders = this.folderData.map((folder, index) => {
       let newFolders = this.FolderLists.map((folder, index) => {
-        folder.priority = index +1
-        return folder
+        folder.priority = index +1;
+        return folder;
       })
-      this.updateFolderSort(newFolders)
+      this.updateFolderSort(newFolders);
     }
   },
   // クリエイトライフサイクルフック
   created(){
-    this.getFolderLists()
+    this.getFolderLists();
   }
 }
 </script>

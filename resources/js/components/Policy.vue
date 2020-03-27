@@ -224,8 +224,8 @@
 </div>
 </template>
 <script>
-import Header from './Header'
-import Footer from './footer'
+import Header from './Header';
+import Footer from './footer';
 export default {
     data(){
         return {

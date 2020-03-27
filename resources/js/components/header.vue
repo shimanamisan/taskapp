@@ -43,11 +43,11 @@
 </template>
 
 <script>
-import {mapState, mapGetters} from 'vuex'
+import {mapState, mapGetters} from 'vuex';
 export default {
     data(){
       return {
-        isActive: false,
+        isActive: false
       }
     },
     computed: {
@@ -66,7 +66,7 @@ export default {
     //   },
       spMenuItem(){
         return {
-            'sp-menu-Active': this.isActive,
+            'sp-menu-Active': this.isActive
         }
       },
       toggleActive(){
@@ -78,7 +78,7 @@ export default {
     },
     methods: {
       async logout(){
-          await this.$store.dispatch('auth/logout')
+          await this.$store.dispatch('auth/logout');
           this.$router.push('/login');
       }
     }

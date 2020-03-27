@@ -27,7 +27,7 @@
 
 </template>
 <script>
-import draggable from 'vuedraggable'
+import draggable from 'vuedraggable';
 export default {
   data(){
     return {
@@ -81,9 +81,9 @@ export default {
   methods:{
     async deleteTask(){
        if(window.confirm('タスクを削除しますか？')){
-          const folder_id = this.folder_id
-          const card_id = this.card_id
-          const task_id = this.task_id
+          const folder_id = this.folder_id;
+          const card_id = this.card_id;
+          const task_id = this.task_id;
           await this.$store.dispatch('taskStore/deleteTask',
          {
            folder_id: folder_id,
@@ -91,13 +91,13 @@ export default {
            task_id: task_id
          })
           // 削除後データが更新されるので、選択されていたフォルダーを保持するための処理
-          await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+          await this.$store.dispatch('taskStore/setCardListsAction', folder_id );
         }
     },
     async updateTaskTitle(){
-        const folder_id = this.folder_id
-        const card_id = this.card_id
-        const task_id = this.task_id
+        const folder_id = this.folder_id;
+        const card_id = this.card_id;
+        const task_id = this.task_id;
       await this.$store.dispatch('taskStore/updateTaskTitle',
       {
         title: this.taskTitle,
@@ -105,29 +105,29 @@ export default {
         card_id: card_id,
         task_id: task_id
       })
-      await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+      await this.$store.dispatch('taskStore/setCardListsAction', folder_id );
 
       if(this.getErrorCode === 200){
-        this.editCard()
+        this.editCard();
       // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
         
       }
     },
     editCard(){
-      this.editFlag = !this.editFlag
-      this.clearError()
+      this.editFlag = !this.editFlag;
+      this.clearError();
     },
     cancelEdit(){
-      this.editFlag = false
+      this.editFlag = false;
       // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
-      this.taskTitle = this.title
-      this.clearError()
+      this.taskTitle = this.title;
+      this.clearError();
     },
     /*************************************************
     * バリデーションメッセージを消すアクションを呼ぶ
     **************************************************/
     clearError(){
-      this.$store.commit('taskStore/setTaskRequestErrorMessages', null)
+      this.$store.commit('taskStore/setTaskRequestErrorMessages', null);
     },
   }
 }

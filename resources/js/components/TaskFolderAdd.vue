@@ -28,7 +28,7 @@
     </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex';
 export default {
   data(){
     return{
@@ -60,22 +60,21 @@ export default {
   },
   methods: {
     async createFolder(){
-      await this.$store.dispatch('taskStore/createFolder', { title: this.folderTitle })
-
+      await this.$store.dispatch('taskStore/createFolder', { title: this.folderTitle });
       if(this.getCode === 200){
-        this.clearFolderCreateForm()
+        this.clearFolderCreateForm();
       }
     },
     clearFolderCreateForm(){
-    this.folderTitle = ''
-    this.folderEdit_flg = !this.folderEdit_flg
-    this.clearError()
+    this.folderTitle = '';
+    this.folderEdit_flg = !this.folderEdit_flg;
+    this.clearError();
     },
     /*************************************************
     * バリデーションメッセージを消すアクションを呼ぶ
     **************************************************/
     clearError(){
-      this.$store.commit('taskStore/setFolderRequestErrorMessages', null)
+      this.$store.commit('taskStore/setFolderRequestErrorMessages', null);
     },
   }
 }

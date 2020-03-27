@@ -151,10 +151,9 @@
   </div>
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
-import Header from './Header'
-import Message from './Message'
-
+import { mapState, mapGetters } from 'vuex';
+import Header from './Header';
+import Message from './Message';
 export default {
   data(){
     return {
@@ -193,98 +192,91 @@ export default {
     ...mapGetters({
       getCode: 'error/getCode'
     })
-    // profileUploadErrors(){
-    //   // エラーメッセージがあった際にストアより取得
-    //   return this.$store.state.auth.profileErrorMessages
-    // },
-    // getErrorCode(){
-    //   return this.$store.state.error.code
-    // }
   },
   methods: {
       // フォームでファイルが選択されたら実行
       fileSelected(event){
         // ファイルが画像でなかったら処理を中断
         if(!event.target.files[0].type.match('image.*')){
-          this.$store.commit('auth/setProfileErrorMessages', { profilePhoto: ['画像を選択してください'] })
-          this.$el.querySelector('input[type="file"]').value = null
-          return false
+          this.$store.commit('auth/setProfileErrorMessages', { profilePhoto: ['画像を選択してください'] });
+          this.$el.querySelector('input[type="file"]').value = null;
+          return false;
         }
         // ファイル情報をdataプロパティに保存
         // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
-        this.profileImage = event.target.files[0]  
+        this.profileImage = event.target.files[0];
         // FileReaderクラスのインスタンスを取得
-        const reader = new FileReader()
+        const reader = new FileReader();
         // ファイルを読み込み終わったタイミングで実行する処理
         reader.onload = event => {
-          this.preview = event.target.result
+          this.preview = event.target.result;
         }
         // ファイルを読み込む
         // 読み込まれたファイルはデータURL形式で受け取れる
-        reader.readAsDataURL(event.target.files[0])
+        reader.readAsDataURL(event.target.files[0]);
         // 
-        this.profileData.profileImage = event.target.files[0]
+        this.profileData.profileImage = event.target.files[0];
       },
       reset(){
         // エラーメッセージが出ていたら消す
-        this.clearError()
+        this.clearError();
         // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
-        this.$el.querySelector('input[type="file"]').value = null
-        this.showProfileImage = !this.showProfileImage
+        this.$el.querySelector('input[type="file"]').value = null;
+        this.showProfileImage = !this.showProfileImage;
       },
       // プロフィール写真変更
       async ProfileImageEdit(){
-        this.clearError()
+        this.clearError();
         // プロフィール画像保存の処理
         // FormDataオブジェクトをインスタンス化
-        const formData = new FormData()
+        const formData = new FormData();
         // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
         // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
         // 常にリクエストが空とみなされてバリデーションに引っかかる
         // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
-        formData.append('profilePhoto', this.profileData.profileImage)
+        formData.append('profilePhoto', this.profileData.profileImage);
         // アクションへファイル情報を渡す
-        await this.$store.dispatch('auth/ProfileImageEdit', formData)
+        await this.$store.dispatch('auth/ProfileImageEdit', formData);
         if(this.getCode === 200){
-          this.showSuccess()
-          setTimeout(this.showSuccess, 3000)
+          this.showSuccess();
+          setTimeout(this.showSuccess, 3000);
         }
         this.showProfileImage = !this.showProfileImage
       },
       async userSoftDelete(){
         if(this.$store.state.auth.user_id === 1){
-          alert('テストユーザーは退会出来ません')
-          return false
+          alert('テストユーザーは退会出来ません');
+          return false;
         }
 
         if(window.confirm('退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？')){
           // アクションを呼びに行く
-          await this.$store.dispatch('auth/userSoftDelete')
-          this.$router.push('/register')
+          await this.$store.dispatch('auth/userSoftDelete');
+          this.$router.push('/register');
         }
       },
       async ProfileNameEdit(){
-        this.clearError()
+        this.clearError();
         // アクションへファイル情報を渡す
-        await this.$store.dispatch('auth/ProfileNameEdit', { name: this.profileData.name } )
+        await this.$store.dispatch('auth/ProfileNameEdit', { name: this.profileData.name } );
         if(this.getCode === 200){
-          this.showName = !this.showName
-          this.showSuccess()
-          setTimeout(this.showSuccess, 3000)
+          this.showName = !this.showName;
+          this.showSuccess();
+          setTimeout(this.showSuccess, 3000);
         }
       },
       async ProfileEmailEdit(){
-        this.clearError()
+        this.clearError();
         // アクションへファイル情報を渡す
-        await this.$store.dispatch('auth/ProfileEmailEdit', { email: this.profileData.email } )
+        await this.$store.dispatch('auth/ProfileEmailEdit', { email: this.profileData.email } );
         if(this.getCode === 200){
-          this.showEmail = !this.showEmail
-          this.showSuccess()
-          setTimeout(this.showSuccess, 3000)
+          this.showEmail = !this.showEmail;
+          this.showSuccess();
+          setTimeout(this.showSuccess, 3000);
         }
       },
       async ProfilPasswordeEdit(){
-        this.clearError()
+        this.clearError();
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfilPasswordeEdit', 
         { 
@@ -295,84 +287,84 @@ export default {
   
         if(this.getCode === 200){
           // 送信後入力フォームを空にする
-          this.profileData.password = '',
-          this.profileData.password_confirmation = ''
-          this.showPassword = !this.showPassword
-          this.clearError()
-          this.showSuccess()
-          setTimeout(this.showSuccess, 3000)
+          this.profileData.password = '';
+          this.profileData.password_confirmation = '';
+          this.showPassword = !this.showPassword;
+          this.clearError();
+          this.showSuccess();
+          setTimeout(this.showSuccess, 3000);
         }
       },
       cancelName(){
-        this.clearError()
-        this.showName = !this.showName
+        this.clearError();
+        this.showName = !this.showName;
       },
       canselEmail(){
-        this.clearError()
-        this.showEmail = !this.showEmail
+        this.clearError();
+        this.showEmail = !this.showEmail;
       },
       cancelPassword(){
-        this.profileData.password = ''
-        this.profileData.password_confirmation = ""
-        this.clearError()
-        this.showPassword = !this.showPassword
+        this.profileData.password = '';
+        this.profileData.password_confirmation = "";
+        this.clearError();
+        this.showPassword = !this.showPassword;
       },
       ShowPasswordTrigger(){
-        this.profileData.password = ''
-        this.profileData.password_confirmation = ""
-        this.clearError()
-        this.showPassword = !this.showPassword
+        this.profileData.password = '';
+        this.profileData.password_confirmation = "";
+        this.clearError();
+        this.showPassword = !this.showPassword;
       },
       /****************************************
        * focus処理のメソッド
       *****************************************/
       namefocus(){
            if(this.showName === true){
-          return
+          return;
         }
-        this.showName = !this.showName
+        this.showName = !this.showName;
       },
       emailfocus(){
         if(this.showEmail === true){
-          return
+          return;
         }
-        this.showEmail = !this.showEmail
+        this.showEmail = !this.showEmail;
       },
       imagefocus(){
         if(this.showProfileImage === true){
-          return
+          return;
         }
-        this.showProfileImage = !this.showProfileImage
+        this.showProfileImage = !this.showProfileImage;
       },
       /*************************************************
        * バリデーションメッセージを消すアクションを呼ぶ
       **************************************************/
       clearError(){
-        this.$store.commit('auth/setProfileErrorMessages', null)
+        this.$store.commit('auth/setProfileErrorMessages', null);
       },
       /*************************************************
        * データ更新時のモーダルを表示
       **************************************************/
       showSuccess(){
-        this.success = !this.success
+        this.success = !this.success;
       },
       /*************************************************
        * プロフィールアクセス時にユーザー情報を取得
       **************************************************/
       getProfile(){
         axios.get('/api/user').then(response => {
-          this.profileData.name = response.data.name
-          this.profileData.email = response.data.email
-          this.preview = response.data.pic
+          this.profileData.name = response.data.name;
+          this.profileData.email = response.data.email;
+          this.preview = response.data.pic;
         }).catch( error => {
-          console.log(error)
+          console.log(error);
         })
       }
   },
   created(){
     // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
-    this.clearError()
-    this.getProfile()
+    this.clearError();
+    this.getProfile();
   }
 }
 </script>

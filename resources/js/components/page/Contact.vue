@@ -91,8 +91,8 @@
 
 </template>
 <script>
-import { OK } from '../../statusCode'
-import { mapState, mapGetters } from 'vuex'
+import { OK } from '../../statusCode';
+import { mapState, mapGetters } from 'vuex';
 export default {
   data (){
     return {
@@ -114,7 +114,7 @@ export default {
       getCode: 'error/getCode'
     }),
     textCounter(){
-      return this.Form.message.length
+      return this.Form.message.length;
     }
   },
   methods: {
@@ -123,22 +123,22 @@ export default {
       if(window.confirm('お問い合わせ内容を送信します。\nよろしいですか？')){
         await this.$store.dispatch('auth/contactMessage', this.Form);
           if(this.getCode === OK){
-            alert('お問い合わせ内容は正しく送信されました。')
-            this.Form.subject = ''
-            this.Form.name = ''
-            this.Form.email = ''
-            this.Form.message = ''
-            this.clearError()
+            alert('お問い合わせ内容は正しく送信されました。');
+            this.Form.subject = '';
+            this.Form.name = '';
+            this.Form.email = '';
+            this.Form.message = '';
+            this.clearError();
           }
       }
     },
     clearError(){
-      this.$store.commit('auth/setContactMailErrorMessages', null)
+      this.$store.commit('auth/setContactMailErrorMessages', null);
     },
   },
     created(){
     // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
-    this.clearError()
+    this.clearError();
   }
 }
 </script>

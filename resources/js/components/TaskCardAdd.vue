@@ -27,7 +27,7 @@
     </div>
 </template>
 <script>
-import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../statusCode'
+import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../statusCode';
 
 export default {
   data(){
@@ -49,19 +49,17 @@ export default {
   methods: {
     // 投稿の内容をアクションへ渡す
     async createCard(){
-      this.$store.commit('taskStore/setCardRequestErrorMessages', null)
+      this.$store.commit('taskStore/setCardRequestErrorMessages', null);
       // ストアからフォルダーIDを呼び出す
-      this.folder_id = this.$store.state.taskStore.folder_id
-
+      this.folder_id = this.$store.state.taskStore.folder_id;
       if(!this.folder_id){
         const data = {
             title: [
               'フォルダーを選択してタスクを登録してください'
             ]
         }
-        this.$store.commit('taskStore/setCardRequestErrorMessages', data)
-
-        return false
+        this.$store.commit('taskStore/setCardRequestErrorMessages', data);
+        return false;
       }
       
       // 呼び出したフォルダーIDをフォームの内容をアクションへ渡す
@@ -75,23 +73,23 @@ export default {
 
         if(this.getErrorCode === OK){
           await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id )
-          this.clearCradCreateForm()
+          this.clearCradCreateForm();
         }
       // 通信が失敗時でも、リストを空にしない
-      await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id )
+      await this.$store.dispatch('taskStore/setCardListsAction', this.folder_id );
 
     },
     // 投稿後にフォームの中身を削除し、フォームを非表示にする
     clearCradCreateForm(){
-    this.CradCreateForm = ''
-    this.CardEdit_flg = !this.CardEdit_flg
-    this.clearError()
+    this.CradCreateForm = '';
+    this.CardEdit_flg = !this.CardEdit_flg;
+    this.clearError();
     },
     /*************************************************
      * バリデーションメッセージを消すアクションを呼ぶ
     **************************************************/
     clearError(){
-      this.$store.commit('taskStore/setCardRequestErrorMessages', null)
+      this.$store.commit('taskStore/setCardRequestErrorMessages', null);
     },
   }
 }

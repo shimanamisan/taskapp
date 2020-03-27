@@ -63,7 +63,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex';
 export default {
   data (){
     return {
@@ -79,10 +79,7 @@ export default {
     ...mapState({
       apiStatus: state => state.auth.apiStatus, // ここもゲッターにできる？
       loginErrors: state => state.auth.loginErrorMessages
-    }),
-    // ...mapGetters({
-    //   loginErrors: 'auth/check'
-    // })
+    })
   },
   methods: {
     // authストアのloginアクションを呼び出す
@@ -94,7 +91,7 @@ export default {
       }
     },
     clearError(){
-      this.$store.commit('auth/setLoginErrorMessages', null)
+      this.$store.commit('auth/setLoginErrorMessages', null);
     },
     async twitterlogin(){
       await axios.get('/api/twitter')
@@ -102,12 +99,12 @@ export default {
         const URL = response.data.redirect_url
         window.location = URL
       }).
-      catch(error => error.response || error)
+      catch(error => error.response || error);
     }
   },
     created(){
     // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
-    this.clearError()
+    this.clearError();
   }
 }
 </script>

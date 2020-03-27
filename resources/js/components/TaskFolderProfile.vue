@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters } from 'vuex';
 export default {
   data(){
     return{
@@ -26,21 +26,18 @@ export default {
     ...mapGetters({
       username: 'auth/getUserName'
     })
-    // username(){  
-    // return this.$store.getters['auth/getUserName']
-    // }
   },
   methods: {
     profileimage(){
         axios.get('/api/user').then(response => {
-        this.img = response.data.pic
-        }).catch({
-        // error
+        this.img = response.data.pic;
+        }).catch( error => { 
+        console.log(error)
       })
     }
   },
   created(){
-    this.profileimage()
+    this.profileimage();
   }
 }
 </script>

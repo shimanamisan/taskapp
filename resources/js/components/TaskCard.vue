@@ -50,12 +50,12 @@
     </div>
 </template>
 <script>
-import { OK } from '../statusCode'
-import { mapState, mapGetters } from 'vuex'
-import draggable from 'vuedraggable'
-import TaskList from './TaskList'
-import TaskListAdd from './TaskListAdd'
-import TaskCardAdd from './TaskCardAdd'
+import { OK } from '../statusCode';
+import { mapState, mapGetters } from 'vuex';
+import draggable from 'vuedraggable';
+import TaskList from './TaskList';
+import TaskListAdd from './TaskListAdd';
+import TaskCardAdd from './TaskCardAdd';
 export default {
   data() {
       return {
@@ -85,7 +85,7 @@ export default {
   },
   computed:{
     listCounter(){
-      return this.cards.tasks.length
+      return this.cards.tasks.length;
     },
     ...mapState({
       cardRequestErrorMessages: state => state.taskStore.cardRequestErrorMessages
@@ -93,20 +93,12 @@ export default {
     ...mapGetters({
       getCode: 'error/getCode'
     })
-    // mapState,mapGettersを使わない書き方
-    // cardRequestErrorMessages(){
-    // // エラーメッセージがあった際にストアより取得
-    // return this.$store.state.taskStore.cardRequestErrorMessages
-    // },
-    // getErrorCode(){
-    //   return this.$store.state.error.code
-    // },
   },
   methods: {
     // カードを削除する
     async deleteCard(){
-      const folder_id = this.cards.folder_id
-      const card_id = this.cards.id
+      const folder_id = this.cards.folder_id;
+      const card_id = this.cards.id;
       // console.log( 'これはカードid：' + folder_id + '  ' + 'これはフォルダid：' + card_id)
       if(window.confirm('カードを削除すると、全てのタスクリストも削除されます。\nフォルダーを削除しますか？')){
         await this.$store.dispatch('taskStore/deleteCard', 
@@ -117,7 +109,7 @@ export default {
 
         if(this.getCode === OK){
           // 削除後データが更新されるので、選択されていたフォルダーを保持するための処理
-          await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+          await this.$store.dispatch('taskStore/setCardListsAction', folder_id );
         }
       }
     },
@@ -133,8 +125,8 @@ export default {
       })
 
       if(this.getCode === OK){
-        await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
-        this.editCard()
+        await this.$store.dispatch('taskStore/setCardListsAction', folder_id );
+        this.editCard();
       // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
       }
     },
@@ -148,47 +140,46 @@ export default {
     },
     // タスクリストのソートを更新するアクションを呼ぶ
     async updateTaskSort(newTasks){
-      await this.$store.dispatch('taskStore/updateTaskSort', newTasks)
+      await this.$store.dispatch('taskStore/updateTaskSort', newTasks);
       const folder_id = this.cards.folder_id
       if(this.getCode === OK){
-        await this.$store.dispatch('taskStore/setCardListsAction', folder_id )
+        await this.$store.dispatch('taskStore/setCardListsAction', folder_id );
       // 更新後データが更新されるので、選択されていたフォルダーを保持するための処理
       }
     },
     // カードの更新フォームを呼び出す動作
     editCard(){
-      this.editFlag = !this.editFlag
-      this.clearError()
+      this.editFlag = !this.editFlag;
+      this.clearError();
     },
     // カードの更新フォームをキャンセルしたときの動作
     cancelEdit(){
-      this.editFlag = false
+      this.editFlag = false;
       // キャンセルしたときに、propsで渡ってきている元のデータをdataプロパティに代入する。
-      this.cardTitle = this.cards.title
-      this.clearError()
+      this.cardTitle = this.cards.title;
+      this.clearError();
     },
     /*************************************************
     * バリデーションメッセージを消すアクションを呼ぶ
     **************************************************/
     clearError(){
-      this.$store.commit('taskStore/setCardRequestErrorMessages', null)
+      this.$store.commit('taskStore/setCardRequestErrorMessages', null);
     },
     // draggableのイベントハンドラー：配列に要素が追加されたときに発火
     onAdd(event){
-      let fromCradId = event.from.getAttribute("data-card-id")
-      let taskId = event.item.getAttribute("data-task-id")
-      let toCardId = event.to.getAttribute("data-card-id")
-      // console.log('fromCardId：' + fromCradId + ' ' + 'taskId：' + taskId + ' ' + 'toCardId：' + toCardId)
+      let fromCradId = event.from.getAttribute("data-card-id");
+      let taskId = event.item.getAttribute("data-task-id");
+      let toCardId = event.to.getAttribute("data-card-id");
       this.updateTaskDraggable(toCardId, taskId)
     },
     // draggableのイベントハンドラー：動作が開始され要素のコピーが行われた時
     // https://www.ritolab.com/entry/173
     onChange(){
       let newTasks = this.cards.tasks.map((task, index) =>{
-        task.priority = index +1
-        return task
+        task.priority = index +1;
+        return task;
       })
-      this.updateTaskSort(newTasks)
+      this.updateTaskSort(newTasks);
     }
   },
 }

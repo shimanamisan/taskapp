@@ -76,8 +76,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { mapState } from 'vuex'
-
+import { mapState } from 'vuex';
 export default {
   data (){
     return {
@@ -100,19 +99,19 @@ export default {
     async register(){
         // await:非同期なアクションの処理が完了するのを待ってから（難しく言うと Promise の解決を待ってから）ページ遷移する
         // authストアのregisterアクションを呼び出す
-        await this.$store.dispatch('auth/register', this.registerForm)
+        await this.$store.dispatch('auth/register', this.registerForm);
             if(this.apiStatus){
                 // 通信が成功（apiStatusがtureの場合）したら移動する
                 this.$router.push('/tasklist');
             }
     },
     clearError(){
-      this.$store.commit('auth/setRegisterErrorMessages', null)
+      this.$store.commit('auth/setRegisterErrorMessages', null);
     }
   },
   created(){
     // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
-    this.clearError()
+    this.clearError();
   }
 }
 </script>
