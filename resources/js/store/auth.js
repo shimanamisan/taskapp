@@ -176,7 +176,6 @@ const actions = {
     if(response.status === INTERNAL_SERVER_ERROR ){
       commit('error/setCode', response.status, { root: true })
     }else if(response.status === OK){
-      console.log('処理されています「')
       commit('setApiStatus', null)
       commit('setUser', null)
       commit('setEmail', null) 
@@ -288,8 +287,8 @@ const actions = {
         commit('setReminderErrorMessages', response.data.errors)
       } else {
         commit('error/setCode', response.status, { root: true })
+        commit('sendEmailMessages', response.data.success)
       }
-      commit('sendEmailMessages', response.data.success)
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
   /****************************************

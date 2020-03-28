@@ -43,8 +43,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { OK, UNPROCESSABLE_ENTITY, INTERNAL_SERVER_ERROR, CREATED } from '../../statusCode';
-
+import { mapState, mapGetters } from 'vuex';
 export default {
     data(){
         return{
@@ -52,17 +51,13 @@ export default {
         }
     },
         computed: {
-        sendEmailMessages(){
-            // エラーメッセージがあった際にストアより取得
-            return this.$store.state.auth.sendEmailMessages
-        },
-        reminderErrorMessages(){
-            // エラーメッセージがあった際にストアより取得
-            return this.$store.state.auth.reminderErrorMessages
-        },
-        getErrorCode(){
-            return this.$store.state.error.code
-        }
+            ...mapState({
+                sendEmailMessages: state => state.auth.sendEmailMessages,
+                reminderErrorMessages: state => state.auth.reminderErrorMessages
+            }),
+            ...mapGetters({
+                getCode: 'error/getCode'
+            })
     },
     methods: {
         async sendResetLinkEmail(){

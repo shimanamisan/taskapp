@@ -10,6 +10,3 @@ export const UNPROCESSABLE_ENTITY = 422 // リクエスト情報が正しいも�
 export const UNAUTHORIZED = 419
 // ページが見つからないとき
 export const NOT_FOUND = 404
-
-
-// Method Not Allowed 405

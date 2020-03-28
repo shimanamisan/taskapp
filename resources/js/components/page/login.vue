@@ -77,7 +77,7 @@ export default {
   computed: {
     // ...mapStateを使った書き方
     ...mapState({
-      apiStatus: state => state.auth.apiStatus, // ここもゲッターにできる？
+      apiStatus: state => state.auth.apiStatus,
       loginErrors: state => state.auth.loginErrorMessages
     })
   },
