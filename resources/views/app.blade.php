@@ -9,11 +9,9 @@
       <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
       <title>TaskApp</title>
       
-     <script src="{{ asset('js/app.js') }}"></script>
-
         <script>
             window.Laravel = {};
-            // window.Laravel.csrfTokenという変数にcsrfトークンを入れている
+            // グローバルオブジェクトのプロパティにcsrfトークンを格納
             window.Laravel.csrfToken = "{{ csrf_token() }}";
         </script>
     </head>
@@ -21,5 +19,5 @@
         <div id="app"></div>
     </body>
     
-    <!-- <script src="{{ mix('js/app.js') }}"></script> -->
+    <script src="{{ mix('js/app.js') }}"></script>
 </html>
