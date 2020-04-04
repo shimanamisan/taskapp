@@ -110,7 +110,7 @@
       <li class="p-rule__list--item">
           前項の定めにかかわらず，次に掲げる場合には，当該情報の提供先は第三者に該当しないものとします。
             <ol class="p-rule__list">
-                <li class="p-rule__list--item">
+                <li class="p-rule__list--item p-rule__list--item--first">
                 当サイトが利用目的の達成に必要な範囲内において個人情報の取扱いの全部または一部を委託する場合
                 </li>
                 <li class="p-rule__list--item">

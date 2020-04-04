@@ -247,7 +247,7 @@ import Footer from './footer';
 export default {
     data(){
         return {
-           
+           // 
         }
     },
     components: {

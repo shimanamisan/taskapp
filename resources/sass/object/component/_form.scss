@@ -30,15 +30,18 @@
   }
   &__action{
     margin-top: $space_xxl;
-    &--wrapp{
-      display: flex;
-      justify-content: space-around;
-    }
-    
-    &__item{
-      text-align: center;
-      font-size: $space_l;
-    }
+      &--easy{
+        display: flex;
+        justify-content: space-evenly;
+      }
+      &--wrapp{
+        display: flex;
+        justify-content: space-around;
+      }
+      &__item{
+        text-align: center;
+        font-size: $space_l;
+      }
   }
 }
 

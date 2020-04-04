@@ -41,17 +41,23 @@
                         </div>
                         <!-- end c-form__item -->
                         <div class="c-form__action">
-                            <div class="c-form__action c-form__action__item">
+
+                            <div class="c-form__action__item">
                                 <button type="submit" class="c-btn c-btn__login">ログインする</button>
                             </div>
+                        </div>
                             <div class="c-btn-reminder">
                                 <router-link to="/reminder">パスワードを忘れた方はこちら</router-link>
                             </div>
-                        </div>
                     </form>
                     <hr class="u-form__line">
-                    <div class="u-social__item">
-                        <button class="c-btn c-btn__twitter" @click="twitterlogin">Twitterログインする</button>
+                    <div class="c-form__action c-form__action--easy">
+                        <div class="u-social__item">
+                            <button class="c-btn c-btn__easy" @click="gestUser">ゲストユーザー</button>
+                        </div>
+                        <div class="u-social__item">
+                            <button class="c-btn c-btn__twitter" @click="twitterlogin">Twitterログインする</button>
+                        </div>
                     </div>
                 </div>
                 <!-- c-form__container -->
@@ -85,6 +91,17 @@ export default {
     // authストアのloginアクションを呼び出す
     async login(){
       await this.$store.dispatch('auth/login', this.loginFrom);
+      if(this.apiStatus){
+        // 通信が成功（apiStatusがtureの場合）したら移動する
+        this.$router.push('/tasklist');
+      }
+    },
+    async gestUser(){
+      await this.$store.dispatch('auth/gestUser', {
+        email: 'test01@mail.com',
+        password: 'password'
+      });
+      
       if(this.apiStatus){
         // 通信が成功（apiStatusがtureの場合）したら移動する
         this.$router.push('/tasklist');

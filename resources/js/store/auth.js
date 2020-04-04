@@ -168,6 +168,43 @@ const actions = {
       commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
   },
   /****************************************
+  ゲストユーザーログイン
+  *****************************************/
+  async gestUser({commit} , data){
+    commit('setApiStatus', null)
+    // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
+    const response = await axios.post('/api/login', data).catch(error => error.response || error)
+        // 200ステータスの処理
+        if(response.status === OK){
+
+            if(response.data.errors){
+              console.log(response.data.errors)
+              commit('setLoginErrorMessages', response.data.errors)
+              return false;
+            }
+          const username = response.data.name
+          const email = response.data.email
+          const profileImage = response.data.pic
+          const id = response.data.id
+          // ログインステータスを変更する
+          commit('setApiStatus', true)
+          commit('setUser', username) 
+          commit('setEmail', email) 
+          commit('setPic', profileImage) 
+          // ストア情報に取得したユーザーIDを入れる
+          commit('setId', id )
+          return false
+        }
+      commit('setApiStatus', false)
+      // 422ステータスの処理
+      if(response.status === UNPROCESSABLE_ENTITY ){
+        commit('setLoginErrorMessages', response.data.errors)
+      } else {
+        commit('error/setCode', response.status, { root: true })
+      }
+      commit('error/setCode', response.status, { root: true }) //{ root: ture }で違うファイルのミューテーションを呼べる
+  },
+  /****************************************
   ログアウト
   *****************************************/
   async logout ({commit}) {

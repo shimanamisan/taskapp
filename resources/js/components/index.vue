@@ -74,7 +74,7 @@
                             <div class="p-card__body">
                                 <div class="p-card-content__third u-inner__l">
                                     <div class="p-card-title">
-                                        <p class="p-title">TaskAppは個人で<br>気軽に使えるタスク<br>管理アプリです</p>
+                                        <p class="p-title">TaskAppは個人で<br>気軽に使えるタスク管理アプリです</p>
                                     </div>
                                     <p class="p-eyecatch--p">
                                         仕事や家の用事など、生活スタイルに合わせて使うことが出来ます。

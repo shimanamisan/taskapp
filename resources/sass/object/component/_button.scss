@@ -47,6 +47,10 @@
       color: #ffffff;
       @include custumRadius(30px);
     }
+    &__easy{
+      background: #000;
+      color: #fff;
+    }
     &__footer{
       display: block; // inlineとblockの中間（並びはinline、中の要素はblock）
       width: 120px;

@@ -610,6 +610,11 @@ br {
   border-radius: 30px;
 }
 
+.c-btn__easy {
+  background: #000;
+  color: #fff;
+}
+
 .c-btn__footer {
   display: block;
   width: 120px;
@@ -858,6 +863,13 @@ br {
 
 .c-form__action {
   margin-top: 30px;
+}
+
+.c-form__action--easy {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-pack: space-evenly;
+          justify-content: space-evenly;
 }
 
 .c-form__action--wrapp {
