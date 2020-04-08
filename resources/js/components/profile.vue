@@ -214,7 +214,6 @@ export default {
         // ファイルを読み込む
         // 読み込まれたファイルはデータURL形式で受け取れる
         reader.readAsDataURL(event.target.files[0]);
-        // 
         this.profileData.profileImage = event.target.files[0];
       },
       reset(){
@@ -245,10 +244,9 @@ export default {
       },
       async userSoftDelete(){
         if(this.$store.state.auth.user_id === 1){
-          alert('テストユーザーは退会出来ません');
+          alert('ゲストユーザーは退会出来ません');
           return false;
         }
-
         if(window.confirm('退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？')){
           // アクションを呼びに行く
           await this.$store.dispatch('auth/userSoftDelete');
@@ -256,6 +254,10 @@ export default {
         }
       },
       async ProfileNameEdit(){
+        if(this.$store.state.auth.user_id === 1){
+          alert('ゲストユーザーは名前の変更は出来ません');
+          return false;
+        }
         this.clearError();
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileNameEdit', { name: this.profileData.name } );
@@ -266,6 +268,10 @@ export default {
         }
       },
       async ProfileEmailEdit(){
+        if(this.$store.state.auth.user_id === 1){
+          alert('ゲストユーザーはメールアドレスの変更はできません');
+          return false;
+        }
         this.clearError();
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfileEmailEdit', { email: this.profileData.email } );
@@ -276,6 +282,10 @@ export default {
         }
       },
       async ProfilPasswordeEdit(){
+        if(this.$store.state.auth.user_id === 1){
+          alert('ゲストユーザーはパスワードの変更はできません');
+          return false;
+        }
         this.clearError();
         // アクションへファイル情報を渡す
         await this.$store.dispatch('auth/ProfilPasswordeEdit', 

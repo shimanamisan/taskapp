@@ -11,17 +11,25 @@ const mix = require('laravel-mix');
  |
  */
 
-    // jsのビルド（右が開発環境、左が実際に読み込むファイルの出力先）
+// jsのビルド（右が開発環境、左が実際に読み込むファイルの出力先）
 mix.js('resources/js/app.js', 'public/js') 
     // SCSSのビルド（JSと同じフォルダ構成）
     .sass('resources/sass/style.scss', 'public/css')
-    .sourceMaps();
-    
-    
-    
-    // version()で、コンパイルしたファイルのバージョニングを有効にする
+    .options({
+        // laravelにはAutoprefixerが最初から入っていて、必要なプレフィックスを自動的に適用
+        autoprefixer: {
+            options: {
+              browsers: [
+                'last 2 versions',
+              ]
+            }
+          }
+    })
+    // versionメソッドで、コンパイルしたファイルのバージョニングを有効にする
     // ビルドするたびにコンパイルしたファイルの URL にランダムな文字列を付けてブラウザがキャッシュを読まないようにする
-    // .version()
+    .version()
+    .sourceMaps();
+
     // .browserSync({
     //     // https://browsersync.io/docs/options/#option-proxy
     //     // proxyオプションで、ローカルホストのポートを指定

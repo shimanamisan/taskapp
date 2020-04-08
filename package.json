@@ -16,7 +16,7 @@
         "browser-sync-webpack-plugin": "^2.2.2",
         "cross-env": "^5.1",
         "jquery": "^3.2",
-        "laravel-mix": "^4.0.7",
+        "laravel-mix": "^5.0.4",
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
         "resolve-url-loader": "^2.3.1",
@@ -32,6 +32,7 @@
         "vuex": "^3.1.2"
     },
     "dependencies": {
+        "acorn": "^7.1.1",
         "vue-simple-spinner": "^1.2.10"
     }
 }
