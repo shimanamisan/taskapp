@@ -98,7 +98,7 @@ export default {
     },
     async gestUser(){
       await this.$store.dispatch('auth/gestUser', {
-        email: 'test01@mail.com',
+        email: 'gest@mail.com',
         password: 'password'
       });
       
