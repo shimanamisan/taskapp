@@ -1,9 +1,10 @@
 /node_modules
+/public/mix-manifest.json
 /public/hot
 /public/storage
 /storage/*.key
 /vendor
-.vscode
+/vscode
 .env
 .env.backup
 .env_production

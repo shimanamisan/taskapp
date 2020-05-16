@@ -1,4 +1,4 @@
-const mix = require('laravel-mix');
+const mix = require("laravel-mix");
 
 /*
  |--------------------------------------------------------------------------
@@ -11,30 +11,34 @@ const mix = require('laravel-mix');
  |
  */
 
-// jsのビルド（右が開発環境、左が実際に読み込むファイルの出力先）
-mix.js('resources/js/app.js', 'public/js') 
+// mix.js('resources/js/app.js', 'public/js')
+//     .sass('resources/sass/app.scss', 'public/css');
+
+mix.js("resources/js/app.js", "public/js")
     // SCSSのビルド（JSと同じフォルダ構成）
-    .sass('resources/sass/style.scss', 'public/css')
+    .sass("resources/sass/style.scss", "public/css")
     .options({
         // laravelにはAutoprefixerが最初から入っていて、必要なプレフィックスを自動的に適用
         autoprefixer: {
             options: {
-              browsers: [
-                'last 2 versions',
-              ]
+                browsers: ["last 2 versions"]
             }
-          }
+        }
     })
     // versionメソッドで、コンパイルしたファイルのバージョニングを有効にする
     // ビルドするたびにコンパイルしたファイルの URL にランダムな文字列を付けてブラウザがキャッシュを読まないようにする
     .version()
     .sourceMaps();
 
-    // .browserSync({
-    //     // https://browsersync.io/docs/options/#option-proxy
-    //     // proxyオプションで、ローカルホストのポートを指定
-    //     // laravelのビルドインサーバでのポートは8000番なのでそれと同じ値を指定
-    //     proxy: {
-    //         target: "http://localhost:8000",
-    //     },
-    // }); 
+// ローカルサーバ立ち上げの設定
+mix.browserSync({
+    files: [
+        "resource/views/**/*.blade.php",
+        // 公開フォルダを指定
+        "public/**/*.*"
+    ],
+    proxy: {
+        // laravel側で立ち上げる内部サーバと合わせる
+        target: "http://127.0.0.1:8000"
+    }
+});
