@@ -1,19 +1,19 @@
 const state = {
-  code: null,
-}
+    code: null
+};
 const getters = {
-  getCode: state => state.code ? state.code : ''
-}
+    getCode: state => (state.code ? state.code : "")
+};
 
 const mutations = {
-  setCode (state, code) {
-    state.code = code
-  }
-}
+    setCode(state, code) {
+        state.code = code;
+    }
+};
 
 export default {
-  namespaced: true,
-  state,
-  mutations,
-  getters
-}
+    namespaced: true,
+    state,
+    mutations,
+    getters
+};

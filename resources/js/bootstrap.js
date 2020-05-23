@@ -1,4 +1,4 @@
-window._ = require('lodash');
+window._ = require("lodash");
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -7,10 +7,10 @@ window._ = require('lodash');
  */
 
 try {
-    window.Popper = require('popper.js').default;
-    window.$ = window.jQuery = require('jquery');
+    window.Popper = require("popper.js").default;
+    window.$ = window.jQuery = require("jquery");
 
-    require('bootstrap');
+    require("bootstrap");
 } catch (e) {}
 
 /**
@@ -21,13 +21,10 @@ try {
 
 // import { getCookieValue } from './csrf'
 
-window.axios = require('axios');
+window.axios = require("axios");
 
 // POST時に、VerifyCsrfTokenミドルウェアがX-CSRF-TOKENリクエストヘッダもチェックします
 // https://readouble.com/laravel/5.8/ja/csrf.html#csrf-x-xsrf-token
 // Ajaxリクエストであることを示すヘッダーを付与する
 // ここをコメントアウトすると419エラーが出る（csrf用のトークンが無い）
-window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-
-
-
+window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
