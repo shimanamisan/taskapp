@@ -15,9 +15,8 @@ import PasswordReminder from "./components/page/PasswordReminder";
 import PasswordReset from "./components/page/PasswordReset";
 import SystemError from "./components/page/error/SystemError.vue";
 
-import store from "./store/store";
-
 // vuexで使用するストアの読み込み
+import store from "./store/store";
 
 // vue-routerプラグインの読み込み
 Vue.use(VueRouter);
@@ -43,6 +42,7 @@ export default new VueRouter({
             // ナビゲーションガード
             beforeEnter(to, from, next) {
                 // ログインページにアクセスした際に、認証済みだったらタスクページに移動する
+
                 if (store.getters["auth/check"]) {
                     next("/tasklist");
                 } else {
@@ -82,9 +82,11 @@ export default new VueRouter({
             beforeEnter(to, from, next) {
                 // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
                 if (store.getters["auth/check"]) {
+                    console.log(store.getters["auth/check"]);
                     next();
                 } else {
                     // 認証済みでなかったらログイン画面へ遷移
+                    console.log(store.getters["auth/check"]);
                     next("/login");
                 }
             }
@@ -97,9 +99,11 @@ export default new VueRouter({
             beforeEnter(to, from, next) {
                 // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
                 if (store.getters["auth/check"]) {
+                    console.log(store.getters["auth/check"]);
                     // next('/profile')とすると、自分自身コンポーネント呼び出し続けてエラーになるので注意！
                     next();
                 } else {
+                    console.log(store.getters["auth/check"]);
                     // 認証済みでなかったらログイン画面へ遷移
                     next("/login");
                 }

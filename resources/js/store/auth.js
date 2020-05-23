@@ -147,11 +147,8 @@ const actions = {
             .catch(error => error.response || error);
         // 200ステータスの処理
         if (response.status === OK) {
-            if (response.data.errors) {
-                console.log(response.data.errors);
-                commit("setLoginErrorMessages", response.data.errors);
-                return false;
-            }
+            commit("setApiStatus", true);
+            console.log(response.data);
             const username = response.data.name;
             const email = response.data.email;
             const profileImage = response.data.pic;
@@ -165,14 +162,17 @@ const actions = {
             commit("setId", id);
             return false;
         }
+
+        // ステータスコード200以外の時の処理
         commit("setApiStatus", false);
         // 422ステータスの処理
+        // バリデーションエラーに引っかかった時の処理
         if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setLoginErrorMessages", response.data.errors);
+            // レスポンスのエラーメッセージを格納
+            commit("setLoginErrorMessage", response.data.errors);
         } else {
             commit("error/setCode", response.status, { root: true });
         }
-        commit("error/setCode", response.status, { root: true }); //{ root: ture }で違うファイルのミューテーションを呼べる
     },
     /****************************************
   ゲストユーザーログイン
@@ -322,15 +322,20 @@ const actions = {
   リロード時にログインチェック
   *****************************************/
     async currentUser({ commit }) {
+        // apiStatusを初期化
+        commit("setApiStatus", null);
         const response = await axios.get("/api/user");
-        const loginUser = response.data || null;
-        if (loginUser) {
+        const user = response.data.name || null;
+        if (response.status === OK) {
             commit("setApiStatus", true);
-            commit("setUser", loginUser.name);
-            commit("setEmail", loginUser.email);
-            commit("setPic", loginUser.pic);
-            commit("setId", loginUser.id);
+            commit("setUser", user);
+            return false;
         }
+
+        console.log("ステータス成功じゃない時の処理");
+
+        commit("setApiStatus", false);
+        commit("error/setCode", response.status, { root: true });
     },
     /****************************************
   パスワードリマインダー

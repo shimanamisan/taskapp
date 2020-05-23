@@ -12,7 +12,7 @@
     </div>
 
     <nav class="sp-menu" :class="spMenuItem">
-      <ul class="l-header__nav--list" v-if="apiStatus">
+      <ul class="l-header__nav--list" v-if="isLogin">
         <li class="l-header__menu--item">
           <router-link to="/index" class="c-btn c-header__btn">TOP</router-link>
         </li>
