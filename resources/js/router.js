@@ -82,11 +82,9 @@ export default new VueRouter({
             beforeEnter(to, from, next) {
                 // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
                 if (store.getters["auth/check"]) {
-                    console.log(store.getters["auth/check"]);
                     next();
                 } else {
                     // 認証済みでなかったらログイン画面へ遷移
-                    console.log(store.getters["auth/check"]);
                     next("/login");
                 }
             }
@@ -99,11 +97,9 @@ export default new VueRouter({
             beforeEnter(to, from, next) {
                 // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
                 if (store.getters["auth/check"]) {
-                    console.log(store.getters["auth/check"]);
                     // next('/profile')とすると、自分自身コンポーネント呼び出し続けてエラーになるので注意！
                     next();
                 } else {
-                    console.log(store.getters["auth/check"]);
                     // 認証済みでなかったらログイン画面へ遷移
                     next("/login");
                 }

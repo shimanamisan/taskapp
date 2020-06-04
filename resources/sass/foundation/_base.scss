@@ -1,48 +1,47 @@
 // font-sizeやcolor inputなどを共通化しておく。
 html,
-body{
-  width: 100%;
-  height: 100%;
-  color: $font-color_default;
-  font-size: $font-size_default;
-  font-family: $font-family-base;
-  line-height: 1.6;
-  text-size-adjust: 100%; // スマホを横向きにしたときのフォントの拡大を防ぐ（親要素のフォントサイズに対する割合にしている）
-  letter-spacing: .1em;
+body {
+    width: 100%;
+    height: 100%;
+    color: $font-color_default;
+    font-size: $font-size_default;
+    font-family: $font-family-base;
+    line-height: 1.6;
+    text-size-adjust: 100%; // スマホを横向きにしたときのフォントの拡大を防ぐ（親要素のフォントサイズに対する割合にしている）
+    letter-spacing: 0.1em;
 }
 
 p,
-a{
-  -webkit-font-smoothing: antialiased; // フォントを見やすくさせる
+a {
+    -webkit-font-smoothing: antialiased; // フォントを見やすくさせる
 }
 
-a{
-  color: $font-color_link;
-  text-decoration: none;
-  transition: $transition_s;
+a {
+    color: $font-color_link;
+    text-decoration: none;
+    transition: $transition_s;
 }
 
-a:hover{
-  cursor: pointer;
-  transition: $transition_s;
+a:hover {
+    cursor: pointer;
+    transition: $transition_s;
 }
 
-img{
-  width: 100%;
-  vertical-align: bottom; // imgタグに入る余白を消す
+img {
+    width: 100%;
+    vertical-align: bottom; // imgタグに入る余白を消す
 }
 
-input{
- border: 1px solid $color-default; 
+input {
+    border: 1px solid $color-default;
 }
 
-*, :after, :before {
-  box-sizing: inherit; // 親要素の値を継承する
+*,
+:after,
+:before {
+    box-sizing: inherit; // 親要素の値を継承する
 }
 
-br{
-  display: none;
-  @include mq(){
-    display: block;
-  }
+br {
+    display: none;
 }

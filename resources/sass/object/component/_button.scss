@@ -1,107 +1,111 @@
-.c-btn{
-  @include custumRadius(3px);
-  padding: 0 1.5rem;
-  height: 50px;
-  line-height: 50px;
-  transition: $transition_s;
-  cursor: pointer;
-  &:hover{
-    opacity: 0.6;
-  }
-  &:focus{
-    outline: none;
-  }
-    &__contact{
-      width: 150px;
-      &--back{
-        background: rgb(0, 0, 0)!important;
-        &:hover{
-          opacity: 0.6;
+.c-btn {
+    @include custumRadius(3px);
+    padding: 0 1.5rem;
+    height: 50px;
+    transition: $transition_s;
+    @include mq() {
+        padding: 10px 15px;
+    }
+    cursor: pointer;
+    &:hover {
+        opacity: 0.6;
+    }
+    &:focus {
+        outline: none;
+    }
+    &__contact {
+        width: 150px;
+        @include mq() {
+            width: 110px;
         }
-      }
+        &--back {
+            background: rgb(0, 0, 0) !important;
+            &:hover {
+                opacity: 0.6;
+            }
+        }
     }
-    &-reminder{
-      margin-top: $space_xxl;
-      font-size: $font-size_s;
-      text-align: center;
+    &-reminder {
+        margin-top: $space_xxl;
+        font-size: $font-size_s;
+        text-align: center;
     }
-    &__login{
-      display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
-      background: #1e73be;
-      color: $font-color_primary;
-      font-weight: 600;
+    &__login {
+        display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
+        background: #1e73be;
+        color: $font-color_primary;
+        font-weight: 600;
     }
-    &__signin{
-      display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
-      background: $btn_signin_primary;
-      color: $font-color_primary;
+    &__signin {
+        display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
+        background: $btn_signin_primary;
+        color: $font-color_primary;
     }
-    &__twitter{
-      display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
-      background: #0088FF;
-      color: $font-color_primary;
+    &__twitter {
+        display: inline-block; // inlineとblockの中間（並びはinline、中の要素はblock）
+        background: #0088ff;
+        color: $font-color_primary;
     }
-    &__danger{
-      font-weight: 600;
-      background:red;
-      color: #ffffff;
-      @include custumRadius(30px);
-    }
-    &__easy{
-      background: #000;
-      color: #fff;
-    }
-    &__footer{
-      display: block; // inlineとblockの中間（並びはinline、中の要素はblock）
-      width: 120px;
-      @include custumRadius(30px);
-      @include mq(){
-        width: 80%;
-      }
-      &--login{
-        background-color: #FFFFFF;
-      }
-      &--message{
-        background-color: #707070;
-        border: solid 1px #ffffff;
+    &__danger {
+        font-weight: 600;
+        background: red;
         color: #ffffff;
-      }
+        @include custumRadius(30px);
     }
-    &--profile{
-      font-size: 12px;
-      height: 25px;
-      line-height:25px;
-      background-color: rgb(49, 146, 250);
-      color: #ffffff;
-
-      &__cancel{
-        background-color: rgb(0, 0, 0);
-        &:hover{
-          opacity: 0.6;
+    &__easy {
+        background: #000;
+        color: #fff;
+    }
+    &__footer {
+        display: block; // inlineとblockの中間（並びはinline、中の要素はblock）
+        width: 120px;
+        @include custumRadius(30px);
+        @include mq() {
+            width: 80%;
         }
-      }
+        &--login {
+            background-color: #ffffff;
+        }
+        &--message {
+            background-color: #707070;
+            border: solid 1px #ffffff;
+            color: #ffffff;
+        }
+    }
+    &--profile {
+        font-size: 12px;
+        height: 25px;
+        line-height: 25px;
+        background-color: rgb(49, 146, 250);
+        color: #ffffff;
+
+        &__cancel {
+            background-color: rgb(0, 0, 0);
+            &:hover {
+                opacity: 0.6;
+            }
+        }
     }
 }
 
 // ヘッダー用ボタン
-.c-header{
-  &__btn{
-    // background: #fff;
-    // color: #62ABF8;
-    color: #fff;
-    padding: 20px 10px;
-    @include custumRadius(30px);
-    @include mq(){
-      @include custumRadius(0px);
-      padding: 0 1.5rem;
-      background: none;
-      color: #fff;
+.c-header {
+    &__btn {
+        // background: #fff;
+        // color: #62ABF8;
+        color: #fff;
+        padding: 20px 10px;
+        @include custumRadius(30px);
+        @include mq() {
+            @include custumRadius(0px);
+            padding: 0 1.5rem;
+            background: none;
+            color: #fff;
+        }
+        &:hover {
+            opacity: 0.6;
+        }
     }
-    &:hover{
-      opacity: 0.6;
-    }
-  }
 }
 
 // プロフィール編集用ボタン
-

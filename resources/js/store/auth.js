@@ -169,7 +169,7 @@ const actions = {
         // バリデーションエラーに引っかかった時の処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             // レスポンスのエラーメッセージを格納
-            commit("setLoginErrorMessage", response.data.errors);
+            commit("setLoginErrorMessages", response.data.errors);
         } else {
             commit("error/setCode", response.status, { root: true });
         }
@@ -183,10 +183,10 @@ const actions = {
         const response = await axios
             .post("/api/login", data)
             .catch(error => error.response || error);
+        console.log(response.error);
         // 200ステータスの処理
         if (response.status === OK) {
             if (response.data.errors) {
-                console.log(response.data.errors);
                 commit("setLoginErrorMessages", response.data.errors);
                 return false;
             }

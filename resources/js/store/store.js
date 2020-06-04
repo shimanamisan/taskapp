@@ -7,8 +7,6 @@ import error from "./error";
 // Vuexを使うよという宣言
 Vue.use(Vuex);
 
-console.log("Vuex");
-
 export default new Vuex.Store({
     modules: {
         auth,

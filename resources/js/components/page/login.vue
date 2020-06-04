@@ -60,7 +60,7 @@
               <button class="c-btn c-btn__easy" @click="gestUser">ゲストユーザー</button>
             </div>
             <div class="u-social__item">
-              <button class="c-btn c-btn__twitter" @click="twitterlogin">Twitterログインする</button>
+              <button class="c-btn c-btn__twitter" @click="twitterlogin">Twitterログイン</button>
             </div>
           </div>
         </div>
