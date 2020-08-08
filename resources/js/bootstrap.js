@@ -28,3 +28,12 @@ window.axios = require("axios");
 // Ajaxリクエストであることを示すヘッダーを付与する
 // ここをコメントアウトすると419エラーが出る（csrf用のトークンが無い）
 window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
+
+// interceptorsを使用することでエラーのレスポンスをまとめる事ができる
+window.axios.interceptors.response.use(
+    // 成功時のレスポンスはそのまま使う
+    (response) => response,
+    // エラー時のレスポンスはエラーメッセージそのものではなく、レスポンスオブジェクトを返すと言う処理が
+    // どのAPI呼び出し時でも共通だったので、インターセプターにまとめる
+    (error) => error.response || error
+);

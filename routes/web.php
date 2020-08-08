@@ -11,15 +11,12 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 // ルーティングの設定
-Route::get('/{app}', function() {
+Route::get('/{app}', function () {
     // APIのURL以外のリクエストに対してはappテンプレートを返す
     return view('app');
     
-// 正規表現でどんな文字列が来てもappファイルへリダイレクトするように設定
+    // 正規表現でどんな文字列が来てもappファイルへリダイレクトするように設定
 // この最後の行で、{app}に入るルートパラメータのフォーマットを指定している
-})->where('app','.*');
+})->where('app', '.*');

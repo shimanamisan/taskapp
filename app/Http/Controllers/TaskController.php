@@ -85,15 +85,23 @@ class TaskController extends Controller
   public function updateTaskSort(Request $request){
 
     $newTasks = $request->tasks;
+    \Log::debug('リクエストされたタスクを取得しています：' .print_r($newTasks, true));
 
+    // タスクをすべて取得
     $tasks = Task::all();
-
+    \Log::debug('既存のタスクをすべて取得しています：' .print_r($tasks, true));
+  
     foreach($tasks as $task){
 
       foreach($newTasks as $newTask){
+        // 既存のタスクを分解
+        \Log::debug('リクエストされたタスクを分解しています：' .print_r($newTask, true));
+        \Log::debug('既存タスクのIDです：' .print_r($task->id, true));
         if($newTask['id'] == $task->id ){
+          \Log::debug('既存のタスクのIDと新しいタスクのIDが同じだったらpriorityをUPDATEします：' .print_r($newTask['priority'], true));
           // update(['カラム名'] => $更新する値の変数['key']); のように使用することも出来る
           $task->update(['priority' => $newTask['priority']]);
+
         }
       }
     }

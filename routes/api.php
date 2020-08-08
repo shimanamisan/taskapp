@@ -31,18 +31,18 @@ Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
 Route::post('/password/reminder', 'Auth\ForgotPasswordController@sendResetLinkEmail');
 // パスワードリマインダー
 Route::post('/password/reset', 'Auth\ResetPasswordController@reset');
-// twitterログイン
-Route::get('/twitter', 'Auth\TwitterOAuthController@redirectToTwitter');
+// Twitter認証ページにリダイレクトする
+Route::get('/auth/twitter', 'Auth\TwitterOAuthController@redirectToTwitter');
 // twitterログインコールバックURL
-Route::get('/callback', 'Auth\TwitterOAuthController@handleTwitterCallback');
+Route::get('/auth/twitter/callback', 'Auth\TwitterOAuthController@handleTwitterCallback');
 // ログインユーザー取得（ログインしているユーザーを返すだけなのでコントローラーは作成しない）、プロフィール一覧でも使う
 Route::get('/user', function () {
     return Auth::user();
-    })->name('user');
+})->name('user');
 /****************************************
 csrfトークンをリフレッシュする
 *****************************************/
-Route::get('/refresh-token', function(Request $request){
+Route::get('/refresh-token', function (Request $request) {
     $request->session()->regenerateToken();
     return response()->json();
 });
@@ -103,7 +103,7 @@ Route::patch('/task/update-all', 'TaskController@updateTaskSort')->name('task.up
 // タスク削除
 Route::delete('/folder/{folder_id}/card/{card_id}/task/{task_id}/delete', 'TaskController@deleteTask')->name('task.deleteTask');
 
-Route::get('/mail', function(){
+Route::get('/mail', function () {
     return view('mail.html.passwordreset');
 });
 

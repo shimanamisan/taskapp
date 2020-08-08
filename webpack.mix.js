@@ -39,6 +39,6 @@ mix.browserSync({
     ],
     proxy: {
         // laravel側で立ち上げる内部サーバと合わせる
-        target: "http://127.0.0.1:8000"
+        target: "http://host.todoapp"
     }
 });

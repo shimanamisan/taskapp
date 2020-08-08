@@ -114,7 +114,6 @@ const actions = {
         commit("setApiStatus", null);
         const response = await axios
             .post("/api/register", data)
-            .catch(error => error.response || error);
         // 200ステータスの処理
         if (response.status === CREATED) {
             const username = response.data.name;
@@ -144,7 +143,6 @@ const actions = {
         // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
         const response = await axios
             .post("/api/login", data)
-            .catch(error => error.response || error);
         // 200ステータスの処理
         if (response.status === OK) {
             commit("setApiStatus", true);
@@ -182,7 +180,6 @@ const actions = {
         // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
         const response = await axios
             .post("/api/login", data)
-            .catch(error => error.response || error);
         console.log(response.error);
         // 200ステータスの処理
         if (response.status === OK) {
@@ -219,7 +216,6 @@ const actions = {
         commit("setApiStatus", null);
         const response = await axios
             .post("/api/logout")
-            .catch(error => error.response || error);
         if (response.status === INTERNAL_SERVER_ERROR) {
             commit("error/setCode", response.status, { root: true });
         } else if (response.status === OK) {
@@ -242,7 +238,6 @@ const actions = {
         const id = state.user_id;
         const response = await axios
             .post("/api/profile/image/" + id, data)
-            .catch(error => error.response || error);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -256,7 +251,6 @@ const actions = {
         const id = state.user_id;
         const response = await axios
             .post("/api/profile/name/" + id, data)
-            .catch(error => error.response || error);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -274,7 +268,6 @@ const actions = {
         const id = state.user_id;
         const response = await axios
             .post("/api/profile/email/" + id, data)
-            .catch(error => error.response || error);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -288,7 +281,6 @@ const actions = {
         const id = state.user_id;
         const response = await axios
             .post("/api/profile/password/" + id, data)
-            .catch(error => error.response || error);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -303,7 +295,6 @@ const actions = {
         const id = state.user_id;
         const response = await axios
             .delete("/api/profile/delete/" + id)
-            .catch(error => error.response || error);
         if (response.status === INTERNAL_SERVER_ERROR) {
             commit("error/setCode", response.status, { root: true });
         } else if (response.status === OK) {
@@ -343,7 +334,6 @@ const actions = {
     async sendResetLinkEmail({ commit }, data) {
         const response = await axios
             .post("/api/password/reminder", { email: data })
-            .catch(error => error.response || error);
         console.log(response.data.errors);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -360,7 +350,6 @@ const actions = {
     async resetPassword({ commit }, data) {
         const response = await axios
             .post("/api/password/reset", data)
-            .catch(error => error.response || error);
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setResetPasswordErrorMessages", response.data.errors);
         } else {
@@ -374,7 +363,6 @@ const actions = {
     async contactMessage({ commit }, data) {
         const response = await axios
             .post("/api/contact", data)
-            .catch(error => error.response || error);
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setContactMailErrorMessages", response.data.errors);
         } else {

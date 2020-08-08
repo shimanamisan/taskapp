@@ -62,9 +62,9 @@ const actions = {
     async setCardListsAction({ commit }, folder_id) {
         // ここでストアへフォルダーIDを登録
         commit("setFolder_id", folder_id);
-        const response = await axios
-            .get("/api/folder/" + folder_id + "/card/set")
-            .catch(error => error.response || error);
+        const response = await axios.get(
+            "/api/folder/" + folder_id + "/card/set"
+        );
         var data = response.data.cards;
         commit("setCardLists", data);
     },
@@ -73,9 +73,7 @@ const actions = {
   *************************************/
     // フォルダーの作成
     async createFolder({ commit }, payload) {
-        const response = await axios
-            .post("/api/folder/create", payload)
-            .catch(error => error.response || error);
+        const response = await axios.post("/api/folder/create", payload);
         // メソッドを使うために配列を定義
         var data = response.data.folders;
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -89,9 +87,9 @@ const actions = {
     },
     // フォルダーの削除
     async deleteFolder({ commit }, folder_id) {
-        const response = await axios
-            .delete("/api/folder/" + folder_id + "/delete")
-            .catch(error => error.response || error);
+        const response = await axios.delete(
+            "/api/folder/" + folder_id + "/delete"
+        );
         var data = response.data.folders;
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setFolderRequestErrorMessages", response.data.errors);
@@ -108,9 +106,10 @@ const actions = {
     async updateFolderTitle({ commit }, { title, folder_id }) {
         const folderTitle = {};
         folderTitle.title = title;
-        const response = await axios
-            .put("/api/folder/" + folder_id + "/update", folderTitle)
-            .catch(error => error.response || error);
+        const response = await axios.put(
+            "/api/folder/" + folder_id + "/update",
+            folderTitle
+        );
         var data = response.data.folders;
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setFolderRequestErrorMessages", response.data.errors);
@@ -123,9 +122,9 @@ const actions = {
     },
     // フォルダーの並び替えの更新
     async updateFolderSort({ commit }, newFolder) {
-        const response = await axios
-            .patch("/api/folder/update-all", { folders: newFolder })
-            .catch(error => error.response || error);
+        const response = await axios.patch("/api/folder/update-all", {
+            folders: newFolder
+        });
         const data = response.data.folders;
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setFolderRequestErrorMessages", response.data.errors);
@@ -145,9 +144,10 @@ const actions = {
         const card = {};
         // titleプロパティにフォームの値をセット
         card.title = title;
-        const response = await axios
-            .post("/api/folder/" + folder_id + "/card/create", card)
-            .catch(error => error.response || error);
+        const response = await axios.post(
+            "/api/folder/" + folder_id + "/card/create",
+            card
+        );
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setCardRequestErrorMessages", response.data.errors);
         } else {
@@ -158,9 +158,9 @@ const actions = {
     },
     // カードの削除
     async deleteCard({ commit }, { folder_id, card_id }) {
-        const response = await axios
-            .delete("/api/folder/" + folder_id + "/card/" + card_id + "/delete")
-            .catch(error => error.response || error);
+        const response = await axios.delete(
+            "/api/folder/" + folder_id + "/card/" + card_id + "/delete"
+        );
         // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setCardRequestErrorMessages", response.data.errors);
@@ -173,12 +173,10 @@ const actions = {
     async updateCardTitle({ commit }, { title, folder_id, card_id }) {
         const cardTitle = {};
         cardTitle.title = title;
-        const response = await axios
-            .put(
-                "/api/folder/" + folder_id + "/card/" + card_id + "/update",
-                cardTitle
-            )
-            .catch(error => error.response || error);
+        const response = await axios.put(
+            "/api/folder/" + folder_id + "/card/" + card_id + "/update",
+            cardTitle
+        );
         // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setCardRequestErrorMessages", response.data.errors);
@@ -195,16 +193,10 @@ const actions = {
         const task = {};
         // titleプロパティにフォームの値をセット
         task.title = title;
-        const response = await axios
-            .post(
-                "/api/folder/" +
-                    folder_id +
-                    "/card/" +
-                    card_id +
-                    "/task/create",
-                task
-            )
-            .catch(error => error.response || error);
+        const response = await axios.post(
+            "/api/folder/" + folder_id + "/card/" + card_id + "/task/create",
+            task
+        );
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setTaskRequestErrorMessages", response.data.errors);
@@ -216,35 +208,31 @@ const actions = {
     },
     // タスクの削除
     async deleteTask({ commit }, { folder_id, card_id, task_id }) {
-        const response = await axios
-            .delete(
-                "/api/folder/" +
-                    folder_id +
-                    "/card/" +
-                    card_id +
-                    "/task/" +
-                    task_id +
-                    "/delete"
-            )
-            .catch(error => error.response || error);
+        const response = await axios.delete(
+            "/api/folder/" +
+                folder_id +
+                "/card/" +
+                card_id +
+                "/task/" +
+                task_id +
+                "/delete"
+        );
         // 削除後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
     },
     // タスクタイトルの更新
     async updateTaskTitle({ commit }, { title, folder_id, card_id, task_id }) {
         const taskTitle = {};
         taskTitle.title = title;
-        const response = await axios
-            .put(
-                "/api/folder/" +
-                    folder_id +
-                    "/card/" +
-                    card_id +
-                    "/task/" +
-                    task_id +
-                    "/update",
-                taskTitle
-            )
-            .catch(error => error.response || error);
+        const response = await axios.put(
+            "/api/folder/" +
+                folder_id +
+                "/card/" +
+                card_id +
+                "/task/" +
+                task_id +
+                "/update",
+            taskTitle
+        );
         // 更新後のデータセットはフォルダー選択保持の為、setCardListsActionで行う
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setTaskRequestErrorMessages", response.data.errors);
@@ -261,9 +249,7 @@ const actions = {
         // カラムで指定している名前と合わせる(card_id)
         const card_id = { card_id: cardId };
         // card_idはオブジェクト形式で、{id: 7} の様に入ってくる。
-        const response = await axios
-            .put("/api/task/" + task_id, card_id)
-            .catch(error => error.response || error);
+        const response = await axios.put("/api/task/" + task_id, card_id);
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setTaskRequestErrorMessages", response.data.errors);
         } else {
@@ -273,9 +259,9 @@ const actions = {
     },
     // タスクリストのソート更新
     async updateTaskSort({ commit }, newTask) {
-        const response = await axios
-            .patch("/api/task/update-all", { tasks: newTask })
-            .catch(error => error.response || error);
+        const response = await axios.patch("/api/task/update-all", {
+            tasks: newTask
+        });
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setTaskRequestErrorMessages", response.data.errors);
         } else {
