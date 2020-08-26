@@ -87,16 +87,11 @@
                     <hr class="u-form__line" />
                     <div class="c-form__action c-form__action--easy">
                         <div class="u-social__item">
-                            <button class="c-btn c-btn__easy" @click="gestUser">
-                                ゲストユーザー
-                            </button>
-                        </div>
-                        <div class="u-social__item">
                             <button
                                 class="c-btn c-btn__twitter"
-                                @click="twitterlogin"
+                                @click="twitterLogin"
                             >
-                                Twitterログイン
+                                Twitterユーザーでログイン
                             </button>
                         </div>
                     </div>
@@ -150,14 +145,14 @@ export default {
         clearError() {
             this.$store.commit("auth/setLoginErrorMessages", null);
         },
-        async twitterlogin() {
-            await axios
-                .get("/api/twitter")
-                .then(response => {
-                    const URL = response.data.redirect_url;
-                    window.location = URL;
-                })
-                .catch(error => error.response || error);
+        async twitterLogin() {
+            const response = await axios.get("/api/auth/twitter");
+
+            if (response.status === 200) {
+                window.location = response.data.redirect_url;
+            } else {
+                this.$router.push("/500");
+            }
         }
     },
     created() {

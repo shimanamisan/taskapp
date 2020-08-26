@@ -16,7 +16,7 @@ class RedirectIfAuthenticated
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {   
+    {
         // ログイン状態で非ログイン状態でのみアクセスできる機能にリクエストを送信した場合に
         // /home へのリダイレクトが返却されている
         if (Auth::guard($guard)->check()) {
@@ -26,7 +26,6 @@ class RedirectIfAuthenticated
             // return redirect('/home');
         }
         
-        // エディタから見たら少し特殊な書き方だがこれで良い
         return $next($request);
     }
 }

@@ -112,8 +112,7 @@ const actions = {
     async register({ commit }, data) {
         // commitでミューテーションのsetApiStatus呼び出している、最初には引数に入るデータはnull（初期化）
         commit("setApiStatus", null);
-        const response = await axios
-            .post("/api/register", data)
+        const response = await axios.post("/api/register", data);
         // 200ステータスの処理
         if (response.status === CREATED) {
             const username = response.data.name;
@@ -141,8 +140,7 @@ const actions = {
         // commitでミューテーションのsetApiStatus呼び出している、最初には引数に入るデータはnull
         commit("setApiStatus", null);
         // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
-        const response = await axios
-            .post("/api/login", data)
+        const response = await axios.post("/api/login", data);
         // 200ステータスの処理
         if (response.status === OK) {
             commit("setApiStatus", true);
@@ -178,8 +176,7 @@ const actions = {
     async gestUser({ commit }, data) {
         commit("setApiStatus", null);
         // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
-        const response = await axios
-            .post("/api/login", data)
+        const response = await axios.post("/api/login", data);
         console.log(response.error);
         // 200ステータスの処理
         if (response.status === OK) {
@@ -214,8 +211,7 @@ const actions = {
   *****************************************/
     async logout({ commit }) {
         commit("setApiStatus", null);
-        const response = await axios
-            .post("/api/logout")
+        const response = await axios.post("/api/logout");
         if (response.status === INTERNAL_SERVER_ERROR) {
             commit("error/setCode", response.status, { root: true });
         } else if (response.status === OK) {
@@ -236,8 +232,7 @@ const actions = {
     // 画像変更
     async ProfileImageEdit({ commit }, data) {
         const id = state.user_id;
-        const response = await axios
-            .post("/api/profile/image/" + id, data)
+        const response = await axios.post("/api/profile/image/" + id, data);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -249,8 +244,7 @@ const actions = {
     // 名前変更
     async ProfileNameEdit({ commit }, data) {
         const id = state.user_id;
-        const response = await axios
-            .post("/api/profile/name/" + id, data)
+        const response = await axios.post("/api/profile/name/" + id, data);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -266,8 +260,7 @@ const actions = {
     // email変更
     async ProfileEmailEdit({ commit }, data) {
         const id = state.user_id;
-        const response = await axios
-            .post("/api/profile/email/" + id, data)
+        const response = await axios.post("/api/profile/email/" + id, data);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -279,8 +272,7 @@ const actions = {
     // パスワード変更
     async ProfilPasswordeEdit({ commit }, data) {
         const id = state.user_id;
-        const response = await axios
-            .post("/api/profile/password/" + id, data)
+        const response = await axios.post("/api/profile/password/" + id, data);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
@@ -293,8 +285,7 @@ const actions = {
     async userSoftDelete({ commit }) {
         commit("setApiStatus", null);
         const id = state.user_id;
-        const response = await axios
-            .delete("/api/profile/delete/" + id)
+        const response = await axios.delete("/api/profile/delete/" + id);
         if (response.status === INTERNAL_SERVER_ERROR) {
             commit("error/setCode", response.status, { root: true });
         } else if (response.status === OK) {
@@ -332,8 +323,9 @@ const actions = {
   パスワードリマインダー
   *****************************************/
     async sendResetLinkEmail({ commit }, data) {
-        const response = await axios
-            .post("/api/password/reminder", { email: data })
+        const response = await axios.post("/api/password/reminder", {
+            email: data
+        });
         console.log(response.data.errors);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -348,8 +340,7 @@ const actions = {
   パスワードリセット
   *****************************************/
     async resetPassword({ commit }, data) {
-        const response = await axios
-            .post("/api/password/reset", data)
+        const response = await axios.post("/api/password/reset", data);
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setResetPasswordErrorMessages", response.data.errors);
         } else {
@@ -361,8 +352,7 @@ const actions = {
   お問い合わせメール送信
   *****************************************/
     async contactMessage({ commit }, data) {
-        const response = await axios
-            .post("/api/contact", data)
+        const response = await axios.post("/api/contact", data);
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setContactMailErrorMessages", response.data.errors);
         } else {

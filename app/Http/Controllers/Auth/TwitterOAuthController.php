@@ -3,30 +3,28 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User; // 追加
-use Illuminate\Support\Facades\Auth; // 追加
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
+use Illuminate\Support\Facades\Auth; // 追加
 
 class TwitterOAuthController extends Controller
 {
-    public function redirectToTwitter()
+    public function redirectToTwitter(): JsonResponse // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
     {
-        return Socialite::driver('twitter')->redirect();
-        // $redirectUrl = Socialite::driver('twitter')->redirect()->getTargetUrl();
-        // return response()->json(['redirect_url' => $redirectUrl]);
+        // リダイレクトURLをJSON形式で返す
+        $redirect_url = Socialite::driver('twitter')->redirect()->getTargetUrl();
+        \Log::debug('リダイレクトURLを取得しています。。。');
+        \Log::debug('    ');
+        return response()->json(['redirect_url' => $redirect_url]);
     }
 
-    public function handleTwitterCallback(Request $request)
+    public function handleTwitterCallback(): JsonResponse // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
     {
-        // 認証キャンセルの処理
-        if ($request->query('denied')) {
-            return redirecr();
-        }
         try {
-            $socialUser = Socialite::driver('twitter')->userFromTokenAndSecret(env('TWITTER_ACCESS_TOKEN'), env('TWITTER_ACCESS_TOKEN_SECRET'));
-            // $socialUser = Socialite::driver('twitter')->user();
+            $socialUser = Socialite::driver('twitter')->user();
     
             // firstOrNew：第一引数にカラム名、第二引数に検索値を入れてデータベースを検索するメソッド
             // このメソッドは保存するにはsave()メソッドを呼ぶ必要がある。（類似：firstOrCreate）
@@ -50,10 +48,17 @@ class TwitterOAuthController extends Controller
     
             $user->save();
         } catch (Exception $e) {
-            return abort(500);
+            \Log::debug('SNS認証中にエラーが発生しました。'. $e->getMessage());
+            \Log::debug('   ');
+            return $this->errorResponse("エラーが発生しました。しばらく経過した後、再度SNS認証を行ってください。");
         }
 
         Auth::login($user);
         return response()->json($user);
+    }
+
+    protected function errorResponse(String $error_message): Jsonresponse // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
+    {
+        return response()->json(compact('error_message'), 422);
     }
 }
