@@ -2,7 +2,7 @@
   <header class="l-header l-header__nav l-header__container">
     <div class="c-logo__header c-logo__clear-margin">
       <router-link to="/">
-        <img src="../../img/header-logo.png" alt="logo" class="c-logo" />
+        <img :src="this.header_logo" alt="ヘッダーロゴ" class="c-logo" />
       </router-link>
     </div>
     <div class="l-header__menu--trigger" :class="toggleActive" @click="isActive = !isActive">
@@ -42,10 +42,12 @@
 </template>
 
 <script>
+import header_logo from "../../img/header-logo.png"
 import { mapState, mapGetters } from "vuex";
 export default {
   data() {
     return {
+      header_logo: header_logo,
       isActive: false
     };
   },

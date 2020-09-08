@@ -3,11 +3,7 @@
         <section class="l-main__auth">
             <div class="c-logo__header" id="rink-id">
                 <router-link to="/">
-                    <img
-                        src="../../../img/logo.png"
-                        alt="logo"
-                        class="c-logo"
-                    />
+                    <CommonLogo/>
                 </router-link>
             </div>
             <div class="l-card__container">
@@ -21,8 +17,14 @@
                             <label for="" class="c-form-lavel"
                                 >ニックネーム</label
                             >
+                            <input
+                                type="text"
+                                class="c-input"
+                                v-model="registerForm.name"
+                                :class="{'c-error__bg': registerNameErrors}"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="registerErrors" class="errors">
+                            <div v-if="registerErrors" class="c-error">
                                 <ul v-if="registerErrors.name">
                                     <li
                                         v-for="msg in registerErrors.name"
@@ -33,18 +35,19 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <input
-                                type="text"
-                                class="c-input"
-                                v-model="registerForm.name"
-                            />
                         </div>
                         <div class="c-form__item">
                             <label for="" class="c-form-lavel"
                                 >メールアドレス</label
                             >
+                            <input
+                                type="text"
+                                class="c-input"
+                                v-model="registerForm.email"
+                                :class="{'c-error__bg': registerEmailErrors}"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="registerErrors" class="errors">
+                            <div v-if="registerEmailErrors" class="c-error">
                                 <ul v-if="registerErrors.email">
                                     <li
                                         v-for="msg in registerErrors.email"
@@ -55,18 +58,19 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <input
-                                type="text"
-                                class="c-input"
-                                v-model="registerForm.email"
-                            />
                         </div>
                         <div class="c-form__item">
                             <label for="" class="c-form-lavel"
                                 >パスワード</label
                             >
+                            <input
+                                type="password"
+                                class="c-input"
+                                v-model="registerForm.password"
+                                :class="{'c-error__bg': registerPasswordErrors}"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="registerErrors" class="errors">
+                            <div v-if="registerErrors" class="c-error">
                                 <ul v-if="registerErrors.password">
                                     <li
                                         v-for="msg in registerErrors.password"
@@ -77,33 +81,17 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <input
-                                type="password"
-                                class="c-input"
-                                v-model="registerForm.password"
-                            />
                         </div>
                         <div class="c-form__item">
                             <label for="" class="c-form-lavel"
                                 >パスワード再入力</label
                             >
-                            <!-- バリデーションエラー -->
-                            <div v-if="registerErrors" class="errors">
-                                <ul v-if="registerErrors.password">
-                                    <li
-                                        v-for="msg in registerErrors.password"
-                                        :key="msg"
-                                    >
-                                        {{ msg }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- end errors -->
                             <input
                                 type="password"
                                 class="c-input"
                                 v-model="registerForm.password_confirmation"
                             />
+                          
                         </div>
                         <div class="">
                             「<router-link to="/rule">利用規約</router-link
@@ -139,7 +127,8 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import { mapState } from "vuex";
+import CommonLogo from "../common/CommonLogo";
+import { mapGetters, mapState } from "vuex";
 export default {
     data() {
         return {
@@ -151,10 +140,18 @@ export default {
             }
         };
     },
+    components: {
+        CommonLogo
+    },
     computed: {
         ...mapState({
             apiStatus: state => state.auth.apiStatus,
-            registerErrors: state => state.auth.registerErrorMessages
+            registerErrors: state => state.auth.registerErrorMessages,
+        }),
+        ...mapGetters({
+            registerEmailErrors: "auth/getRegisterEmailError",
+            registerNameErrors: "auth/getRegisterNameError",
+            registerPasswordErrors: "auth/getRegisterPasswordError",
         })
     },
     methods: {
@@ -166,6 +163,7 @@ export default {
                 // 通信が成功（apiStatusがtureの場合）したら移動する
                 this.$router.push("/tasklist");
             }
+            
         },
         async twitterRegister() {
             const response = await axios.get("/api/auth/twitter");
@@ -178,6 +176,9 @@ export default {
         },
         clearError() {
             this.$store.commit("auth/setRegisterErrorMessages", null);
+        },
+        validMessage(){
+            console.log(registerErrors)
         }
     },
     created() {

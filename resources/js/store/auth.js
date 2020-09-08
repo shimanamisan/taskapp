@@ -43,7 +43,17 @@ const getters = {
     // email情報を呼び出す
     getEmail: state => (state.email ? state.email : ""),
     // プロフィール写真のパスを呼び出す
-    getProfileImage: state => (state.profileImage ? state.profileImage : "")
+    getProfileImage: state => (state.profileImage ? state.profileImage : ""),
+    // 新規登録時のエラーメッセージの監視（Name）
+    getRegisterNameError: state => (state.registerErrorMessages ? state.registerErrorMessages.name : ""),
+    // 新規登録時のエラーメッセージの監視（Email）
+    getRegisterEmailError: state => (state.registerErrorMessages ? state.registerErrorMessages.email : ""),
+    // 新規登録時のエラーメッセージの監視（Password）
+    getRegisterPasswordError: state => (state.registerErrorMessages ? state.registerErrorMessages.password : ""),
+    // ログイン時のエラーメッセージの監視（Email）
+    getLoginEmailError: state => (state.loginErrorMessages ? state.loginErrorMessages.email : ""),
+    // ログイン時のエラーメッセージの監視（Password）
+    getLoginPasswordError: state => (state.loginErrorMessages ? state.loginErrorMessages.password : ""),
 };
 
 /*******************************
@@ -169,42 +179,6 @@ const actions = {
         } else {
             commit("error/setCode", response.status, { root: true });
         }
-    },
-    /****************************************
-  ゲストユーザーログイン
-  *****************************************/
-    async gestUser({ commit }, data) {
-        commit("setApiStatus", null);
-        // axiosで非同期でLaravelAPIを叩いてJSON形式でレスポンスをもらう
-        const response = await axios.post("/api/login", data);
-        console.log(response.error);
-        // 200ステータスの処理
-        if (response.status === OK) {
-            if (response.data.errors) {
-                commit("setLoginErrorMessages", response.data.errors);
-                return false;
-            }
-            const username = response.data.name;
-            const email = response.data.email;
-            const profileImage = response.data.pic;
-            const id = response.data.id;
-            // ログインステータスを変更する
-            commit("setApiStatus", true);
-            commit("setUser", username);
-            commit("setEmail", email);
-            commit("setPic", profileImage);
-            // ストア情報に取得したユーザーIDを入れる
-            commit("setId", id);
-            return false;
-        }
-        commit("setApiStatus", false);
-        // 422ステータスの処理
-        if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setLoginErrorMessages", response.data.errors);
-        } else {
-            commit("error/setCode", response.status, { root: true });
-        }
-        commit("error/setCode", response.status, { root: true }); //{ root: ture }で違うファイルのミューテーションを呼べる
     },
     /****************************************
   ログアウト

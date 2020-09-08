@@ -8,14 +8,14 @@
             <div class="p-eyecatch__layout">
               <div class="p-eyecatch__flex u-ind-wrapp__sub">
                 <div class="c-logo__header c-logo__clear-margin">
-                  <img src="../../img/eyecatch-logo.png" alt="logo" class="c-logo__top" />
+                  <img :src="this.eyecatch_logo" alt="logo" class="c-logo__top" />
                   <h1 class="p-eyecatch__title">
                     簡単な操作で軽快に
                     <br />タスクをこなそう
                   </h1>
                 </div>
                 <div>
-                  <img src="../../img/eyecatch-img.png" alt="top画像" class="p-eyecatch__img" />
+                  <img :src="this.eyecatch" alt="アイキャッチ画像" class="p-eyecatch__img" />
                 </div>
               </div>
             </div>
@@ -28,19 +28,19 @@
           <h2 class="u-title p-title">こんなことでお悩みではないですか？</h2>
           <div class="l-section-wrapp l-section-wrapp__flex">
             <div class="p-card p-card-border">
-              <img src="../../img/panel/001.png" alt />
+              <img :src="this.panel_first" alt="課題1" />
               <div class="p-card-content">
                 <p>機能が多すぎて使い方を覚える時間が煩わしい</p>
               </div>
             </div>
             <div class="p-card p-card-border">
-              <img src="../../img/panel/002.png" alt />
+              <img :src="this.panel_second" alt="課題2" />
               <div class="p-card-content">
                 <p>スマホから使うと動作が重くてストレスを感じる</p>
               </div>
             </div>
             <div class="p-card p-card-border">
-              <img src="../../img/panel/003.png" alt />
+              <img :src="this.panel_third" alt="課題3" />
               <div class="p-card-content">
                 <p>簡素な機能でもっと直感的に扱うアプリが欲しい</p>
               </div>
@@ -65,7 +65,7 @@
               </div>
             </div>
             <div class="p-card__third">
-              <img src="../../img/animation.gif" alt class="p-card-img__third" />
+              <img :src="this.top_gif" alt class="p-card-img__third" />
             </div>
           </div>
         </div>
@@ -113,11 +113,24 @@
   </div>
 </template>
 <script>
+import eyecatch_logo from "../../img/eyecatch-logo.png"
+import eyecatch from "../../img/eyecatch-img.png"
+import panel_first from "../../img/top-panels_01.png"
+import panel_second from "../../img/top-panels_02.png"
+import panel_third from "../../img/top-panels_03.png"
+import top_gif from "../../img/animation.gif"
 import Header from "./Header";
 import Footer from "./footer";
 export default {
   data() {
-    return {};
+    return {
+      eyecatch_logo: eyecatch_logo,
+      eyecatch: eyecatch,
+      panel_first: panel_first,
+      panel_second: panel_second,
+      panel_third: panel_third,
+      top_gif: top_gif
+    };
   },
   components: {
     Header,

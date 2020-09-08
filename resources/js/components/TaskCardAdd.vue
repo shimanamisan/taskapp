@@ -10,7 +10,7 @@
         <input
           type="text"
           class="c-task--todo--inputArea"
-          :class="{'errors--bg': cardRequestErrorMessages}"
+          :class="{'c-error__bg': cardRequestErrorMessages}"
           v-model="CradCreateForm"
         />
         <!-- バリデーションエラー --->

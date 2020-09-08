@@ -3,11 +3,7 @@
         <section class="l-main__auth">
             <div class="c-logo__header">
                 <router-link to="/">
-                    <img
-                        src="../../../img/logo.png"
-                        alt="logo"
-                        class="c-logo"
-                    />
+                    <CommonLogo />
                 </router-link>
             </div>
             <div class="l-card__container">
@@ -24,8 +20,16 @@
                             <label for="login-email" class="c-form-lavel"
                                 >メールアドレス</label
                             >
+
+                            <input
+                                id="login-email"
+                                type="text"
+                                class="c-input"
+                                v-model="loginFrom.email"
+                                :class="{'c-error__bg': loginEmailError}"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="loginErrors" class="errors">
+                            <div v-if="loginErrors" class="c-error">
                                 <ul v-if="loginErrors.email">
                                     <li
                                         v-for="msg in loginErrors.email"
@@ -36,20 +40,22 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <input
-                                id="login-email"
-                                type="text"
-                                class="c-input"
-                                v-model="loginFrom.email"
-                            />
                         </div>
                         <!-- end c-form__item -->
                         <div class="c-form__item">
                             <label for="login-password" class="c-form-lavel"
                                 >パスワード</label
                             >
+
+                            <input
+                                id="login-password"
+                                type="password"
+                                class="c-input"
+                                v-model="loginFrom.password"
+                                :class="{'c-error__bg': loginPasswordError}"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="loginErrors" class="errors">
+                            <div v-if="loginErrors" class="c-error">
                                 <ul v-if="loginErrors.password">
                                     <li
                                         v-for="msg in loginErrors.password"
@@ -60,12 +66,6 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <input
-                                id="login-password"
-                                type="password"
-                                class="c-input"
-                                v-model="loginFrom.password"
-                            />
                         </div>
                         <!-- end c-form__item -->
                         <div class="c-form__action">
@@ -105,6 +105,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
+import CommonLogo from "../common/CommonLogo";
 import { mapState, mapGetters } from "vuex";
 export default {
     data() {
@@ -115,12 +116,20 @@ export default {
             }
         };
     },
+    components: {
+        CommonLogo
+    },
     computed: {
         // ...mapStateを使った書き方
         ...mapState({
             apiStatus: state => state.auth.apiStatus,
             loginErrors: state => state.auth.loginErrorMessages
+        }),
+        ...mapGetters({
+            loginEmailError: "auth/getLoginEmailError",
+            loginPasswordError: "auth/getLoginPasswordError",
         })
+
     },
     methods: {
         // authストアのloginアクションを呼び出す
@@ -131,20 +140,6 @@ export default {
                 this.$router.push("/tasklist");
             }
         },
-        async gestUser() {
-            await this.$store.dispatch("auth/gestUser", {
-                email: "gest@mail.com",
-                password: "password"
-            });
-
-            if (this.apiStatus) {
-                // 通信が成功（apiStatusがtureの場合）したら移動する
-                this.$router.push("/tasklist");
-            }
-        },
-        clearError() {
-            this.$store.commit("auth/setLoginErrorMessages", null);
-        },
         async twitterLogin() {
             const response = await axios.get("/api/auth/twitter");
 
@@ -153,6 +148,9 @@ export default {
             } else {
                 this.$router.push("/500");
             }
+        },
+        clearError() {
+            this.$store.commit("auth/setLoginErrorMessages", null);
         }
     },
     created() {

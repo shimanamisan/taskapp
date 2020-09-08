@@ -19,17 +19,22 @@
         display: block;
       }
     }
-  } 
+  }
+  &__item{
+    margin-top: 32px;
+    &:first-child{
+      margin-top: 0px;
+    }
+  }
   &-lavel{
     display: inline-block;
-    margin-bottom: 10px;
     &__profile{
       display: block;
       text-align: center;
     }
   }
   &__action{
-    margin-top: $space_xxl;
+    margin-top: 32px;
       &--easy{
         display: flex;
         justify-content: space-evenly;
@@ -43,10 +48,6 @@
         font-size: $space_l;
       }
   }
-}
-
-.c-form__item+.c-form__item{
-  margin-top: $space_xl;
 }
 
 .c-updateFrom{

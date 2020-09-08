@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <div class="wrapp">
-            <img src="../../../../img/systemError/500.png" alt="">
+            <img src="../../../../img/500.png" alt="">
         </div>
     </div>
 </template>

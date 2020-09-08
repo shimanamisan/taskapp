@@ -35,7 +35,7 @@
                   </p>
                 </output>
                 <output v-else>
-                  <img src="../../img/no_img/no_img.png" alt="プロフィール画像" class="c-form__outputImg" />
+                  <img src="../../img/no_img.png" alt="プロフィール画像" class="c-form__outputImg" />
                 </output>
               </label>
               <div class="l-flex l-flex--center u-btn--wrapp" v-show="showProfileImage">

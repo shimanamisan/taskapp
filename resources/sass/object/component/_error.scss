@@ -1,14 +1,15 @@
-.errors {
+.c-error {
   color: red;
   font-style: 14px;
-    &--tasks{
+    &__tasks{
       margin-top: 7px;
       white-space: normal;
     }
-    &--bg{
+    &__bg{
      background: #f7dcd9;
+     border-color: #ff6366;
     }
-    &--profile{
+    &__profile{
       text-align: center;
     }
 }
