@@ -2,7 +2,7 @@
 ## アプリケーション概要
 タスクを付箋のように管理できるサービス
 
-[こちらから別タブで移動します。](https://task-app.shimanamisan.com/){:target="_blank" rel="noopener"}.
+[こちらから別タブで移動します。](https://task-app.shimanamisan.com/)
 
 
 ログインID：test@example.com
@@ -27,8 +27,8 @@
 
 
 ## 追加実装予定
-- コメント投稿機能
-- 完了したタスクをSNSに投稿する機能
+- タスクにコメント投稿機能
+- 完了したタスクをマイページに表示し、そこから削除する
 
 ## 使用技術
 ### 開発全般
