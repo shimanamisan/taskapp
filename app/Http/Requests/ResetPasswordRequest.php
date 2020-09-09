@@ -24,8 +24,8 @@ class ResetPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => 'bail|required|email',
-            "password" => 'required|confirmed|min:8'
+            "email" => 'required|email',
+            'password' => 'required|string|confirmed|min:8|max:100|regex:/^[a-zA-Z0-9]+$/'
         ];
     }
 
@@ -33,8 +33,8 @@ class ResetPasswordRequest extends FormRequest
     {
         return [
             "email.required" => '入力必須です。',
-            "token.required" => '入力必須です',
             "password.required" => '入力必須です',
+            'password.regex' => '半角英数のみご利用いただけます。',
             "password.confirmed" => '再入力フォームと一致していません。',
             "password.min" => "8文字以上で入力してください"
         ];
