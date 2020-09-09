@@ -26,8 +26,7 @@ const state = {
     registerErrorMessages: null,
     profileErrorMessages: null,
     reminderErrorMessages: null,
-    resetPasswordErrorMessages: null,
-    contactMailErrorMessages: null
+    resetPasswordErrorMessages: null
 };
 
 /***********************************
@@ -45,15 +44,20 @@ const getters = {
     // プロフィール写真のパスを呼び出す
     getProfileImage: state => (state.profileImage ? state.profileImage : ""),
     // 新規登録時のエラーメッセージの監視（Name）
-    getRegisterNameError: state => (state.registerErrorMessages ? state.registerErrorMessages.name : ""),
+    getRegisterNameError: state =>
+        state.registerErrorMessages ? state.registerErrorMessages.name : "",
     // 新規登録時のエラーメッセージの監視（Email）
-    getRegisterEmailError: state => (state.registerErrorMessages ? state.registerErrorMessages.email : ""),
+    getRegisterEmailError: state =>
+        state.registerErrorMessages ? state.registerErrorMessages.email : "",
     // 新規登録時のエラーメッセージの監視（Password）
-    getRegisterPasswordError: state => (state.registerErrorMessages ? state.registerErrorMessages.password : ""),
+    getRegisterPasswordError: state =>
+        state.registerErrorMessages ? state.registerErrorMessages.password : "",
     // ログイン時のエラーメッセージの監視（Email）
-    getLoginEmailError: state => (state.loginErrorMessages ? state.loginErrorMessages.email : ""),
+    getLoginEmailError: state =>
+        state.loginErrorMessages ? state.loginErrorMessages.email : "",
     // ログイン時のエラーメッセージの監視（Password）
-    getLoginPasswordError: state => (state.loginErrorMessages ? state.loginErrorMessages.password : ""),
+    getLoginPasswordError: state =>
+        state.loginErrorMessages ? state.loginErrorMessages.password : ""
 };
 
 /*******************************
@@ -99,9 +103,6 @@ const mutations = {
     // パスワードリセットメール送信時のエラーメッセージ用ミューテーション
     setResetPasswordErrorMessages(state, message) {
         state.resetPasswordErrorMessages = message;
-    },
-    setContactMailErrorMessages(state, message) {
-        state.contactMailErrorMessages = message;
     },
 
     /****************************************
@@ -317,18 +318,6 @@ const actions = {
         const response = await axios.post("/api/password/reset", data);
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setResetPasswordErrorMessages", response.data.errors);
-        } else {
-            commit("error/setCode", response.status, { root: true });
-        }
-        commit("error/setCode", response.status, { root: true });
-    },
-    /****************************************
-  お問い合わせメール送信
-  *****************************************/
-    async contactMessage({ commit }, data) {
-        const response = await axios.post("/api/contact", data);
-        if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setContactMailErrorMessages", response.data.errors);
         } else {
             commit("error/setCode", response.status, { root: true });
         }

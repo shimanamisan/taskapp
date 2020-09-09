@@ -20,8 +20,17 @@
                             <label for="contact-subject" class="c-form-lavel"
                                 >件名</label
                             >
+
+                            <!-- end errors -->
+                            <input
+                                id="contact-subject"
+                                type="text"
+                                class="c-input"
+                                v-model="Form.subject"
+                                :class="{ 'c-error__bg': validSubject }"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="contactErrors" class="errors">
+                            <div v-if="contactErrors" class="c-error">
                                 <ul v-if="contactErrors.subject">
                                     <li
                                         v-for="msg in contactErrors.subject"
@@ -31,20 +40,20 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!-- end errors -->
-                            <input
-                                id="contact-subject"
-                                type="text"
-                                class="c-input"
-                                v-model="Form.subject"
-                            />
                         </div>
                         <div class="c-form__item">
                             <label for="contact-name" class="c-form-lavel"
                                 >お名前</label
                             >
+                            <input
+                                id="contact-name"
+                                type="text"
+                                class="c-input"
+                                v-model="Form.name"
+                                :class="{ 'c-error__bg': validName }"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="contactErrors" class="errors">
+                            <div v-if="contactErrors" class="c-error">
                                 <ul v-if="contactErrors.name">
                                     <li
                                         v-for="msg in contactErrors.name"
@@ -55,20 +64,22 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <input
-                                id="contact-name"
-                                type="text"
-                                class="c-input"
-                                v-model="Form.name"
-                            />
                         </div>
                         <!-- end c-form__item -->
                         <div class="c-form__item">
                             <label for="contact-email" class="c-form-lavel"
                                 >メールアドレス</label
                             >
+
+                            <input
+                                id="contact-email"
+                                type="text"
+                                class="c-input"
+                                v-model="Form.email"
+                                :class="{ 'c-error__bg': validEmail }"
+                            />
                             <!-- バリデーションエラー -->
-                            <div v-if="contactErrors" class="errors">
+                            <div v-if="contactErrors" class="c-error">
                                 <ul v-if="contactErrors.email">
                                     <li
                                         v-for="msg in contactErrors.email"
@@ -79,12 +90,6 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <input
-                                id="contact-email"
-                                type="text"
-                                class="c-input"
-                                v-model="Form.email"
-                            />
                         </div>
                         <!-- end c-form__item -->
 
@@ -92,8 +97,23 @@
                             <label for="conatct-message" class="c-form-lavel"
                                 >お問い合わせ内容</label
                             >
+
+                            <textarea
+                                id="conatct-message"
+                                cols="30"
+                                rows="8"
+                                class="c-input"
+                                v-model="Form.message"
+                                :class="{ 'c-error__bg': validMessage }"
+                            ></textarea>
+                            <p class="c-form__contact--text">
+                                {{ textCounter }}/1000文字以内
+                            </p>
                             <!-- バリデーションエラー -->
-                            <div v-if="contactErrors" class="errors">
+                            <div
+                                v-if="contactErrors"
+                                class="c-error c-error__contact"
+                            >
                                 <ul v-if="contactErrors.message">
                                     <li
                                         v-for="msg in contactErrors.message"
@@ -104,16 +124,6 @@
                                 </ul>
                             </div>
                             <!-- end errors -->
-                            <textarea
-                                id="conatct-message"
-                                cols="30"
-                                rows="8"
-                                class="c-input"
-                                v-model="Form.message"
-                            ></textarea>
-                            <p class="c-form__contact--text">
-                                {{ textCounter }}/1000文字以内
-                            </p>
                         </div>
                         <!-- end c-form__item -->
                         <div class="c-form__action--wrapp">
@@ -175,9 +185,13 @@ export default {
     computed: {
         // ...mapStateを使った書き方
         ...mapState({
-            contactErrors: state => state.auth.contactMailErrorMessages
+            contactErrors: state => state.contact.contactMailErrorMessages
         }),
         ...mapGetters({
+            validSubject: "contact/validContactSubjectError",
+            validName: "contact/validContactNameError",
+            validEmail: "contact/validContactEmailError",
+            validMessage: "contact/validContactMessageError",
             getCode: "error/getCode"
         }),
         textCounter() {
@@ -192,7 +206,7 @@ export default {
                     "お問い合わせ内容を送信します。\nよろしいですか？"
                 )
             ) {
-                await this.$store.dispatch("auth/contactMessage", this.Form);
+                await this.$store.dispatch("contact/contactMessage", this.Form);
                 if (this.getCode === OK) {
                     alert("お問い合わせ内容は正しく送信されました。");
                     this.Form.subject = "";
@@ -204,7 +218,7 @@ export default {
             }
         },
         clearError() {
-            this.$store.commit("auth/setContactMailErrorMessages", null);
+            this.$store.commit("contact/setContactMailErrorMessages", null);
         }
     },
     created() {
