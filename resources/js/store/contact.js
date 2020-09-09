@@ -27,7 +27,6 @@ const getters = {
     validContactEmailError: state => (state.contactMailErrorMessages ? state.contactMailErrorMessages.email : ""),
     // お問い合わせバリデーション（お問い合わせ内容）
     validContactMessageError: state => (state.contactMailErrorMessages ? state.contactMailErrorMessages.message : ""),
-
 };
 
 /*******************************

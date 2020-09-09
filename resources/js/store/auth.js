@@ -24,9 +24,9 @@ const state = {
   *****************************************/
     loginErrorMessages: null,
     registerErrorMessages: null,
+    passwordReminderErrorMessages: null,
+    resetPasswordErrorMessages: null,
     profileErrorMessages: null,
-    reminderErrorMessages: null,
-    resetPasswordErrorMessages: null
 };
 
 /***********************************
@@ -57,7 +57,13 @@ const getters = {
         state.loginErrorMessages ? state.loginErrorMessages.email : "",
     // ログイン時のエラーメッセージの監視（Password）
     getLoginPasswordError: state =>
-        state.loginErrorMessages ? state.loginErrorMessages.password : ""
+        state.loginErrorMessages ? state.loginErrorMessages.password : "",
+    // パスワードリセットメール送信時のエラーメッセージ監視（Email）
+    validPasswordReminderErrorMessages : state => (state.passwordReminderErrorMessages ? state.passwordReminderErrorMessages.email : ""),
+    // パスワードリセットアクション時のエラーメッセージ監視（Email）
+    validResetPasswordErrorMessagesForEmail : state => (state.resetPasswordErrorMessages ? state.resetPasswordErrorMessages.email : ""),
+    // パスワードリセットアクション時のエラーメッセージ監視（Password）
+    validResetPasswordErrorMessagesForPassword : state => (state.resetPasswordErrorMessages ? state.resetPasswordErrorMessages.password : "")
 };
 
 /*******************************
@@ -97,8 +103,8 @@ const mutations = {
         state.profileErrorMessages = messages;
     },
     // パスワードリマインダー時のエラーハンドリング
-    setReminderErrorMessages(state, message) {
-        state.reminderErrorMessages = message;
+    setPasswordReminderErrorMessages(state, message) {
+        state.passwordReminderErrorMessages = message;
     },
     // パスワードリセットメール送信時のエラーメッセージ用ミューテーション
     setResetPasswordErrorMessages(state, message) {
@@ -304,7 +310,7 @@ const actions = {
         console.log(response.data.errors);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setReminderErrorMessages", response.data.errors);
+            commit("setPasswordReminderErrorMessages", response.data.errors);
         } else {
             commit("error/setCode", response.status, { root: true });
             commit("sendEmailMessages", response.data.success);
