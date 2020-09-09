@@ -1,55 +1,62 @@
-.c-form{
-  text-align: center;
-  &__contact--text{
-    text-align: end;
-  }
-  &__outputImg{
-    width: 100%;
-    height: 100%;
-    @include custumRadius(50%);
-  }
-  &__container{
-    // 未設定
-    &--profile{
-      display: flex;
-      justify-content: space-around;
-      padding: $space_xl;
-      margin-bottom: $space_xxl;
-      @include mq(){
-        display: block;
-      }
+.c-form {
+    text-align: center;
+    &__contact {
+        &--text {
+            float: right;
+        }
     }
-  }
-  &__item{
-    margin-top: 32px;
-    &:first-child{
-      margin-top: 0px;
+    &__outputImg {
+        width: 100%;
+        height: 100%;
+        @include custumRadius(50%);
     }
-  }
-  &-lavel{
-    display: inline-block;
-    &__profile{
-      display: block;
-      text-align: center;
+    &__container {
+        // 未設定
+        &--profile {
+            display: flex;
+            justify-content: space-around;
+            padding: $space_xl;
+            margin-bottom: $space_xxl;
+            @include mq() {
+                display: block;
+            }
+        }
     }
-  }
-  &__action{
-    margin-top: 32px;
-      &--easy{
-        display: flex;
-        justify-content: space-evenly;
-      }
-      &--wrapp{
-        display: flex;
-        justify-content: space-around;
-      }
-      &__item{
-        text-align: center;
-        font-size: $space_l;
-      }
-  }
+    &__item {
+        margin-top: 32px;
+        &:nth-of-type(4)::after {
+            display: block;
+            content: "";
+            clear: both;
+        }
+        &:first-child {
+            margin-top: 0px;
+        }
+    }
+    &-lavel {
+        display: inline-block;
+        &__profile {
+            display: block;
+            text-align: center;
+        }
+    }
+    &__action {
+        margin-top: 32px;
+        &--easy {
+            display: flex;
+            justify-content: space-evenly;
+        }
+        &--wrapp {
+            display: flex;
+            justify-content: space-around;
+        }
+        &__item {
+            text-align: center;
+            font-size: $space_l;
+        }
+    }
 }
 
-.c-updateFrom{
-  display: inline-block;
+.c-updateFrom {
+    display: inline-block;
 }
