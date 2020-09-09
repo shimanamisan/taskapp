@@ -1084,29 +1084,23 @@ br {
 .msg_appear {
   top: 10px; }
 
-.container {
+.p-500 {
   text-align: center;
-  height: 650px; }
+  font-size: 2.3rem;
+  height: auto; }
   @media screen and (max-width: 414px) {
-    .container {
-      height: auto; } }
-
-.wrapp {
-  padding: 20px;
-  position: relative; }
-  .wrapp > img {
-    width: auto;
-    height: 650px; }
-    @media screen and (max-width: 414px) {
-      .wrapp > img {
-        position: absolute;
-        top: 50%;
-        left: 0%;
-        transform: translateY(50%);
-        -webkit-transform: translateY(50%);
-        -ms-transform: translateY(50%);
-        width: 100%;
-        height: auto; } }
+    .p-500 {
+      height: auto;
+      font-size: 2rem; } }
+  .p-500__wrapp {
+    padding-top: 150px; }
+    .p-500__wrapp > br {
+      display: none; }
+      @media screen and (max-width: 414px) {
+        .p-500__wrapp > br {
+          display: block; } }
+    .p-500__wrapp > p {
+      display: inline; }
 
 .p-policy__title {
   text-align: center;

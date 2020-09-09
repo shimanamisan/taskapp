@@ -123,7 +123,17 @@ export default new VueRouter({
         {
             // エラーページ
             path: "/500",
-            component: SystemError
+            component: SystemError,
+            // ナビゲーションガード
+            beforeEnter(to, from, next){
+                // システムエラーページは、errorストアにエラーコードがセットされていなければ遷移できないようにする
+                // ユーザーが直接アドレスバーにURLを入力しても遷移できなくするため
+                if(store.getters["error/code"] === 500){
+                    next();
+                }else{
+                    next("/");
+                }
+            }
         },
         {
             // コールバックページ
