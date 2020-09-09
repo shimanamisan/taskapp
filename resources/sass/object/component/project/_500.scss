@@ -1,25 +1,21 @@
-.container{
-  text-align: center;
-  height: 650px;
-  @include mq(){
+.p-500 {
+    text-align: center;
+    font-size: 2.3rem;
     height: auto;
-  }
-}
-.wrapp{
-  padding: 20px;
-  position: relative;
-  & > img{
-    width: auto;
-    height: 650px;
-    @include mq(){
-      position: absolute;
-      top: 50%;
-      left: 0%;
-      transform: translateY(50%);
-      -webkit-transform: translateY(50%);
-      -ms-transform: translateY(50%);
-      width: 100%;
-      height: auto;
+    @include mq() {
+        height: auto;
+        font-size: 2rem;
     }
-  }
+    &__wrapp {
+        padding-top: 150px;
+        & > br {
+            display: none;
+            @include mq() {
+                display: block;
+            }
+        }
+        & > p {
+            display: inline;
+        }
+    }
 }
