@@ -14,10 +14,10 @@ class CreateTasksTable extends Migration
     public function up()
     {
         Schema::create('tasks', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('title', 20);
-            $table->unsignedBigInteger('card_id');
-            $table->integer('priority')->nullable();
+            $table->unsignedInteger('card_id');
+            $table->integer('priority')->nullable()->comment('ソート機能用');
             $table->timestamps();
 
             // 外部キーを設定する
