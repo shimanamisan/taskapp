@@ -71,27 +71,19 @@ class LoginController extends Controller
         return $this->sendFailedLoginResponse($request);
     }
 
-    // 入力フォームからバリデーションを行い、認証ユーザーを返すメソッド
-    // これをオーバーライド
-    protected function attemptLogin(Request $request)
+    // メソッドをオーバーライド
+    protected function credentials(Request $request)
     {
-        // attempt()の引数内を配列にするとエラーになる。ドキュメントにはそう言う記法も書かれているがなぜ？
-        // おそらくkye = value の形になっていない
-        // return $this->guard()->attempt([
-        //     'email' => $request->email,
-        //     'password' => $request->password,
-        //     // delete_flgが0なら認証済みユーザーを返す
-        //     'delete_flg' => 0,
-        // ],$request->filled('remember'));
-
-        // 元のコード
-        return $this->guard()->attempt($this->credentials($request), $request->filled('remember'));
-      
+        $temporary = $request->only($this->username(), 'password');
+        // 論理削除フラグが立っていないユーザーを検索するパラメータを追加
+        $temporary['delete_flg'] = 0;
+  
+        return $temporary;
     }
 
     // authenticatedメソッドをコントローラー側でオーバーライドして使う。継承元のクラスでは authenticatedメソッドは空になっている
     protected function authenticated(Request $request, $user)
-    {   
+    {
         // ここで渡ってくる$userは、Auth::guard()で認証されたユーザーが渡ってくる
         // 論理削除済みのユーザーか判断するには、AuthenticatesUsersトレイト側で行う
         return $user;
@@ -100,11 +92,11 @@ class LoginController extends Controller
     // メソッド追加
     protected function loggedOut(Request $request)
     {
-    // セッションを再生成する（接続を一旦リセットしている？）
-    $request->session()->regenerate();
-    // csrfトークンも一旦リセット
-    $request->session()->regenerateToken();
+        // セッションを再生成する（接続を一旦リセットしている？）
+        $request->session()->regenerate();
+        // csrfトークンも一旦リセット
+        $request->session()->regenerateToken();
 
-    return response()->json();
+        return response()->json();
     }
 }
