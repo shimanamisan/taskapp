@@ -1,0 +1,76 @@
+.c-transition {
+    &__modal {
+        &-enter {
+            opacity: 0;
+            &-active {
+                transition: all 0.4s ease;
+            }
+        }
+        &-leave {
+            &-active {
+                transition: all 0.4s ease;
+            }
+            &-to {
+                opacity: 0;
+            }
+        }
+    }
+
+    &__flash {
+        &-enter {
+            opacity: 0;
+            transform: translateX(50px);
+            &-active {
+                transition: all 0.6s ease;
+            }
+        }
+        &-leave {
+            &-to {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            &-active {
+                transition: all 0.6s ease;
+            }
+        }
+    }
+
+    &__withdraw {
+        &-enter {
+            opacity: 0;
+            transform: translateY(50px);
+            &-active {
+                transition: all 0.6s ease;
+            }
+        }
+        &-leave {
+            &-to {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            &-active {
+                transition: all 0.6s ease;
+            }
+        }
+    }
+}
+
+// 下記のような形式をまとめている
+// .c-transition__modal-enter-active,
+// .c-transition__modal-leave-active {
+//     transition: all 0.4s ease;
+// }
+// .c-transition__modal-enter,
+// .c-transition__modal-leave-to {
+//     opacity: 0;
+// }
+
+// .flash-enter-active,
+// .flash-leave-active {
+//     transition: all 0.6s ease;
+// }
+// .flash-enter,
+// .flash-leave-to {
+//     opacity: 0;
+//     transform: translateX(50px);
+// }
