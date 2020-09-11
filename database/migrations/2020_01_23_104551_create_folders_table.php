@@ -14,11 +14,11 @@ class CreateFoldersTable extends Migration
     public function up()
     {
         Schema::create('folders', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('title', 20);
             // unsigned()：整数カラムを符号なしに設定(MySQLのみ)：外部キーを付けていたらこれだとエラーになる、unsignedBigInteger()へ変更
-            $table->unsignedBigInteger('user_id');
-            $table->integer('priority')->nullable();
+            $table->unsignedInteger('user_id');
+            $table->integer('priority')->nullable()->comment('ソート機能用');
             $table->timestamps();
 
             // 外部制約キーを追加

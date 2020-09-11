@@ -1,92 +1,107 @@
 /********************************************** 
 トップページ用
 **********************************************/
-.u-inner{
-  // 内側のpadding用
-  padding: 3rem;
-
-  &--index{
+.u-inner {
+    // 内側のpadding用
     padding: 3rem;
-    @include mq(){
-      padding: 15px;
-      box-sizing: border-box;
+
+    &--index {
+        padding: 3rem;
+        @include mq() {
+            padding: 15px;
+            box-sizing: border-box;
+        }
     }
-  }
-  &__l{
-    padding: 1rem;
-  }
+    &__l {
+        padding: 1rem;
+    }
+}
+
+.u- {
+    &systemMSG {
+        background-color: #30c8d6;
+        color: #fff;
+        position: fixed;
+        text-align: center;
+        z-index: 5;
+        width: 100%;
+        line-height: 100px;
+        height: 100px;
+        top: 0;
+        left: 0;
+        @include mq() {
+            width: 100%;
+            height: auto;
+            font-size: 13px;
+        }
+        &--active {
+            transform: translateX(-150%);
+            transition: all 0.5s;
+            z-index: 2;
+        }
+    }
 }
 
 /********************************************** 
 ログイン・新規登録フォーム用
 **********************************************/
-.u-appvue--wrapp{
-  @include mq(){
-    height: 100%;
-  }
+.u-form__line {
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border-top: $space_s;
+    border-top: 5px solod $font-color_default;
 }
-.u-form__line{
-  margin-top: 40px;
-  margin-bottom: 40px;
-  border-top: $space_s;
-  border-top: 5px solod $font-color_default;
+.u-social__item {
+    text-align: center;
 }
-.u-social__item{
-  text-align: center;
+.u-redirect__login {
+    margin-top: $space_xxl;
+    margin-bottom: $space_xxl;
 }
-.u-redirect__login{
-  margin-top: $space_xxl;
-  margin-bottom: $space_xxl;
-}
-
 // タイトル用
-.u-title{
-  margin-bottom: 25px;
+.u-title {
+    margin-bottom: 25px;
 }
 
 /********************************************** 
 タスク管理用
 **********************************************/
-.u-task{
-  &-line{
-    margin-top: $space_xl;
-    margin-bottom: $space_xl;
-  }
+.u-task {
+    &-line {
+        margin-top: $space_xl;
+        margin-bottom: $space_xl;
+    }
 }
-
 /********************************************** 
 各種アイコン用
 **********************************************/
-.u-icon{
-  font-size: $font-size_l;
-  
-  &--wrapp{
-    text-align: center;
-  }
-  
-  &__message{
-    vertical-align: middle;
-    margin-right: $space_s;
-  }
-
-  &__sns{
-    font-size: 2.5rem;
-    margin-right: $space_m;
-  }
+.u-icon {
+    font-size: $font-size_l;
+    &--wrapp {
+        text-align: center;
+    }
+    &__message {
+        vertical-align: middle;
+        margin-right: $space_s;
+    }
+    &__sns {
+        font-size: 2.5rem;
+        margin-right: $space_m;
+    }
 }
 
 /********************************************** 
 ボタン配置用
 **********************************************/
-.u-btn{
-  &--wrapp{
-    margin-top:  7px;
-  }
-  &--password{
-    margin-top: 20px;
-    text-align: right;
-  }
+.u-btn {
+    &--wrapp {
+        margin-top: 7px;
+    }
+    &--password {
+        margin-top: 20px;
+        text-align: right;
+    }
 }
-.u-btn__profile--margin{
-  margin-left: 10px;
+.u-btn__profile--margin {
+    margin-left: 10px;
 }

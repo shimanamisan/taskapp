@@ -52,13 +52,13 @@ Route::get('/refresh-token', function (Request $request) {
 プロフィール変更
 *****************************************/
 // プロフィール画像
-Route::post('/profile/image/{id}', 'ProfileController@ProfileImageEdit')->name('profile.ProfileImageEdit'); // 名前をつけることでview側で効率よくURLを生成できる（SPAでは使用しない？）
+Route::post('/profile/image/{id}', 'ProfileController@profileImageEdit')->name('profile.ProfileImageEdit'); // 名前をつけることでview側で効率よくURLを生成できる（SPAでは使用しない？）
 // 名前変更
-Route::post('/profile/name/{id}', 'ProfileController@ProfileNameEdit')->name('profile.ProfileNameEdit');
+Route::post('/profile/name/{id}', 'ProfileController@profileNameEdit')->name('profile.ProfileNameEdit');
 // email変更
-Route::post('/profile/email/{id}', 'ProfileController@ProfileEmailEdit')->name('profile.ProfileEmailEdit');
+Route::post('/profile/email/{id}', 'ProfileController@profileEmailEdit')->name('profile.ProfileEmailEdit');
 // パスワード変更
-Route::post('/profile/password/{id}', 'ProfileController@ProfilPasswordeEdit')->name('profile.ProfilPasswordeEdit');
+Route::post('/profile/password/{id}', 'ProfileController@profilPasswordeEdit')->name('profile.ProfilPasswordeEdit');
 // ユーザー論理削除
 Route::delete('/profile/delete/{id}', 'ProfileController@userSoftDelete')->name('profile.userSoftDelete');
 

@@ -14,14 +14,14 @@ class CreateCardsTable extends Migration
     public function up()
     {
         Schema::create('cards', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->increments('id');
             $table->string('title', 20);
-            $table->unsignedBigInteger('folder_id');
+            $table->unsignedInteger('folder_id');
+            $table->integer('priority')->nullable()->comment('ソート機能用');
             $table->timestamps();
 
             // 外部キーを設定する
             $table->foreign('folder_id')->references('id')->on('folders')->onDelete('cascade');
-
         });
     }
 
