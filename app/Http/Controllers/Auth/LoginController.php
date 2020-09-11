@@ -85,7 +85,7 @@ class LoginController extends Controller
     protected function authenticated(Request $request, $user)
     {
         // ここで渡ってくる$userは、Auth::guard()で認証されたユーザーが渡ってくる
-        // 論理削除済みのユーザーか判断するには、AuthenticatesUsersトレイト側で行う
+        // 論理削除済みのユーザーか判断するには、credentialsメソッドをオーバーライドする
         return $user;
     }
 
