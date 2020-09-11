@@ -940,7 +940,7 @@ br {
 
 .c-error {
   color: red;
-  font-style: 14px; }
+  font-size: 12px; }
   .c-error__tasks {
     margin-top: 7px;
     white-space: normal; }
@@ -1262,6 +1262,15 @@ br {
     transform: translateX(-150%);
     transition: all 0.5s;
     z-index: 2; }
+
+.u-sendMail {
+  padding: 16px;
+  margin-bottom: 24px;
+  border-radius: 5px;
+  background-color: #fffaf6;
+  border-color: #fa9f47;
+  color: #b24603;
+  border: 1px solid; }
 
 /********************************************** 
 ログイン・新規登録フォーム用

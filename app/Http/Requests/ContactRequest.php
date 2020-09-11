@@ -34,13 +34,9 @@ class ContactRequest extends FormRequest
     public function messages()
     {
         return [
-            'email.required' => '入力必須です。',
             'email.email' => 'メールアドレスを入力してください。',
-            'name.required' => '入力必須です。',
             'name.max' => '20文字以内で入力してください。',
-            'subject.required' => '入力必須です。',
             'subject.max' => '255文字以内で入力してください。',
-            'message.required' => '入力必須です。',
             'message.max' => '1000文字以内で入力してください。',
         ];
     }

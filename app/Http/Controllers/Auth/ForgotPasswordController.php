@@ -2,14 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
-use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\JsonResponse;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Password;
-
-
+use Illuminate\Validation\Rule; // ★追加
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Foundation\Auth\SendsPasswordResetEmails;
 
 class ForgotPasswordController extends Controller
 {
@@ -40,27 +39,32 @@ class ForgotPasswordController extends Controller
     SendsPasswordResetEmails トレイトのメソッドをオーバーライド
     **************************************************************/
     public function sendResetLinkEmail(Request $request)
-    {   
-        $this->validateEmail($request);
-        // emailを検索してきたときに空だった場合に、未登録ユーザーはパスワード変更メールを飛ばせないようにする
+    {
+        // emailを検索してきたときに空だった場合に、未登録及び退会済ユーザーは
+        // バリデーションに引っかかるようにする
+        $this->validator($request->all())->validate();
         
         $response = $this->broker()->sendResetLink($request->only('email'));
 
-        // dd($response);
-
-        // if($this->validateEmail($request) === null){
-        //     // vue側で取り出せるようにメッセージの格納を加工
-        //     return response()->json([
-        //         'errors' => [
-        //             'email' => ['ログイン情報が登録されていません。']
-        //         ]
-        //     ], 422);
-        // }
-        
         return $response == Password::RESET_LINK_SENT
             ? $this->sendResetLinkResponse($request, $response)
             : $this->sendResetLinkFailedResponse($request, $response);
+    }
 
+    protected function validator(array $data)
+    {
+        // カスタムエラーメッセージ
+        $message = [
+            'email' => '有効なメールアドレスを指定してください。',
+            'email.unique' => 'メールアドレスに一致するユーザーは存在していません。',
+        ];
+
+        return Validator::make($data, [
+        
+            'email' => ['required', 'string', 'email', 'max:100',
+                        // usersテーブルで退会済みのユーザーを探す（deletef_flgが1のユーザー）
+                        Rule::unique('users', 'email')->where('delete_flg', 1)]
+        ], $message);
     }
 
     protected function sendResetLinkResponse($response)
@@ -70,11 +74,13 @@ class ForgotPasswordController extends Controller
 
     protected function sendResetLinkFailedResponse(Request $request, $response)
     {
-            return response()->json(
-                ['errors' => [
+        return response()->json(
+            ['errors' => [
                     'email' => ['再設定メールの送信に失敗しました。']
                     ]
-        ], 422);
+        ],
+            422
+        );
     }
 
     
@@ -99,5 +105,4 @@ class ForgotPasswordController extends Controller
     //             ->withInput($request->only('email'))
     //             ->withErrors(['email' => trans($response)]);
     // }
-
 }
