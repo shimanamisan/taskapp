@@ -48,15 +48,15 @@ class ResetPasswordController extends Controller
     **************************************************************/
 
     public function reset(ResetPasswordRequest $request)
-    {   
-    
+    {
         $request->validate($this->rules(), $this->validationErrorMessages());
 
         // ここでは、ユーザーのパスワードをリセットします。
         // それが成功すれば、私たちはは実際のユーザーモデルのパスワードを更新し、
         // データベース。それ以外の場合は、エラーを解析して応答を返します。
         $response = $this->broker()->reset(
-            $this->credentials($request), function ($user, $password) {
+            $this->credentials($request),
+            function ($user, $password) {
                 $this->resetPassword($user, $password);
             }
         );
@@ -66,6 +66,14 @@ class ResetPasswordController extends Controller
         return $response == Password::PASSWORD_RESET
                     ? $this->sendResetResponse($request, $response)
                     : $this->sendResetFailedResponse($request, $response);
+    }
+    protected function rules()
+    {
+        return [
+            'token' => 'required',
+            'email' => 'required|email|max:100',
+            'password' => 'required|confirmed|min:8|regex:/^[a-zA-Z0-9]+$/',
+        ];
     }
 
     public function broker()
@@ -89,7 +97,7 @@ class ResetPasswordController extends Controller
         ], 500);
     }
 
-       /**
+    /**
      * Reset the given user's password.
      *
      * @param  \Illuminate\Contracts\Auth\CanResetPassword  $user
@@ -112,7 +120,10 @@ class ResetPasswordController extends Controller
     protected function credentials(Request $request)
     {
         return $request->only(
-            'email', 'password', 'password_confirmation', 'token'
+            'email',
+            'password',
+            'password_confirmation',
+            'token'
         );
     }
 }
