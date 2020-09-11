@@ -26,7 +26,7 @@ const state = {
     registerErrorMessages: null,
     passwordReminderErrorMessages: null,
     resetPasswordErrorMessages: null,
-    profileErrorMessages: null,
+    profileErrorMessages: null
 };
 
 /***********************************
@@ -59,11 +59,20 @@ const getters = {
     getLoginPasswordError: state =>
         state.loginErrorMessages ? state.loginErrorMessages.password : "",
     // パスワードリセットメール送信時のエラーメッセージ監視（Email）
-    validPasswordReminderErrorMessages : state => (state.passwordReminderErrorMessages ? state.passwordReminderErrorMessages.email : ""),
+    validPasswordReminderErrorMessages: state =>
+        state.passwordReminderErrorMessages
+            ? state.passwordReminderErrorMessages.email
+            : "",
     // パスワードリセットアクション時のエラーメッセージ監視（Email）
-    validResetPasswordErrorMessagesForEmail : state => (state.resetPasswordErrorMessages ? state.resetPasswordErrorMessages.email : ""),
+    validResetPasswordErrorMessagesForEmail: state =>
+        state.resetPasswordErrorMessages
+            ? state.resetPasswordErrorMessages.email
+            : "",
     // パスワードリセットアクション時のエラーメッセージ監視（Password）
-    validResetPasswordErrorMessagesForPassword : state => (state.resetPasswordErrorMessages ? state.resetPasswordErrorMessages.password : "")
+    validResetPasswordErrorMessagesForPassword: state =>
+        state.resetPasswordErrorMessages
+            ? state.resetPasswordErrorMessages.password
+            : ""
 };
 
 /*******************************
@@ -211,7 +220,7 @@ const actions = {
   プロフィール編集
   *****************************************/
     // 画像変更
-    async ProfileImageEdit({ commit }, data) {
+    async profileImageEdit({ commit }, data) {
         const id = state.user_id;
         const response = await axios.post("/api/profile/image/" + id, data);
         // 422ステータスの処理
@@ -223,7 +232,7 @@ const actions = {
         commit("error/setCode", response.status, { root: true }); //{ root: ture }で違うファイルのミューテーションを呼べる
     },
     // 名前変更
-    async ProfileNameEdit({ commit }, data) {
+    async profileNameEdit({ commit }, data) {
         const id = state.user_id;
         const response = await axios.post("/api/profile/name/" + id, data);
         // 422ステータスの処理
@@ -239,7 +248,7 @@ const actions = {
         commit("error/setCode", response.status, { root: true });
     },
     // email変更
-    async ProfileEmailEdit({ commit }, data) {
+    async profileEmailEdit({ commit }, data) {
         const id = state.user_id;
         const response = await axios.post("/api/profile/email/" + id, data);
         // 422ステータスの処理
@@ -251,7 +260,7 @@ const actions = {
         commit("error/setCode", response.status, { root: true });
     },
     // パスワード変更
-    async ProfilPasswordeEdit({ commit }, data) {
+    async profilPasswordeEdit({ commit }, data) {
         const id = state.user_id;
         const response = await axios.post("/api/profile/password/" + id, data);
         // 422ステータスの処理
@@ -270,14 +279,14 @@ const actions = {
         if (response.status === INTERNAL_SERVER_ERROR) {
             commit("error/setCode", response.status, { root: true });
         } else if (response.status === OK) {
-            console.log("処理されています");
-            commit("setApiStatus", null);
-            commit("setUser", null);
-            commit("setEmail", null);
-            commit("setPic", null);
-            commit("setId", null);
-            return false;
+            commit("error/setCode", response.status, { root: true });
         }
+
+        // 例外発生時でも、Laravel側でログアウトしているのでストアに持たせたログイン情報は削除する
+        commit("setUser", null);
+        commit("setEmail", null);
+        commit("setPic", null);
+        commit("setId", null);
         commit("setApiStatus", false);
         commit("error/setCode", response.status, { root: true });
     },
@@ -294,9 +303,6 @@ const actions = {
             commit("setUser", user);
             return false;
         }
-
-        console.log("ステータス成功じゃない時の処理");
-
         commit("setApiStatus", false);
         commit("error/setCode", response.status, { root: true });
     },

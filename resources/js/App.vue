@@ -44,7 +44,7 @@ export default {
                     this.$store.commit("auth/setPic", null);
                     this.$store.commit("auth/setId", null);
                     // ログイン画面へ
-                    this.$router.push("/index");
+                    this.$router.push("/login");
                 }
             },
             immediate: true

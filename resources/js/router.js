@@ -33,7 +33,9 @@ export default new VueRouter({
         {
             // Topページ
             path: "/",
-            component: Index
+            component: Index,
+            name: "Index", // push({ path: '/' }) のようにパス指定ではpropsが受け取れなかったので名前をつける
+            props: true // propsを受け取れるようにする
         },
         {
             // ログインページ
@@ -42,7 +44,6 @@ export default new VueRouter({
             // ナビゲーションガード
             beforeEnter(to, from, next) {
                 // ログインページにアクセスした際に、認証済みだったらタスクページに移動する
-
                 if (store.getters["auth/check"]) {
                     next("/tasklist");
                 } else {
@@ -123,17 +124,7 @@ export default new VueRouter({
         {
             // エラーページ
             path: "/500",
-            component: SystemError,
-            // ナビゲーションガード
-            beforeEnter(to, from, next){
-                // システムエラーページは、errorストアにエラーコードがセットされていなければ遷移できないようにする
-                // ユーザーが直接アドレスバーにURLを入力しても遷移できなくするため
-                if(store.getters["error/code"] === 500){
-                    next();
-                }else{
-                    next("/");
-                }
-            }
+            component: SystemError
         },
         {
             // コールバックページ
