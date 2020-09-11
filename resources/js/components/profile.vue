@@ -1,429 +1,525 @@
 <template>
-  <div>
-    <Header />
-    <div class="l-wrapper l-wrapper__profile">
-      <transition name="flash">
-        <Message v-show="success" />
-      </transition>
-      <div class="l-main__auth l-main__auth--profile">
-        <div class="l-card__container">
-          <div class="p-card__container">
-            <p class="p-card__title">プロフィール編集</p>
-          </div>
-          <hr class="u-form__line" />
-          <div class="c-form__container--profile">
-            <div class="c-form__item">
-              <label for class="c-form-lavel c-form-lavel__profile">プロフィール画像</label>
-              <!-- バリデーションエラー --->
-              <div v-if="profileUploadErrors" class="errors errors--profile">
-                <ul v-if="profileUploadErrors.profilePhoto">
-                  <li v-for="msg in profileUploadErrors.profilePhoto" :key="msg">{{ msg }}</li>
-                </ul>
-              </div>
-              <!--- end errors -->
-              <label class="c-input--profile">
-                <input
-                  type="file"
-                  class="c-input--profile__drop"
-                  @change="fileSelected"
-                  @focus="imagefocus"
-                />
-                <output v-if="preview">
-                  <img v-bind:src="preview" alt="プロフィール画像" class="c-form__outputImg" />
-                  <p v-show="PreviewProfileImage">
-                    <img v-bind:src="profileData.pic" alt="プロフィール画像" class="c-form__output" />
-                  </p>
-                </output>
-                <output v-else>
-                  <img src="../../img/no_img.png" alt="プロフィール画像" class="c-form__outputImg" />
-                </output>
-              </label>
-              <div class="l-flex l-flex--center u-btn--wrapp" v-show="showProfileImage">
-                <div class="u-btn__profile--margin">
-                  <button class="c-btn c-btn--profile c-btn--profile__cancel" @click="reset">キャンセル</button>
+    <div>
+        <Header />
+        <div class="l-wrapper l-wrapper__profile">
+            <transition name="c-transition__flash">
+                <Message v-show="success" />
+            </transition>
+            <div class="l-main__auth l-main__auth--profile">
+                <div class="l-card__container">
+                    <div class="p-card__container">
+                        <p class="p-card__title">プロフィール編集</p>
+                    </div>
+                    <hr class="u-form__line" />
+                    <div class="c-form__container--profile">
+                        <div class="c-form__item">
+                            <label
+                                for
+                                class="c-form-lavel c-form-lavel__profile"
+                                >プロフィール画像</label
+                            >
+                            <!-- バリデーションエラー --->
+                            <div
+                                v-if="profileUploadErrors"
+                                class="errors errors--profile"
+                            >
+                                <ul v-if="profileUploadErrors.profilePhoto">
+                                    <li
+                                        v-for="msg in profileUploadErrors.profilePhoto"
+                                        :key="msg"
+                                    >
+                                        {{ msg }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--- end errors -->
+                            <label class="c-input--profile">
+                                <input
+                                    type="file"
+                                    class="c-input--profile__drop"
+                                    @change="fileSelected"
+                                    @focus="imagefocus"
+                                />
+                                <output v-if="preview">
+                                    <img
+                                        v-bind:src="preview"
+                                        alt="プロフィール画像"
+                                        class="c-form__outputImg"
+                                    />
+                                    <p v-show="PreviewProfileImage">
+                                        <img
+                                            v-bind:src="profileData.pic"
+                                            alt="プロフィール画像"
+                                            class="c-form__output"
+                                        />
+                                    </p>
+                                </output>
+                                <output v-else>
+                                    <img
+                                        src="../../img/no_img.png"
+                                        alt="プロフィール画像"
+                                        class="c-form__outputImg"
+                                    />
+                                </output>
+                            </label>
+                            <div
+                                class="l-flex l-flex--center u-btn--wrapp"
+                                v-show="showProfileImage"
+                            >
+                                <div class="u-btn__profile--margin">
+                                    <button
+                                        class="c-btn c-btn--profile c-btn--profile__cancel"
+                                        @click="reset"
+                                    >
+                                        キャンセル
+                                    </button>
+                                </div>
+                                <div class="u-btn__profile--margin">
+                                    <button
+                                        class="c-btn c-btn--profile"
+                                        @click="profileImageEdit"
+                                    >
+                                        変更
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- l-flex -->
+                        </div>
+                        <!-- end c-form__item -->
+                        <div>
+                            <div class="c-form__item">
+                                <label for class="c-form-lavel"
+                                    >ニックネーム</label
+                                >
+                                <!-- バリデーションエラー --->
+                                <div v-if="profileUploadErrors" class="errors">
+                                    <ul v-if="profileUploadErrors.name">
+                                        <li
+                                            v-for="msg in profileUploadErrors.name"
+                                            :key="msg"
+                                        >
+                                            {{ msg }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--- end errors -->
+                                <input
+                                    type="text"
+                                    class="c-input"
+                                    v-model="profileData.name"
+                                    @focus="namefocus"
+                                />
+                                <!-- 変更用ボタン -->
+                                <div
+                                    class="l-flex u-btn--wrapp"
+                                    v-show="showName"
+                                >
+                                    <div class="u-btn__profile--margin">
+                                        <button
+                                            class="c-btn c-btn--profile c-btn--profile__cancel"
+                                            @click="cancelName"
+                                        >
+                                            キャンセル
+                                        </button>
+                                    </div>
+                                    <div class="u-btn__profile--margin">
+                                        <button
+                                            class="c-btn c-btn--profile"
+                                            @click="profileNameEdit"
+                                        >
+                                            変更
+                                        </button>
+                                    </div>
+                                </div>
+                                <!-- l-flex -->
+                            </div>
+                            <div class="c-form__item">
+                                <label for class="c-form-lavel"
+                                    >メールアドレス</label
+                                >
+                                <!-- バリデーションエラー --->
+                                <div v-if="profileUploadErrors" class="errors">
+                                    <ul v-if="profileUploadErrors.email">
+                                        <li
+                                            v-for="msg in profileUploadErrors.email"
+                                            :key="msg"
+                                        >
+                                            {{ msg }}
+                                        </li>
+                                    </ul>
+                                </div>
+                                <!--- end errors -->
+                                <input
+                                    type="text"
+                                    class="c-input"
+                                    v-model="profileData.email"
+                                    @focus="emailfocus"
+                                />
+                            </div>
+                            <!-- 変更用ボタン -->
+                            <div class="l-flex u-btn--wrapp" v-show="showEmail">
+                                <div class="u-btn__profile--margin">
+                                    <button
+                                        class="c-btn c-btn--profile c-btn--profile__cancel"
+                                        @click="canselEmail"
+                                    >
+                                        キャンセル
+                                    </button>
+                                </div>
+                                <div class="u-btn__profile--margin">
+                                    <button
+                                        class="c-btn c-btn--profile"
+                                        @click="profileEmailEdit"
+                                    >
+                                        変更
+                                    </button>
+                                </div>
+                            </div>
+                            <!-- l-flex -->
+                            <div class="u-btn--wrapp u-btn--password">
+                                <button
+                                    class="c-btn c-btn--profile"
+                                    @click="showPassword = !showPassword"
+                                >
+                                    パスワードの変更
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- c-form__container--profile -->
+                    <transition name="c-transition__modal">
+                        <div key="modal" class="c-modal" v-show="showPassword">
+                            <div class="c-modal--body">
+                                <div
+                                    class="p-nav--trigger"
+                                    @click="ShowPasswordTrigger"
+                                >
+                                    <i class="fas fa-times p-nav--close"></i>
+                                </div>
+                                <div class="c-form__item c-modal--inner">
+                                    <label for class="c-form-lavel"
+                                        >新しいパスワード</label
+                                    >
+                                    <!-- バリデーションエラー --->
+                                    <div
+                                        v-if="profileUploadErrors"
+                                        class="errors"
+                                    >
+                                        <ul v-if="profileUploadErrors.password">
+                                            <li
+                                                v-for="msg in profileUploadErrors.password"
+                                                :key="msg"
+                                            >
+                                                {{ msg }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--- end errors -->
+                                    <input
+                                        type="password"
+                                        class="c-input"
+                                        v-model="profileData.password"
+                                    />
+                                </div>
+                                <!-- c-form__item -->
+                                <div class="c-form__item">
+                                    <label for class="c-form-lavel"
+                                        >新しいパスワード再入力</label
+                                    >
+                                    <!-- バリデーションエラー --->
+                                    <div
+                                        v-if="profileUploadErrors"
+                                        class="errors"
+                                    >
+                                        <ul
+                                            v-if="
+                                                profileUploadErrors.password_confirmation
+                                            "
+                                        >
+                                            <li
+                                                v-for="msg in profileUploadErrors.password_confirmation"
+                                                :key="msg"
+                                            >
+                                                {{ msg }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--- end errors -->
+                                    <input
+                                        type="password"
+                                        class="c-input"
+                                        v-model="
+                                            profileData.password_confirmation
+                                        "
+                                    />
+                                </div>
+                                <div
+                                    class="u-btn--wrapp u-btn--password c-modal--btn__passwordEdit"
+                                >
+                                    <button
+                                        class="c-btn c-btn--profile"
+                                        @click="profilPasswordeEdit"
+                                    >
+                                        変更
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- end c-modal -->
+                    </transition>
                 </div>
-                <div class="u-btn__profile--margin">
-                  <button class="c-btn c-btn--profile" @click="ProfileImageEdit">変更</button>
+                <!-- l-card__container -->
+                <div class="l-card__container">
+                    <div class="p-card__container">
+                        <p class="p-card__title">アカウントの削除</p>
+                    </div>
+                    <hr class="u-form__line" />
+                    <div class="c-form__container">
+                        <p>
+                            退会処理を行います。現在登録されているタスクは全て削除され復旧はできません。
+                        </p>
+                    </div>
+                    <div class="c-form__action c-form__action__item">
+                        <button
+                            type="submit"
+                            class="c-btn c-btn__danger"
+                            @click="userSoftDelete"
+                        >
+                            削除する
+                        </button>
+                    </div>
                 </div>
-              </div>
-              <!-- l-flex -->
+                <!-- l-card__container -->
             </div>
-            <!-- end c-form__item -->
-            <div>
-              <div class="c-form__item">
-                <label for class="c-form-lavel">ニックネーム</label>
-                <!-- バリデーションエラー --->
-                <div v-if="profileUploadErrors" class="errors">
-                  <ul v-if="profileUploadErrors.name">
-                    <li v-for="msg in profileUploadErrors.name" :key="msg">{{ msg }}</li>
-                  </ul>
-                </div>
-                <!--- end errors -->
-                <input type="text" class="c-input" v-model="profileData.name" @focus="namefocus" />
-                <!-- 変更用ボタン -->
-                <div class="l-flex u-btn--wrapp" v-show="showName">
-                  <div class="u-btn__profile--margin">
-                    <button
-                      class="c-btn c-btn--profile c-btn--profile__cancel"
-                      @click="cancelName"
-                    >キャンセル</button>
-                  </div>
-                  <div class="u-btn__profile--margin">
-                    <button class="c-btn c-btn--profile" @click="ProfileNameEdit">変更</button>
-                  </div>
-                </div>
-                <!-- l-flex -->
-              </div>
-              <div class="c-form__item">
-                <label for class="c-form-lavel">メールアドレス</label>
-                <!-- バリデーションエラー --->
-                <div v-if="profileUploadErrors" class="errors">
-                  <ul v-if="profileUploadErrors.email">
-                    <li v-for="msg in profileUploadErrors.email" :key="msg">{{ msg }}</li>
-                  </ul>
-                </div>
-                <!--- end errors -->
-                <input type="text" class="c-input" v-model="profileData.email" @focus="emailfocus" />
-              </div>
-              <!-- 変更用ボタン -->
-              <div class="l-flex u-btn--wrapp" v-show="showEmail">
-                <div class="u-btn__profile--margin">
-                  <button
-                    class="c-btn c-btn--profile c-btn--profile__cancel"
-                    @click="canselEmail"
-                  >キャンセル</button>
-                </div>
-                <div class="u-btn__profile--margin">
-                  <button class="c-btn c-btn--profile" @click="ProfileEmailEdit">変更</button>
-                </div>
-              </div>
-              <!-- l-flex -->
-              <div class="u-btn--wrapp u-btn--password">
-                <button class="c-btn c-btn--profile" @click="showPassword = !showPassword">パスワードの変更</button>
-              </div>
-            </div>
-          </div>
-          <!-- c-form__container--profile -->
-          <transition name="modal">
-            <div key="modal" class="c-modal" v-show="showPassword">
-              <div class="c-modal--body">
-                <div class="p-nav--trigger" @click="ShowPasswordTrigger">
-                  <i class="fas fa-times p-nav--close"></i>
-                </div>
-                <div class="c-form__item c-modal--inner">
-                  <label for class="c-form-lavel">新しいパスワード</label>
-                  <!-- バリデーションエラー --->
-                  <div v-if="profileUploadErrors" class="errors">
-                    <ul v-if="profileUploadErrors.password">
-                      <li v-for="msg in profileUploadErrors.password" :key="msg">{{ msg }}</li>
-                    </ul>
-                  </div>
-                  <!--- end errors -->
-                  <input type="password" class="c-input" v-model="profileData.password" />
-                </div>
-                <!-- c-form__item -->
-                <div class="c-form__item">
-                  <label for class="c-form-lavel">新しいパスワード再入力</label>
-                  <!-- バリデーションエラー --->
-                  <div v-if="profileUploadErrors" class="errors">
-                    <ul v-if="profileUploadErrors.password_confirmation">
-                      <li
-                        v-for="msg in profileUploadErrors.password_confirmation"
-                        :key="msg"
-                      >{{ msg }}</li>
-                    </ul>
-                  </div>
-                  <!--- end errors -->
-                  <input
-                    type="password"
-                    class="c-input"
-                    v-model="profileData.password_confirmation"
-                  />
-                </div>
-                <div class="u-btn--wrapp u-btn--password c-modal--btn__passwordEdit">
-                  <button class="c-btn c-btn--profile" @click="ProfilPasswordeEdit">変更</button>
-                </div>
-              </div>
-            </div>
-            <!-- end c-modal -->
-          </transition>
+            <!-- l-main__auth -->
         </div>
-        <!-- l-card__container -->
-        <div class="l-card__container">
-          <div class="p-card__container">
-            <p class="p-card__title">アカウントの削除</p>
-          </div>
-          <hr class="u-form__line" />
-          <div class="c-form__container">
-            <p>退会処理を行います。現在管理者であるプロジェクトは全て削除され復旧はできません。</p>
-          </div>
-          <div class="c-form__action c-form__action__item">
-            <button type="submit" class="c-btn c-btn__danger" @click="userSoftDelete">削除する</button>
-          </div>
-        </div>
-        <!-- l-card__container -->
-      </div>
-      <!-- l-main__auth -->
+        <!-- l-wrapper__profile -->
     </div>
-    <!-- l-wrapper__profile -->
-  </div>
 </template>
 <script>
 import { mapState, mapGetters } from "vuex";
 import Header from "./Header";
 import Message from "./Message";
 export default {
-  data() {
-    return {
-      // ボタン表示フラグ
-      showProfileImage: false,
-      showName: false,
-      showEmail: false,
-      showPassword: false,
+    data() {
+        return {
+            // ボタン表示フラグ
+            showProfileImage: false,
+            showName: false,
+            showEmail: false,
+            showPassword: false,
 
-      // 画像プレビューフラグ
-      preview: null,
-      PreviewProfileImage: null,
+            // 画像プレビューフラグ
+            preview: null,
+            PreviewProfileImage: null,
 
-      // 登録後のメッセージ表示フラグ
-      success: false,
+            // 登録後のメッセージ表示フラグ
+            success: false,
 
-      // プロフィールのフォームデータ
-      profileData: {
-        name: "",
-        email: "",
-        password: "",
-        password_confirmation: "",
-        profileImage: null
-      }
-    };
-  },
-  components: {
-    Header,
-    Message
-  },
-  computed: {
-    ...mapState({
-      profileUploadErrors: state => state.auth.profileErrorMessages
-    }),
-    ...mapGetters({
-      getCode: "error/getCode"
-    })
-  },
-  methods: {
-    // フォームでファイルが選択されたら実行
-    fileSelected(event) {
-      // ファイルが画像でなかったら処理を中断
-      if (!event.target.files[0].type.match("image.*")) {
-        this.$store.commit("auth/setProfileErrorMessages", {
-          profilePhoto: ["画像を選択してください"]
-        });
-        this.$el.querySelector('input[type="file"]').value = null;
-        return false;
-      }
-      // ファイル情報をdataプロパティに保存
-      // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
-      this.profileImage = event.target.files[0];
-      // FileReaderクラスのインスタンスを取得
-      const reader = new FileReader();
-      // ファイルを読み込み終わったタイミングで実行する処理
-      reader.onload = event => {
-        this.preview = event.target.result;
-      };
-      // ファイルを読み込む
-      // 読み込まれたファイルはデータURL形式で受け取れる
-      reader.readAsDataURL(event.target.files[0]);
-      this.profileData.profileImage = event.target.files[0];
+            // プロフィールのフォームデータ
+            profileData: {
+                name: "",
+                email: "",
+                password: "",
+                password_confirmation: "",
+                profileImage: null
+            }
+        };
     },
-    reset() {
-      // エラーメッセージが出ていたら消す
-      this.clearError();
-      // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
-      this.$el.querySelector('input[type="file"]').value = null;
-      this.showProfileImage = !this.showProfileImage;
+    components: {
+        Header,
+        Message
     },
-    // プロフィール写真変更
-    async ProfileImageEdit() {
-      this.clearError();
-      // プロフィール画像保存の処理
-      // FormDataオブジェクトをインスタンス化
-      const formData = new FormData();
-      // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
-      // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
-      // 常にリクエストが空とみなされてバリデーションに引っかかる
-      // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
-      formData.append("profilePhoto", this.profileData.profileImage);
-      // アクションへファイル情報を渡す
-      await this.$store.dispatch("auth/ProfileImageEdit", formData);
-      if (this.getCode === 200) {
-        this.showSuccess();
-        setTimeout(this.showSuccess, 3000);
-      }
-      this.showProfileImage = !this.showProfileImage;
-    },
-    async userSoftDelete() {
-      if (this.$store.state.auth.user_id === 1) {
-        alert("ゲストユーザーは退会出来ません");
-        return false;
-      }
-      if (
-        window.confirm(
-          "退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？"
-        )
-      ) {
-        // アクションを呼びに行く
-        await this.$store.dispatch("auth/userSoftDelete");
-        this.$router.push("/register");
-      }
-    },
-    async ProfileNameEdit() {
-      if (this.$store.state.auth.user_id === 1) {
-        alert("ゲストユーザーは名前の変更は出来ません");
-        return false;
-      }
-      this.clearError();
-      // アクションへファイル情報を渡す
-      await this.$store.dispatch("auth/ProfileNameEdit", {
-        name: this.profileData.name
-      });
-      if (this.getCode === 200) {
-        this.showName = !this.showName;
-        this.showSuccess();
-        setTimeout(this.showSuccess, 3000);
-      }
-    },
-    async ProfileEmailEdit() {
-      if (this.$store.state.auth.user_id === 1) {
-        alert("ゲストユーザーはメールアドレスの変更はできません");
-        return false;
-      }
-      this.clearError();
-      // アクションへファイル情報を渡す
-      await this.$store.dispatch("auth/ProfileEmailEdit", {
-        email: this.profileData.email
-      });
-      if (this.getCode === 200) {
-        this.showEmail = !this.showEmail;
-        this.showSuccess();
-        setTimeout(this.showSuccess, 3000);
-      }
-    },
-    async ProfilPasswordeEdit() {
-      if (this.$store.state.auth.user_id === 1) {
-        alert("ゲストユーザーはパスワードの変更はできません");
-        return false;
-      }
-      this.clearError();
-      // アクションへファイル情報を渡す
-      await this.$store.dispatch("auth/ProfilPasswordeEdit", {
-        // これでkey:valueの形でデータをコントローラーへ渡せる
-        password: this.profileData.password,
-        password_confirmation: this.profileData.password_confirmation
-      });
-
-      if (this.getCode === 200) {
-        // 送信後入力フォームを空にする
-        this.profileData.password = "";
-        this.profileData.password_confirmation = "";
-        this.showPassword = !this.showPassword;
-        this.clearError();
-        this.showSuccess();
-        setTimeout(this.showSuccess, 3000);
-      }
-    },
-    cancelName() {
-      this.clearError();
-      this.showName = !this.showName;
-    },
-    canselEmail() {
-      this.clearError();
-      this.showEmail = !this.showEmail;
-    },
-    cancelPassword() {
-      this.profileData.password = "";
-      this.profileData.password_confirmation = "";
-      this.clearError();
-      this.showPassword = !this.showPassword;
-    },
-    ShowPasswordTrigger() {
-      this.profileData.password = "";
-      this.profileData.password_confirmation = "";
-      this.clearError();
-      this.showPassword = !this.showPassword;
-    },
-    /****************************************
-     * focus処理のメソッド
-     *****************************************/
-    namefocus() {
-      if (this.showName === true) {
-        return;
-      }
-      this.showName = !this.showName;
-    },
-    emailfocus() {
-      if (this.showEmail === true) {
-        return;
-      }
-      this.showEmail = !this.showEmail;
-    },
-    imagefocus() {
-      if (this.showProfileImage === true) {
-        return;
-      }
-      this.showProfileImage = !this.showProfileImage;
-    },
-    /*************************************************
-     * バリデーションメッセージを消すアクションを呼ぶ
-     **************************************************/
-    clearError() {
-      this.$store.commit("auth/setProfileErrorMessages", null);
-    },
-    /*************************************************
-     * データ更新時のモーダルを表示
-     **************************************************/
-    showSuccess() {
-      this.success = !this.success;
-    },
-    /*************************************************
-     * プロフィールアクセス時にユーザー情報を取得
-     **************************************************/
-    getProfile() {
-      axios
-        .get("/api/user")
-        .then(response => {
-          this.profileData.name = response.data.name;
-          this.profileData.email = response.data.email;
-          this.preview = response.data.pic;
+    computed: {
+        ...mapState({
+            profileUploadErrors: state => state.auth.profileErrorMessages
+        }),
+        ...mapGetters({
+            getCode: "error/getCode"
         })
-        .catch(error => {
-          console.log(error);
-        });
+    },
+    methods: {
+        // フォームでファイルが選択されたら実行
+        fileSelected(event) {
+            // ファイルが画像でなかったら処理を中断
+            if (!event.target.files[0].type.match("image.*")) {
+                this.$store.commit("auth/setProfileErrorMessages", {
+                    profilePhoto: ["画像を選択してください"]
+                });
+                this.$el.querySelector('input[type="file"]').value = null;
+                return false;
+            }
+            // ファイル情報をdataプロパティに保存
+            // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
+            this.profileImage = event.target.files[0];
+            // FileReaderクラスのインスタンスを取得
+            const reader = new FileReader();
+            // ファイルを読み込み終わったタイミングで実行する処理
+            reader.onload = event => {
+                this.preview = event.target.result;
+            };
+            // ファイルを読み込む
+            // 読み込まれたファイルはデータURL形式で受け取れる
+            reader.readAsDataURL(event.target.files[0]);
+            this.profileData.profileImage = event.target.files[0];
+        },
+        reset() {
+            // エラーメッセージが出ていたら消す
+            this.clearError();
+            // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
+            this.$el.querySelector('input[type="file"]').value = null;
+            this.showProfileImage = !this.showProfileImage;
+        },
+        // プロフィール写真変更
+        async profileImageEdit() {
+            this.clearError();
+            // プロフィール画像保存の処理
+            // FormDataオブジェクトをインスタンス化
+            const formData = new FormData();
+            // appendメソッドでフィールドに追加（第1引数：キーを指定、第2引数：valueを指定（ファイル情報））
+            // ここのキーとフォームリクエストクラスのバリデーションで指定したキーを同じにしてないと、
+            // 常にリクエストが空とみなされてバリデーションに引っかかる
+            // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
+            formData.append("profilePhoto", this.profileData.profileImage);
+            // アクションへファイル情報を渡す
+            await this.$store.dispatch("auth/profileImageEdit", formData);
+            if (this.getCode === 200) {
+                this.showSuccess();
+                setTimeout(this.showSuccess, 3000);
+            }
+            this.showProfileImage = !this.showProfileImage;
+        },
+        async userSoftDelete() {
+            if (
+                window.confirm(
+                    "退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？"
+                )
+            ) {
+                // アクションを呼びに行く
+                await this.$store.dispatch("auth/userSoftDelete");
+                if (this.getCode === 200) {
+                    this.$router.push({ name: "Index", params: { message: '退会しました。ご利用ありがとうございました。' } });
+                }
+            }
+        },
+        async profileNameEdit() {
+            this.clearError();
+            // アクションへファイル情報を渡す
+            await this.$store.dispatch("auth/profileNameEdit", {
+                name: this.profileData.name
+            });
+            if (this.getCode === 200) {
+                this.showName = !this.showName;
+                this.showSuccess();
+                setTimeout(this.showSuccess, 3000);
+            }
+        },
+        async profileEmailEdit() {
+            this.clearError();
+            // アクションへファイル情報を渡す
+            await this.$store.dispatch("auth/profileEmailEdit", {
+                email: this.profileData.email
+            });
+            if (this.getCode === 200) {
+                this.showEmail = !this.showEmail;
+                this.showSuccess();
+                setTimeout(this.showSuccess, 3000);
+            }
+        },
+        async profilPasswordeEdit() {
+            this.clearError();
+            // アクションへファイル情報を渡す
+            await this.$store.dispatch("auth/profilPasswordeEdit", {
+                // これでkey:valueの形でデータをコントローラーへ渡せる
+                password: this.profileData.password,
+                password_confirmation: this.profileData.password_confirmation
+            });
+
+            if (this.getCode === 200) {
+                // 送信後入力フォームを空にする
+                this.profileData.password = "";
+                this.profileData.password_confirmation = "";
+                this.showPassword = !this.showPassword;
+                this.clearError();
+                this.showSuccess();
+                setTimeout(this.showSuccess, 3000);
+            }
+        },
+        cancelName() {
+            this.clearError();
+            this.showName = !this.showName;
+        },
+        canselEmail() {
+            this.clearError();
+            this.showEmail = !this.showEmail;
+        },
+        cancelPassword() {
+            this.profileData.password = "";
+            this.profileData.password_confirmation = "";
+            this.clearError();
+            this.showPassword = !this.showPassword;
+        },
+        ShowPasswordTrigger() {
+            this.profileData.password = "";
+            this.profileData.password_confirmation = "";
+            this.clearError();
+            this.showPassword = !this.showPassword;
+        },
+        /****************************************
+         * focus処理のメソッド
+         *****************************************/
+        namefocus() {
+            if (this.showName === true) {
+                return;
+            }
+            this.showName = !this.showName;
+        },
+        emailfocus() {
+            if (this.showEmail === true) {
+                return;
+            }
+            this.showEmail = !this.showEmail;
+        },
+        imagefocus() {
+            if (this.showProfileImage === true) {
+                return;
+            }
+            this.showProfileImage = !this.showProfileImage;
+        },
+        /*************************************************
+         * バリデーションメッセージを消すアクションを呼ぶ
+         **************************************************/
+        clearError() {
+            this.$store.commit("auth/setProfileErrorMessages", null);
+        },
+        /*************************************************
+         * データ更新時のモーダルを表示
+         **************************************************/
+        showSuccess() {
+            this.success = !this.success;
+        },
+        /*************************************************
+         * プロフィールアクセス時にユーザー情報を取得
+         **************************************************/
+        getProfile() {
+            axios
+                .get("/api/user")
+                .then(response => {
+                    this.profileData.name = response.data.name;
+                    this.profileData.email = response.data.email;
+                    this.preview = response.data.pic;
+                })
+                .catch(error => {
+                    console.log(error);
+                });
+        }
+    },
+    created() {
+        // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
+        this.clearError();
+        this.getProfile();
     }
-  },
-  created() {
-    // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
-    this.clearError();
-    this.getProfile();
-  }
 };
 </script>
 <style>
-.modal-enter-active,
-.modal-leave-active {
-  transition: all 0.4s ease;
-}
-.modal-enter,
-.modal-leave-to {
-  opacity: 0;
-}
-
-.flash-enter-active,
-.flash-leave-active {
-  transition: all 0.6s ease;
-}
-.flash-enter,
-.flash-leave-to {
-  opacity: 0;
-  transform: translateX(50px);
-}
 </style>
