@@ -32,10 +32,7 @@ class ResetPasswordRequest extends FormRequest
     public function messages()
     {
         return [
-            "email.required" => '入力必須です。',
-            "password.required" => '入力必須です',
             'password.regex' => '半角英数のみご利用いただけます。',
-            "password.confirmed" => '再入力フォームと一致していません。',
             "password.min" => "8文字以上で入力してください"
         ];
     }

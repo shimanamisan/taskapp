@@ -14,14 +14,14 @@
                 <div class="c-form__container">
                     <form @submit.prevent>
                         <div class="">
-                            <label for class="c-form-lavel"
-                                >登録メールアドレス</label
-                            >
                             <!-- メッセージ表示用 --->
-                            <ul v-if="sendEmailMessages" class="message">
+                            <ul v-if="sendEmailMessages" class="u-sendMail">
                                 <span>{{ sendEmailMessages }}</span>
                             </ul>
                             <!--- end message -->
+                            <label for class="c-form-lavel"
+                                >登録メールアドレス</label
+                            >
 
                             <input
                                 type="text"
@@ -80,7 +80,8 @@ export default {
     computed: {
         ...mapState({
             sendEmailMessages: state => state.auth.sendEmailMessages,
-            resetPasswordErrorMessages: state => state.auth.passwordReminderErrorMessages
+            resetPasswordErrorMessages: state =>
+                state.auth.passwordReminderErrorMessages
         }),
         ...mapGetters({
             getCode: "error/getCode",
@@ -93,6 +94,7 @@ export default {
             await this.$store.dispatch("auth/sendResetLinkEmail", sendEmail);
         },
         clearError() {
+            this.$store.commit("auth/sendEmailMessages", null);
             this.$store.commit("auth/setPasswordReminderErrorMessages", null);
         }
     },

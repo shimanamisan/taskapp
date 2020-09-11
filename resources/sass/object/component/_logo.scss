@@ -1,28 +1,26 @@
 /********************************************** 
 デフォルトのロゴサイズとスペース
 **********************************************/
-.c-logo{
-  width: 160px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  @include mq(){
-    width: 140px;
-  }
-    /********************************************** 
-    トップページ用のマージン
-    **********************************************/
-    &__header{
-      margin-top: $space_xl;
-      margin-bottom: $space_xxl;
+.c-logo {
+    width: 160px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    @include mq() {
+        width: 140px;
     }
     /********************************************** 
     トップページ用のマージン
     **********************************************/
-    &__clear-margin{
-      margin-top: 0;
-      margin-bottom: 0;
+    &__header {
+        margin-top: $space_xl;
+        margin-bottom: $space_xxl;
+    }
+    /********************************************** 
+    トップページ用のマージン
+    **********************************************/
+    &__clear-margin {
+        margin-top: 0;
+        margin-bottom: 0;
     }
 }
-
-

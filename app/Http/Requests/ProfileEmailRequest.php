@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ProfileEmailRequest  extends FormRequest
+class ProfileEmailRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -34,13 +34,11 @@ class ProfileEmailRequest  extends FormRequest
             'email' => 'bail|required|email',
         ];
     }
-
     
     // リクエストコントローラーでバリデーションメッセージを上書きできる
     public function messages()
     {
         return [
-            'email.required' => '入力必須です。',
             'email.email' => 'メールアドレスを入力してください。',
         ];
     }
