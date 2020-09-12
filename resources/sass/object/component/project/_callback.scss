@@ -1,19 +1,23 @@
 .p-callback {
     height: 100vh;
+    &__auth {
+        text-align: center;
+        &--error {
+            background-color: #ffd6da;
+        }
+    }
     &__wrapp {
         padding-top: 80px;
         @include mq() {
             padding: 80px 15px 15px 15px;
         }
         &__text {
-            text-align: center;
             width: 100%;
         }
         &__inner {
             display: flex;
             align-items: center;
             font-size: 20px;
-            text-align: center;
             height: 200px;
             margin: 0px auto;
             padding: 32px;

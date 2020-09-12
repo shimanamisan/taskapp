@@ -6,13 +6,13 @@
   bottom: 0;
   z-index: 9;
   background-color: rgba(0,0,0,0.3);
-  &--body{
+  &__body{
     position: fixed;
     left: 50%;
     top: 50%;
     width: 70%;
     max-width: 500px;
-    height: 50vh;
+    height: auto;
     box-sizing: border-box;
     padding: 30px;
     z-index: 99;
@@ -25,10 +25,10 @@
 
     }
   }
-  &--inner{
+  &__inner{
     margin-top: 30px;
   }
-  &--btn{
+  &__btn{
 
     &__passwordEdit{
       float: right;

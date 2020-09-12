@@ -110,7 +110,7 @@
                                 class="c-btn c-btn__twitter"
                                 @click="twitterRegister"
                             >
-                                Twitterユーザーで新規登録
+                                Twitterアカウントでログイン・登録
                             </button>
                         </div>
                     </div>

@@ -46,7 +46,7 @@
                                         alt="プロフィール画像"
                                         class="c-form__outputImg"
                                     />
-                                    <p v-show="PreviewProfileImage">
+                                    <p v-show="previewProfileImage">
                                         <img
                                             v-bind:src="profileData.pic"
                                             alt="プロフィール画像"
@@ -55,20 +55,16 @@
                                     </p>
                                 </output>
                                 <output v-else>
-                                    <img
-                                        src="../../img/no_img.png"
-                                        alt="プロフィール画像"
-                                        class="c-form__outputImg"
-                                    />
+                                   <NoImage class="c-form__outputImg" />
                                 </output>
                             </label>
                             <div
-                                class="l-flex l-flex--center u-btn--wrapp"
+                                class="l-flex l-flex--center u-btn__wrapp"
                                 v-show="showProfileImage"
                             >
                                 <div class="u-btn__profile--margin">
                                     <button
-                                        class="c-btn c-btn--profile c-btn--profile__cancel"
+                                        class="c-btn c-btn__profile c-btn__profile__cancel"
                                         @click="reset"
                                     >
                                         キャンセル
@@ -76,7 +72,7 @@
                                 </div>
                                 <div class="u-btn__profile--margin">
                                     <button
-                                        class="c-btn c-btn--profile"
+                                        class="c-btn c-btn__profile"
                                         @click="profileImageEdit"
                                     >
                                         変更
@@ -111,12 +107,12 @@
                                 />
                                 <!-- 変更用ボタン -->
                                 <div
-                                    class="l-flex u-btn--wrapp"
+                                    class="l-flex u-btn__wrapp"
                                     v-show="showName"
                                 >
                                     <div class="u-btn__profile--margin">
                                         <button
-                                            class="c-btn c-btn--profile c-btn--profile__cancel"
+                                            class="c-btn c-btn__profile c-btn__profile__cancel"
                                             @click="cancelName"
                                         >
                                             キャンセル
@@ -124,7 +120,7 @@
                                     </div>
                                     <div class="u-btn__profile--margin">
                                         <button
-                                            class="c-btn c-btn--profile"
+                                            class="c-btn c-btn__profile"
                                             @click="profileNameEdit"
                                         >
                                             変更
@@ -157,10 +153,10 @@
                                 />
                             </div>
                             <!-- 変更用ボタン -->
-                            <div class="l-flex u-btn--wrapp" v-show="showEmail">
+                            <div class="l-flex u-btn__wrapp" v-show="showEmail">
                                 <div class="u-btn__profile--margin">
                                     <button
-                                        class="c-btn c-btn--profile c-btn--profile__cancel"
+                                        class="c-btn c-btn__profile c-btn__profile__cancel"
                                         @click="canselEmail"
                                     >
                                         キャンセル
@@ -168,7 +164,7 @@
                                 </div>
                                 <div class="u-btn__profile--margin">
                                     <button
-                                        class="c-btn c-btn--profile"
+                                        class="c-btn c-btn__profile"
                                         @click="profileEmailEdit"
                                     >
                                         変更
@@ -176,9 +172,9 @@
                                 </div>
                             </div>
                             <!-- l-flex -->
-                            <div class="u-btn--wrapp u-btn--password">
+                            <div class="u-btn__wrapp u-btn__password">
                                 <button
-                                    class="c-btn c-btn--profile"
+                                    class="c-btn c-btn__profile"
                                     @click="showPassword = !showPassword"
                                 >
                                     パスワードの変更
@@ -189,14 +185,39 @@
                     <!-- c-form__container--profile -->
                     <transition name="c-transition__modal">
                         <div key="modal" class="c-modal" v-show="showPassword">
-                            <div class="c-modal--body">
+                            <div class="c-modal__body">
                                 <div
                                     class="p-nav--trigger"
                                     @click="ShowPasswordTrigger"
                                 >
                                     <i class="fas fa-times p-nav--close"></i>
                                 </div>
-                                <div class="c-form__item c-modal--inner">
+                                <div class="c-form__item c-modal__inner">
+                                    <label for class="c-form-lavel"
+                                        >現在のパスワード</label
+                                    >
+                                    <!-- バリデーションエラー --->
+                                    <div
+                                        v-if="profileUploadErrors"
+                                        class="errors"
+                                    >
+                                        <ul v-if="profileUploadErrors.password">
+                                            <li
+                                                v-for="msg in profileUploadErrors.password"
+                                                :key="msg"
+                                            >
+                                                {{ msg }}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <!--- end errors -->
+                                    <input
+                                        type="password"
+                                        class="c-input"
+                                        v-model="profileData.password"
+                                    />
+                                </div>
+                                <div class="c-form__item c-modal__inner">
                                     <label for class="c-form-lavel"
                                         >新しいパスワード</label
                                     >
@@ -226,25 +247,6 @@
                                     <label for class="c-form-lavel"
                                         >新しいパスワード再入力</label
                                     >
-                                    <!-- バリデーションエラー --->
-                                    <div
-                                        v-if="profileUploadErrors"
-                                        class="errors"
-                                    >
-                                        <ul
-                                            v-if="
-                                                profileUploadErrors.password_confirmation
-                                            "
-                                        >
-                                            <li
-                                                v-for="msg in profileUploadErrors.password_confirmation"
-                                                :key="msg"
-                                            >
-                                                {{ msg }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!--- end errors -->
                                     <input
                                         type="password"
                                         class="c-input"
@@ -254,10 +256,10 @@
                                     />
                                 </div>
                                 <div
-                                    class="u-btn--wrapp u-btn--password c-modal--btn__passwordEdit"
+                                    class="u-btn__wrapp u-btn__password c-modal__btn__passwordEdit"
                                 >
                                     <button
-                                        class="c-btn c-btn--profile"
+                                        class="c-btn c-btn__profile"
                                         @click="profilPasswordeEdit"
                                     >
                                         変更
@@ -298,6 +300,7 @@
 </template>
 <script>
 import { mapState, mapGetters } from "vuex";
+import NoImage from "./common/NoImage";
 import Header from "./Header";
 import Message from "./Message";
 export default {
@@ -311,7 +314,7 @@ export default {
 
             // 画像プレビューフラグ
             preview: null,
-            PreviewProfileImage: null,
+            previewProfileImage: null,
 
             // 登録後のメッセージ表示フラグ
             success: false,
@@ -328,7 +331,8 @@ export default {
     },
     components: {
         Header,
-        Message
+        Message,
+        NoImage
     },
     computed: {
         ...mapState({
@@ -398,7 +402,13 @@ export default {
                 // アクションを呼びに行く
                 await this.$store.dispatch("auth/userSoftDelete");
                 if (this.getCode === 200) {
-                    this.$router.push({ name: "Index", params: { message: '退会しました。ご利用ありがとうございました。' } });
+                    this.$router.push({
+                        name: "Index",
+                        params: {
+                            message:
+                                "退会しました。ご利用ありがとうございました。"
+                        }
+                    });
                 }
             }
         },
@@ -521,5 +531,4 @@ export default {
     }
 };
 </script>
-<style>
-</style>
+<style></style>

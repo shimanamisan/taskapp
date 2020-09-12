@@ -22,12 +22,12 @@
         <div class="l-flex u-btn--wrapp">
           <div class="u-btn__profile--margin">
             <button
-              class="c-btn c-btn--profile c-btn--profile__cancel"
+              class="c-btn c-btn__profile c-btn__profile__cancel"
               @click="clearFolderCreateForm"
             >キャンセル</button>
           </div>
-          <div class="u-btn__profile--margin">
-            <button type="submit" class="c-btn c-btn--profile" @click="createFolder">追加</button>
+          <div class="u-btn__profil__margin">
+            <button type="submit" class="c-btn c-btn__profile" @click="createFolder">追加</button>
           </div>
         </div>
         <!-- end l-flex -->
