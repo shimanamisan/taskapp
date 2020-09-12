@@ -78,7 +78,7 @@ export default {
                     this.setPic(response.data.pic);
                     this.setId(response.data.id);
                     setTimeout(() => {
-                        this.$router.push("/");
+                        this.$router.push("/tasklist");
                     }, 2000);
                     return;
                 }
