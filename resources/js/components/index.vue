@@ -187,7 +187,7 @@ export default {
         }
     },
     created() {
-        console.log('hi')
+        console.log("hi");
         this.showMessage();
     }
 };

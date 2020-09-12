@@ -1,18 +1,18 @@
 <template>
-    <div class="c-task--sidebar__wrapp">
-        <div class="c-task--sidebar__user">
+    <div class="c-task__sidebar__wrapp">
+        <div class="c-task__sidebar__user">
             <output>
                 <div class="c-task__avater" v-if="this.img">
                     <img :src="this.img" alt />
                 </div>
                 <div class="c-task__avater" v-else>
-                    <NoImage/>
+                    <NoImage />
                 </div>
             </output>
-            <h1 class="c-task--sidebar__usertitle">{{ username }}</h1>
+            <h1 class="c-task__sidebar__usertitle">{{ username }}</h1>
         </div>
     </div>
-    <!-- c-task--sidebar__wrapp -->
+    <!-- c-task__sidebar__wrapp -->
 </template>
 
 <script>
