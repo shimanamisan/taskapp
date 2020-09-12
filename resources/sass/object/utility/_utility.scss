@@ -40,7 +40,7 @@
             z-index: 2;
         }
     }
-    &sendMail{
+    &sendMail {
         padding: 16px;
         margin-bottom: 24px;
         border-radius: 5px;
@@ -86,7 +86,7 @@
 **********************************************/
 .u-icon {
     font-size: $font-size_l;
-    &--wrapp {
+    &__wrapp {
         text-align: center;
     }
     &__message {
@@ -103,14 +103,19 @@
 ボタン配置用
 **********************************************/
 .u-btn {
-    &--wrapp {
+    &__wrapp {
         margin-top: 7px;
     }
-    &--password {
+    &__password {
         margin-top: 20px;
         text-align: right;
     }
+    &__callback {
+        display: block;
+        padding: 0;
+        margin-top: 8px;
+    }
 }
-.u-btn__profile--margin {
+.u-btn__profile__margin {
     margin-left: 10px;
 }

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('my_twitter_id')->nullable()->comment('SNS認証した際に入る、SNS側のユーザー固有のID');
             $table->string('twitter_token')->nullable()->comment('SNS認証した際に入る、SNS側のユーザー固有のトークン');
             $table->string('twitter_token_secret')->nullable()->comment('SNS認証した際に入る、SNS側のユーザー固有のシークレットトークン');
+            $table->boolean('email_register_flg')->default(false)->comment('Emailでユーザー登録されたか判定用のフラグ');
             $table->boolean('delete_flg')->default(false)->comment('退会機能用のフラグ');
             $table->rememberToken();
             $table->timestamps();

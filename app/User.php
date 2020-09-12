@@ -23,6 +23,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'email_register_flg',
+        'my_twitter_id',
         'twitter_token',
         'twitter_token_secret',
         'pic',
@@ -57,7 +59,6 @@ class User extends Authenticatable
     // パスワードリセットリンクを送信するための通知クラス及び、その中のメソッドをオーバーライド
     public function sendPasswordResetNotification($token)
     {
-
-    $this->notify(new ResetPasswordNotification($token));
+        $this->notify(new ResetPasswordNotification($token));
     }
 }

@@ -462,15 +462,15 @@ br {
       background-color: #707070;
       border: solid 1px #ffffff;
       color: #ffffff; }
-  .c-btn--profile {
+  .c-btn__profile {
     font-size: 12px;
     height: 25px;
     line-height: 25px;
     background-color: #3192fa;
     color: #ffffff; }
-    .c-btn--profile__cancel {
+    .c-btn__profile__cancel {
       background-color: black; }
-      .c-btn--profile__cancel:hover {
+      .c-btn__profile__cancel:hover {
         opacity: 0.6; }
 
 .c-header__btn {
@@ -576,13 +576,13 @@ br {
   bottom: 0;
   z-index: 9;
   background-color: rgba(0, 0, 0, 0.3); }
-  .c-modal--body {
+  .c-modal__body {
     position: fixed;
     left: 50%;
     top: 50%;
     width: 70%;
     max-width: 500px;
-    height: 50vh;
+    height: auto;
     box-sizing: border-box;
     padding: 30px;
     z-index: 99;
@@ -593,11 +593,11 @@ br {
     transform: translate(-50%, -50%);
     background-color: #fff; }
     @media screen and (max-width: 414px) {
-      .c-modal--body {
+      .c-modal__body {
         width: 90%; } }
-  .c-modal--inner {
+  .c-modal__inner {
     margin-top: 30px; }
-  .c-modal--btn__passwordEdit {
+  .c-modal__btn__passwordEdit {
     float: right; }
 
 .fade-enter-active, .fade-leave-active {
@@ -1195,19 +1195,21 @@ br {
 
 .p-callback {
   height: 100vh; }
+  .p-callback__auth {
+    text-align: center; }
+    .p-callback__auth--error {
+      background-color: #ffd6da; }
   .p-callback__wrapp {
     padding-top: 80px; }
     @media screen and (max-width: 414px) {
       .p-callback__wrapp {
         padding: 80px 15px 15px 15px; } }
     .p-callback__wrapp__text {
-      text-align: center;
       width: 100%; }
     .p-callback__wrapp__inner {
       display: flex;
       align-items: center;
       font-size: 20px;
-      text-align: center;
       height: 200px;
       margin: 0px auto;
       padding: 32px;
@@ -1303,7 +1305,7 @@ br {
 **********************************************/
 .u-icon {
   font-size: 18px; }
-  .u-icon--wrapp {
+  .u-icon__wrapp {
     text-align: center; }
   .u-icon__message {
     vertical-align: middle;
@@ -1315,14 +1317,19 @@ br {
 /********************************************** 
 ボタン配置用
 **********************************************/
-.u-btn--wrapp {
+.u-btn__wrapp {
   margin-top: 7px; }
 
-.u-btn--password {
+.u-btn__password {
   margin-top: 20px;
   text-align: right; }
 
-.u-btn__profile--margin {
+.u-btn__callback {
+  display: block;
+  padding: 0;
+  margin-top: 8px; }
+
+.u-btn__profile__margin {
   margin-left: 10px; }
 
 .fade-enter,

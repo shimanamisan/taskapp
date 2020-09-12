@@ -170,7 +170,6 @@ const actions = {
         // 200ステータスの処理
         if (response.status === OK) {
             commit("setApiStatus", true);
-            console.log(response.data);
             const username = response.data.name;
             const email = response.data.email;
             const profileImage = response.data.pic;

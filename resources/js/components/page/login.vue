@@ -46,7 +46,6 @@
                             <label for="login-password" class="c-form-lavel"
                                 >パスワード</label
                             >
-
                             <input
                                 id="login-password"
                                 type="password"
@@ -91,7 +90,7 @@
                                 class="c-btn c-btn__twitter"
                                 @click="twitterLogin"
                             >
-                                Twitterユーザーでログイン
+                                Twitterアカウントでログイン・登録
                             </button>
                         </div>
                     </div>
@@ -138,7 +137,7 @@ export default {
             if (this.apiStatus) {
                 // 通信が成功（apiStatusがtureの場合）したら移動する
                 this.$router.push("/tasklist");
-            }
+            } 
         },
         async twitterLogin() {
             const response = await axios.get("/api/auth/twitter");

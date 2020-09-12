@@ -68,6 +68,7 @@ class RegisterController extends Controller
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
+            'email_register_flg' => true, //Emailで登録されたか判定用フラグ
             'password' => Hash::make($data['password']),
         ]);
     }
