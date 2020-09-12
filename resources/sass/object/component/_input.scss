@@ -39,11 +39,10 @@
         }
     }
   }
+  &__tasks{
+    font-size: 16px;
+    padding: 3px 4px;
+    width: 170px;
+  }
 }
 
-.c-input--tasks{
-  font-size: 16px;
-  padding: 3px 4px;
-  width: 170px;
-
-}

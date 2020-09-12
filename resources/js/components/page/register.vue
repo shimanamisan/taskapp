@@ -3,7 +3,7 @@
         <section class="l-main__auth">
             <div class="c-logo__header" id="rink-id">
                 <router-link to="/">
-                    <CommonLogo/>
+                    <CommonLogo />
                 </router-link>
             </div>
             <div class="l-card__container">
@@ -21,7 +21,7 @@
                                 type="text"
                                 class="c-input"
                                 v-model="registerForm.name"
-                                :class="{'c-error__bg': registerNameErrors}"
+                                :class="{ 'c-error__bg': registerNameErrors }"
                             />
                             <!-- バリデーションエラー -->
                             <div v-if="registerErrors" class="c-error">
@@ -44,7 +44,7 @@
                                 type="text"
                                 class="c-input"
                                 v-model="registerForm.email"
-                                :class="{'c-error__bg': registerEmailErrors}"
+                                :class="{ 'c-error__bg': registerEmailErrors }"
                             />
                             <!-- バリデーションエラー -->
                             <div v-if="registerEmailErrors" class="c-error">
@@ -67,7 +67,9 @@
                                 type="password"
                                 class="c-input"
                                 v-model="registerForm.password"
-                                :class="{'c-error__bg': registerPasswordErrors}"
+                                :class="{
+                                    'c-error__bg': registerPasswordErrors
+                                }"
                             />
                             <!-- バリデーションエラー -->
                             <div v-if="registerErrors" class="c-error">
@@ -91,7 +93,6 @@
                                 class="c-input"
                                 v-model="registerForm.password_confirmation"
                             />
-                          
                         </div>
                         <div class="">
                             「<router-link to="/rule">利用規約</router-link
@@ -146,12 +147,12 @@ export default {
     computed: {
         ...mapState({
             apiStatus: state => state.auth.apiStatus,
-            registerErrors: state => state.auth.registerErrorMessages,
+            registerErrors: state => state.auth.registerErrorMessages
         }),
         ...mapGetters({
             registerEmailErrors: "auth/getRegisterEmailError",
             registerNameErrors: "auth/getRegisterNameError",
-            registerPasswordErrors: "auth/getRegisterPasswordError",
+            registerPasswordErrors: "auth/getRegisterPasswordError"
         })
     },
     methods: {
@@ -163,7 +164,6 @@ export default {
                 // 通信が成功（apiStatusがtureの場合）したら移動する
                 this.$router.push("/tasklist");
             }
-            
         },
         async twitterRegister() {
             const response = await axios.get("/api/auth/twitter");
@@ -177,8 +177,8 @@ export default {
         clearError() {
             this.$store.commit("auth/setRegisterErrorMessages", null);
         },
-        validMessage(){
-            console.log(registerErrors)
+        validMessage() {
+            console.log(registerErrors);
         }
     },
     created() {

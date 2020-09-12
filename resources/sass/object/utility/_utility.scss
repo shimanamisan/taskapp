@@ -115,7 +115,16 @@
         padding: 0;
         margin-top: 8px;
     }
+    &__profile {
+        &__margin {
+            margin-left: 10px;
+            &:first-child{
+                margin-left: 0px;
+            }
+        }
+    }
 }
-.u-btn__profile__margin {
-    margin-left: 10px;
+
+.u-animetion{
+    background-color: red;
 }

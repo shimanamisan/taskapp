@@ -71,7 +71,7 @@ export default {
                     return;
                 } else {
                     this.authMessage = "認証に成功しました。";
-                    console.log(response)
+                    console.log(response);
                     this.setApiStatus(response.status);
                     this.setEmail(response.data.email);
                     this.setUser(response.data.name);

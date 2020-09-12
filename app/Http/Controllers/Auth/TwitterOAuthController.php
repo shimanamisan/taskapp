@@ -53,6 +53,7 @@ class TwitterOAuthController extends Controller
             $newUser = User::create([
             'name' => $socialUser->getNickname(),
             'email' => $socialUser->getEmail(),
+            'pic' => $socialUser->getAvatar(),
             'my_twitter_id' => $socialUser->getId(),
             'twitter_token' => $socialUser->token,
             'twitter_token_secret' => $socialUser->tokenSecret

@@ -55,14 +55,14 @@
                                     </p>
                                 </output>
                                 <output v-else>
-                                   <NoImage class="c-form__outputImg" />
+                                    <NoImage class="c-form__outputImg" />
                                 </output>
                             </label>
                             <div
                                 class="l-flex l-flex--center u-btn__wrapp"
                                 v-show="showProfileImage"
                             >
-                                <div class="u-btn__profile--margin">
+                                <div class="u-btn__profile__margin">
                                     <button
                                         class="c-btn c-btn__profile c-btn__profile__cancel"
                                         @click="reset"
@@ -70,7 +70,7 @@
                                         キャンセル
                                     </button>
                                 </div>
-                                <div class="u-btn__profile--margin">
+                                <div class="u-btn__profile__margin">
                                     <button
                                         class="c-btn c-btn__profile"
                                         @click="profileImageEdit"
@@ -110,7 +110,7 @@
                                     class="l-flex u-btn__wrapp"
                                     v-show="showName"
                                 >
-                                    <div class="u-btn__profile--margin">
+                                    <div class="u-btn__profile__margin">
                                         <button
                                             class="c-btn c-btn__profile c-btn__profile__cancel"
                                             @click="cancelName"
@@ -118,7 +118,7 @@
                                             キャンセル
                                         </button>
                                     </div>
-                                    <div class="u-btn__profile--margin">
+                                    <div class="u-btn__profile__margin">
                                         <button
                                             class="c-btn c-btn__profile"
                                             @click="profileNameEdit"
@@ -154,7 +154,7 @@
                             </div>
                             <!-- 変更用ボタン -->
                             <div class="l-flex u-btn__wrapp" v-show="showEmail">
-                                <div class="u-btn__profile--margin">
+                                <div class="u-btn__profile__margin">
                                     <button
                                         class="c-btn c-btn__profile c-btn__profile__cancel"
                                         @click="canselEmail"
@@ -162,7 +162,7 @@
                                         キャンセル
                                     </button>
                                 </div>
-                                <div class="u-btn__profile--margin">
+                                <div class="u-btn__profile__margin">
                                     <button
                                         class="c-btn c-btn__profile"
                                         @click="profileEmailEdit"

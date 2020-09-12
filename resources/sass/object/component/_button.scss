@@ -1,10 +1,10 @@
 .c-btn {
     @include custumRadius(3px);
-    padding: 0 1.5rem;
-    height: 50px;
+    padding: 8px 25px;
+    height: auto;
     transition: $transition_s;
     @include mq() {
-        padding: 10px 15px;
+        padding: 10px 25px;
     }
     cursor: pointer;
     &:hover {
@@ -74,8 +74,8 @@
     }
     &__profile {
         font-size: 12px;
-        height: 25px;
-        line-height: 25px;
+        // height: 25px;
+        // line-height: 25px;
         background-color: rgb(49, 146, 250);
         color: #ffffff;
 

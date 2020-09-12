@@ -301,7 +301,8 @@ br {
     @media screen and (max-width: 414px) {
       .l-header__menu--item {
         padding: 15px;
-        font-size: 30px; } }
+        font-size: 30px;
+        margin-left: 0px; } }
   .l-header__menu--trigger {
     display: none;
     transition: all .4s;
@@ -400,13 +401,13 @@ br {
   -moz-border-radius: 3px;
   -webkit-border-radius: 3px;
   border-radius: 3px;
-  padding: 0 1.5rem;
-  height: 50px;
+  padding: 8px 25px;
+  height: auto;
   transition: 0.3s;
   cursor: pointer; }
   @media screen and (max-width: 414px) {
     .c-btn {
-      padding: 10px 15px; } }
+      padding: 10px 25px; } }
   .c-btn:hover {
     opacity: 0.6; }
   .c-btn:focus {
@@ -464,8 +465,6 @@ br {
       color: #ffffff; }
   .c-btn__profile {
     font-size: 12px;
-    height: 25px;
-    line-height: 25px;
     background-color: #3192fa;
     color: #ffffff; }
     .c-btn__profile__cancel {
@@ -562,11 +561,10 @@ br {
       opacity: 0; }
       .c-input--profile__drop:hover {
         cursor: pointer; }
-
-.c-input--tasks {
-  font-size: 16px;
-  padding: 3px 4px;
-  width: 170px; }
+  .c-input__tasks {
+    font-size: 16px;
+    padding: 3px 4px;
+    width: 170px; }
 
 .c-modal {
   position: fixed;
@@ -714,33 +712,33 @@ br {
     @media screen and (max-width: 360px) {
       .c-task--borad03 {
         margin-top: 20px; } }
-  .c-task--sidebar {
+  .c-task__sidebar {
     width: 300px;
     padding: 30px;
     position: absolute; }
     @media screen and (max-width: 360px) {
-      .c-task--sidebar {
-        padding: 10px 10px 10px 30px; } }
-    .c-task--sidebar__user {
+      .c-task__sidebar {
+        padding: 10px 10px 10px 10px; } }
+    .c-task__sidebar__user {
       display: flex;
       align-items: center;
       justify-content: center; }
-    .c-task--sidebar__usertitle {
+    .c-task__sidebar__usertitle {
       font-size: 18px;
       text-align: center;
       text-overflow: ellipsis;
       overflow: hidden; }
-    .c-task--sidebar__wrapp {
+    .c-task__sidebar__wrapp {
       width: 100%;
       padding: 10px;
       overflow-y: auto;
       max-height: 370px;
       box-sizing: border-box; }
       @media screen and (max-width: 414px) {
-        .c-task--sidebar__wrapp {
+        .c-task__sidebar__wrapp {
           max-height: 450px; } }
       @media screen and (max-width: 360px) {
-        .c-task--sidebar__wrapp {
+        .c-task__sidebar__wrapp {
           padding: 5px;
           max-height: 320px; } }
   .c-task__avater {
@@ -751,34 +749,37 @@ br {
       -moz-border-radius: 50%;
       -webkit-border-radius: 50%;
       border-radius: 50%; }
-  .c-task--folder {
+  .c-task__folder {
     overflow: hidden;
     overflow-y: auto; }
-    .c-task--folder__wrapp {
+    .c-task__folder__wrapp {
       display: flex;
       justify-content: flex-end;
       box-sizing: border-box;
-      padding: 5px 10px;
+      padding: 10px 10px;
       margin-top: 10px;
       transition: .5s;
       box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3); }
-      .c-task--folder__wrapp > :last-child {
+      .c-task__folder__wrapp > :last-child {
         margin-left: auto; }
-      .c-task--folder__wrapp:hover {
+      .c-task__folder__wrapp:hover {
         cursor: pointer;
         background: #36363638;
         transition: .5s; }
-      .c-task--folder__wrapp--active {
+      .c-task__folder__wrapp--active {
         background: #36363638; }
-    .c-task--folder__item {
+    .c-task__folder__item {
       max-width: 210px;
       text-overflow: ellipsis;
       overflow: hidden;
       display: inline-block;
       user-select: none; }
-      .c-task--folder__item:hover {
+      .c-task__folder__item:hover {
         cursor: pointer; }
-    .c-task--folder--icon {
+    .c-task__folder__trash {
+      display: block;
+      float: right; }
+    .c-task__folder--icon {
       margin-right: 10px !important; }
   .c-task--card {
     display: flex;
@@ -789,7 +790,7 @@ br {
       @media screen and (max-width: 360px) {
         .c-task--card__inner {
           height: 88%; } }
-  .c-task--todo {
+  .c-task__todo {
     display: flex;
     flex-direction: column;
     padding: 15px;
@@ -803,26 +804,26 @@ br {
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius: 8px; }
-    .c-task--todo__wrapp {
+    .c-task__todo__wrapp {
       display: flex;
       justify-content: flex-end;
       margin-bottom: 7px; }
-      .c-task--todo__wrapp > :last-child {
+      .c-task__todo__wrapp > :last-child {
         margin-left: auto;
         user-select: none; }
-    .c-task--todo__item {
+    .c-task__todo__item {
       display: inline-block;
       overflow: hidden;
       max-width: 245px;
       text-overflow: ellipsis;
       user-select: none; }
-    .c-task--todo--inputAreaWrapp {
+    .c-task__todo__inputAreaWrapp {
       padding: 10px 0;
       box-sizing: border-box; }
-    .c-task--todo--inputArea {
+    .c-task__todo__inputArea {
       min-height: 50px;
       width: 100%;
-      font-size: 12px;
+      font-size: 16px;
       color: #4a4a4a;
       border: none;
       border-top: 1px solid #efefef;
@@ -833,19 +834,19 @@ br {
       -moz-box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2);
       -webkit-box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2);
       box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2); }
-    .c-task--todo__wrapp {
+    .c-task__todo__wrapp {
       width: 100%;
       box-sizing: border-box; }
-    .c-task--todo__header {
+    .c-task__todo__header {
       padding: 10px 0;
       display: flex;
       justify-content: flex-end; }
-      .c-task--todo__header > :last-child {
+      .c-task__todo__header > :last-child {
         margin-left: auto; }
-    .c-task--todo--counter {
+    .c-task__todo--counter {
       color: #7760f8;
       margin-left: 10px; }
-    .c-task--todo--list {
+    .c-task__todo--list {
       padding: 5px 10px;
       height: 60px;
       background: #ffffff;
@@ -857,17 +858,17 @@ br {
       -moz-box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2);
       -webkit-box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2);
       box-shadow: 1px 2px 2px 1px rgba(155, 155, 155, 0.2); }
-      .c-task--todo--list--del {
+      .c-task__todo--list--del {
         float: right; }
-        .c-task--todo--list--del > i {
+        .c-task__todo--list--del > i {
           vertical-align: baseline; }
-    .c-task--todo--push {
+    .c-task__todo--push {
       font-size: 14px;
       text-align: center;
       height: 30px;
       color: #62ABF8;
       transition: 0.5s; }
-      .c-task--todo--push:hover {
+      .c-task__todo--push:hover {
         cursor: pointer;
         opacity: 0.6;
         transition: 0.5s; }
@@ -1331,6 +1332,11 @@ br {
 
 .u-btn__profile__margin {
   margin-left: 10px; }
+  .u-btn__profile__margin:first-child {
+    margin-left: 0px; }
+
+.u-animetion {
+  background-color: red; }
 
 .fade-enter,
 .fade-leave-to {
@@ -1342,10 +1348,6 @@ br {
   transition: opacity 0.5s;
 }
 
-.c-task--folder__trash {
-  display: block;
-  float: right;
-}
 .fa-edit {
   margin-right: 5px;
 }

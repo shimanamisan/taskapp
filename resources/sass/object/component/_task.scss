@@ -45,12 +45,12 @@
     
   }
   // ここからサイドバー
-    &--sidebar{
+    &__sidebar{
       width: 300px;
       padding: $space_xxl;
       position: absolute;
       @include mq(ssm){
-        padding: 10px 10px 10px 30px;
+        padding: 10px 10px 10px 10px;
       }
           &__user{
             display: flex;
@@ -87,14 +87,14 @@
       }
     }
 
-    &--folder{
+    &__folder{
      overflow: hidden;
      overflow-y: auto;
         &__wrapp{
           display: flex;
           justify-content: flex-end;
           box-sizing: border-box;
-          padding: 5px 10px;
+          padding: 10px 10px;
           margin-top: 10px;
           transition: .5s;
           box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
@@ -120,6 +120,10 @@
             cursor: pointer;
           }
         }
+        &__trash{
+          display: block;
+          float: right;
+        }
         &--icon{
           margin-right: 10px !important;
         }
@@ -137,7 +141,7 @@
           }
         }
     }
-    &--todo{
+    &__todo{
       display: flex;
       flex-direction: column;
       padding: 15px;
@@ -166,15 +170,15 @@
           text-overflow: ellipsis;
           user-select: none;
         }
-        &--inputAreaWrapp{
+        &__inputAreaWrapp{
           // background-color: #ccc;
           padding: 10px 0;
           box-sizing: border-box;
         }
-        &--inputArea{
+        &__inputArea{
           min-height: 50px;
           width: 100%;
-          font-size: 12px;
+          font-size: 16px;
           color: #4a4a4a;
           border: none;
           border-top: 1px solid #efefef;
