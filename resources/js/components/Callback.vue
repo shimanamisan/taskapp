@@ -62,6 +62,7 @@ export default {
             });
             if (response.status === OK) {
                 if (this.$route.query.denied) {
+                    this.setApiStatus(false);
                     this.auth_flg = false;
                     this.authMessage =
                         "認証に失敗しました。ログインページへ戻ります。";
@@ -71,10 +72,9 @@ export default {
                     return;
                 } else {
                     this.authMessage = "認証に成功しました。";
-                    console.log(response);
-                    this.setApiStatus(response.status);
-                    this.setEmail(response.data.email);
+                    this.setApiStatus(true);
                     this.setUser(response.data.name);
+                    this.setEmail(response.data.email);
                     this.setPic(response.data.pic);
                     this.setId(response.data.id);
                     setTimeout(() => {
