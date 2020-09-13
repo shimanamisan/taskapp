@@ -689,29 +689,7 @@
 
 /* 360 */
 
-/* 361 */
-
-/* 362 */
-
-/* 363 */
-
-/* 364 */
-
-/* 365 */
-
-/* 366 */
-
-/* 367 */
-
-/* 368 */
-
-/* 369 */
-
 /* 37 */
-
-/* 370 */
-
-/* 371 */
 
 /* 38 */
 
@@ -13441,6 +13419,10 @@
 ゲッター
 ********************************/
 
+/*******************************
+ステート
+********************************/
+
 /***********************************
 ゲッター（アロー関数で短縮形で記述）
 ************************************/
@@ -13471,10 +13453,6 @@
 
 /****************************************
   エラーメッセージ関係
-  *****************************************/
-
-/****************************************
-  ゲストユーザーログイン
   *****************************************/
 
 /****************************************
@@ -14030,8 +14008,6 @@
 // 20.3.3.1 / 15.9.4.4 Date.now()
 
 // 20.3.4.36 / 15.9.5.43 Date.prototype.toISOString()
-
-// 200ステータスの処理
 
 // 21.1.2.2 String.fromCodePoint(...codePoints)
 
@@ -14785,6 +14761,10 @@
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskListAdd.vue?vue&type=script&lang=js&
 
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/CommonLogo.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/NoImage.vue?vue&type=script&lang=js&
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/footer.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/index.vue?vue&type=script&lang=js&
@@ -14801,11 +14781,7 @@
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/error/SystemError.vue?vue&type=script&lang=js&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=template&id=f348271a&
-
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Callback.vue?vue&type=template&id=ce60e9a0&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Header.vue?vue&type=template&id=1f42fb90&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Message.vue?vue&type=template&id=b91a6428&
 
@@ -14829,6 +14805,10 @@
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskListAdd.vue?vue&type=template&id=768bdc7a&
 
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/CommonLogo.vue?vue&type=template&id=7fe0cd82&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/common/NoImage.vue?vue&type=template&id=662bd3e1&
+
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/footer.vue?vue&type=template&id=585a4226&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/index.vue?vue&type=template&id=2ac2c897&
@@ -14848,6 +14828,16 @@
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/runtime/componentNormalizer.js
 
 // CONCATENATED MODULE: ./node_modules/vue-router/dist/vue-router.esm.js
+
+// CONCATENATED MODULE: ./resources/img/eyecatch-img.png
+
+// CONCATENATED MODULE: ./resources/img/eyecatch-logo.png
+
+// CONCATENATED MODULE: ./resources/img/header-logo.png
+
+// CONCATENATED MODULE: ./resources/img/logo.png
+
+// CONCATENATED MODULE: ./resources/img/no_img.png
 
 // CONCATENATED MODULE: ./resources/js/App.vue
 
@@ -14913,6 +14903,10 @@
 
 // CONCATENATED MODULE: ./resources/js/components/TaskListAdd.vue?vue&type=template&id=768bdc7a&
 
+// CONCATENATED MODULE: ./resources/js/components/common/CommonLogo.vue?vue&type=template&id=7fe0cd82&
+
+// CONCATENATED MODULE: ./resources/js/components/common/NoImage.vue?vue&type=template&id=662bd3e1&
+
 // CONCATENATED MODULE: ./resources/js/components/footer.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./resources/js/components/footer.vue?vue&type=template&id=585a4226&
@@ -14948,6 +14942,8 @@
 // CONCATENATED MODULE: ./resources/js/statusCode.js
 
 // CONCATENATED MODULE: ./resources/js/store/auth.js
+
+// CONCATENATED MODULE: ./resources/js/store/contact.js
 
 // CONCATENATED MODULE: ./resources/js/store/store.js
 
@@ -15468,6 +15464,8 @@
 // EXTERNAL MODULE: ./node_modules/vuedraggable/dist/vuedraggable.common.js
 
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
+
+// EXTERNAL MODULE: ./resources/sass/style.scss
 
 // EXTERNAL MODULE: external {"commonjs":"sortablejs","commonjs2":"sortablejs","amd":"sortablejs","root":"Sortable"}
 
@@ -19523,8 +19521,6 @@
 
 // import Loading from './components/loading/Loading'
 
-// import { getCookieValue } from './csrf'
-
 // important for dynamic transitions!
 
 // important to get this right, even though it requires care.
@@ -20192,6 +20188,8 @@
 // public mount method
 
 // push text token
+
+// push({ path: '/' }) のようにパス指定ではpropsが受け取れなかったので名前をつける
 
 // push.apply(_, arraylike) throws on ancient WebKit
 
@@ -21177,6 +21175,14 @@
 
 // },
 
+// お問い合わせバリデーション（Email）
+
+// お問い合わせバリデーション（お名前）
+
+// お問い合わせバリデーション（お問い合わせ内容）
+
+// お問い合わせバリデーション（件名）
+
 // お問い合わせページ
 
 // こうしなければ、Laravel側で$requestで受け取る際に、keyが無いものとしてnull値になってしまう
@@ -21273,7 +21279,13 @@
 
 // パスワードリセットするために必要なToken
 
+// パスワードリセットアクション時のエラーメッセージ監視（Email）
+
+// パスワードリセットアクション時のエラーメッセージ監視（Password）
+
 // パスワードリセットメール送信時のエラーメッセージ用ミューテーション
+
+// パスワードリセットメール送信時のエラーメッセージ監視（Email）
 
 // パスワードリマインダー
 
@@ -21333,8 +21345,6 @@
 
 // メソッドを使うために配列を定義
 
-// メッセージを表示した2秒後に、トップページへリダイレクトする
-
 // ユーザーIDをセット
 
 // ユーザー削除
@@ -21365,11 +21375,17 @@
 
 // ログイン時のエラーハンドリングのためのミューテーション
 
+// ログイン時のエラーメッセージの監視（Email）
+
+// ログイン時のエラーメッセージの監視（Password）
+
 // ログイン状態を更新
 
 // ログイン画面へ
 
 // 会員登録時のエラーハンドリング用ミューテーション
+
+// 例外発生時でも、Laravel側でログアウトしているのでストアに持たせたログイン情報は削除する
 
 // 全てのデータをステートにセット
 
@@ -21388,6 +21404,12 @@
 // 投稿後にフォームの中身を削除し、フォームを非表示にする
 
 // 新規登録ページにアクセスした際に、認証済みだったらタスクページに移動する
+
+// 新規登録時のエラーメッセージの監視（Email）
+
+// 新規登録時のエラーメッセージの監視（Name）
+
+// 新規登録時のエラーメッセージの監視（Password）
 
 // 更新フォームがキャンセルされたとき
 
