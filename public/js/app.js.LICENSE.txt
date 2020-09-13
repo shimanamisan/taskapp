@@ -13535,8 +13535,6 @@
 
 //     return this.$store.state.auth.apiStatus
 
-//     this.loading = false
-
 //    - Any
 
 //    - If key is not up or down => not a dropdown command
@@ -13587,13 +13585,9 @@
 
 //   isLogin(){
 
-//   setTimeout( function(){
-
 //   while $(DOMNode).css('padding-right') returns the calculated value or 0 if not set
 
 //   },
-
-//   }, 1000)
 
 //  - And not a key in REGEXP_KEYDOWN => not a dropdown command
 
@@ -19519,8 +19513,6 @@
 
 // implementations (#9632)
 
-// import Loading from './components/loading/Loading'
-
 // important for dynamic transitions!
 
 // important to get this right, even though it requires care.
@@ -19866,8 +19858,6 @@
 // most Object methods by ES6 should accept primitives
 
 // mounted is called for render-created child components in its inserted hook
-
-// mounted(){
 
 // mounting to a real element
 
@@ -21172,8 +21162,6 @@
 // {display: ["-webkit-box", "-ms-flexbox", "flex"]}
 
 // }
-
-// },
 
 // お問い合わせバリデーション（Email）
 
