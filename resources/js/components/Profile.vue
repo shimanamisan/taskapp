@@ -62,17 +62,17 @@
                                 class="l-flex l-flex--center u-btn__wrapp"
                                 v-show="showProfileImage"
                             >
-                                <div class="u-btn__profile__margin">
+                                <div class="u-btn__common__margin">
                                     <button
-                                        class="c-btn c-btn__profile c-btn__profile__cancel"
+                                        class="c-btn c-btn__common c-btn__common__cancel"
                                         @click="reset"
                                     >
                                         キャンセル
                                     </button>
                                 </div>
-                                <div class="u-btn__profile__margin">
+                                <div class="u-btn__common__margin">
                                     <button
-                                        class="c-btn c-btn__profile"
+                                        class="c-btn c-btn__common"
                                         @click="profileImageEdit"
                                     >
                                         変更
@@ -110,17 +110,17 @@
                                     class="l-flex u-btn__wrapp"
                                     v-show="showName"
                                 >
-                                    <div class="u-btn__profile__margin">
+                                    <div class="u-btn__common__margin">
                                         <button
-                                            class="c-btn c-btn__profile c-btn__profile__cancel"
+                                            class="c-btn c-btn__common c-btn__common__cancel"
                                             @click="cancelName"
                                         >
                                             キャンセル
                                         </button>
                                     </div>
-                                    <div class="u-btn__profile__margin">
+                                    <div class="u-btn__common__margin">
                                         <button
-                                            class="c-btn c-btn__profile"
+                                            class="c-btn c-btn__common"
                                             @click="profileNameEdit"
                                         >
                                             変更
@@ -154,17 +154,17 @@
                             </div>
                             <!-- 変更用ボタン -->
                             <div class="l-flex u-btn__wrapp" v-show="showEmail">
-                                <div class="u-btn__profile__margin">
+                                <div class="u-btn__common__margin">
                                     <button
-                                        class="c-btn c-btn__profile c-btn__profile__cancel"
+                                        class="c-btn c-btn__common c-btn__common__cancel"
                                         @click="canselEmail"
                                     >
                                         キャンセル
                                     </button>
                                 </div>
-                                <div class="u-btn__profile__margin">
+                                <div class="u-btn__common__margin">
                                     <button
-                                        class="c-btn c-btn__profile"
+                                        class="c-btn c-btn__common"
                                         @click="profileEmailEdit"
                                     >
                                         変更
@@ -174,7 +174,7 @@
                             <!-- l-flex -->
                             <div class="u-btn__wrapp u-btn__password">
                                 <button
-                                    class="c-btn c-btn__profile"
+                                    class="c-btn c-btn__common"
                                     @click="showPassword = !showPassword"
                                 >
                                     パスワードの変更
@@ -259,7 +259,7 @@
                                     class="u-btn__wrapp u-btn__password c-modal__btn__passwordEdit"
                                 >
                                     <button
-                                        class="c-btn c-btn__profile"
+                                        class="c-btn c-btn__common"
                                         @click="profilPasswordeEdit"
                                     >
                                         変更

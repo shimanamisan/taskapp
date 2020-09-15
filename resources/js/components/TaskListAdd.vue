@@ -29,17 +29,17 @@
                 </ul>
                 <!--- end c-error -->
                 <div class="l-flex u-btn__wrapp">
-                    <div class="u-btn__profile__margin">
+                    <div class="u-btn__common__margin">
                         <button
-                            class="c-btn c-btn__profile c-btn__profile__cancel"
+                            class="c-btn c-btn__common c-btn__common__cancel"
                             @click="clearTaskCreateForm"
                         >
                             キャンセル
                         </button>
                     </div>
-                    <div class="u-btn__profile__margin">
+                    <div class="u-btn__common__margin">
                         <button
-                            class="c-btn c-btn__profile"
+                            class="c-btn c-btn__common"
                             @click="createTask"
                         >
                             追加

@@ -1,6 +1,6 @@
 .c-btn {
     @include custumRadius(3px);
-    padding: 8px 25px;
+    padding: 15px 25px;
     height: auto;
     transition: $transition_s;
     @include mq() {
@@ -20,6 +20,18 @@
         }
         &--back {
             background: rgb(0, 0, 0) !important;
+            &:hover {
+                opacity: 0.6;
+            }
+        }
+    }
+    &__common {
+        font-size: 12px;
+        background-color: rgb(49, 146, 250);
+        color: #ffffff;
+        padding: 8px 25px;
+        &__cancel {
+            background-color: rgb(0, 0, 0);
             &:hover {
                 opacity: 0.6;
             }
@@ -70,20 +82,6 @@
             background-color: #707070;
             border: solid 1px #ffffff;
             color: #ffffff;
-        }
-    }
-    &__profile {
-        font-size: 12px;
-        // height: 25px;
-        // line-height: 25px;
-        background-color: rgb(49, 146, 250);
-        color: #ffffff;
-
-        &__cancel {
-            background-color: rgb(0, 0, 0);
-            &:hover {
-                opacity: 0.6;
-            }
         }
     }
 }
