@@ -56,7 +56,7 @@ export default {
         return {
             editFlag: false,
             folderTitle: this.title,
-            folderActive: "c-task--folder__wrapp--active",
+            folderActive: "c-task__folder__wrapp--active",
             folderDisable: ""
         };
     },
