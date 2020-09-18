@@ -3,7 +3,7 @@
         <Header />
         <div class="l-wrapper l-wrapper__profile">
             <transition name="c-transition__flash">
-                <Message v-show="success" />
+                <Message v-show="success" :message-data="this.success_message"/>
             </transition>
             <div class="l-main__auth l-main__auth--profile">
                 <div class="l-card__container">
@@ -21,7 +21,7 @@
                             <!-- バリデーションエラー --->
                             <div
                                 v-if="profileUploadErrors"
-                                class="errors errors--profile"
+                                class="c-error errors--profile"
                             >
                                 <ul v-if="profileUploadErrors.profilePhoto">
                                     <li
@@ -32,7 +32,7 @@
                                     </li>
                                 </ul>
                             </div>
-                            <!--- end errors -->
+                            <!--- end c-error -->
                             <label class="c-input--profile">
                                 <input
                                     type="file"
@@ -88,7 +88,7 @@
                                     >ニックネーム</label
                                 >
                                 <!-- バリデーションエラー --->
-                                <div v-if="profileUploadErrors" class="errors">
+                                <div v-if="profileUploadErrors" class="c-error">
                                     <ul v-if="profileUploadErrors.name">
                                         <li
                                             v-for="msg in profileUploadErrors.name"
@@ -98,7 +98,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <!--- end errors -->
+                                <!--- end c-error -->
                                 <input
                                     type="text"
                                     class="c-input"
@@ -134,7 +134,7 @@
                                     >メールアドレス</label
                                 >
                                 <!-- バリデーションエラー --->
-                                <div v-if="profileUploadErrors" class="errors">
+                                <div v-if="profileUploadErrors" class="c-error">
                                     <ul v-if="profileUploadErrors.email">
                                         <li
                                             v-for="msg in profileUploadErrors.email"
@@ -144,7 +144,7 @@
                                         </li>
                                     </ul>
                                 </div>
-                                <!--- end errors -->
+                                <!--- end c-error -->
                                 <input
                                     type="text"
                                     class="c-input"
@@ -241,6 +241,7 @@ export default {
 
             // 登録後のメッセージ表示フラグ
             success: false,
+            success_message: null,
 
             // プロフィールのフォームデータ
             profileData: {
@@ -309,7 +310,10 @@ export default {
             // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
             formData.append("profilePhoto", this.profileData.profileImage);
             // アクションへファイル情報を渡す
-            await this.$store.dispatch("auth/profileImageEdit", formData);
+            await this.$store.dispatch("auth/profileImageEdit", {
+                user_id: this.user_id,
+                img_data: formData
+            });
             if (this.getCode === 200) {
                 this.showSuccess();
                 setTimeout(this.showSuccess, 3000);
@@ -351,6 +355,7 @@ export default {
             this.clearError();
             // アクションへファイル情報を渡す
             await this.$store.dispatch("profile/profileEmailEdit", {
+                user_id: this.profileData.user_id,
                 email: this.profileData.email
             });
             if (this.getCode === 200) {
@@ -371,8 +376,8 @@ export default {
         openPasswordModal() {
             this.showPassword = !this.showPassword;
             // モーダル表示を固定するクラスを付与する
-            const elment = document.getElementById('js-modal-lock')
-            elment.classList.add('c-modal__lock')
+            const elment = document.getElementById("js-modal-lock");
+            elment.classList.add("c-modal__lock");
         },
         closeModal() {
             this.showPassword = !this.showPassword;
