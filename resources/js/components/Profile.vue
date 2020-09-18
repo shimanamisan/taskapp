@@ -175,7 +175,7 @@
                             <div class="u-btn__wrapp u-btn__password">
                                 <button
                                     class="c-btn c-btn__common"
-                                    @click="showPassword = !showPassword"
+                                    @click="openPasswordModal"
                                 >
                                     パスワードの変更
                                 </button>
@@ -187,6 +187,7 @@
                         <ChangePassword
                             v-show="showPassword"
                             @closeEvent="closeModal"
+                            :user-id="this.profileData.user_id"
                         />
                         <!-- end c-modal -->
                     </transition>
@@ -243,9 +244,9 @@ export default {
 
             // プロフィールのフォームデータ
             profileData: {
-                name: "",
-                email: "",
-
+                user_id: null,
+                name: null,
+                email: null,
                 profileImage: null
             }
         };
@@ -337,7 +338,7 @@ export default {
         async profileNameEdit() {
             this.clearError();
             // アクションへファイル情報を渡す
-            await this.$store.dispatch("auth/profileNameEdit", {
+            await this.$store.dispatch("profile/profileNameEdit", {
                 name: this.profileData.name
             });
             if (this.getCode === 200) {
@@ -349,7 +350,7 @@ export default {
         async profileEmailEdit() {
             this.clearError();
             // アクションへファイル情報を渡す
-            await this.$store.dispatch("auth/profileEmailEdit", {
+            await this.$store.dispatch("profile/profileEmailEdit", {
                 email: this.profileData.email
             });
             if (this.getCode === 200) {
@@ -367,11 +368,11 @@ export default {
             this.clearError();
             this.showEmail = !this.showEmail;
         },
-        cancelPassword() {
-            this.profileData.password = "";
-            this.profileData.password_confirmation = "";
-            this.clearError();
+        openPasswordModal() {
             this.showPassword = !this.showPassword;
+            // モーダル表示を固定するクラスを付与する
+            const elment = document.getElementById('js-modal-lock')
+            elment.classList.add('c-modal__lock')
         },
         closeModal() {
             this.showPassword = !this.showPassword;
@@ -401,7 +402,7 @@ export default {
          * バリデーションメッセージを消すアクションを呼ぶ
          **************************************************/
         clearError() {
-            this.$store.commit("auth/setProfileErrorMessages", null);
+            this.$store.commit("profile/setProfileErrorMessages", null);
         },
         /*************************************************
          * データ更新時のモーダルを表示
@@ -416,6 +417,7 @@ export default {
             axios
                 .get("/api/user")
                 .then(response => {
+                    this.profileData.user_id = response.data.id;
                     this.profileData.name = response.data.name;
                     this.profileData.email = response.data.email;
                     this.preview = response.data.pic;
