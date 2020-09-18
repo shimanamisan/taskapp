@@ -29,7 +29,7 @@
             window.Laravel.csrfToken = "{{ csrf_token() }}";
         </script>
     </head>
-    <body>
+    <body id="js-modal-lock">
         <div id="app"></div>
     </body>
     

@@ -148,8 +148,10 @@ return [
     */
 
     'attributes' => [
+        'name' => 'ニックネーム',
         'email' => 'メールアドレス',
         'password' => 'パスワード',
+        'old_password' => '現在のパスワード',
         'password_confirmation' => 'パスワード再入力'
     ]
 ];

@@ -24,12 +24,10 @@ class ProfilePasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            // ここでのバリデーションはファイルサイズも入れたほうが良い？(10MBを上限とする)
             // ここで指定した profilePhoto というキーが、ajax通信で返ってくる response の中に入っている
             // response.data.errors で拾える
-            'password' => 'bail|required|confirmed|min:8',
-            // パスワードフォームと一致していないとエラーを出す
-            // 'password_confirmation' => 'required|min:8|same:password',
+            'old_password' => 'bail|required|regex:/^[a-zA-Z0-9]+$/|min:8',
+            'password' => 'bail|required|regex:/^[a-zA-Z0-9]+$/|min:8|confirmed',
         ];
     }
 
@@ -37,7 +35,8 @@ class ProfilePasswordRequest extends FormRequest
     {
         return [
             "password.confirmed" => '再入力フォームと一致していません。',
-            "password.min" => "8文字以上で入力してください。"
+            "password.min" => "8文字以上で入力してください。",
+            'regex' => '半角英数のみご利用いただけます。',
         ];
     }
 }

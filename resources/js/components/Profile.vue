@@ -175,7 +175,7 @@
                             <div class="u-btn__wrapp u-btn__password">
                                 <button
                                     class="c-btn c-btn__common"
-                                    @click="showPassword = !showPassword"
+                                    @click="openPasswordModal"
                                 >
                                     パスワードの変更
                                 </button>
@@ -184,89 +184,11 @@
                     </div>
                     <!-- c-form__container--profile -->
                     <transition name="c-transition__modal">
-                        <div key="modal" class="c-modal" v-show="showPassword">
-                            <div class="c-modal__body">
-                                <div
-                                    class="p-nav--trigger"
-                                    @click="ShowPasswordTrigger"
-                                >
-                                    <i class="fas fa-times p-nav--close"></i>
-                                </div>
-                                <div class="c-form__item c-modal__inner">
-                                    <label for class="c-form-lavel"
-                                        >現在のパスワード</label
-                                    >
-                                    <!-- バリデーションエラー --->
-                                    <div
-                                        v-if="profileUploadErrors"
-                                        class="errors"
-                                    >
-                                        <ul v-if="profileUploadErrors.password">
-                                            <li
-                                                v-for="msg in profileUploadErrors.password"
-                                                :key="msg"
-                                            >
-                                                {{ msg }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!--- end errors -->
-                                    <input
-                                        type="password"
-                                        class="c-input"
-                                        v-model="profileData.password"
-                                    />
-                                </div>
-                                <div class="c-form__item c-modal__inner">
-                                    <label for class="c-form-lavel"
-                                        >新しいパスワード</label
-                                    >
-                                    <!-- バリデーションエラー --->
-                                    <div
-                                        v-if="profileUploadErrors"
-                                        class="errors"
-                                    >
-                                        <ul v-if="profileUploadErrors.password">
-                                            <li
-                                                v-for="msg in profileUploadErrors.password"
-                                                :key="msg"
-                                            >
-                                                {{ msg }}
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <!--- end errors -->
-                                    <input
-                                        type="password"
-                                        class="c-input"
-                                        v-model="profileData.password"
-                                    />
-                                </div>
-                                <!-- c-form__item -->
-                                <div class="c-form__item">
-                                    <label for class="c-form-lavel"
-                                        >新しいパスワード再入力</label
-                                    >
-                                    <input
-                                        type="password"
-                                        class="c-input"
-                                        v-model="
-                                            profileData.password_confirmation
-                                        "
-                                    />
-                                </div>
-                                <div
-                                    class="u-btn__wrapp u-btn__password c-modal__btn__passwordEdit"
-                                >
-                                    <button
-                                        class="c-btn c-btn__common"
-                                        @click="profilPasswordeEdit"
-                                    >
-                                        変更
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <ChangePassword
+                            v-show="showPassword"
+                            @closeEvent="closeModal"
+                            :user-id="this.profileData.user_id"
+                        />
                         <!-- end c-modal -->
                     </transition>
                 </div>
@@ -301,6 +223,7 @@
 <script>
 import { mapState, mapGetters } from "vuex";
 import NoImage from "./common/NoImage";
+import ChangePassword from "./modal/ChangePassword";
 import Header from "./Header";
 import Message from "./Message";
 export default {
@@ -321,10 +244,9 @@ export default {
 
             // プロフィールのフォームデータ
             profileData: {
-                name: "",
-                email: "",
-                password: "",
-                password_confirmation: "",
+                user_id: null,
+                name: null,
+                email: null,
                 profileImage: null
             }
         };
@@ -332,7 +254,8 @@ export default {
     components: {
         Header,
         Message,
-        NoImage
+        NoImage,
+        ChangePassword
     },
     computed: {
         ...mapState({
@@ -415,7 +338,7 @@ export default {
         async profileNameEdit() {
             this.clearError();
             // アクションへファイル情報を渡す
-            await this.$store.dispatch("auth/profileNameEdit", {
+            await this.$store.dispatch("profile/profileNameEdit", {
                 name: this.profileData.name
             });
             if (this.getCode === 200) {
@@ -427,7 +350,7 @@ export default {
         async profileEmailEdit() {
             this.clearError();
             // アクションへファイル情報を渡す
-            await this.$store.dispatch("auth/profileEmailEdit", {
+            await this.$store.dispatch("profile/profileEmailEdit", {
                 email: this.profileData.email
             });
             if (this.getCode === 200) {
@@ -436,25 +359,7 @@ export default {
                 setTimeout(this.showSuccess, 3000);
             }
         },
-        async profilPasswordeEdit() {
-            this.clearError();
-            // アクションへファイル情報を渡す
-            await this.$store.dispatch("auth/profilPasswordeEdit", {
-                // これでkey:valueの形でデータをコントローラーへ渡せる
-                password: this.profileData.password,
-                password_confirmation: this.profileData.password_confirmation
-            });
 
-            if (this.getCode === 200) {
-                // 送信後入力フォームを空にする
-                this.profileData.password = "";
-                this.profileData.password_confirmation = "";
-                this.showPassword = !this.showPassword;
-                this.clearError();
-                this.showSuccess();
-                setTimeout(this.showSuccess, 3000);
-            }
-        },
         cancelName() {
             this.clearError();
             this.showName = !this.showName;
@@ -463,16 +368,13 @@ export default {
             this.clearError();
             this.showEmail = !this.showEmail;
         },
-        cancelPassword() {
-            this.profileData.password = "";
-            this.profileData.password_confirmation = "";
-            this.clearError();
+        openPasswordModal() {
             this.showPassword = !this.showPassword;
+            // モーダル表示を固定するクラスを付与する
+            const elment = document.getElementById('js-modal-lock')
+            elment.classList.add('c-modal__lock')
         },
-        ShowPasswordTrigger() {
-            this.profileData.password = "";
-            this.profileData.password_confirmation = "";
-            this.clearError();
+        closeModal() {
             this.showPassword = !this.showPassword;
         },
         /****************************************
@@ -500,7 +402,7 @@ export default {
          * バリデーションメッセージを消すアクションを呼ぶ
          **************************************************/
         clearError() {
-            this.$store.commit("auth/setProfileErrorMessages", null);
+            this.$store.commit("profile/setProfileErrorMessages", null);
         },
         /*************************************************
          * データ更新時のモーダルを表示
@@ -515,6 +417,7 @@ export default {
             axios
                 .get("/api/user")
                 .then(response => {
+                    this.profileData.user_id = response.data.id;
                     this.profileData.name = response.data.name;
                     this.profileData.email = response.data.email;
                     this.preview = response.data.pic;

@@ -575,6 +575,13 @@ br {
   bottom: 0;
   z-index: 9;
   background-color: rgba(0, 0, 0, 0.3); }
+  .c-modal__send {
+    background-color: #fffaf6;
+    border: solid 1px #fa9f47;
+    color: #b24603;
+    padding: 16px;
+    margin-bottom: 8px;
+    border-radius: 5px; }
   .c-modal__body {
     position: fixed;
     left: 50%;
@@ -598,12 +605,17 @@ br {
     margin-top: 30px; }
   .c-modal__btn__passwordEdit {
     float: right; }
+  .c-modal__lock {
+    position: fixed;
+    padding-right: 8px; }
 
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   will-change: opacity;
   transition: opacity 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms; }
 
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0; }
 
 .c-form {

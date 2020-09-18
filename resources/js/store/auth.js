@@ -26,7 +26,7 @@ const state = {
     registerErrorMessages: null,
     passwordReminderErrorMessages: null,
     resetPasswordErrorMessages: null,
-    profileErrorMessages: null
+    
 };
 
 /***********************************
@@ -107,10 +107,6 @@ const mutations = {
     setRegisterErrorMessages(state, messages) {
         state.registerErrorMessages = messages;
     },
-    // プロフィールバリデーションメッセージをセット
-    setProfileErrorMessages(state, messages) {
-        state.profileErrorMessages = messages;
-    },
     // パスワードリマインダー時のエラーハンドリング
     setPasswordReminderErrorMessages(state, message) {
         state.passwordReminderErrorMessages = message;
@@ -183,7 +179,6 @@ const actions = {
             commit("setId", id);
             return false;
         }
-
         // ステータスコード200以外の時の処理
         commit("setApiStatus", false);
         // 422ステータスの処理
@@ -215,80 +210,7 @@ const actions = {
         commit("setApiStatus", false);
         commit("error/setCode", response.status, { root: true });
     },
-    /****************************************
-  プロフィール編集
-  *****************************************/
-    // 画像変更
-    async profileImageEdit({ commit }, data) {
-        const id = state.user_id;
-        const response = await axios.post("/api/profile/image/" + id, data);
-        // 422ステータスの処理
-        if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setProfileErrorMessages", response.data.errors);
-        } else {
-            commit("error/setCode", response.status, { root: true });
-        }
-        commit("error/setCode", response.status, { root: true }); //{ root: ture }で違うファイルのミューテーションを呼べる
-    },
-    // 名前変更
-    async profileNameEdit({ commit }, data) {
-        const id = state.user_id;
-        const response = await axios.post("/api/profile/name/" + id, data);
-        // 422ステータスの処理
-        if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setProfileErrorMessages", response.data.errors);
-        } else {
-            commit("error/setCode", response.status, { root: true });
-        }
-
-        if (response.data.name) {
-            commit("setUser", response.data.name);
-        }
-        commit("error/setCode", response.status, { root: true });
-    },
-    // email変更
-    async profileEmailEdit({ commit }, data) {
-        const id = state.user_id;
-        const response = await axios.post("/api/profile/email/" + id, data);
-        // 422ステータスの処理
-        if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setProfileErrorMessages", response.data.errors);
-        } else {
-            commit("error/setCode", response.status, { root: true });
-        }
-        commit("error/setCode", response.status, { root: true });
-    },
-    // パスワード変更
-    async profilPasswordeEdit({ commit }, data) {
-        const id = state.user_id;
-        const response = await axios.post("/api/profile/password/" + id, data);
-        // 422ステータスの処理
-        if (response.status === UNPROCESSABLE_ENTITY) {
-            commit("setProfileErrorMessages", response.data.errors);
-        } else {
-            commit("error/setCode", response.status, { root: true });
-        }
-        commit("error/setCode", response.status, { root: true });
-    },
-    // ユーザー削除
-    async userSoftDelete({ commit }) {
-        commit("setApiStatus", null);
-        const id = state.user_id;
-        const response = await axios.delete("/api/profile/delete/" + id);
-        if (response.status === INTERNAL_SERVER_ERROR) {
-            commit("error/setCode", response.status, { root: true });
-        } else if (response.status === OK) {
-            commit("error/setCode", response.status, { root: true });
-        }
-
-        // 例外発生時でも、Laravel側でログアウトしているのでストアに持たせたログイン情報は削除する
-        commit("setUser", null);
-        commit("setEmail", null);
-        commit("setPic", null);
-        commit("setId", null);
-        commit("setApiStatus", false);
-        commit("error/setCode", response.status, { root: true });
-    },
+   
     /****************************************
   リロード時にログインチェック
   *****************************************/
