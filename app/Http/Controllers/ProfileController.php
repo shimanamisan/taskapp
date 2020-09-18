@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash; // 追加
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth; // 追加
 use App\Http\Requests\ProfileNameRequest; // 追加
 use App\Http\Requests\ProfileEmailRequest; // 追加
 use App\Http\Requests\ProfileImageRequest; // 追加
 use App\Http\Requests\ProfilePasswordRequest; // 追加
-use Illuminate\Support\Facades\Auth; // 追加
 
 class ProfileController extends Controller
 {
@@ -65,14 +66,58 @@ class ProfileController extends Controller
     // パスワードを更新
     public function profilPasswordeEdit(ProfilePasswordRequest $request)
     {
-    
-        // password と password_confirmation のバリデーションはリクエストコントローラで行っている
-        $user = Auth::user();
-        $user->password = bcrypt($request->get('password'));
-        $user->save();
+        try {
+            $user = Auth::user();
+            // password と password_confirmation のバリデーションはリクエストコントローラで行っている
+            $data = $request->all();
+
+            // 現在のパスワードをチェック
+            if (!(Hash::check($request->get('old_password'), $user->password))) {
+                \Log::debug('現在のパスワードが違います');
+                \Log::debug('   ');
+                
+                $errors = ['errors' =>
+                    ['old_password' =>
+                        ['現在のパスワードが違います。']
+                    ]
+                ];
+                // ステータスコードとエラーメッセージを返す
+                return response()->json($errors, 422);
+            }
+
+            // パスワード更新時の処理
+            // DBに登録されているハッシュ化されたパスワードと入力されたパスワードが一致するか確認
+            if (Hash::check($request->password, $user->password)) { // 第一引数にプレーンパスワード、第二引数にハッシュ化されたパスワード
+                // パスワードがDBのものと同じ場合は、違うパスワードを設定するようにメッセージを出す。
+                \Log::debug('登録されているパスワードと同じでした。');
+                \Log::debug('   ');
+
+                $errors = ['errors' =>
+                    ['password' =>
+                        ['前回と違うパスワードを設定して下さい。']
+                    ]
+                ];
+                // ステータスコードとエラーメッセージを返す
+                return response()->json($errors, 422);
+            } else {
+                // DBと違っていればパスワードを更新する
+                // リクエストフォームから受け取ったパスワードをハッシュ化
+                $newPass = Hash::make($request->password);
+                $user->password = $newPass;
+                $user->save();
+                \Log::debug('パスワードを更新しました');
+                \Log::debug('   ');
+            }
+            
+            return response()->json(['success' => 'パスワードを変更しました。'], 200);
+        } catch (\Exception $e) {
+            \Log::debug('アカウント情報変更時に例外が発生しました。' .$e->getMessage());
+            \Log::debug('   ');
+            return response()->json(['errors', 'エラーが発生しました。'], 500);
+        }
     }
 
-    // ユーザー削除（物理削除）
+    // ユーザー退会
     public function userSoftDelete(Request $request, $id)
     {
         try {
