@@ -12,6 +12,8 @@ const TerserPlugin = require("terser-webpack-plugin");
 const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 // ビルド時に通知するためのプラグイン
 const WebpackBuildNotifierPlugin = require("webpack-build-notifier");
+// プロダクションモードでバンドル時に、console.logを自動的に削除するプラグイン
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 
 // [定数] webpack の出力オプションを指定します
 // 'production' か 'development' を指定
@@ -37,15 +39,22 @@ module.exports = {
         // 出力ファイル名
         filename: "app.js",
         // 出力先フォルダを指定
-        path: mydir + "/public/js",
+        path: mydir + "/public/js"
     },
-    // 最適化オプションを上書き
+    // 最適化（webpack4から導入された）
     optimization: {
         minimizer: [
             new TerserPlugin({
-                extractComments: "all",
+                extractComments: "all"
             }),
-            new OptimizeCssAssetsPlugin({}),
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    compress: {
+                        drop_console: true
+                    }
+                }
+            }),
+            new OptimizeCssAssetsPlugin({})
         ],
     },
     module: {
@@ -64,19 +73,19 @@ module.exports = {
                             // url()を変換しない
                             // url: false,
                             // ソースマップを有効にする
-                            sourceMap: enabledSourceMap,
-                        },
+                            sourceMap: enabledSourceMap
+                        }
                     },
                     {
                         // Sassをバンドルするための機能
                         loader: "sass-loader",
                         options: {
                             // ソースマップの利用有無
-                            sourceMap: enabledSourceMap,
-                        },
+                            sourceMap: enabledSourceMap
+                        }
                     },
                     {
-                        loader: "import-glob-loader",
+                        loader: "import-glob-loader"
                     },
                     // PostCSSのための設定★
                     {
@@ -93,13 +102,13 @@ module.exports = {
                                         "last 2 versions",
                                         "ie >= 11",
                                         "Android >= 4",
-                                        "iOS >= 8",
-                                    ],
-                                }),
-                            ],
-                        },
-                    },
-                ],
+                                        "iOS >= 8"
+                                    ]
+                                })
+                            ]
+                        }
+                    }
+                ]
             },
             {
                 // Vueファイルに対する設定
@@ -109,17 +118,17 @@ module.exports = {
                         loader: "vue-loader",
                         options: {
                             loaders: {
-                                js: "babel-loader",
+                                js: "babel-loader"
                             },
                             options: {
                                 presets: [
                                     // プリセットを指定することで、ES2020 を ES5 に変換
-                                    "@babel/preset-env",
-                                ],
-                            },
-                        },
-                    },
-                ],
+                                    "@babel/preset-env"
+                                ]
+                            }
+                        }
+                    }
+                ]
             },
             {
                 // JSファイルに対する設定
@@ -130,25 +139,24 @@ module.exports = {
                         options: {
                             presets: [
                                 // プリセットを指定することで、ES2020 を ES5 に変換
-                                "@babel/preset-env",
-                            ],
-                        },
-                    },
-                ],
+                                "@babel/preset-env"
+                            ]
+                        }
+                    }
+                ]
             },
             {
                 // 拡張子の大文字も許容するように最後尾に i を加える
                 // jpegとjpgの様にeがあるかないかを許容するのに、jpe?gという形式にする
-                test: /\.(jpe?g|png|svg|gif|ico)$/i, 
-                loader: 'url-loader',
-                options:{
-                  // 指定のサイズを超過すると、画像が[name]で指定されたファイルに書き換わり独立する
-                  limit: 2048,
-                  name: '../img/[name].[ext]'
+                test: /\.(jpe?g|png|svg|gif|ico)$/i,
+                loader: "url-loader",
+                options: {
+                    // 指定のサイズを超過すると、画像が[name]で指定されたファイルに書き換わり独立する
+                    limit: 2048,
+                    name: "../img/[name].[ext]"
                 }
-              }
-
-        ],
+            }
+        ]
     },
     // 各種プラグインを読み込む
     plugins: [
@@ -159,19 +167,19 @@ module.exports = {
         // jsファイルとcssファイルを分割するためのプラグイン
         new MiniCssExtractPlugin({
             // ファイルの出力先。エントリーポイントのjsディレクトリが基準となるので出力先には注意
-            filename: "../css/style.css",
+            filename: "../css/style.css"
         }),
         // ビルド時に通知するためのプラグイン
         new WebpackBuildNotifierPlugin({
             suppressSuccess: true
-        }),
+        })
     ],
     // import 文で .ts ファイルを解決するため
     resolve: {
         // Webpackで利用するときの設定
         alias: {
-            vue$: "vue/dist/vue.esm.js",
+            vue$: "vue/dist/vue.esm.js"
         },
-        extensions: ["*", ".js", ".vue", ".json"],
-    },
+        extensions: ["*", ".js", ".vue", ".json"]
+    }
 };

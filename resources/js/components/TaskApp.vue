@@ -11,9 +11,11 @@
                                 <hr class="u-task-line" />
                                 <TaskFolderAdd :list="FolderLists" />
                                 <div
-                                    class="c-task__sidebar__wrapp c-task__folder"
+                                    class="c-task__sidebar__folder c-task__folder"
+                                    id="folder_height"
                                 >
                                     <draggable
+                                        :forceFallback="true"
                                         :list="FolderLists"
                                         tag="ul"
                                         v-bind="{ animation: 300, delay: 50 }"
@@ -31,7 +33,7 @@
                                         />
                                     </draggable>
                                 </div>
-                                <!-- end c-task__sidebar__wrapp -->
+                                <!-- end c-task__sidebar__folder -->
                             </div>
                             <!-- end c-task__sidebar -->
 
@@ -107,12 +109,14 @@ export default {
                     console.log(error);
                 });
         },
+        // フォルダのソート機能
         async updateFolderSort(newFolders) {
             await this.$store.dispatch(
                 "taskStore/updateFolderSort",
                 newFolders
             );
         },
+        // vue-draggableをLaravelと連携するメソッド
         onChange() {
             // let newFolders = this.folderData.map((folder, index) => {
             let newFolders = this.FolderLists.map((folder, index) => {
@@ -125,6 +129,11 @@ export default {
     // クリエイトライフサイクルフック
     created() {
         this.getFolderLists();
+    },
+    mounted() {
+        const i = window.innerHeight;
+        const test = document.getElementById("folder_height");
+        test.style.minHeight = i - 312 + "px";
     }
 };
 </script>

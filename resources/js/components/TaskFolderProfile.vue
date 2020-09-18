@@ -1,5 +1,5 @@
 <template>
-    <div class="c-task__sidebar__wrapp">
+    <div class="c-task__sidebar__user__wrapp">
         <div class="c-task__sidebar__user">
             <output>
                 <div class="c-task__avater" v-if="this.img">
@@ -12,7 +12,7 @@
             <h1 class="c-task__sidebar__usertitle">{{ username }}</h1>
         </div>
     </div>
-    <!-- c-task__sidebar__wrapp -->
+    <!-- c-task__sidebar__user__wrapp -->
 </template>
 
 <script>

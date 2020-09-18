@@ -46,11 +46,14 @@
   }
   // ここからサイドバー
     &__sidebar{
+      top: -36px;
       width: 300px;
-      padding: $space_xxl;
+      padding: 32px 32px 8px 24px;
+      background-color: #f9f7f5;
       position: absolute;
       @include mq(ssm){
-        padding: 10px 10px 10px 10px;
+        padding: 32px 30px 8px 16px;
+        top: -20px;
       }
           &__user{
             display: flex;
@@ -63,18 +66,25 @@
             text-overflow: ellipsis;
             overflow: hidden;
           }
-          &__wrapp{
+          &__folder{
             width: 100%;
             padding: 10px;
-            overflow-y: auto;
-            max-height: 370px;
-            box-sizing: border-box;
-            @include mq(){
-              max-height: 450px;
+            // overflow-y: auto;
+            // max-height: 370px;
+            // box-sizing: border-box;
+            // height: calc(100vh - 300px);
+            // @include mq(){
+            //   // max-height: 450px;
+            // }
+            // @include mq($breackpoint: ssm){
+            //   padding: 5px;
+            //   // max-height: 320px;
+            // }
+            @include mq(ssm){
+              padding-right: 8px;
             }
-            @include mq($breackpoint: ssm){
-              padding: 5px;
-              max-height: 320px;
+            @include mq(sm){
+              padding-right: 8px;
             }
           }
     }
@@ -98,6 +108,7 @@
           margin-top: 10px;
           transition: .5s;
           box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+          background-color: #fff;
           &>:last-child{
             margin-left: auto;
           }
@@ -133,7 +144,7 @@
     &--card{
         display: flex;
         height: 100%;
-        margin-left: 360px;
+        margin-left: 380px;
         &__inner{
           height: 85%;
           @include mq($breackpoint: ssm){
