@@ -41,13 +41,6 @@ class ResetPasswordNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    // public function toMail($notifiable)
-    // {
-    //     return (new MailMessage)
-    //                 ->line('The introduction to the notification.')
-    //                 ->action('Notification Action', url('/'))
-    //                 ->line('Thank you for using our application!');
-    // }
     
     // カスタマイズ
     public function toMail($notifiable)
@@ -64,10 +57,9 @@ class ResetPasswordNotification extends Notification
         return (new MailMessage)
                 ->subject($this->title)
                 ->view(
-                    'emails.reset',
-                [
-                    'reset_url' => url($forgotPasswordURL),
-                ]);
+                    'email.reset',
+                    ['reset_url' => url($forgotPasswordURL),]
+                );
     }
 
     /**
