@@ -4,6 +4,7 @@ import auth from "./auth";
 import taskStore from "./taskStore";
 import error from "./error";
 import contact from "./contact";
+import profile from "./profile";
 
 // Vuexを使うよという宣言
 Vue.use(Vuex);
@@ -13,6 +14,7 @@ export default new Vuex.Store({
         auth,
         taskStore,
         error,
-        contact
+        contact,
+        profile
     }
 });
