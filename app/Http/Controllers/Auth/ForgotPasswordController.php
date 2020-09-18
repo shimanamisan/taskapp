@@ -56,14 +56,14 @@ class ForgotPasswordController extends Controller
         // カスタムエラーメッセージ
         $message = [
             'email' => '有効なメールアドレスを指定してください。',
-            'email.unique' => 'メールアドレスに一致するユーザーは存在していません。',
+            'email.exists' => 'メールアドレスに一致するユーザーは存在していません。',
         ];
 
         return Validator::make($data, [
         
             'email' => ['required', 'string', 'email', 'max:100',
-                        // usersテーブルで退会済みのユーザーを探す（deletef_flgが1のユーザー）
-                        Rule::unique('users', 'email')->where('delete_flg', 1)]
+                        // usersテーブルで退会済みでないユーザーが存在しているか探す（deletef_flgが0のユーザー）
+                        Rule::exists('users', 'email')->where('delete_flg', 0)]
         ], $message);
     }
 

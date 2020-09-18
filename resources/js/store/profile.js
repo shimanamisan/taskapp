@@ -88,6 +88,7 @@ const actions = {
     // email変更
     async profileEmailEdit({ commit }, data) {
         const id = data.user_id;
+        console.log(id)
         const response = await axios.post("/api/profile/email/" + id, data);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
