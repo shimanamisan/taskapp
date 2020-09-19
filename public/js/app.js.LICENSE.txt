@@ -14731,6 +14731,8 @@
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Callback.vue?vue&type=script&lang=js&
 
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmailChangeCallback.vue?vue&type=script&lang=js&
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Header.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Message.vue?vue&type=script&lang=js&
@@ -14780,6 +14782,8 @@
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/error/SystemError.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Callback.vue?vue&type=template&id=ce60e9a0&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmailChangeCallback.vue?vue&type=template&id=3c380c36&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Message.vue?vue&type=template&id=b91a6428&
 
@@ -14850,6 +14854,10 @@
 // CONCATENATED MODULE: ./resources/js/components/Callback.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./resources/js/components/Callback.vue?vue&type=template&id=ce60e9a0&
+
+// CONCATENATED MODULE: ./resources/js/components/EmailChangeCallback.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./resources/js/components/EmailChangeCallback.vue?vue&type=template&id=3c380c36&
 
 // CONCATENATED MODULE: ./resources/js/components/Header.vue?vue&type=script&lang=js&
 
@@ -15492,6 +15500,8 @@
 // Element context
 
 // Element/input types
+
+// Email認証ページ
 
 // Empty animations, or finishing resolves immediately
 
@@ -21275,6 +21285,8 @@
 
 // ナビゲーションガード
 
+// バックエンド側でセッションを削除しているので、一旦リロードさせる
+
 // バリデーションエラーが表示されていたら閉じる際に消去する
 
 // バリデーションエラーに引っかかった時の処理
@@ -21379,6 +21391,8 @@
 
 // レスポンスコードを格納するためのステート（200 403 500など）
 
+// レスポンスメッセージをセット
+
 // ログインステータスを変更する
 
 // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
@@ -21402,6 +21416,8 @@
 // 例外発生時でも、Laravel側でログアウトしているのでストアに持たせたログイン情報は削除する
 
 // 全てのデータをステートにセット
+
+// 処理が成功した際の格納されたレスポンスメッセージを取得する
 
 // 利用規約
 
