@@ -44,6 +44,8 @@ class ChangeEmail extends Notification
      */
     public function toMail($notifiable)
     {
+        $emailAuthURL = config('frontend.email_auth_url'). "?token={$this->token}";
+
         return (new MailMessage)
             // 件名
             ->subject('メールアドレス変更 通知')
@@ -52,7 +54,7 @@ class ChangeEmail extends Notification
                 'email.changeEmail',
                 // urlヘルパメソッドは、URLを生成する。生成されるURLは自動的に
                 // 現在のリクエストのスキームとホストが使用される
-                ['result_url' =>url("/mypage/change-password/{$this->token}")]
+                ['result_url' =>url($emailAuthURL)]
             );
     }
 

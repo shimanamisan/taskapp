@@ -57,59 +57,6 @@ class ProfileController extends Controller
         return Auth::user();
     }
 
-    // Emailを更新及び認証用リンクを送信
-    public function profileEmailEdit(ProfileEmailRequest $request)
-    {
-        $email = $request->email;
-        $id = $request->user_id;
-
-        if (empty($id)) {
-            \Log::debug('何らかの原因でメールアドレス変更時にユーザーIDが格納されていません。');
-            \Log::debug('   ');
-
-            $errors = ['errors' =>
-                ['email' =>
-                    ['予期せぬエラーが発生しました。']
-                ]
-            ];
-            return response()->json($errors, 500);
-        }
-
-        // トークン生成
-        $token = hash_hmac('sha256', Str::random(40) . $email, config('app.key'));
-
-        try {
-            $param = [];
-            $param['user_id'] = $id;
-            $param['new_email'] = $email;
-            $param['token'] = $token;
-            // 新しいレコードを作成
-            $email_reset = EmailReset::create($param);
-            // リセットメールを送信する
-            $email_reset->sendEmailResetNotification($token);
-     
-            \Log::debug('メールアドレス変更確認メールを送信しました。');
-            \Log::debug('   ');
-            $success = ['success' =>
-            ['message' =>
-                ['メールアドレス変更確認メールを送信しました。受信ボックスを確認して下さい。']
-            ]
-        ];
-            // ステータスコードとエラーメッセージを返す
-            return response()->json($success, 200);
-        } catch (\Exception $e) {
-            \Log::debug('アカウント情報変更時に例外が発生しました。' .$e->getMessage());
-            \Log::debug('   ');
-
-            $errors = ['errors' =>
-            ['email' =>
-                ['予期せぬエラーが発生しました。']
-            ]
-        ];
-            return response()->json($errors, 422);
-        }
-    }
-
     // パスワードを更新
     public function profilPasswordeEdit(ProfilePasswordRequest $request)
     {
@@ -203,37 +150,132 @@ class ProfileController extends Controller
         }
     }
 
-    public function changeEmail(Request $request, EmailReset $email_reset, $token)
+    // Emailを更新及び認証用リンクを送信
+    public function profileEmailEdit(ProfileEmailRequest $request)
     {
-        // トークンが登録されているものか確認
-        $userEmail = $email_reset->where('token', $token)->first();
-        \Log::debug('URLクエリから渡ってきたトークンがDBに保存されているかチェックしています。');
-        \Log::debug('   ');
-
-        // トークンが存在している且つ、有効期限が切れていないかチェック
-        if ($userEmail && !$this->tokenExpired($userEmail->created_at)) {
-            \Log::debug('トークンが存在しており、有効期限以内でした！');
+        $email = $request->email;
+        $id = $request->user_id;
+ 
+        if (empty($id)) {
+            \Log::debug('何らかの原因でメールアドレス変更時にユーザーIDが格納されていません。');
             \Log::debug('   ');
-            // ユーザーのメールアドレスを変更
-            $user = User::find($userEmail->user_id);
-            $user->email = $userEmail->new_email;
-            $user->save();
-            // 登録後は、変更に使用したトークンやユーザーID、メールアドレスが格納されたレコードを削除する
-            $userEmail->delete();
-            \Log::debug('ユーザーのメールアドレスを変更して、email_resetsテーブルのレコードを削除しました。');
+ 
+            $errors = ['errors' =>
+                 ['email' =>
+                     ['予期せぬエラーが発生しました。']
+                 ]
+             ];
+            return response()->json($errors, 500);
+        }
+ 
+        // トークン生成
+        $token = hash_hmac('sha256', Str::random(40) . $email, config('app.key'));
+ 
+        try {
+            $param = [];
+            $param['user_id'] = $id;
+            $param['new_email'] = $email;
+            $param['token'] = $token;
+            // 新しいレコードを作成
+            $email_reset = EmailReset::create($param);
+            // リセットメールを送信する
+            $email_reset->sendEmailResetNotification($token);
+      
+            \Log::debug('メールアドレス変更確認メールを送信しました。');
             \Log::debug('   ');
+            $success = ['success' =>
+             ['message' =>
+                 ['メールアドレス変更確認メールを送信しました。受信ボックスを確認して下さい。']
+             ]
+         ];
+            // ステータスコードとエラーメッセージを返す
+            return response()->json($success, 200);
+        } catch (\Exception $e) {
+            \Log::debug('アカウント情報変更時に例外が発生しました。' .$e->getMessage());
+            \Log::debug('   ');
+ 
+            $errors = ['errors' =>
+             ['email' =>
+                 ['予期せぬエラーが発生しました。']
+             ]
+             
+         ];
 
-            return redirect('/mypage')->with('system_message', 'メールアドレスを更新しました。');
-        } else {
-            // レコードが存在していて、有効期限が切れていた場合削除
-            if ($userEmail) {
-                $email_reset->where('token', $token)->delete();
-            }
+            // ログアウト
+            Auth::logout();
+            // セッションを削除
+            session()->invalidate();
+            // csrfトークンを再生成
+            session()->regenerateToken();
 
-            return redirect('/mypage')->with('system_message', 'メールアドレスの更新に失敗しました。');
+            return response()->json($errors, 500);
         }
     }
 
+    // メールアドレス変更用リンクから遷移してきた際の処理
+    public function changeEmail(Request $request, EmailReset $email_reset)
+    {
+        $token = $request->token;
+        try {
+            // トークンが登録されているものか確認
+            $userEmail = $email_reset->where('token', $token)->first();
+            \Log::debug('URLクエリから渡ってきたトークンがDBに保存されているかチェックしています。');
+            \Log::debug('   ');
+    
+            // トークンが存在している且つ、有効期限が切れていないかチェック
+            if ($userEmail && !$this->tokenExpired($userEmail->created_at)) {
+                \Log::debug('トークンが存在しており、有効期限以内でした！');
+                \Log::debug('   ');
+                // ユーザーのメールアドレスを変更
+                $user = User::find($userEmail->user_id);
+                $user->email = $userEmail->new_email;
+                $user->save();
+                // 登録後は、変更に使用したトークンやユーザーID、メールアドレスが格納されたレコードを削除する
+                $userEmail->delete();
+                \Log::debug('ユーザーのメールアドレスを変更して、email_resetsテーブルのレコードを削除しました。');
+                \Log::debug('   ');
+                $success = ['success' =>
+                ['message' =>
+                    ['メールアドレスを変更しました。']
+                ]
+            ];
+                // ステータスコードとエラーメッセージを返す
+                return response()->json($success, 200);
+            } else {
+                // レコードが存在していて、有効期限が切れていた場合削除
+                if ($userEmail) {
+                    $email_reset->where('token', $token)->delete();
+                }
+            
+                $errors = ['errors' =>
+                    ['email' =>
+                        ['トークンの有効期限が切れています。']
+                    ]
+                ];
+    
+                // ステータスコードとエラーメッセージを返す
+                return response()->json($errors, 401);
+            }
+        } catch (\Exception $e) {
+            \Log::debug('例外処理が発生しています。' . $e->getMessage());
+            \Log::debug('   ');
+            $errors = ['errors' =>
+            ['email' =>
+                ['予期せぬエラーが発生しました。']
+            ]
+        ];
+            // ログアウト
+            Auth::logout();
+            // セッションを削除
+            session()->invalidate();
+            // csrfトークンを再生成
+            session()->regenerateToken();
+
+            return response()->json($errors, 500);
+        }
+    }
+
+    // トークンが有効期限切れしていないかチェック
     protected function tokenExpired($createdAt)
     {
         // トークンの有効期限は30分に設定

@@ -8,6 +8,7 @@ import Profile from "./components/Profile";
 import Policy from "./components/Policy";
 import Rule from "./components/Rule";
 import Callback from "./components/Callback";
+import EmailChangeCallback from "./components/EmailChangeCallback";
 import Login from "./components/page/Login";
 import Register from "./components/page/Register";
 import Contact from "./components/page/Contact";
@@ -130,6 +131,11 @@ export default new VueRouter({
             // コールバックページ
             path: "/callback",
             component: Callback
+        },
+        {
+            // Email認証ページ
+            path: "/mypage/change_email",
+            component: EmailChangeCallback
         }
     ],
     // ページ下部のリンクから他のページに飛んでも、画面の位置を初期の位置に移動させるための処理

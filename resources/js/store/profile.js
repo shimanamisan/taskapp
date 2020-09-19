@@ -13,6 +13,7 @@ const state = {
   エラーメッセージ関係
   *****************************************/
     profileErrorMessages: null,
+    successResponseMessage: null
 };
 
 /***********************************
@@ -21,14 +22,10 @@ const state = {
 const getters = {
     // お問い合わせバリデーション（お名前）
     validProfileNameError: state =>
-        state.profileErrorMessages
-            ? state.profileErrorMessages.name
-            : "",
+        state.profileErrorMessages ? state.profileErrorMessages.name : "",
     // お問い合わせバリデーション（Email）
     validProfileEmailError: state =>
-        state.profileErrorMessages
-            ? state.profileErrorMessages.email
-            : "",
+        state.profileErrorMessages ? state.profileErrorMessages.email : "",
     // パスワード変更バリデーション（現在のパスワード）
     validProfileOldPasswodError: state =>
         state.profileErrorMessages
@@ -36,9 +33,10 @@ const getters = {
             : "",
     // パスワード変更バリデーション（新しいパスワード）
     validProfilePasswodError: state =>
-        state.profileErrorMessages
-            ? state.profileErrorMessages.password
-            : ""
+        state.profileErrorMessages ? state.profileErrorMessages.password : "",
+    // 処理が成功した際の格納されたレスポンスメッセージを取得する
+    getSuccessResponseMessage: state =>
+        state.successResponseMessage ? successResponseMessage : ""
 };
 
 /*******************************
@@ -48,6 +46,10 @@ const mutations = {
     // プロフィールバリデーションメッセージをセット
     setProfileErrorMessages(state, messages) {
         state.profileErrorMessages = messages;
+    },
+    // レスポンスメッセージをセット
+    setSuccessResponseMessage(state, message) {
+        state.successResponseMessage = message;
     }
 };
 
@@ -59,7 +61,6 @@ const actions = {
     // 画像変更
     async profileImageEdit({ commit }, data) {
         const id = data.user_id;
-        console.log(id)
         const response = await axios.post("/api/profile/image/" + id, data);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -88,12 +89,13 @@ const actions = {
     // email変更
     async profileEmailEdit({ commit }, data) {
         const id = data.user_id;
-        console.log(id)
         const response = await axios.post("/api/profile/email/" + id, data);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
         } else {
+            console.log(response.data)
+            commit("setSuccessResponseMessage", response.data.success);
             commit("error/setCode", response.status, { root: true });
         }
         commit("error/setCode", response.status, { root: true });

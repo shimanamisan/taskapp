@@ -61,6 +61,8 @@ Route::post('/profile/email/{id}', 'ProfileController@profileEmailEdit')->name('
 Route::post('/profile/password/{id}', 'ProfileController@profilPasswordeEdit')->name('profile.ProfilPasswordeEdit');
 // ユーザー論理削除
 Route::delete('/profile/delete/{id}', 'ProfileController@userSoftDelete')->name('profile.userSoftDelete');
+//メールアドレス認証
+Route::get('/mypage/change_email', 'ProfileController@changeEmail')->name('profile.EmailAuth');
 
 /****************************************
 タスク管理(一覧・登録)
@@ -87,7 +89,6 @@ Route::post('/folder/{folder_id}/card/create', 'CardController@createCard')->nam
 Route::put('/folder/{folder_id}/card/{card_id}/update', 'CardController@updateCard')->name('card.updateCard');
 // カードの削除
 Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'CardController@deleteCard')->name('card.deleteCard');
-
 
 /****************************************
 タスク管理(更新・削除)
