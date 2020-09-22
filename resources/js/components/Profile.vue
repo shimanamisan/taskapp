@@ -224,7 +224,7 @@
 import { mapState, mapGetters } from "vuex";
 import NoImage from "./common/NoImage";
 import ChangePassword from "./modal/ChangePassword";
-import Header from "./Header";
+import Header from "@/components/Include/Header";
 import Message from "./Message";
 export default {
     data() {

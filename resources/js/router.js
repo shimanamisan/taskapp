@@ -2,19 +2,19 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 // ルーティング用ページ
-import Index from "./components/index";
-import TaskApp from "./components/TaskApp";
-import Profile from "./components/Profile";
-import Policy from "./components/Policy";
-import Rule from "./components/Rule";
-import Callback from "./components/Callback";
-import EmailChangeCallback from "./components/EmailChangeCallback";
-import Login from "./components/page/Login";
-import Register from "./components/page/Register";
-import Contact from "./components/page/Contact";
-import PasswordReminder from "./components/page/PasswordReminder";
-import PasswordReset from "./components/page/PasswordReset";
-import SystemError from "./components/page/error/SystemError.vue";
+import Index from "@/components/Index";
+import TaskApp from "@/components/TaskApp";
+import Profile from "@/components/Profile";
+import Policy from "@/components/Policy";
+import Rule from "@/components/Rule";
+import Callback from "@/components/TwitterAuth/Callback";
+import EmailChangeCallback from "@/components/EmailChangeCallback";
+import Login from "@/components/page/Login";
+import Register from "@/components/page/Register";
+import Contact from "@/components/page/Contact";
+import PasswordReminder from "@/components/page/PasswordReminder";
+import PasswordReset from "@/components/page/PasswordReset";
+import SystemError from "@/components/page/error/SystemError.vue";
 
 // vuexで使用するストアの読み込み
 import store from "./store/store";

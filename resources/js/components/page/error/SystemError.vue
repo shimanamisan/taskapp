@@ -13,7 +13,7 @@
     </div>
 </template>
 <script>
-import Header from "../../Header";
+import Header from "@/components/Include/Header";
 export default {
     components: {
         Header

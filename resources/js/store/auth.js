@@ -3,7 +3,7 @@ import {
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
     CREATED
-} from "../statusCode";
+} from "@/statusCode";
 
 const state = {
     username: null,

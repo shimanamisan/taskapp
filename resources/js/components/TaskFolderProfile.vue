@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import NoImage from "./common/NoImage";
+import NoImage from "@/components/common/NoImage";
 import { mapState, mapGetters } from "vuex";
 export default {
     data() {

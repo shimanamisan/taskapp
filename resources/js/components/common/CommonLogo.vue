@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import logo from "../../../img/logo.png";
+import logo from "@/../img/logo.png";
 export default {
     data(){
         return{

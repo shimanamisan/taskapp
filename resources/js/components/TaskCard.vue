@@ -74,12 +74,12 @@
     </div>
 </template>
 <script>
-import { OK } from "../statusCode";
+import { OK } from "@/statusCode";
 import { mapState, mapGetters } from "vuex";
 import draggable from "vuedraggable";
-import TaskList from "./TaskList";
-import TaskListAdd from "./TaskListAdd";
-import TaskCardAdd from "./TaskCardAdd";
+import TaskList from "@/components/TaskList";
+import TaskListAdd from "@/components/TaskListAdd";
+import TaskCardAdd from "@/components/TaskCardAdd";
 export default {
     data() {
         return {

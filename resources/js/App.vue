@@ -6,7 +6,7 @@
 
 <script>
 // エラーコードモジュールを読み込む
-import { UNAUTHORIZED, INTERNAL_SERVER_ERROR } from "./statusCode";
+import { UNAUTHORIZED, INTERNAL_SERVER_ERROR } from "@/statusCode";
 
 export default {
     data() {
