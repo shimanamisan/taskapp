@@ -61,12 +61,17 @@ const actions = {
     // 画像変更
     async profileImageEdit({ commit }, data) {
         const id = data.user_id;
-        const response = await axios.post("/api/profile/image/" + id, data);
+        console.log("actions " + id);
+        console.log("actions " + data.img);
+        const response = await axios.post("/api/profile/image/" + id, data.img);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
         } else {
             commit("error/setCode", response.status, { root: true });
+        }
+        if (response.data.pic) {
+            commit("auth/setPic", response.data.pic, { root: true });
         }
         commit("error/setCode", response.status, { root: true }); //{ root: ture }で違うファイルのミューテーションを呼べる
     },
@@ -80,21 +85,22 @@ const actions = {
         } else {
             commit("error/setCode", response.status, { root: true });
         }
-
         if (response.data.name) {
-            commit("setUser", response.data.name);
+            commit("auth/setUser", response.data.name, { root: true });
         }
         commit("error/setCode", response.status, { root: true });
     },
     // email変更
     async profileEmailEdit({ commit }, data) {
         const id = data.user_id;
-        const response = await axios.post("/api/profile/email/" + id, data);
+        const response = await axios.post("/api/profile/email/" + id, {
+            email: data.email
+        });
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setProfileErrorMessages", response.data.errors);
         } else {
-            console.log(response.data)
+            console.log(response.data.success);
             commit("setSuccessResponseMessage", response.data.success);
             commit("error/setCode", response.status, { root: true });
         }
