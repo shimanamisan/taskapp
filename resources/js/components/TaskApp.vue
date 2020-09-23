@@ -61,6 +61,7 @@
 </template>
 <script>
 import draggable from "vuedraggable";
+import { mapState, mapGetters } from "vuex";
 import Header from "@/components/Include/Header";
 import TaskFolderProfile from "@/components/TaskFolderProfile";
 import TaskFolderAdd from "@/components/TaskFolderAdd";
@@ -68,7 +69,6 @@ import TaskFolder from "@/components/TaskFolder";
 import TaskCard from "@/components/TaskCard";
 import TaskCardAdd from "@/components/TaskCardAdd";
 import Message from "@/components/Message";
-import { mapState, mapGetters } from "vuex";
 
 export default {
     data() {
