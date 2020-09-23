@@ -1,19 +1,28 @@
 <template>
-    <div class="msg_cover msg_hide msg_appear" v-if="this.messageData">
-        <p>{{ messageData }}</p>
+    <div class="msg__cover msg__hide msg__appear msg__response" v-if="successResponseMessage">
+        <ul v-if="successResponseMessage.message">
+            <li v-for="msg in successResponseMessage.message" :key="msg">
+                {{ msg }}
+            </li>
+        </ul>
     </div>
-    <div class="msg_cover msg_hide msg_appear" v-else>
+    <div class="msg__cover msg__hide msg__appear" v-else>
         <p>更新されました</p>
     </div>
 </template>
 <script>
+import { mapState } from "vuex";
 export default {
-    data(){
-        return{
-
-        }
+    data() {
+        return {};
     },
-    props:['messageData']
-}
-</script>>
+    computed: {
+        ...mapState({
+            successResponseMessage: state =>
+                state.profile.successResponseMessage
+        })
+    }
+};
+</script>
+>
 <style></style>
