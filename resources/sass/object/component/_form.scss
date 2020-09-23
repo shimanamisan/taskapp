@@ -8,11 +8,12 @@
     &__outputImg {
         width: 100%;
         height: 100%;
+        object-fit: cover;
         @include custumRadius(50%);
     }
     &__container {
         // 未設定
-        &--profile {
+        &__profile {
             display: flex;
             justify-content: space-around;
             padding: $space_xl;

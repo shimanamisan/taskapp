@@ -1,72 +1,70 @@
 /********************************************** 
 タスク管理画面用
 **********************************************/
-.c-task{
-
-  // 共通レイアウト
-  height: calc(100vh - 100px);
-  display: flex;
-  flex-flow: column;
-  overflow-y: hidden;
-  &--dragicon{
-    margin-right: 10px !important;
-    vertical-align: baseline;
-    & > i{
-      vertical-align: baseline;
-    }
-  }
-  &--content{
-    width: 100%;
-    height: 100%;
+.c-task {
+    // 共通レイアウト
+    height: calc(100vh - 100px);
     display: flex;
     flex-flow: column;
     overflow-y: hidden;
-  }
-  &--borad01{
-    display: flex;
-    height: 100%;
-  }
-  &--borad02{
-    width: 100%;
-    padding-right: 0;
-    height: 100%;
-    background-color: #fff;
-  }
-  &--borad03{
-    margin-top: 35px;
-    display: flex;
-    height: 100%;
-    width: 100%;
-    white-space: nowrap;
-    position: relative;
-    @include mq($breackpoint:ssm){
-      margin-top: 20px;
+    &--dragicon {
+        margin-right: 10px !important;
+        vertical-align: baseline;
+        & > i {
+            vertical-align: baseline;
+        }
     }
-    
-  }
-  // ここからサイドバー
-    &__sidebar{
-      top: -36px;
-      width: 300px;
-      padding: 32px 32px 8px 24px;
-      background-color: #f9f7f5;
-      position: absolute;
-      @include mq(ssm){
-        padding: 32px 30px 8px 16px;
-        top: -20px;
-      }
-          &__user{
+    &--content {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-flow: column;
+        overflow-y: hidden;
+    }
+    &--borad01 {
+        display: flex;
+        height: 100%;
+    }
+    &--borad02 {
+        width: 100%;
+        padding-right: 0;
+        height: 100%;
+        background-color: #fff;
+    }
+    &--borad03 {
+        margin-top: 35px;
+        display: flex;
+        height: 100%;
+        width: 100%;
+        white-space: nowrap;
+        position: relative;
+        @include mq($breackpoint: ssm) {
+            margin-top: 20px;
+        }
+    }
+    // ここからサイドバー
+    &__sidebar {
+        top: -36px;
+        width: 300px;
+        padding: 32px 32px 8px 24px;
+        background-color: #f9f7f5;
+        position: absolute;
+        @include mq(ssm) {
+            padding: 32px 30px 8px 16px;
+            top: -20px;
+        }
+        &__user {
             display: flex;
             align-items: center;
             justify-content: center;
-          }
-          &__usertitle{
+        }
+        &__usertitle {
             font-size: $font-size-l;
             text-align: center;
             text-overflow: ellipsis;
             overflow: hidden;
-          }
-          &__folder{
+        }
+        &__folder {
             width: 100%;
             padding: 10px;
             // overflow-y: auto;
@@ -80,173 +78,175 @@
             //   padding: 5px;
             //   // max-height: 320px;
             // }
-            @include mq(ssm){
-              padding-right: 8px;
+            @include mq(ssm) {
+                padding-right: 8px;
             }
-            @include mq(sm){
-              padding-right: 8px;
+            @include mq(sm) {
+                padding-right: 8px;
             }
-          }
+        }
     }
-    &__avater{
-      margin-right: $space_xl;
-      width: 70px;
-      height: 70px;
-      > img {
-        @include custumRadius(50%);
-      }
+    &__avater {
+        margin-right: $space_xl;
+        width: 70px;
+        height: 70px;
+        > img {
+            @include custumRadius(50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
     }
 
-    &__folder{
-     overflow: hidden;
-     overflow-y: auto;
-        &__wrapp{
-          display: flex;
-          justify-content: flex-end;
-          box-sizing: border-box;
-          padding: 10px 10px;
-          margin-top: 10px;
-          transition: .5s;
-          box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
-          background-color: #fff;
-          &>:last-child{
-            margin-left: auto;
-          }
-            &:hover{
-              cursor: pointer;
-              background: #36363638;
-              transition: .5s;
+    &__folder {
+        overflow: hidden;
+        overflow-y: auto;
+        &__wrapp {
+            display: flex;
+            justify-content: flex-end;
+            box-sizing: border-box;
+            padding: 10px 10px;
+            margin-top: 10px;
+            transition: 0.5s;
+            box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.3);
+            background-color: #fff;
+            & > :last-child {
+                margin-left: auto;
             }
-          &--active{
-            background: #36363638;
-          }
+            &:hover {
+                cursor: pointer;
+                background: #36363638;
+                transition: 0.5s;
+            }
+            &--active {
+                background: #36363638;
+            }
         }
-        &__item{
-          max-width: 210px;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          display: inline-block;
-          user-select: none;
-          &:hover{
-            cursor: pointer;
-          }
+        &__item {
+            max-width: 210px;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            display: inline-block;
+            user-select: none;
+            &:hover {
+                cursor: pointer;
+            }
         }
-        &__trash{
-          display: block;
-          float: right;
+        &__trash {
+            display: block;
+            float: right;
         }
-        &--icon{
-          margin-right: 10px !important;
+        &--icon {
+            margin-right: 10px !important;
         }
     }
 
     // ここからTODOリスト側
-    &--card{
+    &--card {
         display: flex;
         height: 100%;
         margin-left: 380px;
-        &__inner{
-          height: 85%;
-          @include mq($breackpoint: ssm){
-            height: 88%;
-          }
+        &__inner {
+            height: 85%;
+            @include mq($breackpoint: ssm) {
+                height: 88%;
+            }
         }
     }
-    &__todo{
-      display: flex;
-      flex-direction: column;
-      padding: 15px;
-      min-width: 290px;
-      width: 290px;
-      height: 100%;
-      background-color: #f9f7f5;
-      box-shadow: 0 1px 5px 0 rgba(0,0,0,0.2);
-      margin: 0 15px 10px 0;
-      overflow-y: auto;
-      @include custumRadius(8px);
-        &__wrapp{
-          display: flex;
-          justify-content: flex-end;
-          margin-bottom: 7px;
-          &>:last-child{
-            margin-left: auto;
+    &__todo {
+        display: flex;
+        flex-direction: column;
+        padding: 15px;
+        min-width: 290px;
+        width: 290px;
+        height: 100%;
+        background-color: #f9f7f5;
+        box-shadow: 0 1px 5px 0 rgba(0, 0, 0, 0.2);
+        margin: 0 15px 10px 0;
+        overflow-y: auto;
+        @include custumRadius(8px);
+        &__wrapp {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 7px;
+            & > :last-child {
+                margin-left: auto;
+                user-select: none;
+            }
+        }
+        &__item {
+            display: inline-block;
+            overflow: hidden;
+            max-width: 245px;
+            text-overflow: ellipsis;
             user-select: none;
-          }
-  
         }
-        &__item{
-          display: inline-block;
-          overflow: hidden;
-          max-width: 245px;
-          text-overflow: ellipsis;
-          user-select: none;
+        &__inputAreaWrapp {
+            // background-color: #ccc;
+            padding: 10px 0;
+            box-sizing: border-box;
         }
-        &__inputAreaWrapp{
-          // background-color: #ccc;
-          padding: 10px 0;
-          box-sizing: border-box;
+        &__inputArea {
+            min-height: 50px;
+            width: 100%;
+            font-size: 16px;
+            color: #4a4a4a;
+            border: none;
+            border-top: 1px solid #efefef;
+            padding: 5px 10px;
+            @include custumRadius(8px);
+            @include custumShadow(1px, 2px, 2px, 1px);
         }
-        &__inputArea{
-          min-height: 50px;
-          width: 100%;
-          font-size: 16px;
-          color: #4a4a4a;
-          border: none;
-          border-top: 1px solid #efefef;
-          padding: 5px 10px;
-          @include custumRadius(8px);
-          @include custumShadow(1px,2px,2px,1px);
+        &__wrapp {
+            width: 100%;
+            box-sizing: border-box;
         }
-        &__wrapp{
-          width: 100%;
-          box-sizing: border-box;
-        }
-        &__header{
-          padding: 10px 0;
-          display: flex;
-          justify-content: flex-end;
-            &>:last-child{
-              margin-left: auto;
+        &__header {
+            padding: 10px 0;
+            display: flex;
+            justify-content: flex-end;
+            & > :last-child {
+                margin-left: auto;
             }
         }
-        &--counter{
-          color: #7760f8;
-          margin-left: 10px;
+        &--counter {
+            color: #7760f8;
+            margin-left: 10px;
         }
-        &--list{
-          padding: 5px 10px;
-          height: auto;
-          background: #ffffff;
-          margin-bottom: 10px;
-          box-sizing: border-box;
-          @include custumRadius(8px);
-          @include custumShadow(1px,2px,2px,1px);
-          &--del{
-            float: right;
-            & > i {
-              vertical-align: baseline;
+        &--list {
+            padding: 5px 10px;
+            height: auto;
+            background: #ffffff;
+            margin-bottom: 10px;
+            box-sizing: border-box;
+            @include custumRadius(8px);
+            @include custumShadow(1px, 2px, 2px, 1px);
+            &--del {
+                float: right;
+                & > i {
+                    vertical-align: baseline;
+                }
             }
-          }
         }
-        &--push{
-          font-size: 14px;
-          text-align: center;
-          height: 30px;
-          color: #62ABF8;
-          transition: 0.5s;
-          &:hover{
-            cursor: pointer;
-            opacity: 0.6;
+        &--push {
+            font-size: 14px;
+            text-align: center;
+            height: 30px;
+            color: #62abf8;
             transition: 0.5s;
-          }
+            &:hover {
+                cursor: pointer;
+                opacity: 0.6;
+                transition: 0.5s;
+            }
         }
     }
 }
-.activ{
-  background-color: #fff;
+.activ {
+    background-color: #fff;
 }
 
-.fas{
-  cursor: pointer;
-  vertical-align: middle;
+.fas {
+    cursor: pointer;
+    vertical-align: middle;
 }

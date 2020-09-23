@@ -49,6 +49,16 @@
         color: #b24603;
         border: 1px solid;
     }
+
+    /********************************************** 
+    プロフィール変更フォーム調整
+    **********************************************/
+    &profile__form {
+        width: 230px;
+        @include mq(){
+            margin: 0 auto;
+        }
+    }
 }
 
 /********************************************** 
@@ -118,13 +128,13 @@
     &__common {
         &__margin {
             margin-left: 10px;
-            &:first-child{
+            &:first-child {
                 margin-left: 0px;
             }
         }
     }
 }
 
-.u-animetion{
+.u-animetion {
     background-color: red;
 }
