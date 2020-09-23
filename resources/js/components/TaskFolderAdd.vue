@@ -8,48 +8,46 @@
             ＋ 新しいフォルダを追加
         </div>
         <div v-show="folderEdit_flg" class="c-task__todo__inputAreaWrapp">
-            <form @submit.prevent>
-                <input
-                    type="text"
-                    class="c-task__todo__inputArea"
-                    :class="{ 'c-error__bg': folderRequestErrorMessages }"
-                    v-model="folderTitle"
-                    @keydown.enter="createFolder"
-                />
-                <!-- バリデーションエラー --->
-                <ul
-                    v-if="folderRequestErrorMessages"
-                    class="c-error c-error__tasks"
+            <input
+                type="text"
+                class="c-task__todo__inputArea"
+                :class="{ 'c-error__bg': folderRequestErrorMessages }"
+                v-model="folderTitle"
+                @keydown.enter="createFolder"
+            />
+            <!-- バリデーションエラー --->
+            <ul
+                v-if="folderRequestErrorMessages"
+                class="c-error c-error__tasks"
+            >
+                <li
+                    v-for="(msg, index) in folderRequestErrorMessages.title"
+                    :key="index"
                 >
-                    <li
-                        v-for="(msg, index) in folderRequestErrorMessages.title"
-                        :key="index"
+                    {{ msg }}
+                </li>
+            </ul>
+            <!--- end c-error -->
+            <div class="l-flex u-btn__wrapp">
+                <div class="u-btn__common__margin">
+                    <button
+                        class="c-btn c-btn__common c-btn__common__cancel"
+                        @click="clearFolderCreateForm"
                     >
-                        {{ msg }}
-                    </li>
-                </ul>
-                <!--- end c-error -->
-                <div class="l-flex u-btn__wrapp">
-                    <div class="u-btn__common__margin">
-                        <button
-                            class="c-btn c-btn__common c-btn__common__cancel"
-                            @click="clearFolderCreateForm"
-                        >
-                            キャンセル
-                        </button>
-                    </div>
-                    <div class="u-btn__common__margin">
-                        <button
-                            type="submit"
-                            class="c-btn c-btn__common"
-                            @click="createFolder"
-                        >
-                            追加
-                        </button>
-                    </div>
+                        キャンセル
+                    </button>
                 </div>
-                <!-- end l-flex -->
-            </form>
+                <div class="u-btn__common__margin">
+                    <button
+                        type="submit"
+                        class="c-btn c-btn__common"
+                        @click="createFolder"
+                    >
+                        追加
+                    </button>
+                </div>
+            </div>
+            <!-- end l-flex -->
         </div>
         <!-- ebd c-task__todo--push -->
     </div>

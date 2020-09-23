@@ -14,6 +14,7 @@
                     class="c-task__todo__inputArea"
                     :class="{ 'c-error__bg': cardRequestErrorMessages }"
                     v-model="CradCreateForm"
+                    @keydown.enter="createCard"
                 />
                 <!-- バリデーションエラー --->
                 <ul
@@ -115,12 +116,18 @@ export default {
                 "taskStore/setCardListsAction",
                 this.folder_id
             );
+            this.showCreateCardFrom();
         },
         // 投稿後にフォームの中身を削除し、フォームを非表示にする
         clearCradCreateForm() {
             this.CradCreateForm = "";
-            this.CardEdit_flg = !this.CardEdit_flg;
             this.clearError();
+        },
+        /*************************************************
+         * タスク追加用フォームの表示
+         **************************************************/
+        showCreateCardFrom() {
+            this.CardEdit_flg = !this.CardEdit_flg;
         },
         /*************************************************
          * バリデーションメッセージを消すアクションを呼ぶ
