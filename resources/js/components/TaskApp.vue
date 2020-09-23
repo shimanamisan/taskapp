@@ -61,14 +61,14 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import Header from "./Header";
-import TaskFolderProfile from "./TaskFolderProfile";
-import TaskFolderAdd from "./TaskFolderAdd";
-import TaskFolder from "./TaskFolder";
-import TaskCard from "./TaskCard";
-import TaskCardAdd from "./TaskCardAdd";
-import Message from "./Message";
 import { mapState, mapGetters } from "vuex";
+import Header from "@/components/Include/Header";
+import TaskFolderProfile from "@/components/TaskFolderProfile";
+import TaskFolderAdd from "@/components/TaskFolderAdd";
+import TaskFolder from "@/components/TaskFolder";
+import TaskCard from "@/components/TaskCard";
+import TaskCardAdd from "@/components/TaskCardAdd";
+import Message from "@/components/Message";
 
 export default {
     data() {

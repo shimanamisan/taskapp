@@ -37,7 +37,7 @@ class ProfileImageRequest extends FormRequest
     public function messages()
     {
         return [
-            'profilePhoto.required' => '写真を選択してください。',
+            'profilePhoto.required' => '写真は必須です。',
             'profilePhoto.file' => '写真を選択してください。',
             'profilePhoto.mimes' => '画像ファイルのみ選択可能です。',
            

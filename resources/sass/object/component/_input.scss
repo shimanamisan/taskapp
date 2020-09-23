@@ -1,48 +1,47 @@
-.c-input{
-  @include custumRadius(3px);
-  display: block;
-  background-color: $background-body-color;
-  font-size: $font-size_l;
-  padding: $space_m;
-  width: 100%;
-  box-sizing: inherit;
-  border: 2px solid #dfd8d8;
-    &:focus{
-      outline: none;
-      border: 2px solid #1e73be; 
+.c-input {
+    @include custumRadius(3px);
+    display: block;
+    background-color: $background-body-color;
+    font-size: 14px;
+    padding: $space_m;
+    width: 100%;
+    box-sizing: inherit;
+    border: 2px solid #dfd8d8;
+    &:focus {
+        outline: none;
+        border: 2px solid #1e73be;
     }
-  &--profile{
-    display:block;
-    @include custumRadius(50%);
-    width: 200px;
-    background: #f6f5f4;
-    height: 200px;
-    line-height: 200px;
-    position: relative;
-    box-sizing: border-box;
-    text-align: center;
-    @include mq(){
-      height: 100%;
-      margin: 0px auto 16px;
-    }
-      &__drop{
-        border: none;
-        width: 100%;
+    &__profile {
+        display: block;
+        @include custumRadius(50%);
+        width: 200px;
+        background: #f6f5f4;
         height: 200px;
         line-height: 200px;
-        position: absolute;
-        top: 0;
-        left: 0;
-        opacity: 0;
-        &:hover{
-          cursor: pointer;
+        position: relative;
+        box-sizing: border-box;
+        text-align: center;
+        @include mq() {
+            margin: 0px auto 16px;
+        }
+        &__drop {
+            border: none;
+            object-fit: cover;
+            width: 100%;
+            height: 200px;
+            line-height: 200px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            &:hover {
+                cursor: pointer;
+            }
         }
     }
-  }
-  &__tasks{
-    font-size: 16px;
-    padding: 3px 4px;
-    width: 170px;
-  }
+    &__tasks {
+        font-size: 16px;
+        padding: 3px 4px;
+        width: 170px;
+    }
 }
-

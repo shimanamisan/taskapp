@@ -29,21 +29,44 @@ class ProfileController extends Controller
     }
 
     // プロフィール写真を更新
-    public function profileImageEdit(ProfileImageRequest $request)
+    public function profileImageEdit(ProfileImageRequest $request, $id)
     {
-       
-        // フォームリクエストされてきたファイル名を取得する
-        // profilePhotoはvue側で指定した key:value のkeyを指定している
-        $file_name = $request->profilePhoto->getClientOriginalName();
+        \Log::debug('パラメータのユーザーIDを確認しています。型：' . gettype($id) . '  ID：' . $id);
+        \Log::debug('   ');
 
-        // storage/app/public/profile_imgフォルダへ保存
-        $request->profilePhoto->storeAs('public/profile_img', $file_name);
+        if (!ctype_digit($id)) {
+            $errors = ['errors' =>
+                    ['old_password' =>
+                        ['不正なパラメータが入力されました。']
+                    ]
+                ];
+            \Log::debug('不正なパラメータが入力されています。');
+            \Log::debug('   ');
+            // ステータスコードとエラーメッセージを返す
+            return response()->json($errors, 422);
+        }
 
-        // 認証済みのユーザーでテーブルへ保存
-        Auth::user()->update(['pic' => '/storage/profile_img/'.$file_name]);
-        
-        // 認証済みユーザー情報を返却
-        return Auth::user();
+        try {
+            $user = User::find($id);
+            \Log::debug('パラメーターよりユーザー情報を取得しています。');
+            \Log::debug('   ');
+            // フォームリクエストされてきたファイル名を取得する
+            // profilePhotoはvue側で指定した key:value のkeyを指定している
+            $file_name = $request->profilePhoto->getClientOriginalName();
+            // storage/app/public/profile_imgフォルダへ画像を保存
+            $request->profilePhoto->storeAs('public/profile_img', $file_name);
+            // 認証済みのユーザーでテーブルへ保存
+            $user->update(['pic' => '/storage/profile_img/'.$file_name]);
+            \Log::debug('正常に画像が保存されました');
+            \Log::debug('   ');
+
+            // 認証済みユーザー情報を返却
+            return Auth::user();
+        } catch (\Exception $e) {
+            \Log::debug('画像変更時にエラーが発生しました。。' .$e->getMessage());
+            \Log::debug('   ');
+            return response()->json(['errors', 'エラーが発生しました。'], 500);
+        }
     }
 
     // ユーザー名を更新
@@ -114,6 +137,17 @@ class ProfileController extends Controller
     // ユーザー退会
     public function userSoftDelete(Request $request, $id)
     {
+        if (!ctype_digit($id)) {
+            $errors = ['errors' =>
+                ['old_password' =>
+                    ['不正なパラメータが入力されました。']
+                ]
+            ];
+            \Log::debug('不正なパラメータが入力されています。');
+            \Log::debug('   ');
+            // ステータスコードとエラーメッセージを返す
+            return response()->json($errors, 422);
+        }
         try {
             // DBファサードではなく、Eloquent ORM にてdelete()メソッドを実行する事
             // https://www.ritolab.com/entry/53#environment_development
@@ -151,27 +185,46 @@ class ProfileController extends Controller
     }
 
     // Emailを更新及び認証用リンクを送信
-    public function profileEmailEdit(ProfileEmailRequest $request)
+    public function profileEmailEdit(ProfileEmailRequest $request, $id)
     {
+        \Log::debug('パラメータのユーザーIDを確認しています。型：' . gettype($id) . '  ID：' . $id);
+        \Log::debug('   ');
+
         $email = $request->email;
-        $id = $request->user_id;
  
-        if (empty($id)) {
-            \Log::debug('何らかの原因でメールアドレス変更時にユーザーIDが格納されていません。');
-            \Log::debug('   ');
- 
+        if (!ctype_digit($id)) {
             $errors = ['errors' =>
-                 ['email' =>
-                     ['予期せぬエラーが発生しました。']
-                 ]
-             ];
-            return response()->json($errors, 500);
+                    ['old_password' =>
+                        ['不正なパラメータが入力されました。']
+                    ]
+                ];
+            \Log::debug('不正なパラメータが入力されています。');
+            \Log::debug('   ');
+            // ステータスコードとエラーメッセージを返す
+            return response()->json($errors, 422);
         }
  
         // トークン生成
         $token = hash_hmac('sha256', Str::random(40) . $email, config('app.key'));
  
         try {
+            $user = User::find($id);
+            \Log::debug('パラメーターよりユーザー情報を取得しています。');
+            \Log::debug('   ');
+
+            if ($email !== $user->email) {
+                \Log::debug('不正なメールアドレスが入力されています。');
+                \Log::debug('   ');
+
+                $errors = ['errors' =>
+                ['old_password' =>
+                    ['不正なパラメータが入力されました。']
+                ]
+            ];
+                // ステータスコードとエラーメッセージを返す
+                return response()->json($errors, 422);
+            }
+
             $param = [];
             $param['user_id'] = $id;
             $param['new_email'] = $email;

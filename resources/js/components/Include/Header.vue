@@ -64,7 +64,7 @@
 </template>
 
 <script>
-import header_logo from "../../img/header-logo.png";
+import header_logo from "../../../img/header-logo.png";
 import { mapState, mapGetters } from "vuex";
 export default {
     data() {

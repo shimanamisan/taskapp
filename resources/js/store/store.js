@@ -1,10 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import auth from "./auth";
-import taskStore from "./taskStore";
-import error from "./error";
-import contact from "./contact";
-import profile from "./profile";
+import auth from "@/store/auth";
+import taskStore from "@/store/taskStore";
+import error from "@/store/error";
+import contact from "@/store/contact";
+import profile from "@/store/profile";
 
 // Vuexを使うよという宣言
 Vue.use(Vuex);

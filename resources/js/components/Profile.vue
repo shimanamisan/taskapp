@@ -1,17 +1,23 @@
 <template>
     <div>
         <Header />
+        <transition>
+            <Loading v-show="this.showLoading" />
+        </transition>
         <div class="l-wrapper l-wrapper__profile">
             <transition name="c-transition__flash">
-                <Message v-show="success" :message-data="this.success_message"/>
+                <Message
+                    v-show="success"
+                    :message-data="this.success_message"
+                />
             </transition>
-            <div class="l-main__auth l-main__auth--profile">
+            <div class="l-main__auth l-main__auth__profile">
                 <div class="l-card__container">
                     <div class="p-card__container">
                         <p class="p-card__title">プロフィール編集</p>
                     </div>
                     <hr class="u-form__line" />
-                    <div class="c-form__container--profile">
+                    <div class="c-form__container__profile">
                         <div class="c-form__item">
                             <label
                                 for
@@ -21,7 +27,7 @@
                             <!-- バリデーションエラー --->
                             <div
                                 v-if="profileUploadErrors"
-                                class="c-error errors--profile"
+                                class="c-error errors__profile"
                             >
                                 <ul v-if="profileUploadErrors.profilePhoto">
                                     <li
@@ -33,10 +39,10 @@
                                 </ul>
                             </div>
                             <!--- end c-error -->
-                            <label class="c-input--profile">
+                            <label class="c-input__profile">
                                 <input
                                     type="file"
-                                    class="c-input--profile__drop"
+                                    class="c-input__profile__drop"
                                     @change="fileSelected"
                                     @focus="imagefocus"
                                 />
@@ -82,7 +88,7 @@
                             <!-- l-flex -->
                         </div>
                         <!-- end c-form__item -->
-                        <div>
+                        <div class="u-profile__form">
                             <div class="c-form__item">
                                 <label for class="c-form-lavel"
                                     >ニックネーム</label
@@ -182,11 +188,11 @@
                             </div>
                         </div>
                     </div>
-                    <!-- c-form__container--profile -->
+                    <!-- c-form__container__profile -->
                     <transition name="c-transition__modal">
                         <ChangePassword
                             v-show="showPassword"
-                            @closeEvent="closeModal"
+                            @closeEvent="closePasswordModal"
                             :user-id="this.profileData.user_id"
                         />
                         <!-- end c-modal -->
@@ -221,11 +227,12 @@
     </div>
 </template>
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapMutations, mapState, mapGetters } from "vuex";
 import NoImage from "./common/NoImage";
 import ChangePassword from "./modal/ChangePassword";
-import Header from "./Header";
-import Message from "./Message";
+import Header from "@/components/Include/Header";
+import Loading from "@/components/Loading/Loading";
+import Message from "@/components/Message";
 export default {
     data() {
         return {
@@ -243,6 +250,9 @@ export default {
             success: false,
             success_message: null,
 
+            // ローディング画面の表示フラグ
+            showLoading: false,
+
             // プロフィールのフォームデータ
             profileData: {
                 user_id: null,
@@ -256,7 +266,8 @@ export default {
         Header,
         Message,
         NoImage,
-        ChangePassword
+        ChangePassword,
+        Loading
     },
     computed: {
         ...mapState({
@@ -267,11 +278,19 @@ export default {
         })
     },
     methods: {
+        ...mapMutations({
+            setSuccessResponseMessage: "profile/setSuccessResponseMessage"
+        }),
         // フォームでファイルが選択されたら実行
         fileSelected(event) {
+            if (event.target.files.length === 0) {
+                this.reset();
+                return false;
+            }
             // ファイルが画像でなかったら処理を中断
+            console.log(event.target.files[0]);
             if (!event.target.files[0].type.match("image.*")) {
-                this.$store.commit("auth/setProfileErrorMessages", {
+                this.$store.commit("profile/setProfileErrorMessages", {
                     profilePhoto: ["画像を選択してください"]
                 });
                 this.$el.querySelector('input[type="file"]').value = null;
@@ -279,7 +298,7 @@ export default {
             }
             // ファイル情報をdataプロパティに保存
             // Eventオブジェクトのtargetプロパティ内のfilesに選択したファイル情報が入っている
-            this.profileImage = event.target.files[0];
+            this.profileData.profileImage = event.target.files[0];
             // FileReaderクラスのインスタンスを取得
             const reader = new FileReader();
             // ファイルを読み込み終わったタイミングで実行する処理
@@ -290,17 +309,22 @@ export default {
             // 読み込まれたファイルはデータURL形式で受け取れる
             reader.readAsDataURL(event.target.files[0]);
             this.profileData.profileImage = event.target.files[0];
+            console.log("正常に画像が格納されています。");
         },
         reset() {
             // エラーメッセージが出ていたら消す
             this.clearError();
             // this.$el.querySelectorでinput要素のDOMを取得して内部の値を消している
             this.$el.querySelector('input[type="file"]').value = null;
+            this.preview = null;
+            this.profileData.profileImage = null;
             this.showProfileImage = !this.showProfileImage;
         },
         // プロフィール写真変更
         async profileImageEdit() {
             this.clearError();
+            this.isActiveLoading();
+            this.setSuccessResponseMessage(null);
             // プロフィール画像保存の処理
             // FormDataオブジェクトをインスタンス化
             const formData = new FormData();
@@ -310,14 +334,15 @@ export default {
             // formdataオブジェクトの中身を見る https://qiita.com/_Keitaro_/items/6a3342735d3429175300
             formData.append("profilePhoto", this.profileData.profileImage);
             // アクションへファイル情報を渡す
-            await this.$store.dispatch("auth/profileImageEdit", {
-                user_id: this.user_id,
-                img_data: formData
+            await this.$store.dispatch("profile/profileImageEdit", {
+                user_id: this.profileData.user_id,
+                img: formData
             });
             if (this.getCode === 200) {
                 this.showSuccess();
-                setTimeout(this.showSuccess, 3000);
+                setTimeout(this.showSuccess, 5000);
             }
+            this.isActiveLoading();
             this.showProfileImage = !this.showProfileImage;
         },
         async userSoftDelete() {
@@ -327,8 +352,9 @@ export default {
                 )
             ) {
                 // アクションを呼びに行く
-                await this.$store.dispatch("auth/userSoftDelete");
+                await this.$store.dispatch("profile/userSoftDelete");
                 if (this.getCode === 200) {
+                    // 画面遷移時にコンポーネントにメッセージを渡す
                     this.$router.push({
                         name: "Index",
                         params: {
@@ -341,30 +367,41 @@ export default {
         },
         async profileNameEdit() {
             this.clearError();
+            this.isActiveLoading();
+            this.setSuccessResponseMessage(null);
             // アクションへファイル情報を渡す
             await this.$store.dispatch("profile/profileNameEdit", {
                 name: this.profileData.name
             });
             if (this.getCode === 200) {
                 this.showName = !this.showName;
+                this.isActiveLoading();
                 this.showSuccess();
-                setTimeout(this.showSuccess, 3000);
+                setTimeout(this.showSuccess, 5000);
+                return;
             }
+            this.isActiveLoading();
         },
         async profileEmailEdit() {
             this.clearError();
+            this.isActiveLoading();
+            this.setSuccessResponseMessage(null);
             // アクションへファイル情報を渡す
             await this.$store.dispatch("profile/profileEmailEdit", {
                 user_id: this.profileData.user_id,
                 email: this.profileData.email
             });
             if (this.getCode === 200) {
+                this.isActiveLoading();
                 this.showEmail = !this.showEmail;
                 this.showSuccess();
-                setTimeout(this.showSuccess, 3000);
+                setTimeout(() => {
+                    this.showSuccess();
+                }, 5000);
+                return;
             }
+            this.isActiveLoading();
         },
-
         cancelName() {
             this.clearError();
             this.showName = !this.showName;
@@ -379,8 +416,11 @@ export default {
             const elment = document.getElementById("js-modal-lock");
             elment.classList.add("c-modal__lock");
         },
-        closeModal() {
+        closePasswordModal() {
             this.showPassword = !this.showPassword;
+        },
+        isActiveLoading() {
+            this.showLoading = !this.showLoading;
         },
         /****************************************
          * focus処理のメソッド
@@ -419,15 +459,22 @@ export default {
          * プロフィールアクセス時にユーザー情報を取得
          **************************************************/
         getProfile() {
+            this.isActiveLoading();
             axios
                 .get("/api/user")
                 .then(response => {
+                    this.isActiveLoading();
                     this.profileData.user_id = response.data.id;
                     this.profileData.name = response.data.name;
                     this.profileData.email = response.data.email;
                     this.preview = response.data.pic;
+                    this.setSuccessResponseMessage(null);
                 })
                 .catch(error => {
+                    alert(
+                        "エラーが発生しました。改善しない場合はお問い合わせページよりご連絡下さい。"
+                    );
+                    this.isActiveLoading();
                     console.log(error);
                 });
         }

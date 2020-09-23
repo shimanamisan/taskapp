@@ -178,7 +178,8 @@ module.exports = {
     resolve: {
         // Webpackで利用するときの設定
         alias: {
-            vue$: "vue/dist/vue.esm.js"
+            vue$: "vue/dist/vue.esm.js",
+            '@': path.resolve(__dirname, 'resources/js/'),
         },
         extensions: ["*", ".js", ".vue", ".json"]
     }
