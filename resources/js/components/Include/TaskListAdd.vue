@@ -38,10 +38,7 @@
                         </button>
                     </div>
                     <div class="u-btn__common__margin">
-                        <button
-                            class="c-btn c-btn__common"
-                            @click="createTask"
-                        >
+                        <button class="c-btn c-btn__common" @click="createTask">
                             追加
                         </button>
                     </div>
@@ -52,6 +49,12 @@
     </div>
 </template>
 <script>
+import {
+    OK,
+    UNPROCESSABLE_ENTITY,
+    INTERNAL_SERVER_ERROR,
+    CREATED
+} from "@/statusCode";
 export default {
     data() {
         return {
@@ -90,13 +93,15 @@ export default {
                 card_id: card_id
             });
 
-            if (this.getErrorCode === 200) {
+            if (this.getErrorCode === OK) {
                 // データが追加されて更新されても、選択されていたフォルダーがそのまま表示されている様に呼び出す
                 await this.$store.dispatch(
                     "taskStore/setCardListsAction",
                     this.folder_id
                 );
                 this.clearTaskCreateForm();
+            } else if (this.getErrorCode === UNPROCESSABLE_ENTITY) {
+                // バリデーションエラー時は登録用フォームを非表示にしない
             }
             // 通信が失敗時でも、リストを空にしない
             await this.$store.dispatch(

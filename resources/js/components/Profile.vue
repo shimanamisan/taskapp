@@ -232,7 +232,7 @@ import NoImage from "./common/NoImage";
 import ChangePassword from "./modal/ChangePassword";
 import Header from "@/components/Include/Header";
 import Loading from "@/components/Loading/Loading";
-import Message from "@/components/Message";
+import Message from "@/components/Include/Message";
 export default {
     data() {
         return {

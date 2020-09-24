@@ -14,16 +14,16 @@
                                     class="c-task__sidebar__folder c-task__folder"
                                     id="folder_height"
                                 >
+                                    <!-- Edgeでソート出来ない場合に :forceFallback="true" を記述 -->
                                     <draggable
                                         :forceFallback="true"
                                         :list="FolderLists"
                                         tag="ul"
-                                        v-bind="{ animation: 300, delay: 50 }"
-                                        handle=".handle"
+                                        v-bind="getOptionsForFolder()"
+                                        handle=".u-handle"
                                         @change="onChange"
                                     >
                                         <TaskFolder
-                                            class="handle"
                                             v-for="(folders,
                                             index) in FolderLists"
                                             :key="folders.id"
@@ -38,7 +38,15 @@
                             <!-- end c-task__sidebar -->
 
                             <!-- TODOコンポーネント  -->
-                            <div class="c-task--card">
+
+                            <draggable
+                                tag="ul"
+                                class="c-task__card"
+                                :forceFallback="true"
+                                :list="CardLists"
+                                v-bind="getOptionsForFolder()"
+                                handle=".u-handle"
+                            >
                                 <TaskCard
                                     v-for="(cards, index) in CardLists"
                                     :key="cards.id"
@@ -46,7 +54,8 @@
                                     :listIndex="index"
                                     :cards="cards"
                                 />
-                            </div>
+                            </draggable>
+
                             <TaskCardAdd />
                         </div>
                         <!-- end c-task--borad03 -->
@@ -63,12 +72,12 @@
 import draggable from "vuedraggable";
 import { mapState, mapGetters } from "vuex";
 import Header from "@/components/Include/Header";
-import TaskFolderProfile from "@/components/TaskFolderProfile";
-import TaskFolderAdd from "@/components/TaskFolderAdd";
+import TaskFolderProfile from "@/components/Include/TaskFolderProfile";
+import TaskFolderAdd from "@/components/Include/TaskFolderAdd";
 import TaskFolder from "@/components/TaskFolder";
 import TaskCard from "@/components/TaskCard";
-import TaskCardAdd from "@/components/TaskCardAdd";
-import Message from "@/components/Message";
+import TaskCardAdd from "@/components/Include/TaskCardAdd";
+import Message from "@/components/Include/Message";
 
 export default {
     data() {
@@ -94,6 +103,13 @@ export default {
         })
     },
     methods: {
+        // vue-draggableオプションをメソッドに切り出し
+        getOptionsForFolder() {
+            return { animation: 500, delay: 50 };
+        },
+        getOptionsForCrad() {
+            return { animation: 500, delay: 50};
+        },
         async setFolderLists(data) {
             await this.$store.dispatch("taskStore/setFolderLists", data);
         },

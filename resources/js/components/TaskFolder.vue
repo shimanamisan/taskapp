@@ -1,12 +1,12 @@
 <template>
     <div>
         <li
-            class="c-task__folder__wrapp"
+            class="c-task__folder__wrapp u-handle"
             :class="currentFolder(this.id)"
             @click="setCardLists"
         >
-            <div class="c-task--dragicon">
-                <i class="fas fa-bars "></i>
+            <div class="c-task__dragicon">
+                <i class="fas fa-bars"></i>
             </div>
             <span class="c-task__folder__item" v-if="!editFlag">{{
                 folderTitle

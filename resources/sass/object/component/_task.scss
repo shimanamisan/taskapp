@@ -7,11 +7,11 @@
     display: flex;
     flex-flow: column;
     overflow-y: hidden;
-    &--dragicon {
+    &__dragicon {
         margin-right: 10px !important;
-        vertical-align: baseline;
-        & > i {
-            vertical-align: baseline;
+        font-size: 20px;
+        &__card {
+            font-size: 24px;
         }
     }
     &--content {
@@ -102,6 +102,8 @@
         overflow: hidden;
         overflow-y: auto;
         &__wrapp {
+            align-items: center;
+            user-select: none;
             display: flex;
             justify-content: flex-end;
             box-sizing: border-box;
@@ -114,7 +116,6 @@
                 margin-left: auto;
             }
             &:hover {
-                cursor: pointer;
                 background: #36363638;
                 transition: 0.5s;
             }
@@ -142,10 +143,11 @@
     }
 
     // ここからTODOリスト側
-    &--card {
+    &__card {
         display: flex;
         height: 100%;
         margin-left: 380px;
+        position: relative;
         &__inner {
             height: 85%;
             @include mq($breackpoint: ssm) {
@@ -154,6 +156,7 @@
         }
     }
     &__todo {
+        user-select: none;
         display: flex;
         flex-direction: column;
         padding: 15px;
@@ -168,6 +171,7 @@
         &__wrapp {
             display: flex;
             justify-content: flex-end;
+            align-items: center;
             margin-bottom: 7px;
             & > :last-child {
                 margin-left: auto;

@@ -8,7 +8,7 @@ import Profile from "@/components/Profile";
 import Policy from "@/components/Policy";
 import Rule from "@/components/Rule";
 import Callback from "@/components/TwitterAuth/Callback";
-import EmailChangeCallback from "@/components/EmailChangeCallback";
+import EmailChangeCallback from "@/components/page/EmailChangeCallback";
 import Login from "@/components/page/Login";
 import Register from "@/components/page/Register";
 import Contact from "@/components/page/Contact";

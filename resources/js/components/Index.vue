@@ -39,7 +39,7 @@
                 </div>
             </section>
             <section class="l-section l-section__second">
-                <div class="u-inner--index">
+                <div class="u-inner__index">
                     <h2 class="u-title p-title">
                         こんなことでお悩みではないですか？
                     </h2>
@@ -72,9 +72,9 @@
                 </div>
             </section>
             <section class="l-section l-section__third">
-                <div class="u-inner--index">
+                <div class="u-inner__index">
                     <div class="l-section-wrapp l-section-wrapp__flex">
-                        <div class="p-card__third u-inner--index">
+                        <div class="p-card__third u-inner__index">
                             <div class="p-card__body">
                                 <div class="p-card-title">
                                     <p class="p-title">
@@ -100,9 +100,9 @@
                 </div>
             </section>
             <section class="l-section l-section__fourth">
-                <div class="u-inner--index">
+                <div class="u-inner__index">
                     <div class="l-section-wrapp l-section-wrapp__flex">
-                        <div class="p-card__third u-inner--index">
+                        <div class="p-card__third u-inner__index">
                             <div class="p-card__body">
                                 <div class="p-card-content__third u-inner__l">
                                     <div class="p-card-title">
@@ -118,7 +118,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="p-card__third u-inner--index u-icon--wrapp">
+                        <div class="p-card__third u-inner__index u-icon__wrapp">
                             <router-link
                                 tag="button"
                                 to="login"
