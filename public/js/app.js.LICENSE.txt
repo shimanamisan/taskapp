@@ -13541,6 +13541,18 @@
 
 //     // authモジュールのapiStatusを参照
 
+//     // console.log(evt.item)
+
+//     // console.log(evt.item.getAttribute('data-task-id'))
+
+//     console.log(evt.item)
+
+//     evt.item.setAttribute('class', 'c-task__todo--list u-animetion')
+
+//     evt.item.setAttribute('class', 'c-task__todo--list')
+
+//     let targetTask = evt.item.getAttribute('data-task-id')
+
 //     return this.$store.state.auth.apiStatus
 
 //    - Any
@@ -14737,17 +14749,23 @@
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/App.vue?vue&type=script&lang=js&
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmailChangeCallback.vue?vue&type=script&lang=js&
-
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/Footer.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/Header.vue?vue&type=script&lang=js&
 
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/Message.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/TaskCardAdd.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/TaskFolderAdd.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/TaskFolderProfile.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/TaskListAdd.vue?vue&type=script&lang=js&
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Index.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Loading/Loading.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Message.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Policy.vue?vue&type=script&lang=js&
 
@@ -14759,17 +14777,9 @@
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskCard.vue?vue&type=script&lang=js&
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskCardAdd.vue?vue&type=script&lang=js&
-
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskFolder.vue?vue&type=script&lang=js&
 
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskFolderAdd.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskFolderProfile.vue?vue&type=script&lang=js&
-
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskList.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskListAdd.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TwitterAuth/Callback.vue?vue&type=script&lang=js&
 
@@ -14781,6 +14791,8 @@
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/Contact.vue?vue&type=script&lang=js&
 
+// CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/EmailChangeCallback.vue?vue&type=script&lang=js&
+
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/Login.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/PasswordReminder.vue?vue&type=script&lang=js&
@@ -14791,15 +14803,19 @@
 
 // CONCATENATED MODULE: ./node_modules/babel-loader/lib??ref--2-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/error/SystemError.vue?vue&type=script&lang=js&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/EmailChangeCallback.vue?vue&type=template&id=3c380c36&
-
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/Footer.vue?vue&type=template&id=238a3b2d&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/Message.vue?vue&type=template&id=4a4f6436&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/TaskCardAdd.vue?vue&type=template&id=476042ec&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/TaskFolderAdd.vue?vue&type=template&id=69345b2c&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Include/TaskListAdd.vue?vue&type=template&id=66062588&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Index.vue?vue&type=template&id=bb962f12&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Loading/Loading.vue?vue&type=template&id=0bb449a4&scoped=true&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Message.vue?vue&type=template&id=b91a6428&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Policy.vue?vue&type=template&id=4d092b46&
 
@@ -14811,15 +14827,9 @@
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskCard.vue?vue&type=template&id=8b6a65c0&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskCardAdd.vue?vue&type=template&id=57e5f9de&
-
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskFolder.vue?vue&type=template&id=39a1917e&
 
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskFolderAdd.vue?vue&type=template&id=663a79f3&
-
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskList.vue?vue&type=template&id=0afd8bae&
-
-// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TaskListAdd.vue?vue&type=template&id=768bdc7a&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/TwitterAuth/Callback.vue?vue&type=template&id=09e669a4&
 
@@ -14830,6 +14840,8 @@
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/modal/ChangePassword.vue?vue&type=template&id=a1ea1710&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/Contact.vue?vue&type=template&id=22604c4b&
+
+// CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/EmailChangeCallback.vue?vue&type=template&id=13dd21fc&
 
 // CONCATENATED MODULE: ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/page/Login.vue?vue&type=template&id=8d9ed858&
 
@@ -14863,10 +14875,6 @@
 
 // CONCATENATED MODULE: ./resources/js/app.js
 
-// CONCATENATED MODULE: ./resources/js/components/EmailChangeCallback.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./resources/js/components/EmailChangeCallback.vue?vue&type=template&id=3c380c36&
-
 // CONCATENATED MODULE: ./resources/js/components/Include/Footer.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./resources/js/components/Include/Footer.vue?vue&type=template&id=238a3b2d&
@@ -14875,15 +14883,31 @@
 
 // CONCATENATED MODULE: ./resources/js/components/Include/Header.vue?vue&type=template&id=44bc9f1f&
 
+// CONCATENATED MODULE: ./resources/js/components/Include/Message.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/Message.vue?vue&type=template&id=4a4f6436&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskCardAdd.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskCardAdd.vue?vue&type=template&id=476042ec&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskFolderAdd.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskFolderAdd.vue?vue&type=template&id=69345b2c&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskFolderProfile.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskFolderProfile.vue?vue&type=template&id=22a236b4&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskListAdd.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./resources/js/components/Include/TaskListAdd.vue?vue&type=template&id=66062588&
+
 // CONCATENATED MODULE: ./resources/js/components/Index.vue?vue&type=template&id=bb962f12&
 
 // CONCATENATED MODULE: ./resources/js/components/Loading/Loading.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./resources/js/components/Loading/Loading.vue?vue&type=template&id=0bb449a4&scoped=true&
-
-// CONCATENATED MODULE: ./resources/js/components/Message.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./resources/js/components/Message.vue?vue&type=template&id=b91a6428&
 
 // CONCATENATED MODULE: ./resources/js/components/Policy.vue?vue&type=script&lang=js&
 
@@ -14905,29 +14929,13 @@
 
 // CONCATENATED MODULE: ./resources/js/components/TaskCard.vue?vue&type=template&id=8b6a65c0&
 
-// CONCATENATED MODULE: ./resources/js/components/TaskCardAdd.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./resources/js/components/TaskCardAdd.vue?vue&type=template&id=57e5f9de&
-
 // CONCATENATED MODULE: ./resources/js/components/TaskFolder.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./resources/js/components/TaskFolder.vue?vue&type=template&id=39a1917e&
 
-// CONCATENATED MODULE: ./resources/js/components/TaskFolderAdd.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./resources/js/components/TaskFolderAdd.vue?vue&type=template&id=663a79f3&
-
-// CONCATENATED MODULE: ./resources/js/components/TaskFolderProfile.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./resources/js/components/TaskFolderProfile.vue?vue&type=template&id=4344cc0a&
-
 // CONCATENATED MODULE: ./resources/js/components/TaskList.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./resources/js/components/TaskList.vue?vue&type=template&id=0afd8bae&
-
-// CONCATENATED MODULE: ./resources/js/components/TaskListAdd.vue?vue&type=script&lang=js&
-
-// CONCATENATED MODULE: ./resources/js/components/TaskListAdd.vue?vue&type=template&id=768bdc7a&
 
 // CONCATENATED MODULE: ./resources/js/components/TwitterAuth/Callback.vue?vue&type=script&lang=js&
 
@@ -14944,6 +14952,10 @@
 // CONCATENATED MODULE: ./resources/js/components/page/Contact.vue?vue&type=script&lang=js&
 
 // CONCATENATED MODULE: ./resources/js/components/page/Contact.vue?vue&type=template&id=22604c4b&
+
+// CONCATENATED MODULE: ./resources/js/components/page/EmailChangeCallback.vue?vue&type=script&lang=js&
+
+// CONCATENATED MODULE: ./resources/js/components/page/EmailChangeCallback.vue?vue&type=template&id=13dd21fc&
 
 // CONCATENATED MODULE: ./resources/js/components/page/Login.vue?vue&type=script&lang=js&
 
@@ -20569,6 +20581,10 @@
 
 // somehow flow cannot infer this is a function
 
+// sortAddClass(evt){
+
+// sortRemoveClass(evt){
+
 // spaces as combinators
 
 // specially universal or its namespaces are a superset of the event's.
@@ -21035,7 +21051,11 @@
 
 // via either native Promise.then or MutationObserver.
 
+// vue-draggableに指定するオプションを切り出し
+
 // vue-draggableをLaravelと連携するメソッド
+
+// vue-draggableオプションをメソッドに切り出し
 
 // vue-router#1212
 
@@ -21202,6 +21222,8 @@
 // {display: ["-webkit-box", "-ms-flexbox", "flex"]}
 
 // }
+
+// },
 
 // お問い合わせバリデーション（Email）
 

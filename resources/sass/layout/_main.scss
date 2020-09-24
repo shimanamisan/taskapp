@@ -1,127 +1,119 @@
 /********************************************** 
 共通レイアウト
 **********************************************/
-.l-main{
-  width: 100%;
-  &__rule{
-    margin: 0 auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 75%;
-    @include mq(){
-      width: 100%;
-      padding: 25px 15px 30px 15px;
-      box-sizing: border-box;
-    }
-  }
-  &__policy{
-    margin: 0 auto;
-    padding-top: 50px;
-    padding-bottom: 50px;
-    width: 75%;
-    @include mq(){
-      width: 100%;
-      padding: 25px 15px 30px 15px;
-      box-sizing: border-box;
-    }
-  }
-  &__auth{
-    width: 31rem; // rem: ルート要素（html要素）に指定されたサイズを基準とした単
-    margin: 0 auto;
-    padding: 25px 5px 30px 5px;
-    box-sizing: border-box;
-    @include mq(){
-      width: 100%;
-      padding: 25px 10px 30px 10px;
-    }
-      &__profile{
-        width: 774px;
-        @include mq(){
-          width: 100%;
+.l-main {
+    width: 100%;
+    &__rule {
+        margin: 0 auto;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        width: 75%;
+        @include mq() {
+            width: 100%;
+            padding: 25px 15px 30px 15px;
+            box-sizing: border-box;
         }
-      }
-  }
+    }
+    &__policy {
+        margin: 0 auto;
+        padding-top: 50px;
+        padding-bottom: 50px;
+        width: 75%;
+        @include mq() {
+            width: 100%;
+            padding: 25px 15px 30px 15px;
+            box-sizing: border-box;
+        }
+    }
+    &__auth {
+        width: 31rem; // rem: ルート要素（html要素）に指定されたサイズを基準とした単
+        margin: 0 auto;
+        padding: 25px 5px 30px 5px;
+        box-sizing: border-box;
+        @include mq() {
+            width: 100%;
+            padding: 25px 10px 30px 10px;
+        }
+        &__profile {
+            width: 774px;
+            @include mq() {
+                width: 100%;
+            }
+        }
+    }
 }
 /********************************************** 
 トップページ用
 **********************************************/
-.l-section{
-  width: 100%;
+.l-section {
+    width: 100%;
 
-    &__third{
-      background: $background-body-color;
+    &__third {
+        background: $background-body-color;
     }
-    &__fourth{
-      color: #fff;
-      background: #4C4C4C;
+    &__fourth {
+        color: #fff;
+        background: #4c4c4c;
     }
-    &-wrapp__flex{
-      display: flex;
-      justify-content: center;
-      @include mq(){
-        display: block;
-      }
+    &-wrapp__flex {
+        display: flex;
+        justify-content: center;
+        @include mq() {
+            display: block;
+        }
     }
-}
-/********************************************** 
-タスクページ用
-**********************************************/
-.l-task--wrapp{
-  width: 100%;
-  margin: $space_xxl auto;
 }
 
 /********************************************** 
 ログイン・新規登録フォーム用
 **********************************************/
-.l-wrapper{
-  width: 100%;
-  height: auto;
-  min-height: 100vh;
-  background: $background-color;
-    &__top{
+.l-wrapper {
     width: 100%;
+    height: auto;
+    min-height: 100vh;
     background: $background-color;
+    &__top {
+        width: 100%;
+        background: $background-color;
     }
-    &__reminder{
-      height: 100vh;
-    }
-    &__profile{
-      padding-top: 50px;
-    }
-    &__resetPass{
-      width: 100%;
-      @include mq(){
+    &__reminder {
         height: 100vh;
-      }
     }
-
+    &__profile {
+        padding-top: 50px;
+    }
+    &__resetPass {
+        width: 100%;
+        @include mq() {
+            height: 100vh;
+        }
+    }
 }
 
-.l-card__container{
-  @include mq(){
-    width: 100%;
-    padding: 15px;
-  }
-  height: 100%;
-  padding: $space_xxl $space_3l;
-  background: $background-body-color;
-  @include custumRadius(10px);
-  box-sizing: border-box;
-  box-shadow: 0 4px 12px 0 rgba(0,0,0,.08); // これもミキシンでリファクタできそう
-  margin-bottom: $space_3l;
-    &__content{
-      margin: $space_xl auto;
-    } 
+.l-card__container {
+    @include mq() {
+        width: 100%;
+        padding: 48px 16px;
+    }
+    height: 100%;
+    padding: $space_xxl $space_3l;
+    background: $background-body-color;
+    @include custumRadius(10px);
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px 0 rgba(0, 0, 0, 0.08); // これもミキシンでリファクタできそう
+    margin-bottom: $space_3l;
+    &__content {
+        margin: $space_xl auto;
+    }
 }
 /********************************************** 
 共通flex
 **********************************************/
-.l-flex{
-  display: flex;
-  justify-content: end;
+.l-flex {
+    display: flex;
+    justify-content: end;
 }
-.l-flex--center{
-  justify-content: center;
-  margin-bottom: 15px;
+.l-flex--center {
+    justify-content: center;
+    margin-bottom: 15px;
 }

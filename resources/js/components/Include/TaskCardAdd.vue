@@ -110,17 +110,19 @@ export default {
                     this.folder_id
                 );
                 this.clearCradCreateForm();
+            } else if (this.getErrorCode === UNPROCESSABLE_ENTITY) {
+                // バリデーションエラー時は登録用フォームを非表示にしない
             }
             // 通信が失敗時でも、リストを空にしない
             await this.$store.dispatch(
                 "taskStore/setCardListsAction",
                 this.folder_id
             );
-            this.showCreateCardFrom();
         },
         // 投稿後にフォームの中身を削除し、フォームを非表示にする
         clearCradCreateForm() {
             this.CradCreateForm = "";
+            this.showCreateCardFrom();
             this.clearError();
         },
         /*************************************************

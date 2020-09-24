@@ -1,8 +1,11 @@
 <template>
     <div>
         <!-- ここからTaskList -->
-        <div class="c-task--card__inner">
+        <div class="c-task__card__inner">
             <div class="c-task__todo">
+                <div class="c-task__dragicon c-task__dragicon__card u-handle">
+                    <i class="fas fa-bars u-handle"></i>
+                </div>
                 <div class="c-task__todo__header">
                     <span
                         v-if="!editFlag"
@@ -32,7 +35,9 @@
                             @keypress.enter="updateCardTitle"
                             @keyup.esc="cancelEdit"
                             @blur="cancelEdit"
-                            :class="{ 'errors--bg': cardRequestErrorMessages }"
+                            :class="{
+                                'errors--bg': cardRequestErrorMessages
+                            }"
                         />
                     </form>
                     <label for class="c-task__todo--counter">{{
@@ -46,16 +51,12 @@
                 <!-- c-task__todo--push -->
                 <draggable
                     :list="cards.tasks"
-                    v-bind="{ group: 'cards.tasks', animation: 300 }"
+                    v-bind="getOptionsForTask()"
                     @add="onAdd"
                     @change="onChange"
-                    @start="inDrag=true"
-                    @end="inDrag=false"
-                    handle=".hand-icon"
                     :data-card-id="cards.id"
                 >
                     <TaskList
-                        :class="{'u-animetion': inDrag}"
                         v-for="(task, index) in cards.tasks"
                         :key="task.id"
                         :id="task.id"
@@ -78,8 +79,8 @@ import { OK } from "@/statusCode";
 import { mapState, mapGetters } from "vuex";
 import draggable from "vuedraggable";
 import TaskList from "@/components/TaskList";
-import TaskListAdd from "@/components/TaskListAdd";
-import TaskCardAdd from "@/components/TaskCardAdd";
+import TaskListAdd from "@/components/Include/TaskListAdd";
+import TaskCardAdd from "@/components/Include/TaskCardAdd";
 export default {
     data() {
         return {
@@ -121,6 +122,20 @@ export default {
         })
     },
     methods: {
+        // vue-draggableに指定するオプションを切り出し
+        getOptionsForTask() {
+            return { group: "cards.tasks", animation: 500 };
+        },
+        // sortAddClass(evt){
+        //     // console.log(evt.item.getAttribute('data-task-id'))
+        //     // console.log(evt.item)
+        //     let targetTask = evt.item.getAttribute('data-task-id')
+        //     evt.item.setAttribute('class', 'c-task__todo--list u-animetion')
+        // },
+        // sortRemoveClass(evt){
+        //     console.log(evt.item)
+        //     evt.item.setAttribute('class', 'c-task__todo--list')
+        // },
         // カードを削除する
         async deleteCard() {
             const folder_id = this.cards.folder_id;

@@ -53,6 +53,12 @@
     </div>
 </template>
 <script>
+import {
+    OK,
+    UNPROCESSABLE_ENTITY,
+    INTERNAL_SERVER_ERROR,
+    CREATED
+} from "@/statusCode";
 import { mapState, mapGetters } from "vuex";
 export default {
     data() {
@@ -91,6 +97,8 @@ export default {
             });
             if (this.getCode === 200) {
                 this.clearFolderCreateForm();
+            }else if(this.getCode === UNPROCESSABLE_ENTITY){
+                // バリデーションエラー時は登録用フォームを非表示にしない
             }
         },
         clearFolderCreateForm() {

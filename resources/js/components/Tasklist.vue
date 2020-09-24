@@ -1,13 +1,13 @@
 <template>
     <div class="c-task__todo--list" :data-task-id="this.id">
         <div class="c-task__todo__wrapp">
-            <div class="c-task--dragicon">
+            <div class="c-task__dragicon">
                 <i class="fas fa-bars hand-icon"></i>
             </div>
             <span class="c-task__todo__item" v-if="!editFlag">{{ title }}</span>
             <form
                 class="c-updateFrom c-updateFrom--TaskList"
-                @submit.prevent
+                
                 v-else
             >
                 <!-- バリデーションエラー --->
