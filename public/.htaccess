@@ -3,6 +3,13 @@
         Options -MultiViews -Indexes
     </IfModule>
 
+    <If "%{HTTP_HOST} == 'task-app.shimanamisan.com'">
+    # 本番環境のホストならHTTPSへリダイレクトさせる
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
+    </If>
+
     RewriteEngine On
 
     # Handle Authorization Header
@@ -18,11 +25,4 @@
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
-
-    <If "%{HTTP_HOST} == 'task-app.shimanamisan.com'">
-    # 本番環境のホストならHTTPSへリダイレクトさせる
-    RewriteEngine On
-    RewriteCond %{HTTPS} off
-    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L]
-    </If>
 </IfModule>
