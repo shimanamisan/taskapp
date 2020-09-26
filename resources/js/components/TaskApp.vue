@@ -108,7 +108,7 @@ export default {
             return { animation: 500, delay: 50 };
         },
         getOptionsForCrad() {
-            return { animation: 500, delay: 50};
+            return { animation: 500, delay: 50 };
         },
         async setFolderLists(data) {
             await this.$store.dispatch("taskStore/setFolderLists", data);
@@ -147,9 +147,24 @@ export default {
         this.getFolderLists();
     },
     mounted() {
-        const i = window.innerHeight;
-        const test = document.getElementById("folder_height");
-        test.style.minHeight = i - 312 + "px";
+        let phoneActive = /iPhone|iPod|iPad|Android/i.test(
+            window.navigator.userAgent
+        );
+        const inner = window.innerHeight;
+        const targetEl = document.getElementById("folder_height");
+        // getBoundingClientRect()：スタイルにサイズが設定されていない状態で要素の幅や高さを取得する
+        const targetEl_Top = targetEl.getBoundingClientRect().top
+        const targetEl_Height = targetEl.getBoundingClientRect().height
+        const custumHeight = targetEl_Top + targetEl_Height
+        const slidebar = 20;
+        console.log(targetEl.getBoundingClientRect()) 
+
+        if(phoneActive){
+            // スマートフォンサクセスだった場合
+            targetEl.style.maxHeight = inner - ( custumHeight + slidebar) + "px";   
+        }
+        targetEl.style.maxHeight = inner - custumHeight + "px";   
+        
     }
 };
 </script>
