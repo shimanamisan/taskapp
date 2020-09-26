@@ -2,7 +2,7 @@
 ## アプリケーション概要
 タスクを付箋のように管理できるサービス
 
-[こちらから別タブで移動します。](https://task-app.shimanamisan.com/)
+[デモサイト](https://task-app.shimanamisan.com/)
 
 
 ログインID：test@example.com
