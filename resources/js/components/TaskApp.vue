@@ -38,8 +38,14 @@
                             <!-- end c-task__sidebar -->
 
                             <!-- TODOコンポーネント  -->
+                            <div class="u-activeMSG" v-if="this.current_folderId === ''">
+                                <p>
+                                    フォルダーを選択して下さい
+                                </p>
+                            </div>
 
                             <draggable
+                                v-else
                                 tag="ul"
                                 class="c-task__card"
                                 :forceFallback="true"
@@ -56,7 +62,7 @@
                                 />
                             </draggable>
 
-                            <TaskCardAdd />
+                            <TaskCardAdd :class="{'u-velse': !this.current_folderId}"/>
                         </div>
                         <!-- end c-task--borad03 -->
                     </div>
@@ -100,6 +106,9 @@ export default {
         ...mapState({
             FolderLists: state => state.taskStore.FolderLists,
             CardLists: state => state.taskStore.CardLists
+        }),
+        ...mapGetters({
+            current_folderId: "taskStore/current_folderId"
         })
     },
     methods: {
@@ -153,18 +162,17 @@ export default {
         const inner = window.innerHeight;
         const targetEl = document.getElementById("folder_height");
         // getBoundingClientRect()：スタイルにサイズが設定されていない状態で要素の幅や高さを取得する
-        const targetEl_Top = targetEl.getBoundingClientRect().top
-        const targetEl_Height = targetEl.getBoundingClientRect().height
-        const custumHeight = targetEl_Top + targetEl_Height
+        const targetEl_Top = targetEl.getBoundingClientRect().top;
+        const targetEl_Height = targetEl.getBoundingClientRect().height;
+        const custumHeight = targetEl_Top + targetEl_Height;
         const slidebar = 20;
-        console.log(targetEl.getBoundingClientRect()) 
+        console.log(targetEl.getBoundingClientRect());
 
-        if(phoneActive){
+        if (phoneActive) {
             // スマートフォンサクセスだった場合
-            targetEl.style.maxHeight = inner - ( custumHeight + slidebar) + "px";   
+            targetEl.style.minHeight = inner - (custumHeight + slidebar) + "px";
         }
-        targetEl.style.maxHeight = inner - custumHeight + "px";   
-        
+        targetEl.style.minHeight = inner - custumHeight + "px";
     }
 };
 </script>
