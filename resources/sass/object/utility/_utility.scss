@@ -55,12 +55,25 @@
     **********************************************/
     &profile__form {
         width: 230px;
-        @include mq(){
+        @include mq() {
             margin: 0 auto;
         }
     }
-    &handle{
+    &handle {
         cursor: move;
+    }
+    &activeMSG {
+        position: fixed;
+        top: 200px;
+        left: 400px;
+        @include mq() {
+            position: relative;
+            top: 13%;
+            left: 105%;
+        }
+    }
+    &velse {
+        margin-left: 380px;
     }
 }
 

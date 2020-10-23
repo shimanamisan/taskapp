@@ -2,6 +2,7 @@
     <div>
         <!-- ここからTaskList -->
         <div class="c-task__card__inner">
+         
             <div class="c-task__todo">
                 <div class="c-task__dragicon c-task__dragicon__card u-handle">
                     <i class="fas fa-bars u-handle"></i>

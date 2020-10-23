@@ -1,12 +1,13 @@
 <template>
     <div>
+        <Loading v-show="this.showLoading" />
         <li
-            class="c-task__folder__wrapp u-handle"
+            class="c-task__folder__wrapp"
             :class="currentFolder(this.id)"
             @click="setCardLists"
         >
             <div class="c-task__dragicon">
-                <i class="fas fa-bars"></i>
+                <i class="fas fa-bars u-handle"></i>
             </div>
             <span class="c-task__folder__item" v-if="!editFlag">{{
                 folderTitle
@@ -50,6 +51,7 @@
 import { mapState, mapGetters } from "vuex";
 import { OK } from "@/statusCode";
 import draggable from "vuedraggable";
+import Loading from "@/components/Loading/Loading";
 
 export default {
     data() {
@@ -57,11 +59,14 @@ export default {
             editFlag: false,
             folderTitle: this.title,
             folderActive: "c-task__folder__wrapp--active",
-            folderDisable: ""
+            folderDisable: "",
+            // ローディング画面の表示フラグ
+            showLoading: false
         };
     },
     components: {
-        draggable
+        draggable,
+        Loading
     },
     props: {
         title: {
@@ -92,10 +97,18 @@ export default {
         // フォルダーを選択したら、そのフォルダーのカードリストをセットする
         async setCardLists() {
             const folder_id = this.id;
-            await this.$store.dispatch(
-                "taskStore/setCardListsAction",
-                folder_id
-            );
+
+            // クリックしたフォルダーのIDとVuexに格納されている現在のフォルダーIDが
+            // 違った場合にDBへフォルダー配下のタスクデータを取得しに行く
+            if (folder_id !== this.current_folderId) {
+                this.isActiveLoading();
+                await this.$store.dispatch(
+                    "taskStore/setCardListsAction",
+                    folder_id
+                );
+                this.isActiveLoading();
+            }
+            
         },
         //
         currentFolder(folder_id) {
@@ -143,6 +156,9 @@ export default {
          **************************************************/
         clearError() {
             this.$store.commit("taskStore/setFolderRequestErrorMessages", null);
+        },
+        isActiveLoading() {
+            this.showLoading = !this.showLoading;
         }
     }
 };
