@@ -26,10 +26,6 @@
     - タスクリストの登録、編集、削除
 
 
-## 追加実装予定
-- タスクにコメント投稿機能
-- 完了したタスクをマイページに表示し、そこから削除する
-
 ## 使用技術
 ### 開発全般
 - Vagrant +CentOS8 の LAMP 環境、composer、npm、webpack、babel
@@ -38,17 +34,5 @@
 ### バックエンド
 - Laravel
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+## ER図
+![task-app](https://user-images.githubusercontent.com/49751604/97084714-f006b480-1653-11eb-82b9-7be41d70dbc7.png)
