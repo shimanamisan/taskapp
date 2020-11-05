@@ -19795,8 +19795,6 @@
 
 // less bad than duplication.
 
-// let newFolders = this.folderData.map((folder, index) => {
-
 // lines of this modifier!
 
 // list of modules that can skip create hook during hydration because they
@@ -21520,6 +21518,8 @@
 // 通信成功時のアクション
 
 // 違った場合にDBへフォルダー配下のタスクデータを取得しに行く
+
+// 順番が入れ替わった際に、現在のpriorityに1を足すことで入れ替わったリストの情報をLaravel側に通知する
 
 //normal enviroments in sane situations
 

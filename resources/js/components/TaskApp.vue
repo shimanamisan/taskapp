@@ -143,7 +143,7 @@ export default {
         },
         // vue-draggableをLaravelと連携するメソッド
         onChange() {
-            // let newFolders = this.folderData.map((folder, index) => {
+            // 順番が入れ替わった際に、現在のpriorityに1を足すことで入れ替わったリストの情報をLaravel側に通知する
             let newFolders = this.FolderLists.map((folder, index) => {
                 folder.priority = index + 1;
                 return folder;
@@ -172,7 +172,7 @@ export default {
             // スマートフォンサクセスだった場合
             targetEl.style.minHeight = inner - (custumHeight + slidebar) + "px";
         }
-        targetEl.style.minHeight = inner - custumHeight + "px";
+        targetEl.style.maxHeight = inner - custumHeight + "px";
     }
 };
 </script>
