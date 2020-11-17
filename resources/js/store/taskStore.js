@@ -2,7 +2,7 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "@/statusCode";
 
 const state = {
@@ -15,13 +15,13 @@ const state = {
   *****************************************/
     folderRequestErrorMessages: null,
     cardRequestErrorMessages: null,
-    taskRequestErrorMessages: null
+    taskRequestErrorMessages: null,
 };
 /*******************************
 ゲッター
 ********************************/
 const getters = {
-    current_folderId: state => (state.folder_id ? state.folder_id : "")
+    current_folderId: (state) => (state.folder_id ? state.folder_id : ""),
 };
 /*******************************
 ミューテーション
@@ -45,7 +45,7 @@ const mutations = {
     },
     setTaskRequestErrorMessages(state, taskRequestErrorMessages) {
         state.taskRequestErrorMessages = taskRequestErrorMessages;
-    }
+    },
 };
 /*******************************
 アクション
@@ -123,7 +123,7 @@ const actions = {
     // フォルダーの並び替えの更新
     async updateFolderSort({ commit }, newFolder) {
         const response = await axios.patch("/api/folder/update-all", {
-            folders: newFolder
+            folders: newFolder,
         });
         const data = response.data.folders;
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -260,7 +260,7 @@ const actions = {
     // タスクリストのソート更新
     async updateTaskSort({ commit }, newTask) {
         const response = await axios.patch("/api/task/update-all", {
-            tasks: newTask
+            tasks: newTask,
         });
         if (response.status === UNPROCESSABLE_ENTITY) {
             commit("setTaskRequestErrorMessages", response.data.errors);
@@ -268,7 +268,7 @@ const actions = {
             commit("error/setCode", response.status, { root: true });
         }
         commit("error/setCode", response.status, { root: true });
-    }
+    },
 };
 
 export default {
@@ -276,5 +276,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 };

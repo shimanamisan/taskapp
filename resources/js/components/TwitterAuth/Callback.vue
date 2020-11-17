@@ -28,13 +28,13 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "../../statusCode";
 export default {
     data() {
         return {
             authMessage: null,
-            auth_flg: true
+            auth_flg: true,
         };
     },
     computed: {
@@ -43,7 +43,7 @@ export default {
         },
         authError() {
             return !this.auth_flg;
-        }
+        },
     },
     methods: {
         ...mapMutations({
@@ -53,12 +53,12 @@ export default {
             setUser: "auth/setUser",
             setEmail: "auth/setEmail",
             setPic: "auth/setPic",
-            setId: "auth/setId"
+            setId: "auth/setId",
         }),
         async callbackTwitterLogin() {
             this.authMessage = "Twitterでログインを行っています。。。";
             const response = await axios.get("/api/auth/twitter/callback", {
-                params: this.$route.query
+                params: this.$route.query,
             });
             if (response.status === OK) {
                 if (this.$route.query.denied) {
@@ -88,11 +88,11 @@ export default {
                 this.authMessage = response.data.error_message;
                 return;
             }
-        }
+        },
     },
     mounted() {
         this.callbackTwitterLogin();
-    }
+    },
 };
 </script>
 

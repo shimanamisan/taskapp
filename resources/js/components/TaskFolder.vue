@@ -13,7 +13,16 @@
                 folderTitle
             }}</span>
 
-            <form class="c-updateFrom" @submit.prevent v-else>
+            <div class="c-updateFrom" v-else>
+                <input
+                    type="text"
+                    class="c-input c-input__tasks"
+                    v-model="folderTitle"
+                    @keypress.enter="updateFolderTitle"
+                    @blur="updateFolderTitle"
+                    @keyup.esc="cancelEdit"
+                    :class="{ 'c-error__bg': folderRequestErrorMessages }"
+                />
                 <!-- バリデーションエラー --->
                 <ul
                     v-if="folderRequestErrorMessages"
@@ -27,16 +36,7 @@
                     </li>
                 </ul>
                 <!--- end errors -->
-                <input
-                    type="text"
-                    class="c-input c-input__tasks"
-                    v-model="folderTitle"
-                    @keypress.enter="updateFolderTitle"
-                    @keyup.esc="cancelEdit"
-                    @blur="cancelEdit"
-                    :class="{ 'c-error__bg': folderRequestErrorMessages }"
-                />
-            </form>
+            </div>
             <div class="c-task__folder__trash">
                 <i
                     class="fas fa-edit c-task__folder--icon"
@@ -61,43 +61,42 @@ export default {
             folderActive: "c-task__folder__wrapp--active",
             folderDisable: "",
             // ローディング画面の表示フラグ
-            showLoading: false
+            showLoading: false,
         };
     },
     components: {
         draggable,
-        Loading
+        Loading,
     },
     props: {
         title: {
             type: String,
-            required: true
+            required: true,
         },
         id: {
             type: Number,
-            required: true
+            required: true,
         },
         listIndex: {
             type: Number,
-            required: true
-        }
+            required: true,
+        },
     },
     computed: {
         ...mapState({
             // エラーメッセージがあった際にストアより取得
-            folderRequestErrorMessages: state =>
-                state.taskStore.folderRequestErrorMessages
+            folderRequestErrorMessages: (state) =>
+                state.taskStore.folderRequestErrorMessages,
         }),
         ...mapGetters({
             getCode: "error/getCode",
-            current_folderId: "taskStore/current_folderId"
-        })
+            current_folderId: "taskStore/current_folderId",
+        }),
     },
     methods: {
         // フォルダーを選択したら、そのフォルダーのカードリストをセットする
         async setCardLists() {
             const folder_id = this.id;
-
             // クリックしたフォルダーのIDとVuexに格納されている現在のフォルダーIDが
             // 違った場合にDBへフォルダー配下のタスクデータを取得しに行く
             if (folder_id !== this.current_folderId) {
@@ -108,15 +107,19 @@ export default {
                 );
                 this.isActiveLoading();
             }
-            
         },
-        //
-        currentFolder(folder_id) {
-            if (folder_id === this.current_folderId) {
-                return this.folderActive;
-            } else {
-                return this.folderDisable;
+        // フォルダーのタイトルを更新する
+        async updateFolderTitle() {
+            this.isActiveLoading();
+            await this.$store.dispatch("taskStore/updateFolderTitle", {
+                title: this.folderTitle,
+                folder_id: this.id,
+            });
+            if (this.getCode === OK) {
+                this.editFlag = false;
+                this.clearError();
             }
+            this.isActiveLoading();
         },
         // フォルダーを削除する
         async deleteFolder() {
@@ -127,6 +130,14 @@ export default {
                 )
             ) {
                 await this.$store.dispatch("taskStore/deleteFolder", folder_id);
+            }
+        },
+        // 選択されているフォルダーに背景色のクラスをつけるための判定を行う
+        currentFolder(folder_id) {
+            if (folder_id === this.current_folderId) {
+                return this.folderActive;
+            } else {
+                return this.folderDisable;
             }
         },
         // 更新用のフォームを呼び出す
@@ -141,16 +152,6 @@ export default {
             this.folderTitle = this.title;
             this.clearError();
         },
-        // フォルダーのタイトルを更新する
-        async updateFolderTitle() {
-            await this.$store.dispatch("taskStore/updateFolderTitle", {
-                title: this.folderTitle,
-                folder_id: this.id
-            });
-            if (this.getCode === OK) {
-                this.editFolder();
-            }
-        },
         /*************************************************
          * バリデーションメッセージを消すアクションを呼ぶ
          **************************************************/
@@ -159,12 +160,8 @@ export default {
         },
         isActiveLoading() {
             this.showLoading = !this.showLoading;
-        }
-    }
+        },
+    },
 };
 </script>
-<style>
-.fa-edit {
-    margin-right: 5px;
-}
-</style>
+<style></style>

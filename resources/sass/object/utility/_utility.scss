@@ -64,16 +64,19 @@
     }
     &activeMSG {
         position: fixed;
-        top: 200px;
+        top: 300px;
         left: 400px;
         @include mq() {
             position: relative;
-            top: 13%;
+            top: 30%;
             left: 105%;
         }
     }
     &velse {
         margin-left: 380px;
+        @include mq() {
+            margin-left: 38%;
+        }
     }
 }
 

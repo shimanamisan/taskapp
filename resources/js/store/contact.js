@@ -2,7 +2,7 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "@/statusCode";
 
 /*******************************
@@ -12,7 +12,7 @@ const state = {
     /****************************************
   エラーメッセージ関係
   *****************************************/
-    contactMailErrorMessages: null
+    contactMailErrorMessages: null,
 };
 
 /***********************************
@@ -20,13 +20,25 @@ const state = {
 ************************************/
 const getters = {
     // お問い合わせバリデーション（件名）
-    validContactSubjectError: state => (state.contactMailErrorMessages ? state.contactMailErrorMessages.subject : ""),
+    validContactSubjectError: (state) =>
+        state.contactMailErrorMessages
+            ? state.contactMailErrorMessages.subject
+            : "",
     // お問い合わせバリデーション（お名前）
-    validContactNameError: state => (state.contactMailErrorMessages ? state.contactMailErrorMessages.name : ""),
+    validContactNameError: (state) =>
+        state.contactMailErrorMessages
+            ? state.contactMailErrorMessages.name
+            : "",
     // お問い合わせバリデーション（Email）
-    validContactEmailError: state => (state.contactMailErrorMessages ? state.contactMailErrorMessages.email : ""),
+    validContactEmailError: (state) =>
+        state.contactMailErrorMessages
+            ? state.contactMailErrorMessages.email
+            : "",
     // お問い合わせバリデーション（お問い合わせ内容）
-    validContactMessageError: state => (state.contactMailErrorMessages ? state.contactMailErrorMessages.message : ""),
+    validContactMessageError: (state) =>
+        state.contactMailErrorMessages
+            ? state.contactMailErrorMessages.message
+            : "",
 };
 
 /*******************************
@@ -35,7 +47,7 @@ const getters = {
 const mutations = {
     setContactMailErrorMessages(state, message) {
         state.contactMailErrorMessages = message;
-    }
+    },
 };
 
 // アクション→コミットでミューテーション呼び出し→ステート更新
@@ -51,7 +63,7 @@ const actions = {
             commit("error/setCode", response.status, { root: true });
         }
         commit("error/setCode", response.status, { root: true });
-    }
+    },
 };
 
 export default {
@@ -59,5 +71,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 };

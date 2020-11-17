@@ -175,28 +175,28 @@ export default {
                 subject: "",
                 name: "",
                 email: "",
-                message: ""
-            }
+                message: "",
+            },
         };
     },
     components: {
-        CommonLogo
+        CommonLogo,
     },
     computed: {
         // ...mapStateを使った書き方
         ...mapState({
-            contactErrors: state => state.contact.contactMailErrorMessages
+            contactErrors: (state) => state.contact.contactMailErrorMessages,
         }),
         ...mapGetters({
             validSubject: "contact/validContactSubjectError",
             validName: "contact/validContactNameError",
             validEmail: "contact/validContactEmailError",
             validMessage: "contact/validContactMessageError",
-            getCode: "error/getCode"
+            getCode: "error/getCode",
         }),
         textCounter() {
             return this.Form.message.length;
-        }
+        },
     },
     methods: {
         // authストアのloginアクションを呼び出す
@@ -219,12 +219,12 @@ export default {
         },
         clearError() {
             this.$store.commit("contact/setContactMailErrorMessages", null);
-        }
+        },
     },
     created() {
         // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
         this.clearError();
-    }
+    },
 };
 </script>
 <style></style>

@@ -5,11 +5,11 @@
 <script>
 import logo from "@/../img/logo.png";
 export default {
-    data(){
-        return{
+    data() {
+        return {
             logo: logo,
-        }
-    }
+        };
+    },
 };
 </script>
 

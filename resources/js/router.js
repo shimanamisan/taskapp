@@ -29,14 +29,14 @@ export default new VueRouter({
         {
             // リダイレクト用
             path: "*",
-            redirect: "/"
+            redirect: "/",
         },
         {
             // Topページ
             path: "/",
             component: Index,
             name: "Index", // push({ path: '/' }) のようにパス指定ではpropsが受け取れなかったので名前をつける
-            props: true // propsを受け取れるようにする
+            props: true, // propsを受け取れるようにする
         },
         {
             // ログインページ
@@ -50,7 +50,7 @@ export default new VueRouter({
                 } else {
                     next();
                 }
-            }
+            },
         },
         {
             // ユーザー登録ページ
@@ -64,17 +64,17 @@ export default new VueRouter({
                 } else {
                     next();
                 }
-            }
+            },
         },
         {
             // パスワードリマインダー
             path: "/reminder",
-            component: PasswordReminder
+            component: PasswordReminder,
         },
         {
             // パスワードリセット
             path: "/reset",
-            component: PasswordReset
+            component: PasswordReset,
         },
         {
             // タスク管理ページ
@@ -89,7 +89,7 @@ export default new VueRouter({
                     // 認証済みでなかったらログイン画面へ遷移
                     next("/login");
                 }
-            }
+            },
         },
         {
             // プロフィールページ
@@ -105,45 +105,45 @@ export default new VueRouter({
                     // 認証済みでなかったらログイン画面へ遷移
                     next("/login");
                 }
-            }
+            },
         },
         {
             // お問い合わせページ
             path: "/contact",
-            component: Contact
+            component: Contact,
         },
         {
             // プライバシーポリシー
             path: "/policy",
-            component: Policy
+            component: Policy,
         },
         {
             // 利用規約
             path: "/rule",
-            component: Rule
+            component: Rule,
         },
         {
             // エラーページ
             path: "/500",
-            component: SystemError
+            component: SystemError,
         },
         {
             // コールバックページ
             path: "/callback",
-            component: Callback
+            component: Callback,
         },
         {
             // Email認証ページ
             path: "/mypage/change_email",
-            component: EmailChangeCallback
-        }
+            component: EmailChangeCallback,
+        },
     ],
     // ページ下部のリンクから他のページに飛んでも、画面の位置を初期の位置に移動させるための処理
     scrollBehavior() {
-        return new Promise(resolve => {
+        return new Promise((resolve) => {
             setTimeout(() => {
                 resolve({ x: 0, y: 0 });
             }, 500);
         });
-    }
+    },
 });

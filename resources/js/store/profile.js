@@ -2,7 +2,7 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "@/statusCode";
 
 /*******************************
@@ -13,7 +13,7 @@ const state = {
   エラーメッセージ関係
   *****************************************/
     profileErrorMessages: null,
-    successResponseMessage: null
+    successResponseMessage: null,
 };
 
 /***********************************
@@ -21,22 +21,22 @@ const state = {
 ************************************/
 const getters = {
     // お問い合わせバリデーション（お名前）
-    validProfileNameError: state =>
+    validProfileNameError: (state) =>
         state.profileErrorMessages ? state.profileErrorMessages.name : "",
     // お問い合わせバリデーション（Email）
-    validProfileEmailError: state =>
+    validProfileEmailError: (state) =>
         state.profileErrorMessages ? state.profileErrorMessages.email : "",
     // パスワード変更バリデーション（現在のパスワード）
-    validProfileOldPasswodError: state =>
+    validProfileOldPasswodError: (state) =>
         state.profileErrorMessages
             ? state.profileErrorMessages.old_password
             : "",
     // パスワード変更バリデーション（新しいパスワード）
-    validProfilePasswodError: state =>
+    validProfilePasswodError: (state) =>
         state.profileErrorMessages ? state.profileErrorMessages.password : "",
     // 処理が成功した際の格納されたレスポンスメッセージを取得する
-    getSuccessResponseMessage: state =>
-        state.successResponseMessage ? successResponseMessage : ""
+    getSuccessResponseMessage: (state) =>
+        state.successResponseMessage ? successResponseMessage : "",
 };
 
 /*******************************
@@ -50,7 +50,7 @@ const mutations = {
     // レスポンスメッセージをセット
     setSuccessResponseMessage(state, message) {
         state.successResponseMessage = message;
-    }
+    },
 };
 
 // アクション→コミットでミューテーション呼び出し→ステート更新
@@ -94,7 +94,7 @@ const actions = {
     async profileEmailEdit({ commit }, data) {
         const id = data.user_id;
         const response = await axios.post("/api/profile/email/" + id, {
-            email: data.email
+            email: data.email,
         });
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {
@@ -136,7 +136,7 @@ const actions = {
         commit("setId", null);
         commit("setApiStatus", false);
         commit("error/setCode", response.status, { root: true });
-    }
+    },
 };
 
 export default {
@@ -144,5 +144,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 };

@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Loading v-show="this.showLoading" />
         <div
             v-show="!folderEdit_flg"
             class="c-task__todo--list c-task__todo--push"
@@ -57,30 +58,36 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "@/statusCode";
 import { mapState, mapGetters } from "vuex";
+import Loading from "@/components/Loading/Loading";
 export default {
     data() {
         return {
             folderEdit_flg: null,
-            folderTitle: ""
+            folderTitle: "",
+            // ローディング画面の表示フラグ
+            showLoading: false,
         };
+    },
+    components: {
+        Loading,
     },
     props: {
         list: {
             type: Array,
-            required: true
-        }
+            required: true,
+        },
     },
     computed: {
         ...mapState({
-            folderRequestErrorMessages: state =>
-                state.taskStore.folderRequestErrorMessages
+            folderRequestErrorMessages: (state) =>
+                state.taskStore.folderRequestErrorMessages,
         }),
         ...mapGetters({
-            getCode: "error/getCode"
-        })
+            getCode: "error/getCode",
+        }),
         // mapStateなどをを使わない書き方
         // folderRequestErrorMessages(){
         // // エラーメッセージがあった際にストアより取得
@@ -92,14 +99,16 @@ export default {
     },
     methods: {
         async createFolder() {
+            this.isActiveLoading();
             await this.$store.dispatch("taskStore/createFolder", {
-                title: this.folderTitle
+                title: this.folderTitle,
             });
             if (this.getCode === 200) {
                 this.clearFolderCreateForm();
-            }else if(this.getCode === UNPROCESSABLE_ENTITY){
+            } else if (this.getCode === UNPROCESSABLE_ENTITY) {
                 // バリデーションエラー時は登録用フォームを非表示にしない
             }
+            this.isActiveLoading();
         },
         clearFolderCreateForm() {
             this.folderTitle = "";
@@ -111,8 +120,11 @@ export default {
          **************************************************/
         clearError() {
             this.$store.commit("taskStore/setFolderRequestErrorMessages", null);
-        }
-    }
+        },
+        isActiveLoading() {
+            this.showLoading = !this.showLoading;
+        },
+    },
 };
 </script>
 <style></style>

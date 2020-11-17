@@ -70,15 +70,15 @@ export default {
     data() {
         return {
             header_logo: header_logo,
-            isActive: false
+            isActive: false,
         };
     },
     computed: {
         ...mapState({
-            apiStatus: state => state.auth.apiStatus
+            apiStatus: (state) => state.auth.apiStatus,
         }),
         ...mapGetters({
-            isLogin: "auth/check"
+            isLogin: "auth/check",
         }),
         //   isLogin(){
         //    return this.$store.getters['auth/check']
@@ -89,21 +89,21 @@ export default {
         //   },
         spMenuItem() {
             return {
-                "sp-menu-Active": this.isActive
+                "sp-menu-Active": this.isActive,
             };
         },
         toggleActive() {
             return {
-                active: this.isActive
+                active: this.isActive,
             };
-        }
+        },
     },
     methods: {
         async logout() {
             await this.$store.dispatch("auth/logout");
             this.$router.push("/login");
-        }
-    }
+        },
+    },
 };
 </script>
 <style></style>

@@ -165,12 +165,12 @@ export default {
             panel_second: panel_second,
             panel_third: panel_third,
             top_gif: top_gif,
-            withdraw: false
+            withdraw: false,
         };
     },
     components: {
         Header,
-        Footer
+        Footer,
     },
     props: ["message"],
     methods: {
@@ -184,11 +184,11 @@ export default {
                     this.withdrawMessage();
                 }, 3000);
             }
-        }
+        },
     },
     created() {
         this.showMessage();
-    }
+    },
 };
 </script>
 <style></style>

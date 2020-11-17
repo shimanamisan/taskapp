@@ -2,7 +2,7 @@ const state = {
     code: null,
 };
 const getters = {
-    getCode: state => (state.code ? state.code : ""),
+    getCode: (state) => (state.code ? state.code : ""),
 };
 
 const mutations = {
@@ -15,5 +15,5 @@ export default {
     namespaced: true,
     state,
     mutations,
-    getters
+    getters,
 };

@@ -227,8 +227,8 @@ export default {
     },
     components: {
         Header,
-        Footer
-    }
+        Footer,
+    },
 };
 </script>
 <style></style>

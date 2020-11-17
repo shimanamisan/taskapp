@@ -15,6 +15,6 @@ export default new Vuex.Store({
         taskStore,
         error,
         contact,
-        profile
-    }
+        profile,
+    },
 });

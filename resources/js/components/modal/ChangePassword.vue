@@ -81,20 +81,21 @@ export default {
             fromData: {
                 old_password: null,
                 password: null,
-                password_confirmation: null
+                password_confirmation: null,
             },
-            passChangeFlg: false
+            passChangeFlg: false,
         };
     },
     computed: {
         ...mapState({
-            profilePasswordErrors: state => state.profile.profileErrorMessages
+            profilePasswordErrors: (state) =>
+                state.profile.profileErrorMessages,
         }),
         ...mapGetters({
             getCode: "error/getCode",
             validOldPassword: "profile/validProfileOldPasswodError",
-            validPassword: "profile/validProfilePasswodError"
-        })
+            validPassword: "profile/validProfilePasswodError",
+        }),
     },
     methods: {
         async profilPasswordeEdit() {
@@ -105,7 +106,7 @@ export default {
                 user_id: this.userId,
                 old_password: this.fromData.old_password,
                 password: this.fromData.password,
-                password_confirmation: this.fromData.password_confirmation
+                password_confirmation: this.fromData.password_confirmation,
             });
 
             if (this.getCode === 200) {
@@ -139,8 +140,8 @@ export default {
          **************************************************/
         clearError() {
             this.$store.commit("profile/setProfileErrorMessages", null);
-        }
-    }
+        },
+    },
 };
 </script>
 

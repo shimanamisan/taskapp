@@ -21,32 +21,32 @@ import { mapState, mapGetters } from "vuex";
 export default {
     data() {
         return {
-            img: ""
+            img: "",
         };
     },
     components: {
-        NoImage
+        NoImage,
     },
     computed: {
         ...mapGetters({
-            username: "auth/getUserName"
-        })
+            username: "auth/getUserName",
+        }),
     },
     methods: {
         profileimage() {
             axios
                 .get("/api/user")
-                .then(response => {
+                .then((response) => {
                     this.img = response.data.pic;
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                 });
-        }
+        },
     },
     created() {
         this.profileimage();
-    }
+    },
 };
 </script>
 

@@ -38,10 +38,11 @@
                             <!-- end c-task__sidebar -->
 
                             <!-- TODOコンポーネント  -->
-                            <div class="u-activeMSG" v-if="this.current_folderId === ''">
-                                <p>
-                                    フォルダーを選択して下さい
-                                </p>
+                            <div
+                                class="u-activeMSG"
+                                v-if="this.current_folderId === ''"
+                            >
+                                <p>フォルダーを選択して下さい</p>
                             </div>
 
                             <draggable
@@ -62,7 +63,9 @@
                                 />
                             </draggable>
 
-                            <TaskCardAdd :class="{'u-velse': !this.current_folderId}"/>
+                            <TaskCardAdd
+                                :class="{ 'u-velse': !this.current_folderId }"
+                            />
                         </div>
                         <!-- end c-task--borad03 -->
                     </div>
@@ -99,17 +102,17 @@ export default {
         TaskCard,
         TaskCardAdd,
         draggable,
-        Message
+        Message,
     },
     computed: {
         // taskStore.jsのステート：FolderListsを常に参照している
         ...mapState({
-            FolderLists: state => state.taskStore.FolderLists,
-            CardLists: state => state.taskStore.CardLists
+            FolderLists: (state) => state.taskStore.FolderLists,
+            CardLists: (state) => state.taskStore.CardLists,
         }),
         ...mapGetters({
-            current_folderId: "taskStore/current_folderId"
-        })
+            current_folderId: "taskStore/current_folderId",
+        }),
     },
     methods: {
         // vue-draggableオプションをメソッドに切り出し
@@ -125,12 +128,12 @@ export default {
         async getFolderLists() {
             await axios
                 .get("/api/folder")
-                .then(response => {
+                .then((response) => {
                     var data = response.data.folders;
                     // this.folderData = data
                     this.setFolderLists(data);
                 })
-                .catch(error => {
+                .catch((error) => {
                     console.log(error);
                 });
         },
@@ -149,7 +152,7 @@ export default {
                 return folder;
             });
             this.updateFolderSort(newFolders);
-        }
+        },
     },
     // クリエイトライフサイクルフック
     created() {
@@ -173,7 +176,7 @@ export default {
             targetEl.style.minHeight = inner - (custumHeight + slidebar) + "px";
         }
         targetEl.style.maxHeight = inner - custumHeight + "px";
-    }
+    },
 };
 </script>
 <style>

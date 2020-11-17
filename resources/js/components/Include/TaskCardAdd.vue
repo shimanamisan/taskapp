@@ -1,5 +1,6 @@
 <template>
-    <div class="v-div">
+    <div class="c-task__card__wrapp">
+        <Loading v-show="this.showLoading" />
         <div
             v-show="!CardEdit_flg"
             class="c-task__todo--list c-task__todo--push"
@@ -8,48 +9,46 @@
             ＋ 新しいカードを追加
         </div>
         <div v-show="CardEdit_flg" class="c-task__todo__inputAreaWrapp cardAdd">
-            <form @submit.prevent>
-                <input
-                    type="text"
-                    class="c-task__todo__inputArea"
-                    :class="{ 'c-error__bg': cardRequestErrorMessages }"
-                    v-model="CradCreateForm"
-                    @keydown.enter="createCard"
-                />
-                <!-- バリデーションエラー --->
-                <ul
-                    v-if="cardRequestErrorMessages"
-                    class="c-error c-error__tasks c-error__card"
+            <input
+                type="text"
+                class="c-task__todo__inputArea"
+                :class="{ 'c-error__bg': cardRequestErrorMessages }"
+                v-model="CradCreateForm"
+                @keydown.enter="createCard"
+            />
+            <!-- バリデーションエラー --->
+            <ul
+                v-if="cardRequestErrorMessages"
+                class="c-error c-error__tasks c-error__card"
+            >
+                <p
+                    v-for="(msg, index) in cardRequestErrorMessages.title"
+                    :key="index"
                 >
-                    <p
-                        v-for="(msg, index) in cardRequestErrorMessages.title"
-                        :key="index"
+                    {{ msg }}
+                </p>
+            </ul>
+            <!--- end c-error -->
+            <div class="l-flex u-btn__wrapp">
+                <div class="u-btn__common__margin">
+                    <button
+                        class="c-btn c-btn__common c-btn__common__cancel"
+                        @click="clearCradCreateForm"
                     >
-                        {{ msg }}
-                    </p>
-                </ul>
-                <!--- end c-error -->
-                <div class="l-flex u-btn__wrapp">
-                    <div class="u-btn__common__margin">
-                        <button
-                            class="c-btn c-btn__common c-btn__common__cancel"
-                            @click="clearCradCreateForm"
-                        >
-                            キャンセル
-                        </button>
-                    </div>
-                    <div class="u-btn__common__margin">
-                        <button
-                            type="submit"
-                            class="c-btn c-btn__common"
-                            @click="createCard"
-                        >
-                            追加
-                        </button>
-                    </div>
+                        キャンセル
+                    </button>
                 </div>
-                <!-- l-flex -->
-            </form>
+                <div class="u-btn__common__margin">
+                    <button
+                        type="submit"
+                        class="c-btn c-btn__common"
+                        @click="createCard"
+                    >
+                        追加
+                    </button>
+                </div>
+            </div>
+            <!-- l-flex -->
         </div>
         <!-- c-task__todo__inputAreaWrapp -->
     </div>
@@ -59,16 +58,21 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "@/statusCode";
-
+import Loading from "@/components/Loading/Loading";
 export default {
     data() {
         return {
-            CardEdit_flg: null,
+            CardEdit_flg: false,
             CradCreateForm: "",
-            folder_id: ""
+            folder_id: "",
+            // ローディング画面の表示フラグ
+            showLoading: false,
         };
+    },
+    components: {
+        Loading,
     },
     computed: {
         cardRequestErrorMessages() {
@@ -77,32 +81,35 @@ export default {
         },
         getErrorCode() {
             return this.$store.state.error.code;
-        }
+        },
     },
     methods: {
         // 投稿の内容をアクションへ渡す
         async createCard() {
-            this.$store.commit("taskStore/setCardRequestErrorMessages", null);
+            this.isActiveLoading();
+            // this.$store.commit("taskStore/setCardRequestErrorMessages", null);
             // ストアからフォルダーIDを呼び出す
             this.folder_id = this.$store.state.taskStore.folder_id;
             if (!this.folder_id) {
-                const data = {
-                    title: ["フォルダーを選択してタスクを登録してください"]
+                const errorMsg = {
+                    title: ["フォルダーを選択してタスクを登録してください"],
                 };
                 this.$store.commit(
                     "taskStore/setCardRequestErrorMessages",
-                    data
+                    errorMsg
                 );
+                this.isActiveLoading();
                 return false;
             }
-
             // 呼び出したフォルダーIDをフォームの内容をアクションへ渡す
             await this.$store.dispatch("taskStore/createCard", {
                 // アクションは第2引数までしか引数を受け取れないので、
                 // 複数のデータをアクションへ渡すには、オブジェクト形式で渡す。
                 title: this.CradCreateForm,
-                folder_id: this.folder_id
+                folder_id: this.folder_id,
             });
+
+            console.log("enter!");
 
             if (this.getErrorCode === OK) {
                 await this.$store.dispatch(
@@ -118,6 +125,7 @@ export default {
                 "taskStore/setCardListsAction",
                 this.folder_id
             );
+            this.isActiveLoading();
         },
         // 投稿後にフォームの中身を削除し、フォームを非表示にする
         clearCradCreateForm() {
@@ -136,16 +144,11 @@ export default {
          **************************************************/
         clearError() {
             this.$store.commit("taskStore/setCardRequestErrorMessages", null);
-        }
-    }
+        },
+        isActiveLoading() {
+            this.showLoading = !this.showLoading;
+        },
+    },
 };
 </script>
-<style>
-.v-div {
-    padding: 0 20px;
-    max-width: 220px;
-}
-.cardAdd {
-    padding: 0 20px 0 0;
-}
-</style>
+<style></style>

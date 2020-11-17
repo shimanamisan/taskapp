@@ -258,8 +258,8 @@ export default {
                 user_id: null,
                 name: null,
                 email: null,
-                profileImage: null
-            }
+                profileImage: null,
+            },
         };
     },
     components: {
@@ -267,19 +267,19 @@ export default {
         Message,
         NoImage,
         ChangePassword,
-        Loading
+        Loading,
     },
     computed: {
         ...mapState({
-            profileUploadErrors: state => state.auth.profileErrorMessages
+            profileUploadErrors: (state) => state.auth.profileErrorMessages,
         }),
         ...mapGetters({
-            getCode: "error/getCode"
-        })
+            getCode: "error/getCode",
+        }),
     },
     methods: {
         ...mapMutations({
-            setSuccessResponseMessage: "profile/setSuccessResponseMessage"
+            setSuccessResponseMessage: "profile/setSuccessResponseMessage",
         }),
         // フォームでファイルが選択されたら実行
         fileSelected(event) {
@@ -291,7 +291,7 @@ export default {
             console.log(event.target.files[0]);
             if (!event.target.files[0].type.match("image.*")) {
                 this.$store.commit("profile/setProfileErrorMessages", {
-                    profilePhoto: ["画像を選択してください"]
+                    profilePhoto: ["画像を選択してください"],
                 });
                 this.$el.querySelector('input[type="file"]').value = null;
                 return false;
@@ -302,7 +302,7 @@ export default {
             // FileReaderクラスのインスタンスを取得
             const reader = new FileReader();
             // ファイルを読み込み終わったタイミングで実行する処理
-            reader.onload = event => {
+            reader.onload = (event) => {
                 this.preview = event.target.result;
             };
             // ファイルを読み込む
@@ -336,7 +336,7 @@ export default {
             // アクションへファイル情報を渡す
             await this.$store.dispatch("profile/profileImageEdit", {
                 user_id: this.profileData.user_id,
-                img: formData
+                img: formData,
             });
             if (this.getCode === 200) {
                 this.showSuccess();
@@ -359,8 +359,8 @@ export default {
                         name: "Index",
                         params: {
                             message:
-                                "退会しました。ご利用ありがとうございました。"
-                        }
+                                "退会しました。ご利用ありがとうございました。",
+                        },
                     });
                 }
             }
@@ -371,7 +371,7 @@ export default {
             this.setSuccessResponseMessage(null);
             // アクションへファイル情報を渡す
             await this.$store.dispatch("profile/profileNameEdit", {
-                name: this.profileData.name
+                name: this.profileData.name,
             });
             if (this.getCode === 200) {
                 this.showName = !this.showName;
@@ -389,7 +389,7 @@ export default {
             // アクションへファイル情報を渡す
             await this.$store.dispatch("profile/profileEmailEdit", {
                 user_id: this.profileData.user_id,
-                email: this.profileData.email
+                email: this.profileData.email,
             });
             if (this.getCode === 200) {
                 this.isActiveLoading();
@@ -462,7 +462,7 @@ export default {
             this.isActiveLoading();
             axios
                 .get("/api/user")
-                .then(response => {
+                .then((response) => {
                     this.isActiveLoading();
                     this.profileData.user_id = response.data.id;
                     this.profileData.name = response.data.name;
@@ -470,20 +470,20 @@ export default {
                     this.preview = response.data.pic;
                     this.setSuccessResponseMessage(null);
                 })
-                .catch(error => {
+                .catch((error) => {
                     alert(
                         "エラーが発生しました。改善しない場合はお問い合わせページよりご連絡下さい。"
                     );
                     this.isActiveLoading();
                     console.log(error);
                 });
-        }
+        },
     },
     created() {
         // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
         this.clearError();
         this.getProfile();
-    }
+    },
 };
 </script>
 <style></style>

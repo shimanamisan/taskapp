@@ -16,7 +16,7 @@ class TwitterOAuthController extends Controller
     {
         // リダイレクトURLをJSON形式で返す
         $redirect_url =  Socialite::driver('twitter')->redirect()->getTargetUrl();
-        \Log::debug('リダイレクトURLを取得しています。。。');
+        \Log::debug('リダイレクトURLを取得しています。。。' . $redirect_url);
         \Log::debug('    ');
         return response()->json(['redirect_url' => $redirect_url]);
     }
@@ -28,6 +28,10 @@ class TwitterOAuthController extends Controller
 
             // メールアドレスが未登録の場合は、ユーザー登録していないユーザーと判定する
             $userInfo = User::where('email', $socialUser->getEmail())->where('delete_flg', 0)->first();
+
+            \Log::debug("既に登録済みであれば情報が入っています。 ：" . $userInfo);
+            \Log::debug("  ");
+            \Log::debug("socialUserから情報を取り出しています。 ：" . $socialUser->getEmail());
         
             // 既にメールアドレスが登録されていて、パスワードが空でなければメールアドレスから登録されている旨を通知する
             if (!empty($userInfo->email_register_flg)) {

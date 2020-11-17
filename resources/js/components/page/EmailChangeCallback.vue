@@ -13,7 +13,9 @@
                 </p>
                 <div v-else>
                     <p class="p-callback__wrapp__text">{{ authMessage }}</p>
-                    <p>3秒後にトップ画面へ移動します。移動しない場合はブラウザをリロードして下さい。</p>
+                    <p>
+                        3秒後にトップ画面へ移動します。移動しない場合はブラウザをリロードして下さい。
+                    </p>
                 </div>
             </div>
         </div>
@@ -26,13 +28,13 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "@/statusCode";
 export default {
     data() {
         return {
             authMessage: null,
-            auth_flg: true
+            auth_flg: true,
         };
     },
     computed: {
@@ -41,7 +43,7 @@ export default {
         },
         authError() {
             return !this.auth_flg;
-        }
+        },
     },
     methods: {
         ...mapMutations({
@@ -51,12 +53,12 @@ export default {
             setUser: "auth/setUser",
             setEmail: "auth/setEmail",
             setPic: "auth/setPic",
-            setId: "auth/setId"
+            setId: "auth/setId",
         }),
         async emailChangeAuth() {
             this.authMessage = "認証用トークンを確認しています。。。";
             const response = await axios.get("/api/mypage/change_email", {
-                params: this.$route.query
+                params: this.$route.query,
             });
             console.log(response);
             if (response.status === OK) {
@@ -93,7 +95,8 @@ export default {
                 return;
             } else {
                 this.auth_flg = false;
-                this.authMessage = 'トークンの有効期限が切れているか、ログインされていません。';
+                this.authMessage =
+                    "トークンの有効期限が切れているか、ログインされていません。";
                 this.setUser(null);
                 this.setEmail(null);
                 this.setPic(null);
@@ -104,11 +107,11 @@ export default {
                 }, 3000);
                 return;
             }
-        }
+        },
     },
     mounted() {
         this.emailChangeAuth();
-    }
+    },
 };
 </script>
 

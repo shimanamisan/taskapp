@@ -2,7 +2,6 @@
     <div>
         <!-- ここからTaskList -->
         <div class="c-task__card__inner">
-         
             <div class="c-task__todo">
                 <div class="c-task__dragicon c-task__dragicon__card u-handle">
                     <i class="fas fa-bars u-handle"></i>
@@ -37,7 +36,7 @@
                             @keyup.esc="cancelEdit"
                             @blur="cancelEdit"
                             :class="{
-                                'errors--bg': cardRequestErrorMessages
+                                'errors--bg': cardRequestErrorMessages,
                             }"
                         />
                     </form>
@@ -87,40 +86,40 @@ export default {
         return {
             editFlag: false,
             cardTitle: this.cards.title,
-            inDrag: false
+            inDrag: false,
         };
     },
     props: {
         cards: {
             type: Object,
-            required: true
+            required: true,
         },
         id: {
             type: Number,
-            required: true
+            required: true,
         },
         listIndex: {
             type: Number,
-            required: true
-        }
+            required: true,
+        },
     },
     components: {
         TaskList,
         TaskListAdd,
         TaskCardAdd,
-        draggable
+        draggable,
     },
     computed: {
         listCounter() {
             return this.cards.tasks.length;
         },
         ...mapState({
-            cardRequestErrorMessages: state =>
-                state.taskStore.cardRequestErrorMessages
+            cardRequestErrorMessages: (state) =>
+                state.taskStore.cardRequestErrorMessages,
         }),
         ...mapGetters({
-            getCode: "error/getCode"
-        })
+            getCode: "error/getCode",
+        }),
     },
     methods: {
         // vue-draggableに指定するオプションを切り出し
@@ -149,7 +148,7 @@ export default {
             ) {
                 await this.$store.dispatch("taskStore/deleteCard", {
                     folder_id: folder_id,
-                    card_id: card_id
+                    card_id: card_id,
                 });
 
                 if (this.getCode === OK) {
@@ -168,7 +167,7 @@ export default {
             await this.$store.dispatch("taskStore/updateCardTitle", {
                 title: this.cardTitle,
                 folder_id: folder_id,
-                card_id: card_id
+                card_id: card_id,
             });
 
             if (this.getCode === OK) {
@@ -184,7 +183,7 @@ export default {
         async updateTaskDraggable(cardId, taskId) {
             await this.$store.dispatch("taskStore/updateTaskDraggable", {
                 cardId: cardId,
-                task_id: taskId
+                task_id: taskId,
             });
         },
         // タスクリストのソートを更新するアクションを呼ぶ
@@ -232,8 +231,8 @@ export default {
                 return task;
             });
             this.updateTaskSort(newTasks);
-        }
-    }
+        },
+    },
 };
 </script>
 <style></style>

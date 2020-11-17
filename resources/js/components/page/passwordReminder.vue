@@ -71,22 +71,22 @@ import { mapState, mapGetters } from "vuex";
 export default {
     data() {
         return {
-            sendEmail: ""
+            sendEmail: "",
         };
     },
     components: {
-        CommonLogo
+        CommonLogo,
     },
     computed: {
         ...mapState({
-            sendEmailMessages: state => state.auth.sendEmailMessages,
-            resetPasswordErrorMessages: state =>
-                state.auth.passwordReminderErrorMessages
+            sendEmailMessages: (state) => state.auth.sendEmailMessages,
+            resetPasswordErrorMessages: (state) =>
+                state.auth.passwordReminderErrorMessages,
         }),
         ...mapGetters({
             getCode: "error/getCode",
-            validEmail: "auth/validPasswordReminderErrorMessages"
-        })
+            validEmail: "auth/validPasswordReminderErrorMessages",
+        }),
     },
     methods: {
         async sendResetLinkEmail() {
@@ -96,11 +96,11 @@ export default {
         clearError() {
             this.$store.commit("auth/sendEmailMessages", null);
             this.$store.commit("auth/setPasswordReminderErrorMessages", null);
-        }
+        },
     },
     created() {
         this.clearError();
-    }
+    },
 };
 </script>
 <style></style>

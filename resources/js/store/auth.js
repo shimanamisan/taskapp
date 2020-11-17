@@ -2,7 +2,7 @@ import {
     OK,
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
-    CREATED
+    CREATED,
 } from "@/statusCode";
 
 const state = {
@@ -26,7 +26,6 @@ const state = {
     registerErrorMessages: null,
     passwordReminderErrorMessages: null,
     resetPasswordErrorMessages: null,
-    
 };
 
 /***********************************
@@ -34,45 +33,45 @@ const state = {
 ************************************/
 const getters = {
     // ログインチェックに使用。確実に真偽値を返すために二重否定をしている
-    check: state => !!state.username,
+    check: (state) => !!state.username,
     // レスポンスコードをステートから取得する
-    apiStatus: state => (state.apiStatus ? state.apiStatus : ""),
+    apiStatus: (state) => (state.apiStatus ? state.apiStatus : ""),
     // usernameはログインユーザーの名前。仮にuserがnullの場合に呼ばれてもエラーにならない様に空文字にしている
-    getUserName: state => (state.username ? state.username : ""),
+    getUserName: (state) => (state.username ? state.username : ""),
     // email情報を呼び出す
-    getEmail: state => (state.email ? state.email : ""),
+    getEmail: (state) => (state.email ? state.email : ""),
     // プロフィール写真のパスを呼び出す
-    getProfileImage: state => (state.profileImage ? state.profileImage : ""),
+    getProfileImage: (state) => (state.profileImage ? state.profileImage : ""),
     // 新規登録時のエラーメッセージの監視（Name）
-    getRegisterNameError: state =>
+    getRegisterNameError: (state) =>
         state.registerErrorMessages ? state.registerErrorMessages.name : "",
     // 新規登録時のエラーメッセージの監視（Email）
-    getRegisterEmailError: state =>
+    getRegisterEmailError: (state) =>
         state.registerErrorMessages ? state.registerErrorMessages.email : "",
     // 新規登録時のエラーメッセージの監視（Password）
-    getRegisterPasswordError: state =>
+    getRegisterPasswordError: (state) =>
         state.registerErrorMessages ? state.registerErrorMessages.password : "",
     // ログイン時のエラーメッセージの監視（Email）
-    getLoginEmailError: state =>
+    getLoginEmailError: (state) =>
         state.loginErrorMessages ? state.loginErrorMessages.email : "",
     // ログイン時のエラーメッセージの監視（Password）
-    getLoginPasswordError: state =>
+    getLoginPasswordError: (state) =>
         state.loginErrorMessages ? state.loginErrorMessages.password : "",
     // パスワードリセットメール送信時のエラーメッセージ監視（Email）
-    validPasswordReminderErrorMessages: state =>
+    validPasswordReminderErrorMessages: (state) =>
         state.passwordReminderErrorMessages
             ? state.passwordReminderErrorMessages.email
             : "",
     // パスワードリセットアクション時のエラーメッセージ監視（Email）
-    validResetPasswordErrorMessagesForEmail: state =>
+    validResetPasswordErrorMessagesForEmail: (state) =>
         state.resetPasswordErrorMessages
             ? state.resetPasswordErrorMessages.email
             : "",
     // パスワードリセットアクション時のエラーメッセージ監視（Password）
-    validResetPasswordErrorMessagesForPassword: state =>
+    validResetPasswordErrorMessagesForPassword: (state) =>
         state.resetPasswordErrorMessages
             ? state.resetPasswordErrorMessages.password
-            : ""
+            : "",
 };
 
 /*******************************
@@ -121,7 +120,7 @@ const mutations = {
   *****************************************/
     sendEmailMessages(state, message) {
         state.sendEmailMessages = message;
-    }
+    },
 };
 
 // アクション→コミットでミューテーション呼び出し→ステート更新
@@ -210,7 +209,7 @@ const actions = {
         commit("setApiStatus", false);
         commit("error/setCode", response.status, { root: true });
     },
-   
+
     /****************************************
   リロード時にログインチェック
   *****************************************/
@@ -232,7 +231,7 @@ const actions = {
   *****************************************/
     async sendResetLinkEmail({ commit }, data) {
         const response = await axios.post("/api/password/reminder", {
-            email: data
+            email: data,
         });
         console.log(response.data.errors);
         // 422ステータスの処理
@@ -255,7 +254,7 @@ const actions = {
             commit("error/setCode", response.status, { root: true });
         }
         commit("error/setCode", response.status, { root: true });
-    }
+    },
 };
 
 export default {
@@ -263,5 +262,5 @@ export default {
     state,
     getters,
     mutations,
-    actions
+    actions,
 };

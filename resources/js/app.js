@@ -1,6 +1,6 @@
 require("./bootstrap");
 
-import "../sass/style.scss"
+import "../sass/style.scss";
 import Vue from "vue";
 import App from "@/App.vue";
 import store from "@/store/store";
@@ -31,7 +31,7 @@ const createApp = async () => {
         router,
         store,
         components: { App },
-        template: "<App />"
+        template: "<App />",
     });
 };
 

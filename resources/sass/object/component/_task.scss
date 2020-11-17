@@ -139,7 +139,7 @@
             float: right;
         }
         &--icon {
-            margin-right: 10px !important;
+            margin-right: 10px;
         }
     }
 
@@ -156,7 +156,11 @@
             }
         }
         @include mq() {
-            margin-left: 130px;
+            margin-left: 100%;
+        }
+        &__wrapp {
+            padding: 0 20px;
+            max-width: 220px;
         }
     }
     &__todo {

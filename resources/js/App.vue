@@ -10,13 +10,12 @@ import { UNAUTHORIZED, INTERNAL_SERVER_ERROR } from "@/statusCode";
 
 export default {
     data() {
-        return {
-        };
+        return {};
     },
     computed: {
         errorCode() {
             return this.$store.state.error.code;
-        }
+        },
     },
     watch: {
         // ストアのステートを算出プロパティで参照し、それをウォッチャーで監視する
@@ -36,12 +35,12 @@ export default {
                     this.$router.push("/login");
                 }
             },
-            immediate: true
+            immediate: true,
         },
         $route() {
             this.$store.commit("error/setCode", null);
-        }
-    }
+        },
+    },
 };
 </script>
 

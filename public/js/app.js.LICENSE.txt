@@ -683,15 +683,7 @@
 
 /* 358 */
 
-/* 359 */
-
 /* 36 */
-
-/* 360 */
-
-/* 361 */
-
-/* 362 */
 
 /* 37 */
 
@@ -20843,6 +20835,8 @@
 
 // this.$store.auth.commit('setId')
 
+// this.$store.commit("taskStore/setCardRequestErrorMessages", null);
+
 // this.folderData = data
 
 // this.setId(引数)で利用することが可能になる
@@ -21518,6 +21512,8 @@
 // 通信成功時のアクション
 
 // 違った場合にDBへフォルダー配下のタスクデータを取得しに行く
+
+// 選択されているフォルダーに背景色のクラスをつけるための判定を行う
 
 // 順番が入れ替わった際に、現在のpriorityに1を足すことで入れ替わったリストの情報をLaravel側に通知する
 

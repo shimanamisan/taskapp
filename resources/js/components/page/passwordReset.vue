@@ -102,25 +102,25 @@ export default {
                 email: "",
                 password: "",
                 password_confirmation: "",
-                token: ""
-            }
+                token: "",
+            },
         };
     },
     components: {
-        CommonLogo
+        CommonLogo,
     },
     computed: {
         ...mapState({
-            apiStatus: state => state.auth.apiStatus,
-            resetPasswordErrorMessages: state =>
-                state.auth.resetPasswordErrorMessages
+            apiStatus: (state) => state.auth.apiStatus,
+            resetPasswordErrorMessages: (state) =>
+                state.auth.resetPasswordErrorMessages,
         }),
         ...mapGetters({
             isLogin: "auth/check",
             getCode: "error/getCode",
             validEmail: "auth/validResetPasswordErrorMessagesForEmail",
-            validPassword: "auth/validResetPasswordErrorMessagesForPassword"
-        })
+            validPassword: "auth/validResetPasswordErrorMessagesForPassword",
+        }),
     },
     methods: {
         async resetPassword() {
@@ -132,11 +132,11 @@ export default {
         setQuery() {
             // パスワードリセットするために必要なToken
             this.form.token = this.$route.query.token || "";
-        }
+        },
     },
     created() {
         this.setQuery();
-    }
+    },
 };
 </script>
 <style></style>

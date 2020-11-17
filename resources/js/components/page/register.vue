@@ -68,7 +68,7 @@
                                 class="c-input"
                                 v-model="registerForm.password"
                                 :class="{
-                                    'c-error__bg': registerPasswordErrors
+                                    'c-error__bg': registerPasswordErrors,
                                 }"
                             />
                             <!-- バリデーションエラー -->
@@ -137,23 +137,23 @@ export default {
                 name: "",
                 email: "",
                 password: "",
-                password_confirmation: ""
-            }
+                password_confirmation: "",
+            },
         };
     },
     components: {
-        CommonLogo
+        CommonLogo,
     },
     computed: {
         ...mapState({
-            apiStatus: state => state.auth.apiStatus,
-            registerErrors: state => state.auth.registerErrorMessages
+            apiStatus: (state) => state.auth.apiStatus,
+            registerErrors: (state) => state.auth.registerErrorMessages,
         }),
         ...mapGetters({
             registerEmailErrors: "auth/getRegisterEmailError",
             registerNameErrors: "auth/getRegisterNameError",
-            registerPasswordErrors: "auth/getRegisterPasswordError"
-        })
+            registerPasswordErrors: "auth/getRegisterPasswordError",
+        }),
     },
     methods: {
         async register() {
@@ -179,12 +179,12 @@ export default {
         },
         validMessage() {
             console.log(registerErrors);
-        }
+        },
     },
     created() {
         // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
         this.clearError();
-    }
+    },
 };
 </script>
 <style></style>

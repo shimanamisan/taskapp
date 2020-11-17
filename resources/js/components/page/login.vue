@@ -26,7 +26,7 @@
                                 type="text"
                                 class="c-input"
                                 v-model="loginFrom.email"
-                                :class="{'c-error__bg': loginEmailError}"
+                                :class="{ 'c-error__bg': loginEmailError }"
                             />
                             <!-- バリデーションエラー -->
                             <div v-if="loginErrors" class="c-error">
@@ -51,7 +51,7 @@
                                 type="password"
                                 class="c-input"
                                 v-model="loginFrom.password"
-                                :class="{'c-error__bg': loginPasswordError}"
+                                :class="{ 'c-error__bg': loginPasswordError }"
                             />
                             <!-- バリデーションエラー -->
                             <div v-if="loginErrors" class="c-error">
@@ -111,24 +111,23 @@ export default {
         return {
             loginFrom: {
                 email: "",
-                password: ""
-            }
+                password: "",
+            },
         };
     },
     components: {
-        CommonLogo
+        CommonLogo,
     },
     computed: {
         // ...mapStateを使った書き方
         ...mapState({
-            apiStatus: state => state.auth.apiStatus,
-            loginErrors: state => state.auth.loginErrorMessages
+            apiStatus: (state) => state.auth.apiStatus,
+            loginErrors: (state) => state.auth.loginErrorMessages,
         }),
         ...mapGetters({
             loginEmailError: "auth/getLoginEmailError",
             loginPasswordError: "auth/getLoginPasswordError",
-        })
-
+        }),
     },
     methods: {
         // authストアのloginアクションを呼び出す
@@ -137,7 +136,7 @@ export default {
             if (this.apiStatus) {
                 // 通信が成功（apiStatusがtureの場合）したら移動する
                 this.$router.push("/tasklist");
-            } 
+            }
         },
         async twitterLogin() {
             const response = await axios.get("/api/auth/twitter");
@@ -150,12 +149,12 @@ export default {
         },
         clearError() {
             this.$store.commit("auth/setLoginErrorMessages", null);
-        }
+        },
     },
     created() {
         // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す
         this.clearError();
-    }
+    },
 };
 </script>
 <style></style>
