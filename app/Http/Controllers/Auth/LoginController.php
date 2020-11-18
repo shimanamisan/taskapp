@@ -30,7 +30,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = "/home";
 
     /**
      * Create a new controller instance.
@@ -39,7 +39,7 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest')->except('logout');
+        $this->middleware("guest")->except("logout");
     }
 
     // リクエストコントローラーを適応するため、トレイトのメソッドをオーバーライド
@@ -52,8 +52,10 @@ class LoginController extends Controller
         // If the class is using the ThrottlesLogins trait, we can automatically throttle
         // the login attempts for this application. We'll key this by the username and
         // the IP address of the client making these requests into this application.
-        if (method_exists($this, 'hasTooManyLoginAttempts') &&
-            $this->hasTooManyLoginAttempts($request)) {
+        if (
+            method_exists($this, "hasTooManyLoginAttempts") &&
+            $this->hasTooManyLoginAttempts($request)
+        ) {
             $this->fireLockoutEvent($request);
 
             return $this->sendLockoutResponse($request);
@@ -74,10 +76,10 @@ class LoginController extends Controller
     // メソッドをオーバーライド
     protected function credentials(Request $request)
     {
-        $temporary = $request->only($this->username(), 'password');
+        $temporary = $request->only($this->username(), "password");
         // 論理削除フラグが立っていないユーザーを検索するパラメータを追加
-        $temporary['delete_flg'] = 0;
-  
+        $temporary["delete_flg"] = 0;
+
         return $temporary;
     }
 

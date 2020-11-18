@@ -24,16 +24,16 @@ class LoginRequest extends FormRequest
     public function rules()
     {
         return [
-            'email' => 'bail|required|email',
-            'password' => 'bail|required|min:8',
+            "email" => "bail|required|email",
+            "password" => "bail|required|min:8",
         ];
     }
 
     public function messages()
     {
         return [
-            'email.email' => 'メールアドレスを入力してください。',
-            'password.min' => '8文字以上で入力してください。',
+            "email.email" => "メールアドレスを入力してください。",
+            "password.min" => "8文字以上で入力してください。",
         ];
     }
 }

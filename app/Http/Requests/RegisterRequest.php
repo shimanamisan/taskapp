@@ -24,20 +24,20 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'bail|required|max:20|unique:users',
-            'email' => 'bail|required|email',
-            'password' => 'bail|required|confirmed|min:8',
+            "name" => "bail|required|max:20|unique:users",
+            "email" => "bail|required|email",
+            "password" => "bail|required|confirmed|min:8",
         ];
     }
 
     public function messages()
     {
         return [
-            'name.max' => '20文字以内で入力してください。',
-            'name.unique' => '既に使用されているユーザー名です。',
-            'email.email' => 'メールアドレスを入力してください。',
-            "password.confirmed" => '再入力フォームと一致していません。',
-            "password.min" => "8文字以上で入力してください。"
+            "name.max" => "20文字以内で入力してください。",
+            "name.unique" => "既に使用されているユーザー名です。",
+            "email.email" => "メールアドレスを入力してください。",
+            "password.confirmed" => "再入力フォームと一致していません。",
+            "password.min" => "8文字以上で入力してください。",
         ];
     }
 }

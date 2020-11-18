@@ -31,15 +31,15 @@ class ProfileEmailRequest extends FormRequest
             // bailで最初のバリデーションに引っかかったら残りのバリデーションは行わない
             // email:rfc,dnsでRFCValidationとDNSCheckValidationバリデーションを適用している。
             // フィールドがメールアドレスとして正しいか見ている
-            'email' => 'bail|required|email',
+            "email" => "bail|required|email",
         ];
     }
-    
+
     // リクエストコントローラーでバリデーションメッセージを上書きできる
     public function messages()
     {
         return [
-            'email.email' => 'メールアドレスを入力してください。',
+            "email.email" => "メールアドレスを入力してください。",
         ];
     }
 }

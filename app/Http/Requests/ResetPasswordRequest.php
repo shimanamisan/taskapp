@@ -24,16 +24,17 @@ class ResetPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            "email" => 'required|email',
-            'password' => 'required|string|confirmed|min:8|max:100|regex:/^[a-zA-Z0-9]+$/'
+            "email" => "required|email",
+            "password" =>
+                'required|string|confirmed|min:8|max:100|regex:/^[a-zA-Z0-9]+$/',
         ];
     }
 
     public function messages()
     {
         return [
-            'password.regex' => '半角英数のみご利用いただけます。',
-            "password.min" => "8文字以上で入力してください"
+            "password.regex" => "半角英数のみご利用いただけます。",
+            "password.min" => "8文字以上で入力してください",
         ];
     }
 }

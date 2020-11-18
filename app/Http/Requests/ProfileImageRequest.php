@@ -27,9 +27,7 @@ class ProfileImageRequest extends FormRequest
             // ここでのバリデーションはファイルサイズも入れたほうが良い？(10MBを上限とする)
             // ここで指定した profilePhoto というキーが、ajax通信で返ってくる response の中に入っている
             // response.data.errors で拾える
-            'profilePhoto' => 'required|file|mimes:jpg,jpeg,png,gif|max:10240',
-
-
+            "profilePhoto" => "required|file|mimes:jpg,jpeg,png,gif|max:10240",
         ];
     }
 
@@ -37,10 +35,9 @@ class ProfileImageRequest extends FormRequest
     public function messages()
     {
         return [
-            'profilePhoto.required' => '写真は必須です。',
-            'profilePhoto.file' => '写真を選択してください。',
-            'profilePhoto.mimes' => '画像ファイルのみ選択可能です。',
-           
+            "profilePhoto.required" => "写真は必須です。",
+            "profilePhoto.file" => "写真を選択してください。",
+            "profilePhoto.mimes" => "画像ファイルのみ選択可能です。",
         ];
     }
 }

@@ -20,14 +20,14 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
-        'email_register_flg',
-        'my_twitter_id',
-        'twitter_token',
-        'twitter_token_secret',
-        'pic',
+        "name",
+        "email",
+        "password",
+        "email_register_flg",
+        "my_twitter_id",
+        "twitter_token",
+        "twitter_token_secret",
+        "pic",
     ];
 
     // protected $dates = ['deleted_at'];
@@ -37,9 +37,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ["password", "remember_token"];
 
     /**
      * The attributes that should be cast to native types.
@@ -47,13 +45,13 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        "email_verified_at" => "datetime",
     ];
 
     // ユーザーとフォルダーの関係性を記述
     public function folders()
     {
-        return $this->hasMany('App\Folder');
+        return $this->hasMany("App\Folder");
     }
 
     // パスワードリセットリンクを送信するための通知クラス及び、その中のメソッドをオーバーライド

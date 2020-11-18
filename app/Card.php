@@ -6,18 +6,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
-    protected $fillable = [
-        'title',
-        'folder_id'
-    ];
+    protected $fillable = ["title", "folder_id"];
 
     public function folder()
     {
-        return $this->belongsTo('App\Folder');
+        return $this->belongsTo("App\Folder");
     }
 
     public function tasks()
     {
-        return $this->hasMany('App\Task');
+        return $this->hasMany("App\Task");
     }
 }

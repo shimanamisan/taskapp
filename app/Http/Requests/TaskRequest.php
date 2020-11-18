@@ -12,7 +12,7 @@ class TaskRequest extends FormRequest
      * @return bool
      */
     public function authorize()
-    {   
+    {
         // デフォルトはfalseなのでtrueにする
         return true;
     }
@@ -25,15 +25,15 @@ class TaskRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'bail|required|max:20'
+            "title" => "bail|required|max:20",
         ];
     }
 
     public function messages()
     {
         return [
-            'title.required' => '入力必須です',
-            'title.max' => '20文字以内で入力してください',
+            "title.required" => "入力必須です",
+            "title.max" => "20文字以内で入力してください",
         ];
     }
 }

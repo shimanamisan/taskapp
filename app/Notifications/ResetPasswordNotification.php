@@ -12,15 +12,16 @@ class ResetPasswordNotification extends Notification
     use Queueable;
 
     public $token; // 追加
-    protected $title = 'パスワードリセット 通知'; // 追加
+    protected $title = "パスワードリセット 通知"; // 追加
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($token) // $tokenを追加
+    public function __construct($token)
     {
+        // $tokenを追加
         $this->token = $token; // $this->token = $tokenを追加
     }
 
@@ -32,7 +33,7 @@ class ResetPasswordNotification extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ["mail"];
     }
 
     /**
@@ -41,11 +42,12 @@ class ResetPasswordNotification extends Notification
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
-    
+
     // カスタマイズ
     public function toMail($notifiable)
     {
-        $forgotPasswordURL = config('frontend.reset_pass_url'). "?token={$this->token}";
+        $forgotPasswordURL =
+            config("frontend.reset_pass_url") . "?token={$this->token}";
 
         // デフォルトではそのままメール分を記述しているが、今回は作成したテンプレートを使用する
         // return (new MailMessage)
@@ -54,12 +56,9 @@ class ResetPasswordNotification extends Notification
         //             ->line('下のボタンをクリックしてパスワードを再設定してください。')
         //             ->action('パスワード再設定', $forgotPasswordURL)
         //             ->line('もし心当たりがない場合は、本メッセージは破棄してください。');
-        return (new MailMessage)
-                ->subject($this->title)
-                ->view(
-                    'email.reset',
-                    ['reset_url' => url($forgotPasswordURL),]
-                );
+        return (new MailMessage())
+            ->subject($this->title)
+            ->view("email.reset", ["reset_url" => url($forgotPasswordURL)]);
     }
 
     /**
@@ -71,7 +70,7 @@ class ResetPasswordNotification extends Notification
     public function toArray($notifiable)
     {
         return [
-            //
-        ];
+                //
+            ];
     }
 }

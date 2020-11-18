@@ -31,7 +31,7 @@ class ResetPasswordController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = "/home";
 
     /**
      * Create a new controller instance.
@@ -40,7 +40,7 @@ class ResetPasswordController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware("guest");
     }
 
     /*************************************************************
@@ -64,15 +64,15 @@ class ResetPasswordController extends Controller
         // パスワードが正常にリセットされた場合は、アプリケーションのホーム認証ビューへリダイレクトします。
         // もし間違いがあれば、エラーメッセージが表示された元の場所にリダイレクトします。
         return $response == Password::PASSWORD_RESET
-                    ? $this->sendResetResponse($request, $response)
-                    : $this->sendResetFailedResponse($request, $response);
+            ? $this->sendResetResponse($request, $response)
+            : $this->sendResetFailedResponse($request, $response);
     }
     protected function rules()
     {
         return [
-            'token' => 'required',
-            'email' => 'required|email|max:100',
-            'password' => 'required|confirmed|min:8|regex:/^[a-zA-Z0-9]+$/',
+            "token" => "required",
+            "email" => "required|email|max:100",
+            "password" => 'required|confirmed|min:8|regex:/^[a-zA-Z0-9]+$/',
         ];
     }
 
@@ -83,18 +83,24 @@ class ResetPasswordController extends Controller
 
     protected function sendResetResponse(Request $request, $response)
     {
-        return response()->json([
-            "message" => 'パスワードをリセットしました。',
-            "response" => $response
-        ], 200);
+        return response()->json(
+            [
+                "message" => "パスワードをリセットしました。",
+                "response" => $response,
+            ],
+            200
+        );
     }
 
     protected function sendResetFailedResponse(Request $request, $response)
     {
-        return response()->json([
-            "message" => 'パスワードのリセットに失敗しました。',
-            "response" => $response
-        ], 500);
+        return response()->json(
+            [
+                "message" => "パスワードのリセットに失敗しました。",
+                "response" => $response,
+            ],
+            500
+        );
     }
 
     /**
@@ -120,10 +126,10 @@ class ResetPasswordController extends Controller
     protected function credentials(Request $request)
     {
         return $request->only(
-            'email',
-            'password',
-            'password_confirmation',
-            'token'
+            "email",
+            "password",
+            "password_confirmation",
+            "token"
         );
     }
 }

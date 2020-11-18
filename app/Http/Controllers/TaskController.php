@@ -19,9 +19,13 @@ class TaskController extends Controller
 
         $folder = Folder::find($folder_id);
 
-        $folder->cards()->find($card_id)->tasks()->create($request->all());
+        $folder
+            ->cards()
+            ->find($card_id)
+            ->tasks()
+            ->create($request->all());
 
-        $allData = User::with(['folders.cards.tasks'])->find($user_id);
+        $allData = User::with(["folders.cards.tasks"])->find($user_id);
 
         $cardData = $allData->folders->find($folder_id);
 
@@ -36,29 +40,43 @@ class TaskController extends Controller
 
         $folder = Folder::find($folder_id);
 
-        $folder->cards()->find($card_id)->tasks()->find($task_id)->delete();
+        $folder
+            ->cards()
+            ->find($card_id)
+            ->tasks()
+            ->find($task_id)
+            ->delete();
 
-        $allData = User::with(['folders.cards.tasks'])->find($user_id);
+        $allData = User::with(["folders.cards.tasks"])->find($user_id);
 
         $cardData = $allData->folders->find($folder_id);
-    
+
         return $cardData;
     }
 
-    public function updateTask(TaskRequest $request, $folder_id, $card_id, $task_id)
-    {
+    public function updateTask(
+        TaskRequest $request,
+        $folder_id,
+        $card_id,
+        $task_id
+    ) {
         $user = Auth::user();
 
         $user_id = $user->id;
 
         $folder = Folder::find($folder_id);
 
-        $folder->cards()->find($card_id)->tasks()->find($task_id)->update($request->all());
+        $folder
+            ->cards()
+            ->find($card_id)
+            ->tasks()
+            ->find($task_id)
+            ->update($request->all());
 
-        $allData = User::with(['folders.cards.tasks'])->find($user_id);
+        $allData = User::with(["folders.cards.tasks"])->find($user_id);
 
         $cardData = $allData->folders->find($folder_id);
-    
+
         return $cardData;
     }
 
@@ -70,7 +88,6 @@ class TaskController extends Controller
 
         $task = Task::find($task_id);
 
-
         $task->update($request->all());
 
         return $task;
@@ -79,27 +96,38 @@ class TaskController extends Controller
     public function updateTaskSort(Request $request)
     {
         $newTasks = $request->tasks;
-        \Log::debug('リクエストされたタスクを取得しています：' .print_r($newTasks, true));
+        \Log::debug(
+            "リクエストされたタスクを取得しています：" .
+                print_r($newTasks, true)
+        );
 
         // タスクをすべて取得
         $tasks = Task::all();
-        \Log::debug('既存のタスクをすべて取得しています：' .print_r($tasks, true));
-  
+        \Log::debug(
+            "既存のタスクをすべて取得しています：" . print_r($tasks, true)
+        );
+
         // DBに登録されているタスクをループで分解
         foreach ($tasks as $task) {
             // 既存タスクを分解する中で、ソート順が更新された全てのタスクをループで分解
             foreach ($newTasks as $newTask) {
-                \Log::debug('リクエストされたタスクを分解しています：' .print_r($newTask, true));
-                \Log::debug('既存タスクのIDです：' .print_r($task->id, true));
+                \Log::debug(
+                    "リクエストされたタスクを分解しています：" .
+                        print_r($newTask, true)
+                );
+                \Log::debug("既存タスクのIDです：" . print_r($task->id, true));
                 // 既存のタスクIDと更新後のタスクIDが同じだったら既存タスクのソート順を更新する
-                if ($newTask['id'] === $task->id) {
-                    \Log::debug('既存のタスクのIDと新しいタスクのIDが同じだったらpriorityをUPDATEします：' .print_r($newTask['priority'], true));
+                if ($newTask["id"] === $task->id) {
+                    \Log::debug(
+                        "既存のタスクのIDと新しいタスクのIDが同じだったらpriorityをUPDATEします：" .
+                            print_r($newTask["priority"], true)
+                    );
                     // update(['カラム名'] => $更新する値の変数['key']); のように使用することも出来る
-                    $task->update(['priority' => $newTask['priority']]);
+                    $task->update(["priority" => $newTask["priority"]]);
                 }
             }
         }
 
-        return response(['success'], 200);
+        return response(["success"], 200);
     }
 }

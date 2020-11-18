@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/home';
+    protected $redirectTo = "/home";
 
     /**
      * Create a new controller instance.
@@ -41,35 +41,52 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest');
+        $this->middleware("guest");
     }
 
     protected function validator(array $data)
     {
         // カスタムエラーメッセージ
         $message = [
-            'email.unique' => '無効なメールアドレスです。メールアドレスを確認してやり直してください。',
-            'regex' => '半角英数のみご利用いただけます。',
-            'confirmed' => ':attributeと、:attribute再入力が一致していません。',
+            "email.unique" =>
+                "無効なメールアドレスです。メールアドレスを確認してやり直してください。",
+            "regex" => "半角英数のみご利用いただけます。",
+            "confirmed" => ":attributeと、:attribute再入力が一致していません。",
         ];
 
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:30'],
-            'email' => ['required', 'string', 'email', 'max:100',
-                        // Ruleクラスを使用してバリデーションルールをカスタマイズ出来る
-                        // ユーザーテーブルのdelete_flgが0のユーザーに対してemailの同値チェックを行う
-                        Rule::unique('users', 'email')->where('delete_flg', 0)],
-            'password' => ['required', 'string', 'min:8', 'max:100', 'confirmed', 'regex:/^[a-zA-Z0-9]+$/'],
-        ], $message);
+        return Validator::make(
+            $data,
+            [
+                "name" => ["required", "string", "max:30"],
+                "email" => [
+                    "required",
+                    "string",
+                    "email",
+                    "max:100",
+                    // Ruleクラスを使用してバリデーションルールをカスタマイズ出来る
+                    // ユーザーテーブルのdelete_flgが0のユーザーに対してemailの同値チェックを行う
+                    Rule::unique("users", "email")->where("delete_flg", 0),
+                ],
+                "password" => [
+                    "required",
+                    "string",
+                    "min:8",
+                    "max:100",
+                    "confirmed",
+                    'regex:/^[a-zA-Z0-9]+$/',
+                ],
+            ],
+            $message
+        );
     }
 
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'email_register_flg' => true, //Emailで登録されたか判定用フラグ
-            'password' => Hash::make($data['password']),
+            "name" => $data["name"],
+            "email" => $data["email"],
+            "email_register_flg" => true, //Emailで登録されたか判定用フラグ
+            "password" => Hash::make($data["password"]),
         ]);
     }
 
@@ -80,14 +97,14 @@ class RegisterController extends Controller
     {
         $this->validator($request->all())->validate();
 
-        event(new Registered($user = $this->create($request->all())));
+        event(new Registered(($user = $this->create($request->all()))));
 
         $this->guard()->login($user);
 
-        return $this->registered($request, $user)
-                        ?: redirect($this->redirectPath());
+        return $this->registered($request, $user) ?:
+            redirect($this->redirectPath());
     }
-    
+
     // Illuminate\Foundation\Auth\RegistersUsers トレイトを見てみましょう
     protected function registered(Request $request, $user)
     {

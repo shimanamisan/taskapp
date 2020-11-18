@@ -16,8 +16,8 @@ class AppServiceProvider extends ServiceProvider
     public function register()
     {
         // 商用環境以外だった場合にSQLログを出力させる
-        if(config('app.env') !== 'production'){
-            \DB::listen(function($query){
+        if (config("app.env") !== "production") {
+            \DB::listen(function ($query) {
                 \Log::info(" Query Time: {$query->time}s $query->sql ");
             });
         }

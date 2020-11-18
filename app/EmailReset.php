@@ -8,12 +8,8 @@ use Illuminate\Notifications\Notifiable; // ★追加
 class EmailReset extends Model
 {
     use Notifiable; // ★追加
-    
-    protected $fillable = [
-        'user_id',
-        'new_email',
-        'token',
-    ];
+
+    protected $fillable = ["user_id", "new_email", "token"];
 
     /**
      * メールアドレス認証通知の送信

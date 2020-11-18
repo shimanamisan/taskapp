@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Default Queue Connection Name
@@ -13,7 +12,7 @@ return [
     |
     */
 
-    'default' => env('QUEUE_CONNECTION', 'sync'),
+    "default" => env("QUEUE_CONNECTION", "sync"),
 
     /*
     |--------------------------------------------------------------------------
@@ -28,44 +27,45 @@ return [
     |
     */
 
-    'connections' => [
-
-        'sync' => [
-            'driver' => 'sync',
+    "connections" => [
+        "sync" => [
+            "driver" => "sync",
         ],
 
-        'database' => [
-            'driver' => 'database',
-            'table' => 'jobs',
-            'queue' => 'default',
-            'retry_after' => 90,
+        "database" => [
+            "driver" => "database",
+            "table" => "jobs",
+            "queue" => "default",
+            "retry_after" => 90,
         ],
 
-        'beanstalkd' => [
-            'driver' => 'beanstalkd',
-            'host' => 'localhost',
-            'queue' => 'default',
-            'retry_after' => 90,
-            'block_for' => 0,
+        "beanstalkd" => [
+            "driver" => "beanstalkd",
+            "host" => "localhost",
+            "queue" => "default",
+            "retry_after" => 90,
+            "block_for" => 0,
         ],
 
-        'sqs' => [
-            'driver' => 'sqs',
-            'key' => env('AWS_ACCESS_KEY_ID'),
-            'secret' => env('AWS_SECRET_ACCESS_KEY'),
-            'prefix' => env('SQS_PREFIX', 'https://sqs.us-east-1.amazonaws.com/your-account-id'),
-            'queue' => env('SQS_QUEUE', 'your-queue-name'),
-            'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
+        "sqs" => [
+            "driver" => "sqs",
+            "key" => env("AWS_ACCESS_KEY_ID"),
+            "secret" => env("AWS_SECRET_ACCESS_KEY"),
+            "prefix" => env(
+                "SQS_PREFIX",
+                "https://sqs.us-east-1.amazonaws.com/your-account-id"
+            ),
+            "queue" => env("SQS_QUEUE", "your-queue-name"),
+            "region" => env("AWS_DEFAULT_REGION", "us-east-1"),
         ],
 
-        'redis' => [
-            'driver' => 'redis',
-            'connection' => 'default',
-            'queue' => env('REDIS_QUEUE', 'default'),
-            'retry_after' => 90,
-            'block_for' => null,
+        "redis" => [
+            "driver" => "redis",
+            "connection" => "default",
+            "queue" => env("REDIS_QUEUE", "default"),
+            "retry_after" => 90,
+            "block_for" => null,
         ],
-
     ],
 
     /*
@@ -79,9 +79,8 @@ return [
     |
     */
 
-    'failed' => [
-        'database' => env('DB_CONNECTION', 'mysql'),
-        'table' => 'failed_jobs',
+    "failed" => [
+        "database" => env("DB_CONNECTION", "mysql"),
+        "table" => "failed_jobs",
     ],
-
 ];

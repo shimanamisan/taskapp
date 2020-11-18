@@ -25,8 +25,10 @@ class Contact extends Mailable
      */
     public function build()
     {
-        return $this->subject('【お問い合わせ】'. '   ' .$this->contact['subject'])
-                    // email.blade.phpファイルに内容を渡している。
-                    ->view('contact.email');
+        return $this->subject(
+            "【お問い合わせ】" . "   " . $this->contact["subject"]
+        )
+            // email.blade.phpファイルに内容を渡している。
+            ->view("contact.email");
     }
 }
