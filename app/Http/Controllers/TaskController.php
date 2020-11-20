@@ -13,45 +13,63 @@ class TaskController extends Controller
 {
     public function createTask(TaskRequest $request, $folder_id, $card_id)
     {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $user_id = $user->id;
+            $user_id = $user->id;
 
-        $folder = Folder::find($folder_id);
+            $folder = Folder::find($folder_id);
 
-        $folder
-            ->cards()
-            ->find($card_id)
-            ->tasks()
-            ->create($request->all());
+            $folder
+                ->cards()
+                ->find($card_id)
+                ->tasks()
+                ->create($request->all());
 
-        $allData = User::with(["folders.cards.tasks"])->find($user_id);
+            $allData = User::with(["folders.cards.tasks"])->find($user_id);
 
-        $cardData = $allData->folders->find($folder_id);
+            $cardData = $allData->folders->find($folder_id);
 
-        return $cardData;
+            return $cardData;
+        } catch (\Exception $e) {
+            \Log::debug("予期せぬエラーが発生しました。" . $e->getMessage());
+            \Log::debug("   ");
+            return response()->json(
+                ["errors", "予期せぬエラーが発生しました。"],
+                500
+            );
+        }
     }
 
     public function deleteTask($folder_id, $card_id, $task_id)
     {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $user_id = $user->id;
+            $user_id = $user->id;
 
-        $folder = Folder::find($folder_id);
+            $folder = Folder::find($folder_id);
 
-        $folder
-            ->cards()
-            ->find($card_id)
-            ->tasks()
-            ->find($task_id)
-            ->delete();
+            $folder
+                ->cards()
+                ->find($card_id)
+                ->tasks()
+                ->find($task_id)
+                ->delete();
 
-        $allData = User::with(["folders.cards.tasks"])->find($user_id);
+            $allData = User::with(["folders.cards.tasks"])->find($user_id);
 
-        $cardData = $allData->folders->find($folder_id);
+            $cardData = $allData->folders->find($folder_id);
 
-        return $cardData;
+            return $cardData;
+        } catch (\Exception $e) {
+            \Log::debug("予期せぬエラーが発生しました。" . $e->getMessage());
+            \Log::debug("   ");
+            return response()->json(
+                ["errors", "予期せぬエラーが発生しました。"],
+                500
+            );
+        }
     }
 
     public function updateTask(
@@ -60,37 +78,55 @@ class TaskController extends Controller
         $card_id,
         $task_id
     ) {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $user_id = $user->id;
+            $user_id = $user->id;
 
-        $folder = Folder::find($folder_id);
+            $folder = Folder::find($folder_id);
 
-        $folder
-            ->cards()
-            ->find($card_id)
-            ->tasks()
-            ->find($task_id)
-            ->update($request->all());
+            $folder
+                ->cards()
+                ->find($card_id)
+                ->tasks()
+                ->find($task_id)
+                ->update($request->all());
 
-        $allData = User::with(["folders.cards.tasks"])->find($user_id);
+            $allData = User::with(["folders.cards.tasks"])->find($user_id);
 
-        $cardData = $allData->folders->find($folder_id);
+            $cardData = $allData->folders->find($folder_id);
 
-        return $cardData;
+            return $cardData;
+        } catch (\Exception $e) {
+            \Log::debug("予期せぬエラーが発生しました。" . $e->getMessage());
+            \Log::debug("   ");
+            return response()->json(
+                ["errors", "予期せぬエラーが発生しました。"],
+                500
+            );
+        }
     }
 
     public function updateTaskDraggable(Request $request, $task_id)
     {
-        $user = Auth::user();
+        try {
+            $user = Auth::user();
 
-        $user_id = $user->id;
+            $user_id = $user->id;
 
-        $task = Task::find($task_id);
+            $task = Task::find($task_id);
 
-        $task->update($request->all());
+            $task->update($request->all());
 
-        return $task;
+            return $task;
+        } catch (\Exception $e) {
+            \Log::debug("予期せぬエラーが発生しました。" . $e->getMessage());
+            \Log::debug("   ");
+            return response()->json(
+                ["errors", "予期せぬエラーが発生しました。"],
+                500
+            );
+        }
     }
 
     public function updateTaskSort(Request $request)
@@ -101,33 +137,44 @@ class TaskController extends Controller
                 print_r($newTasks, true)
         );
 
-        // タスクをすべて取得
-        $tasks = Task::all();
-        \Log::debug(
-            "既存のタスクをすべて取得しています：" . print_r($tasks, true)
-        );
+        try {
+            // タスクをすべて取得
+            $tasks = Task::all();
+            \Log::debug(
+                "既存のタスクをすべて取得しています：" . print_r($tasks, true)
+            );
 
-        // DBに登録されているタスクをループで分解
-        foreach ($tasks as $task) {
-            // 既存タスクを分解する中で、ソート順が更新された全てのタスクをループで分解
-            foreach ($newTasks as $newTask) {
-                \Log::debug(
-                    "リクエストされたタスクを分解しています：" .
-                        print_r($newTask, true)
-                );
-                \Log::debug("既存タスクのIDです：" . print_r($task->id, true));
-                // 既存のタスクIDと更新後のタスクIDが同じだったら既存タスクのソート順を更新する
-                if ($newTask["id"] === $task->id) {
+            // DBに登録されているタスクをループで分解
+            foreach ($tasks as $task) {
+                // 既存タスクを分解する中で、ソート順が更新された全てのタスクをループで分解
+                foreach ($newTasks as $newTask) {
                     \Log::debug(
-                        "既存のタスクのIDと新しいタスクのIDが同じだったらpriorityをUPDATEします：" .
-                            print_r($newTask["priority"], true)
+                        "リクエストされたタスクを分解しています：" .
+                            print_r($newTask, true)
                     );
-                    // update(['カラム名'] => $更新する値の変数['key']); のように使用することも出来る
-                    $task->update(["priority" => $newTask["priority"]]);
+                    \Log::debug(
+                        "既存タスクのIDです：" . print_r($task->id, true)
+                    );
+                    // 既存のタスクIDと更新後のタスクIDが同じだったら既存タスクのソート順を更新する
+                    if ($newTask["id"] === $task->id) {
+                        \Log::debug(
+                            "既存のタスクのIDと新しいタスクのIDが同じだったらpriorityをUPDATEします：" .
+                                print_r($newTask["priority"], true)
+                        );
+                        // update(['カラム名'] => $更新する値の変数['key']); のように使用することも出来る
+                        $task->update(["priority" => $newTask["priority"]]);
+                    }
                 }
             }
-        }
 
-        return response(["success"], 200);
+            return response(["success"], 200);
+        } catch (\Exception $e) {
+            \Log::debug("予期せぬエラーが発生しました。" . $e->getMessage());
+            \Log::debug("   ");
+            return response()->json(
+                ["errors", "予期せぬエラーが発生しました。"],
+                500
+            );
+        }
     }
 }

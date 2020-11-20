@@ -463,6 +463,7 @@ export default {
             axios
                 .get("/api/user")
                 .then((response) => {
+                    console.log(response)
                     this.isActiveLoading();
                     this.profileData.user_id = response.data.id;
                     this.profileData.name = response.data.name;

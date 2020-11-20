@@ -94,6 +94,11 @@
                             </button>
                         </div>
                     </div>
+                    <div class="c-form__action c-form__action--easy">
+                        <div class="u-social__item">
+                           <a href="" @click.stop.prevent="gestLogin">かんたんログイン</a>
+                        </div>
+                    </div>
                 </div>
                 <!-- c-form__container -->
             </div>
@@ -150,6 +155,11 @@ export default {
         clearError() {
             this.$store.commit("auth/setLoginErrorMessages", null);
         },
+        // ゲストユーザーログイン用
+        gestLogin(){
+            this.loginFrom.email = "test01@mail.com";
+            this.loginFrom.password = "password";
+        }
     },
     created() {
         // createdライフサイクルフックで、表示が残っていたバリデーションメッセージを消す

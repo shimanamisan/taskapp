@@ -31,26 +31,6 @@ class ProfileController extends Controller
     // プロフィール写真を更新
     public function profileImageEdit(ProfileImageRequest $request, $id)
     {
-        \Log::debug(
-            "パラメータのユーザーIDを確認しています。型：" .
-                gettype($id) .
-                "  ID：" .
-                $id
-        );
-        \Log::debug("   ");
-
-        if (!ctype_digit($id)) {
-            $errors = [
-                "errors" => [
-                    "old_password" => ["不正なパラメータが入力されました。"],
-                ],
-            ];
-            \Log::debug("不正なパラメータが入力されています。");
-            \Log::debug("   ");
-            // ステータスコードとエラーメッセージを返す
-            return response()->json($errors, 422);
-        }
-
         try {
             $user = User::find($id);
             \Log::debug("パラメーターよりユーザー情報を取得しています。");
@@ -79,12 +59,19 @@ class ProfileController extends Controller
     // ユーザー名を更新
     public function profileNameEdit(ProfileNameRequest $request)
     {
-        Auth::user()->update([
-            "name" => $request->input("name"),
-        ]);
-
-        // 認証済みユーザー情報を返却
-        return Auth::user();
+        try {
+            Auth::user()->update([
+                "name" => $request->input("name"),
+            ]);
+            return Auth::user();
+            // 認証済みユーザー情報を返却
+        } catch (\Exception $e) {
+            \Log::debug(
+                "ユーザー名更時にエラーが発生しました。。" . $e->getMessage()
+            );
+            \Log::debug("   ");
+            return response()->json(["errors", "エラーが発生しました。"], 500);
+        }
     }
 
     // パスワードを更新
@@ -152,17 +139,6 @@ class ProfileController extends Controller
     // ユーザー退会
     public function userSoftDelete(Request $request, $id)
     {
-        if (!ctype_digit($id)) {
-            $errors = [
-                "errors" => [
-                    "old_password" => ["不正なパラメータが入力されました。"],
-                ],
-            ];
-            \Log::debug("不正なパラメータが入力されています。");
-            \Log::debug("   ");
-            // ステータスコードとエラーメッセージを返す
-            return response()->json($errors, 422);
-        }
         try {
             // DBファサードではなく、Eloquent ORM にてdelete()メソッドを実行する事
             // https://www.ritolab.com/entry/53#environment_development
@@ -204,27 +180,7 @@ class ProfileController extends Controller
     // Emailを更新及び認証用リンクを送信
     public function profileEmailEdit(ProfileEmailRequest $request, $id)
     {
-        \Log::debug(
-            "パラメータのユーザーIDを確認しています。型：" .
-                gettype($id) .
-                "  ID：" .
-                $id
-        );
-        \Log::debug("   ");
-
         $email = $request->email;
-
-        if (!ctype_digit($id)) {
-            $errors = [
-                "errors" => [
-                    "old_password" => ["不正なパラメータが入力されました。"],
-                ],
-            ];
-            \Log::debug("不正なパラメータが入力されています。");
-            \Log::debug("   ");
-            // ステータスコードとエラーメッセージを返す
-            return response()->json($errors, 422);
-        }
 
         // トークン生成
         $token = hash_hmac(
