@@ -24,21 +24,6 @@
                                 class="c-form-lavel c-form-lavel__profile"
                                 >プロフィール画像</label
                             >
-                            <!-- バリデーションエラー --->
-                            <div
-                                v-if="profileUploadErrors"
-                                class="c-error errors__profile"
-                            >
-                                <ul v-if="profileUploadErrors.profilePhoto">
-                                    <li
-                                        v-for="msg in profileUploadErrors.profilePhoto"
-                                        :key="msg"
-                                    >
-                                        {{ msg }}
-                                    </li>
-                                </ul>
-                            </div>
-                            <!--- end c-error -->
                             <label class="c-input__profile">
                                 <input
                                     type="file"
@@ -64,6 +49,21 @@
                                     <NoImage class="c-form__outputImg" />
                                 </output>
                             </label>
+                            <!-- バリデーションエラー --->
+                            <div
+                                v-if="profileErrorMessages"
+                                class="c-error errors__profile"
+                            >
+                                <ul v-if="profileErrorMessages.profilePhoto">
+                                    <li
+                                        v-for="msg in profileErrorMessages.profilePhoto"
+                                        :key="msg"
+                                    >
+                                        {{ msg }}
+                                    </li>
+                                </ul>
+                            </div>
+                            <!--- end c-error -->
                             <div
                                 class="l-flex l-flex--center u-btn__wrapp"
                                 v-show="showProfileImage"
@@ -93,24 +93,25 @@
                                 <label for class="c-form-lavel"
                                     >ニックネーム</label
                                 >
-                                <!-- バリデーションエラー --->
-                                <div v-if="profileUploadErrors" class="c-error">
-                                    <ul v-if="profileUploadErrors.name">
-                                        <li
-                                            v-for="msg in profileUploadErrors.name"
-                                            :key="msg"
-                                        >
-                                            {{ msg }}
-                                        </li>
-                                    </ul>
-                                </div>
                                 <!--- end c-error -->
                                 <input
                                     type="text"
                                     class="c-input"
                                     v-model="profileData.name"
                                     @focus="namefocus"
+                                    :class="{ 'c-error__bg': validName }"
                                 />
+                                <!-- バリデーションエラー --->
+                                <div v-if="profileErrorMessages" class="c-error">
+                                    <ul v-if="profileErrorMessages.name">
+                                        <li
+                                            v-for="msg in profileErrorMessages.name"
+                                            :key="msg"
+                                        >
+                                            {{ msg }}
+                                        </li>
+                                    </ul>
+                                </div>
                                 <!-- 変更用ボタン -->
                                 <div
                                     class="l-flex u-btn__wrapp"
@@ -139,24 +140,25 @@
                                 <label for class="c-form-lavel"
                                     >メールアドレス</label
                                 >
-                                <!-- バリデーションエラー --->
-                                <div v-if="profileUploadErrors" class="c-error">
-                                    <ul v-if="profileUploadErrors.email">
-                                        <li
-                                            v-for="msg in profileUploadErrors.email"
-                                            :key="msg"
-                                        >
-                                            {{ msg }}
-                                        </li>
-                                    </ul>
-                                </div>
                                 <!--- end c-error -->
                                 <input
                                     type="text"
                                     class="c-input"
                                     v-model="profileData.email"
                                     @focus="emailfocus"
+                                    :class="{ 'c-error__bg': validEmail }"
                                 />
+                                <!-- バリデーションエラー --->
+                                <div v-if="profileErrorMessages" class="c-error">
+                                    <ul v-if="profileErrorMessages.email">
+                                        <li
+                                            v-for="msg in profileErrorMessages.email"
+                                            :key="msg"
+                                        >
+                                            {{ msg }}
+                                        </li>
+                                    </ul>
+                                </div>
                             </div>
                             <!-- 変更用ボタン -->
                             <div class="l-flex u-btn__wrapp" v-show="showEmail">
@@ -271,10 +273,12 @@ export default {
     },
     computed: {
         ...mapState({
-            profileUploadErrors: (state) => state.auth.profileErrorMessages,
+            profileErrorMessages: (state) => state.profile.profileErrorMessages,
         }),
         ...mapGetters({
             getCode: "error/getCode",
+            validEmail: "profile/validProfileEmailError",
+            validName: "profile/validProfileNameError"
         }),
     },
     methods: {
@@ -346,13 +350,20 @@ export default {
             this.showProfileImage = !this.showProfileImage;
         },
         async userSoftDelete() {
+            // ゲストユーザーは退会できなようにメッセージ表示
+            if (this.profileData.user_id === 1) {
+                window.alert("ゲストユーザーは退会できません。");
+                return false;
+            }
             if (
                 window.confirm(
                     "退会処理を行うと、現在作成しているタスクも削除されます。\n退会しますか？"
                 )
             ) {
                 // アクションを呼びに行く
-                await this.$store.dispatch("profile/userSoftDelete");
+                await this.$store.dispatch("profile/userSoftDelete" , {
+                    user_id: this.profileData.user_id,
+                });
                 if (this.getCode === 200) {
                     // 画面遷移時にコンポーネントにメッセージを渡す
                     this.$router.push({
@@ -463,7 +474,7 @@ export default {
             axios
                 .get("/api/user")
                 .then((response) => {
-                    console.log(response)
+                    console.log(response);
                     this.isActiveLoading();
                     this.profileData.user_id = response.data.id;
                     this.profileData.name = response.data.name;
