@@ -119,9 +119,9 @@ const actions = {
         commit("error/setCode", response.status, { root: true });
     },
     // ユーザー削除
-    async userSoftDelete({ commit }) {
-        commit("setApiStatus", null);
-        const id = state.user_id;
+    async userSoftDelete({ commit } , data) {
+        commit("auth/setApiStatus", null, { root: true });
+        const id = data.user_id;
         const response = await axios.delete("/api/profile/delete/" + id);
         if (response.status === INTERNAL_SERVER_ERROR) {
             commit("error/setCode", response.status, { root: true });
@@ -130,11 +130,11 @@ const actions = {
         }
 
         // 例外発生時でも、Laravel側でログアウトしているのでストアに持たせたログイン情報は削除する
-        commit("setUser", null);
-        commit("setEmail", null);
-        commit("setPic", null);
-        commit("setId", null);
-        commit("setApiStatus", false);
+        commit("auth/setUser", null, { root: true });
+        commit("auth/setEmail", null, { root: true });
+        commit("auth/setPic", null, { root: true });
+        commit("auth/setId", null, { root: true });
+        commit("auth/setApiStatus", false , { root: true });
         commit("error/setCode", response.status, { root: true });
     },
 };
