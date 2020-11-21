@@ -59,9 +59,11 @@ class ProfileController extends Controller
     // ユーザー名を更新
     public function profileNameEdit(ProfileNameRequest $request)
     {
+
         try {
             Auth::user()->update([
-                "name" => $request->input("name"),
+                // "name" => $request->input("name"),
+                "name" => $request->name, // inputメソッドを用いたものと同じ
             ]);
             return Auth::user();
             // 認証済みユーザー情報を返却
@@ -140,8 +142,6 @@ class ProfileController extends Controller
     public function userSoftDelete(Request $request, $id)
     {
         try {
-            // DBファサードではなく、Eloquent ORM にてdelete()メソッドを実行する事
-            // https://www.ritolab.com/entry/53#environment_development
             $user = User::find($id);
             // ログアウト
             Auth::logout();
@@ -186,22 +186,28 @@ class ProfileController extends Controller
         $token = hash_hmac(
             "sha256",
             Str::random(40) . $email,
-            config("app.key")
+            config("app.key") // .envのAPP_KEYを参照している
         );
 
         try {
             $user = User::find($id);
-            \Log::debug("パラメーターよりユーザー情報を取得しています。");
+            \Log::debug("DBよりユーザー情報を取得しています。" . $user->email);
             \Log::debug("   ");
 
-            if ($email !== $user->email) {
-                \Log::debug("不正なメールアドレスが入力されています。");
+            \Log::debug("HTTPリクエストインスタンスより情報を取得しています。" . $email);
+            \Log::debug("   ");
+
+            // すでに登録済みのユーザーのメールアドレスでないか確認する
+            $otherUser = User::where("email", $email)->where("delete_flg", 0)->first();
+
+            if (!empty($otherUser)) {
+                \Log::debug("既にこのメールアドレスを登録しているユーザーがいます");
                 \Log::debug("   ");
 
                 $errors = [
                     "errors" => [
-                        "old_password" => [
-                            "不正なパラメータが入力されました。",
+                        "email" => [
+                            "不正なアドレスが入力されました。",
                         ],
                     ],
                 ];
@@ -213,6 +219,7 @@ class ProfileController extends Controller
             $param["user_id"] = $id;
             $param["new_email"] = $email;
             $param["token"] = $token;
+
             // 新しいレコードを作成
             $email_reset = EmailReset::create($param);
             // リセットメールを送信する
