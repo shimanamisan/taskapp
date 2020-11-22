@@ -988,13 +988,13 @@
    */
 
 /*!
-  * Bootstrap v4.5.2 (https://getbootstrap.com/)
+  * Bootstrap v4.5.3 (https://getbootstrap.com/)
   * Copyright 2011-2020 The Bootstrap Authors (https://github.com/twbs/bootstrap/graphs/contributors)
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
 
 /*!
-  * vue-router v3.4.3
+  * vue-router v3.4.9
   * (c) 2020 Evan You
   * @license MIT
   */
@@ -10716,14 +10716,14 @@
 
 /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.5.2): tools/sanitizer.js
+   * Bootstrap (v4.5.3): tools/sanitizer.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
 
 /**
    * --------------------------------------------------------------------------
-   * Bootstrap (v4.5.2): util.js
+   * Bootstrap (v4.5.3): util.js
    * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
    * --------------------------------------------------------------------------
    */
@@ -13679,8 +13679,6 @@
 
 // #7138: IE10 & 11 fires input event when setting placeholder on
 
-// #750
-
 // #7573 disable dep collection when invoking data getters
 
 // #7573 disable dep collection when invoking lifecycle hooks
@@ -15487,15 +15485,11 @@
 
 // ESM COMPAT FLAG
 
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.object.assign.js
-
-// EXTERNAL MODULE: ./node_modules/core-js/modules/es6.string.includes.js
-
 // EXTERNAL MODULE: ./node_modules/core-js/modules/es7.array.includes.js
 
 // EXTERNAL MODULE: ./node_modules/vue/dist/vue.esm.js
 
-// EXTERNAL MODULE: ./node_modules/vuedraggable/dist/vuedraggable.common.js
+// EXTERNAL MODULE: ./node_modules/vuedraggable/dist/vuedraggable.umd.js
 
 // EXTERNAL MODULE: ./node_modules/vuex/dist/vuex.esm.js
 
@@ -16315,15 +16309,13 @@
 
 // Index of currently firing callback (modified by add/remove as needed)
 
-// Indicate to webpack that this file can be concatenated
-
 // Init the element's event structure and main handler, if this is the first
 
 // Init the event handler queue if we're the first
 
 // Initial multi-drag fold when drag started
 
-// Initial redirection should still trigger the onReady onSuccess
+// Initial redirection should not mark the history as ready yet
 
 // Initialize a jQuery object
 
@@ -17583,8 +17575,6 @@
 
 // TODO: Now that all calls to _data and _removeData have been replaced
 
-// TODO: Remove in v5
-
 // TODO: identify versions
 
 // TODO: this can be further optimized by properly analyzing in-scope bindings
@@ -18043,6 +18033,8 @@
 
 // When a yielded Promise is resolved, its final value becomes
 
+// When changing thing, also edit router.d.ts
+
 // When found, cache indexes on `parent` and break
 
 // When the key is not a string, or both a key and value
@@ -18146,6 +18138,8 @@
 // a uid
 
 // a value is Function if its prototype is function even across different execution context
+
+// able to call the cbs during confirmation as the component was not
 
 // able to install onto.  Search each possibility in the same order as the
 
@@ -18321,8 +18315,6 @@
 
 // as equal. See http://www.ecma-international.org/ecma-262/7.0/#sec-regexp.prototype.tostring
 
-// as search(query) is already decoded
-
 // as such selectors are not recognized by querySelectorAll.
 
 // as the regeneratorRuntime namespace. Otherwise create a new empty
@@ -18404,6 +18396,8 @@
 // be processed after the whole patch process ended.
 
 // because functional components already normalize their own children.
+
+// because it's triggered by the redirection instead
 
 // because they will be changed by vm update
 
@@ -18729,8 +18723,6 @@
 
 // debounced at least once.
 
-// decode the hash but not the search or hash
-
 // deep extended (see ajaxExtend)
 
 // deep updates (#7063).
@@ -18968,8 +18960,6 @@
 // eslint-disable-next-line eqeqeq
 
 // eslint-disable-next-line max-statements
-
-// eslint-disable-next-line no-bitwise
 
 // eslint-disable-next-line no-loop-func
 
@@ -19377,9 +19367,11 @@
 
 // https://github.com/vuejs/vue-router/issues/2639
 
-// https://github.com/vuejs/vue-router/issues/2708
-
 // https://github.com/vuejs/vue-router/issues/3225
+
+// https://github.com/vuejs/vue-router/issues/3294
+
+// https://github.com/vuejs/vue-router/issues/3331
 
 // https://github.com/vuejs/vue-router/pull/3047 before that change,
 
@@ -19477,8 +19469,6 @@
 
 // if a Content Security Policy forbids using Function, but in that case
 
-// if a router-view is wrapped with an out-in transition,
-
 // if already flushing, splice the watcher based on its id
 
 // if already past its id, it will be run next immediately.
@@ -19534,6 +19524,8 @@
 // if the page has thousands of event listeners. Instead, we take a timestamp
 
 // if the returned array contains only a single node, allow it
+
+// if the route transition has already been confirmed then we weren't
 
 // if the user intentionally throws the original error in the handler,
 
@@ -19698,8 +19690,6 @@
 // is based solely on the element's language value
 
 // is needed to cater to all possible types of children values.
-
-// is no longer valid.
 
 // is present, execute the factory and get jQuery.
 
@@ -20275,6 +20265,8 @@
 
 // register root module (Vuex.Store options)
 
+// registered yet, so we call it here.
+
 // reject.
 
 // rejected_callbacks.disable
@@ -20340,6 +20332,8 @@
 // replacing existing element
 
 // reset by the hot-reload-api and we need to do a proper re-render.
+
+// reset current history route
 
 // reset local getters cache
 
@@ -20569,8 +20563,6 @@
 
 // some versions of this test; make sure not to make it pass there!
 
-// somehow flow cannot infer this is a function
-
 // sortAddClass(evt){
 
 // sortRemoveClass(evt){
@@ -20720,8 +20712,6 @@
 // the generated code of all the slot contents.
 
 // the information will be used for async server-rendering and hydration.
-
-// the instance may not have been registered at this time.
 
 // the master Deferred
 
@@ -21112,8 +21102,6 @@
 // we want to halt the navigation until the incoming component has been
 
 // we want to recursively retrieve the real component to be rendered
-
-// we will need to poll for registration until current route
 
 // weak collections should not contains .clear method
 

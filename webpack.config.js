@@ -14,10 +14,16 @@ const OptimizeCssAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const WebpackBuildNotifierPlugin = require("webpack-build-notifier");
 // プロダクションモードでバンドル時に、console.logを自動的に削除するプラグイン
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
+// ファイルをコピーするプラグイン
+const CopyPlugin = require('copy-webpack-plugin');
+// 各種画像形式の圧縮ツールを取りまとめる
+const ImageminPlugin = require('imagemin-webpack-plugin').default;
+// jpgファイルを圧縮する
+const ImageminMozjpeg = require('imagemin-mozjpeg');
 
 // [定数] webpack の出力オプションを指定します
 // 'production' か 'development' を指定
-const MODE = "development";
+const MODE = "production";
 
 const mydir = path.resolve(__dirname);
 
@@ -152,7 +158,9 @@ module.exports = {
                 loader: "url-loader",
                 options: {
                     // 指定のサイズを超過すると、画像が[name]で指定されたファイルに書き換わり独立する
+                    // 画像のパスは別から取得できるので、指定のサイズを超えるものが複数ある場合はそれらをブラウザが並行して取得する
                     limit: 2048,
+                    // jsディレクトリから見た相対パス
                     name: "../img/[name].[ext]"
                 }
             }
@@ -172,13 +180,45 @@ module.exports = {
         // ビルド時に通知するためのプラグイン
         new WebpackBuildNotifierPlugin({
             suppressSuccess: true
-        })
+        }),
+        // ファイルをコピーするプラグイン
+        new CopyPlugin({
+            patterns: [
+              {
+                from: path.resolve(__dirname, 'resources/img/'),
+                to: path.resolve(__dirname, 'public/img/'),
+                // from: "./resources/img/*",
+                // to: "@/../../public/img", // ディレクトリ構成もコピーされる
+                // context: ".src/sample",
+              },
+            ],
+          }),
+          new ImageminPlugin({
+            test: /\.(jpe?g|jpg|png|gif|svg)$/i,
+            pngquant: {
+              quality: '50'
+            },
+            gifsicle: {
+              interlaced: false,
+              optimizationLevel: 1,
+              colors: 256
+            },
+            svgo: {
+            },
+            plugins: [
+              ImageminMozjpeg({
+                quality: 60,
+                progressive: true
+              }),
+            ]
+          })
     ],
     // import 文で .ts ファイルを解決するため
     resolve: {
         // Webpackで利用するときの設定
         alias: {
             vue$: "vue/dist/vue.esm.js",
+            // jsディレクトリまでのフルパスをエイリアスとして設定
             '@': path.resolve(__dirname, 'resources/js/'),
         },
         extensions: ["*", ".js", ".vue", ".json"]
