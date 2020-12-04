@@ -15,7 +15,6 @@ class TwitterOAuthController extends Controller
     public function redirectToTwitter(): JsonResponse
     {
         // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
-        // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
         // リダイレクトURLをJSON形式で返す
         $redirect_url = Socialite::driver("twitter")
             ->redirect()
@@ -27,7 +26,6 @@ class TwitterOAuthController extends Controller
 
     public function handleTwitterCallback(): JsonResponse
     {
-        // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
         // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
         try {
             $socialUser = Socialite::driver("twitter")->user();
@@ -94,7 +92,6 @@ class TwitterOAuthController extends Controller
 
     protected function errorResponse(string $error_message): Jsonresponse
     {
-        // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
         // 返り値の方をJSON形式と宣言する PHP7から返り値に型宣言がかけるようになった
         return response()->json(compact("error_message"), 422);
     }
