@@ -231,6 +231,7 @@ export default {
                 return task;
             });
             this.updateTaskSort(newTasks);
+            console.log("task update!" + JSON.stringify(newTasks))
         },
     },
 };
