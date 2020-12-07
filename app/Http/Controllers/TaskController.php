@@ -148,10 +148,7 @@ class TaskController extends Controller
             foreach ($tasks as $task) {
                 // 既存タスクを分解する中で、ソート順が更新された全てのタスクをループで分解
                 foreach ($newTasks as $newTask) {
-                    \Log::debug(
-                        "リクエストされたタスクを分解しています：" .
-                            print_r($newTask, true)
-                    );
+                    \Log::debug("リクエストされたタスクを分解しています：");
                     \Log::debug(
                         "既存タスクのIDです：" . print_r($task->id, true)
                     );

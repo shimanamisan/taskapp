@@ -59,7 +59,6 @@ class ProfileController extends Controller
     // ユーザー名を更新
     public function profileNameEdit(ProfileNameRequest $request)
     {
-
         try {
             Auth::user()->update([
                 // "name" => $request->input("name"),
@@ -194,21 +193,25 @@ class ProfileController extends Controller
             \Log::debug("DBよりユーザー情報を取得しています。" . $user->email);
             \Log::debug("   ");
 
-            \Log::debug("HTTPリクエストインスタンスより情報を取得しています。" . $email);
+            \Log::debug(
+                "HTTPリクエストインスタンスより情報を取得しています。" . $email
+            );
             \Log::debug("   ");
 
             // すでに登録済みのユーザーのメールアドレスでないか確認する
-            $otherUser = User::where("email", $email)->where("delete_flg", 0)->first();
+            $otherUser = User::where("email", $email)
+                ->where("delete_flg", 0)
+                ->first();
 
             if (!empty($otherUser)) {
-                \Log::debug("既にこのメールアドレスを登録しているユーザーがいます");
+                \Log::debug(
+                    "既にこのメールアドレスを登録しているユーザーがいます"
+                );
                 \Log::debug("   ");
 
                 $errors = [
                     "errors" => [
-                        "email" => [
-                            "不正なアドレスが入力されました。",
-                        ],
+                        "email" => ["不正なアドレスが入力されました。"],
                     ],
                 ];
                 // ステータスコードとエラーメッセージを返す
