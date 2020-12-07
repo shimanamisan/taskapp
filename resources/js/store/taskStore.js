@@ -185,6 +185,14 @@ const actions = {
         }
         commit("error/setCode", response.status, { root: true });
     },
+    // カードの並び替え
+    async updateCardSort({ commit }, newCard){
+        console.log("action newCard!")
+        const response = await axios.patch("/api/card/update-all", {
+            cards: newCard
+        })
+
+    },
     /*************************************
   タスクの作成・更新・削除・並び替え
   *************************************/

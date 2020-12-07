@@ -21,7 +21,7 @@
                                         tag="ul"
                                         v-bind="getOptionsForFolder()"
                                         handle=".u-handle"
-                                        @change="onChange"
+                                        @change="onFolderChange"
                                     >
                                         <TaskFolder
                                             v-for="(folders,
@@ -53,6 +53,7 @@
                                 :list="CardLists"
                                 v-bind="getOptionsForFolder()"
                                 handle=".u-handle"
+                                @change="onCradChange"
                             >
                                 <TaskCard
                                     v-for="(cards, index) in CardLists"
@@ -145,14 +146,33 @@ export default {
             );
         },
         // vue-draggableをLaravelと連携するメソッド
-        onChange() {
+        onFolderChange() {
             // 順番が入れ替わった際に、現在のpriorityに1を足すことで入れ替わったリストの情報をLaravel側に通知する
             let newFolders = this.FolderLists.map((folder, index) => {
                 folder.priority = index + 1;
                 return folder;
             });
             this.updateFolderSort(newFolders);
+            console.log("folder update!" + + JSON.stringify(newFolders))
         },
+        // カードのソート機能
+        async updateCardSort(newCrads){
+            await this.$store.dispatch("taskStore/updateCardSort", {
+                newCrads
+            })
+        },
+        // draggableコンポーネントからchangeイベントを拾って処理を行う
+        onCradChange(){
+            // ストア内のカードリストを参照し、priorityプロパティを更新する
+            let newCrads = this.CardLists.map( (card, index) =>{
+                card.priority = index + 1;
+                return card
+            })
+            // アクションへディスパッチするメソッドを呼ぶ
+            this.updateCardSort(newCrads);
+            // console.log("cards update!" + JSON.stringify(newCrads))
+
+        }
     },
     // クリエイトライフサイクルフック
     created() {
