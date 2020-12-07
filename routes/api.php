@@ -87,6 +87,8 @@ Route::get('/folder/{folder_id}/card/set', 'FolderController@selectCrad')->name(
 Route::post('/folder/{folder_id}/card/create', 'CardController@createCard')->name('card.createCard');
 // カードの更新
 Route::put('/folder/{folder_id}/card/{card_id}/update', 'CardController@updateCard')->name('card.updateCard');
+// カードソートの並び替え更新
+Route::patch('/card/update-all', 'CardController@updateCardSort')->name('card.updateCardSort');
 // カードの削除
 Route::delete('/folder/{folder_id}/card/{card_id}/delete', 'CardController@deleteCard')->name('card.deleteCard');
 
