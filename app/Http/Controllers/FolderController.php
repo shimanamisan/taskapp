@@ -92,8 +92,8 @@ class FolderController extends Controller
             // DB内のデータの１回分解している中で、フロント側から渡ってきたフォルダー情報を全てループで分解する
             foreach ($newFolders as $newFolder) {
                 // 渡ってきたデータのidとDB内のidが同じだったらカラムのsort情報である priorityカラムの情報を書き換える
-                if ($newFolder["id"] == $folder->id) {
-                    // update(['カラム名'] => $更新する値の変数['key']); のように仕様することも出来る
+                if ($newFolder["id"] === $folder->id) {
+                    // update(['カラム名'] => $更新する値の変数['key']); のように使用することも出来る
                     $folder->update(["priority" => $newFolder["priority"]]);
                 }
             }
