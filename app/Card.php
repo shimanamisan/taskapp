@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Card extends Model
 {
-    protected $fillable = ["title", "folder_id"];
+    protected $fillable = ["title", "folder_id", "priority"];
 
     public function folder()
     {
