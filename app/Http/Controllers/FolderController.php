@@ -125,8 +125,11 @@ class FolderController extends Controller
             },
         ])->find($user_id);
 
-        $cardData = $allData->folders->find($folder_id);
-
-        return $cardData;
+        // findメソッドでの戻り値はモデルのオブジェクト
+        // その後cardsプロパティにアクセスし、Collectionで使用できるsortByメソッドで指定したカラムを並び替える
+        // 参考：https://readouble.com/laravel/5.8/ja/collections.html#method-sortby
+        $folderData = $allData->folders->find($folder_id)->cards->sortBy('priority')->values()->all();
+        \Log::debug($folderData);
+        return $folderData;
     }
 }
