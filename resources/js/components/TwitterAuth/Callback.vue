@@ -77,8 +77,9 @@ export default {
                     this.setEmail(response.data.email);
                     this.setPic(response.data.pic);
                     this.setId(response.data.id);
+                    console.log(response)
                     setTimeout(() => {
-                        this.$router.push("/tasklist").catch(() => {});
+                        this.$router.push("/login").catch(() => {});
                     }, 2000);
                     return;
                 }

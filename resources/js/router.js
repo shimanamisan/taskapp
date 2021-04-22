@@ -48,6 +48,7 @@ export default new VueRouter({
                 if (store.getters["auth/check"]) {
                     next("/tasklist");
                 } else {
+                    console.log("認証されていません");
                     next();
                 }
             },
