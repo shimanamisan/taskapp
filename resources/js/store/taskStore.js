@@ -65,7 +65,7 @@ const actions = {
         const response = await axios.get(
             "/api/folder/" + folder_id + "/card/set"
         );
-        var data = response.data.cards;
+        let data = response.data;
         commit("setCardLists", data);
     },
     /*************************************
@@ -186,12 +186,11 @@ const actions = {
         commit("error/setCode", response.status, { root: true });
     },
     // カードの並び替え
-    async updateCardSort({ commit }, newCard){
-        console.log("action newCard!")
+    async updateCardSort({ commit }, newCard) {
+        console.log("action newCard!");
         const response = await axios.patch("/api/card/update-all", {
-            cards: newCard
-        })
-
+            cards: newCard,
+        });
     },
     /*************************************
   タスクの作成・更新・削除・並び替え
