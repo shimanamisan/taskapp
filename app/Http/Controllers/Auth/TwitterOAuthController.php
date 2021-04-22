@@ -77,6 +77,9 @@ class TwitterOAuthController extends Controller
             ]);
 
             Auth::login($newUser);
+            \Log::debug(
+                "未登録ユーザーだったときの処理" . $userInfo
+            );
             return response()->json($userInfo);
         } catch (Exception $e) {
             \Log::debug("SNS認証中にエラーが発生しました。" . $e->getMessage());
