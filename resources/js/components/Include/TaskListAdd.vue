@@ -51,8 +51,8 @@ import {
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
     CREATED,
-} from "@/statusCode";
-import Loading from "@/components/Loading/Loading";
+} from "@js/statusCode";
+import Loading from "@js/components/Loading/Loading";
 export default {
     data() {
         return {

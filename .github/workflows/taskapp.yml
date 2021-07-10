@@ -1,4 +1,4 @@
-name: lolipop_taskapp
+name: deploy to s-taskapp.com
 
 on:
   push:
@@ -9,12 +9,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@3.0.0
-        with:
-          ftp-server: ${{ secrets.FTP_HOST }}
-          ftp-username: ${{ secrets.FTP_USERNAME }}
-          ftp-password: ${{ secrets.FTP_PASSWORD }}
-          git-ftp-args: --remote-root ${{ secrets.FTP_REMOTE_ROOT }}
-          local-dir: ./
+      - uses: actions/checkout@v1
+      - name: webpack build
+        uses: actions/setup-node@v1
+      - run: npm install && npm run build-p
+      - name: ssh key generate
+        run: echo "$SSH_PRIVATE_KEY" > key && chmod 600 key
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: rsync deploy
+        run: rsync -auzrv -e "ssh -i key -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no -p 10022" --delete ./* --exclude="node_modules" --exclude="vender" --exclude=".env" xs010410@sv12269.xserver.jp:/home/xs010410/production/taskapp --exclude .htaccess

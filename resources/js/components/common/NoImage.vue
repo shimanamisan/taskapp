@@ -1,13 +1,13 @@
 <template>
-    <img :src="this.logo" alt="no_image" />
+    <img :src="imgPath" alt="no_image" />
 </template>
 
 <script>
-import logo from "@/../img/no_img.png";
+import path from '@img/no_img.png';
 export default {
     data() {
         return {
-            logo: logo,
+            imgPath: path
         };
     },
 };

@@ -266,8 +266,8 @@
     </div>
 </template>
 <script>
-import Header from "@/components/Include/Header";
-import Footer from "@/components/Include/Footer";
+import Header from "@js/components/Include/Header";
+import Footer from "@js/components/Include/Footer";
 export default {
     data() {
         return {

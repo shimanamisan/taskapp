@@ -11,7 +11,9 @@
     @include mq(){
       padding: 15px;
     }
+    max-width: 1220px;
     padding: 4rem;
+    margin: 0 auto;
   }
   &__layout{
     position: relative;

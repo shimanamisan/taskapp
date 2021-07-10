@@ -49,9 +49,9 @@
 </template>
 <script>
 import { mapState, mapGetters } from "vuex";
-import { OK } from "@/statusCode";
+import { OK } from "@js/statusCode";
 import draggable from "vuedraggable";
-import Loading from "@/components/Loading/Loading";
+import Loading from "@js/components/Loading/Loading";
 
 export default {
     data() {

@@ -211,7 +211,7 @@ class ProfileController extends Controller
 
                 $errors = [
                     "errors" => [
-                        "email" => ["不正なアドレスが入力されました。"],
+                        "email" => ["違うメールアドレスを指定して下さい。"],
                     ],
                 ];
                 // ステータスコードとエラーメッセージを返す

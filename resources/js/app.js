@@ -2,9 +2,9 @@ require("./bootstrap");
 
 import "../sass/style.scss";
 import Vue from "vue";
-import App from "@/App.vue";
-import store from "@/store/store";
-import router from "@/router";
+import App from "@js/App.vue";
+import store from "@js/store/store";
+import router from "@js/router";
 
 // Vueインスタンスを生成する前にログインチェックを行うように変更
 // 非同期処理をawaitするには、asyncメソッドの内部に配置する必要があるので関数にまとめた

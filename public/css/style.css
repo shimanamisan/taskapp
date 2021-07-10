@@ -589,145 +589,54 @@ br {
   opacity: 0.6;
 }
 
-/********************************************** 
-デフォルトのロゴサイズとスペース
-**********************************************/
-.c-logo {
-  width: 160px;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  /********************************************** 
-  トップページ用のマージン
-  **********************************************/
-  /********************************************** 
-  トップページ用のマージン
-  **********************************************/
+.c-error {
+  color: red;
+  font-size: 12px;
 }
-@media screen and (max-width: 414px) {
-  .c-logo {
-    width: 140px;
-  }
+.c-error__tasks {
+  margin-top: 7px;
+  white-space: normal;
 }
-.c-logo__header {
-  margin-top: 20px;
-  margin-bottom: 30px;
+.c-error__bg {
+  background: #f7dcd9;
+  border-color: #ff6366;
 }
-.c-logo__clear-margin {
-  margin-top: 0;
-  margin-bottom: 0;
+.c-error__profile {
+  text-align: center;
 }
 
-/*****************************
-トップページのバナー用
-*****************************/
-.p-image-banner {
-  background-image: cover;
-  opacity: 0.5;
+.message {
+  color: red;
+  font-style: 14px;
+  margin-bottom: 7px;
 }
 
-.c-input {
-  -moz-border-radius: 3px;
-  -webkit-border-radius: 3px;
-  border-radius: 3px;
-  display: block;
-  background-color: #fff;
-  font-size: 14px;
+.c-folder {
+  display: flex;
+}
+.c-folder--wrapp {
+  display: flex;
+  width: 40%;
   padding: 10px;
-  width: 100%;
-  box-sizing: inherit;
-  border: 2px solid #dfd8d8;
+  box-sizing: border-box;
 }
-.c-input:focus {
-  outline: none;
-  border: 2px solid #1e73be;
+.c-folder--avatar {
+  align-items: center;
+  justify-content: center;
 }
-.c-input__profile {
-  display: block;
+.c-folder--avatar--title {
+  font-size: 18px;
+  text-align: center;
+}
+.c-folder--avatar__img {
+  margin-right: 20px;
+  width: 70px;
+  height: 70px;
+}
+.c-folder--avatar__img > img {
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
   border-radius: 50%;
-  width: 200px;
-  background: #f6f5f4;
-  height: 200px;
-  line-height: 200px;
-  position: relative;
-  box-sizing: border-box;
-  text-align: center;
-}
-@media screen and (max-width: 414px) {
-  .c-input__profile {
-    margin: 0px auto 16px;
-  }
-}
-.c-input__profile__drop {
-  border: none;
-  object-fit: cover;
-  width: 100%;
-  height: 200px;
-  line-height: 200px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  opacity: 0;
-}
-.c-input__profile__drop:hover {
-  cursor: pointer;
-}
-.c-input__tasks {
-  font-size: 16px;
-  padding: 3px 4px;
-  width: 170px;
-}
-
-.c-modal {
-  position: fixed;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-.c-modal__send {
-  background-color: #fffaf6;
-  border: solid 1px #fa9f47;
-  color: #b24603;
-  padding: 16px;
-  margin-bottom: 8px;
-  border-radius: 5px;
-}
-.c-modal__body {
-  position: fixed;
-  left: 50%;
-  top: 50%;
-  width: 70%;
-  max-width: 500px;
-  height: auto;
-  box-sizing: border-box;
-  padding: 30px;
-  z-index: 99;
-  overflow: auto;
-  -moz-border-radius: 8px;
-  -webkit-border-radius: 8px;
-  border-radius: 8px;
-  transform: translate(-50%, -50%);
-  background-color: #fff;
-}
-@media screen and (max-width: 414px) {
-  .c-modal__body {
-    width: 90%;
-  }
-}
-.c-modal__inner {
-  margin-top: 30px;
-}
-.c-modal__btn__passwordEdit {
-  float: right;
-}
-.c-modal__lock {
-  overflow: hidden;
-  padding-right: 8px;
 }
 
 .c-form {
@@ -793,6 +702,68 @@ br {
   display: inline-block;
 }
 
+/*****************************
+トップページのバナー用
+*****************************/
+.p-image-banner {
+  background-image: cover;
+  opacity: 0.5;
+}
+
+.c-input {
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  display: block;
+  background-color: #fff;
+  font-size: 14px;
+  padding: 10px;
+  width: 100%;
+  box-sizing: inherit;
+  border: 2px solid #dfd8d8;
+}
+.c-input:focus {
+  outline: none;
+  border: 2px solid #1e73be;
+}
+.c-input__profile {
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+  width: 200px;
+  background: #f6f5f4;
+  height: 200px;
+  line-height: 200px;
+  position: relative;
+  box-sizing: border-box;
+  text-align: center;
+}
+@media screen and (max-width: 414px) {
+  .c-input__profile {
+    margin: 0px auto 16px;
+  }
+}
+.c-input__profile__drop {
+  border: none;
+  object-fit: cover;
+  width: 100%;
+  height: 200px;
+  line-height: 200px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+.c-input__profile__drop:hover {
+  cursor: pointer;
+}
+.c-input__tasks {
+  font-size: 16px;
+  padding: 3px 4px;
+  width: 170px;
+}
+
 /********************************************** 
 デフォルトのロゴサイズとスペース
 **********************************************/
@@ -820,6 +791,56 @@ br {
 .c-logo__clear-margin {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+.c-modal {
+  position: fixed;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+.c-modal__send {
+  background-color: #fffaf6;
+  border: solid 1px #fa9f47;
+  color: #b24603;
+  padding: 16px;
+  margin-bottom: 8px;
+  border-radius: 5px;
+}
+.c-modal__body {
+  position: fixed;
+  left: 50%;
+  top: 50%;
+  width: 70%;
+  max-width: 500px;
+  height: auto;
+  box-sizing: border-box;
+  padding: 30px;
+  z-index: 99;
+  overflow: auto;
+  -moz-border-radius: 8px;
+  -webkit-border-radius: 8px;
+  border-radius: 8px;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+}
+@media screen and (max-width: 414px) {
+  .c-modal__body {
+    width: 90%;
+  }
+}
+.c-modal__inner {
+  margin-top: 30px;
+}
+.c-modal__btn__passwordEdit {
+  float: right;
+}
+.c-modal__lock {
+  overflow: hidden;
+  padding-right: 8px;
 }
 
 /********************************************** 
@@ -871,7 +892,7 @@ br {
 .c-task__sidebar {
   top: -36px;
   width: 300px;
-  padding: 32px 32px 8px 24px;
+  padding: 32px 26px 8px 24px;
   background-color: #f9f7f5;
   position: absolute;
   height: 100vh;
@@ -1136,72 +1157,77 @@ br {
   transition: all 0.6s ease;
 }
 
-.c-folder {
-  display: flex;
-}
-.c-folder--wrapp {
-  display: flex;
-  width: 40%;
-  padding: 10px;
-  box-sizing: border-box;
-}
-.c-folder--avatar {
-  align-items: center;
-  justify-content: center;
-}
-.c-folder--avatar--title {
-  font-size: 18px;
-  text-align: center;
-}
-.c-folder--avatar__img {
-  margin-right: 20px;
-  width: 70px;
-  height: 70px;
-}
-.c-folder--avatar__img > img {
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-  border-radius: 50%;
-}
-
-.c-error {
-  color: red;
-  font-size: 12px;
-}
-.c-error__tasks {
-  margin-top: 7px;
-  white-space: normal;
-}
-.c-error__bg {
-  background: #f7dcd9;
-  border-color: #ff6366;
-}
-.c-error__profile {
-  text-align: center;
-}
-
-.message {
-  color: red;
-  font-style: 14px;
-  margin-bottom: 7px;
-}
-
 /***********************************************************************************
  プロジェクト ページ単体でのみ使用されるオブジェクト(モジュール)で汎用性が低いもの
 ************************************************************************************/
-.p-nav__login {
-  background: #f6f6f6;
-  margin-left: auto;
-  margin-right: auto;
-  padding: 20px;
+.p-500 {
+  text-align: center;
+  font-size: 2.3rem;
+  height: auto;
+}
+@media screen and (max-width: 414px) {
+  .p-500 {
+    height: auto;
+    font-size: 2rem;
+  }
+}
+.p-500__wrapp {
+  padding-top: 150px;
+}
+.p-500__wrapp > br {
+  display: none;
+}
+@media screen and (max-width: 414px) {
+  .p-500__wrapp > br {
+    display: block;
+  }
+}
+.p-500__wrapp > p {
+  display: inline;
+}
+
+.p-callback {
+  height: 100vh;
+}
+.p-callback__auth {
   text-align: center;
 }
-.p-nav--trigger {
-  float: right;
+.p-callback__auth--error {
+  background-color: #ffd6da;
 }
-.p-nav--close {
-  font-size: 30px;
-  vertical-align: middle;
+.p-callback__wrapp {
+  padding-top: 80px;
+}
+@media screen and (max-width: 414px) {
+  .p-callback__wrapp {
+    padding: 80px 15px 15px 15px;
+  }
+}
+.p-callback__wrapp__text {
+  width: 100%;
+}
+.p-callback__wrapp__inner {
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  height: 200px;
+  margin: 0px auto;
+  padding: 32px;
+  width: 600px;
+  border: 1px solid #cecece;
+  box-sizing: border-box;
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(128, 181, 224, 0.6);
+  -moz-border-radius: 10px;
+  -webkit-border-radius: 10px;
+  border-radius: 10px;
+}
+@media screen and (max-width: 414px) {
+  .p-callback__wrapp__inner {
+    width: 100%;
+    padding: 15px;
+    font-size: 14px;
+    height: 50%;
+  }
 }
 
 /********************************
@@ -1281,7 +1307,7 @@ br {
 
 .p-eyecatch {
   height: 100vh;
-  background-image: url(../img/top-backgrond.jpg);
+  background-image: url(../js/../img/top-backgrond.jpg);
   background-color: rgba(255, 255, 255, 0.8);
   background-blend-mode: lighten;
   background-size: cover;
@@ -1292,7 +1318,9 @@ br {
   }
 }
 .p-eyecatch__inner {
+  max-width: 1220px;
   padding: 4rem;
+  margin: 0 auto;
 }
 @media screen and (max-width: 414px) {
   .p-eyecatch__inner {
@@ -1335,21 +1363,6 @@ br {
 }
 .p-eyecatch--p {
   font-size: 1.25rem;
-}
-
-/********************************************** 
-汎用的なタイトル
-**********************************************/
-.p-title {
-  text-align: center;
-  font-size: 38px;
-  font-weight: 600;
-  margin-bottom: 30px;
-}
-@media screen and (max-width: 414px) {
-  .p-title {
-    font-size: 30px;
-  }
 }
 
 .p-header {
@@ -1411,30 +1424,19 @@ br {
   }
 }
 
-.p-500 {
+.p-nav__login {
+  background: #f6f6f6;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 20px;
   text-align: center;
-  font-size: 2.3rem;
-  height: auto;
 }
-@media screen and (max-width: 414px) {
-  .p-500 {
-    height: auto;
-    font-size: 2rem;
-  }
+.p-nav--trigger {
+  float: right;
 }
-.p-500__wrapp {
-  padding-top: 150px;
-}
-.p-500__wrapp > br {
-  display: none;
-}
-@media screen and (max-width: 414px) {
-  .p-500__wrapp > br {
-    display: block;
-  }
-}
-.p-500__wrapp > p {
-  display: inline;
+.p-nav--close {
+  font-size: 30px;
+  vertical-align: middle;
 }
 
 .p-policy__title {
@@ -1503,47 +1505,18 @@ br {
   margin-top: 10px;
 }
 
-.p-callback {
-  height: 100vh;
-}
-.p-callback__auth {
+/********************************************** 
+汎用的なタイトル
+**********************************************/
+.p-title {
   text-align: center;
-}
-.p-callback__auth--error {
-  background-color: #ffd6da;
-}
-.p-callback__wrapp {
-  padding-top: 80px;
+  font-size: 38px;
+  font-weight: 600;
+  margin-bottom: 30px;
 }
 @media screen and (max-width: 414px) {
-  .p-callback__wrapp {
-    padding: 80px 15px 15px 15px;
-  }
-}
-.p-callback__wrapp__text {
-  width: 100%;
-}
-.p-callback__wrapp__inner {
-  display: flex;
-  align-items: center;
-  font-size: 20px;
-  height: 200px;
-  margin: 0px auto;
-  padding: 32px;
-  width: 600px;
-  border: 1px solid #cecece;
-  box-sizing: border-box;
-  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(128, 181, 224, 0.6);
-  -moz-border-radius: 10px;
-  -webkit-border-radius: 10px;
-  border-radius: 10px;
-}
-@media screen and (max-width: 414px) {
-  .p-callback__wrapp__inner {
-    width: 100%;
-    padding: 15px;
-    font-size: 14px;
-    height: 50%;
+  .p-title {
+    font-size: 30px;
   }
 }
 
@@ -1800,16 +1773,23 @@ br {
 .c-task--todo--clock {
   margin-left: 5px;
 }
-::-webkit-scrollbar {
+@charset "UTF-8";
+/* 縦のスクロールバーの幅 */
+#folder_height::-webkit-scrollbar {
   width: 10px;
 }
-::-webkit-scrollbar-track {
+
+/* 横のスクロールバーの幅 */
+#folder_height::-webkit-scrollbar:horizontal {
+  width: 5px;
+}
+#folder_height::-webkit-scrollbar-track {
   background: #fff;
   border: none;
   border-radius: 10px;
   box-shadow: inset 0 0 2px #777;
 }
-::-webkit-scrollbar-thumb {
+#folder_height::-webkit-scrollbar-thumb {
   background: #ccc;
   border-radius: 10px;
   box-shadow: none;

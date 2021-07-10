@@ -2,19 +2,19 @@ import Vue from "vue";
 import VueRouter from "vue-router";
 
 // ルーティング用ページ
-import Index from "@/components/Index";
-import TaskApp from "@/components/TaskApp";
-import Profile from "@/components/Profile";
-import Policy from "@/components/Policy";
-import Rule from "@/components/Rule";
-import Callback from "@/components/TwitterAuth/Callback";
-import EmailChangeCallback from "@/components/page/EmailChangeCallback";
-import Login from "@/components/page/Login";
-import Register from "@/components/page/Register";
-import Contact from "@/components/page/Contact";
-import PasswordReminder from "@/components/page/PasswordReminder";
-import PasswordReset from "@/components/page/PasswordReset";
-import SystemError from "@/components/page/error/SystemError.vue";
+import Index from "@js/components/Index";
+import TaskApp from "@js/components/TaskApp";
+import Profile from "@js/components/Profile";
+import Policy from "@js/components/Policy";
+import Rule from "@js/components/Rule";
+import Callback from "@js/components/TwitterAuth/Callback";
+import EmailChangeCallback from "@js/components/page/EmailChangeCallback";
+import Login from "@js/components/page/Login";
+import Register from "@js/components/page/Register";
+import Contact from "@js/components/page/Contact";
+import PasswordReminder from "@js/components/page/PasswordReminder";
+import PasswordReset from "@js/components/page/PasswordReset";
+import SystemError from "@js/components/page/error/SystemError.vue";
 
 // vuexで使用するストアの読み込み
 import store from "./store/store";
@@ -63,7 +63,7 @@ export default new VueRouter({
                 if (store.getters["auth/check"]) {
                     next("/tasklist");
                 } else {
-                    next();
+                    next(false);
                 }
             },
         },

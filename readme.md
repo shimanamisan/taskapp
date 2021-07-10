@@ -100,3 +100,11 @@
 | tasks           | カード配下に格納されるタスク情報           |
 | email_resets    | メールアドレス変更時の認証用トークンを格納 |
 | password_resets | パスワードリマインダーで使用               |
+
+# 初期設定
+
+## storage ディレクトリと public ディレクトリ間でシンボリックリンクを貼る
+
+```bash
+php artisan storage:link
+```

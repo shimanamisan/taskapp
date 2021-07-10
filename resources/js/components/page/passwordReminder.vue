@@ -66,7 +66,7 @@
     <!-- l-wrapper__login -->
 </template>
 <script>
-import CommonLogo from "../common/CommonLogo";
+import CommonLogo from "@js/components/common/CommonLogo";
 import { mapState, mapGetters } from "vuex";
 export default {
     data() {

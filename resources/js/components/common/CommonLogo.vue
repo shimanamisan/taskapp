@@ -1,13 +1,13 @@
 <template>
-    <img :src="this.logo" alt="logo" class="c-logo" />
+    <img :src="imgPath" alt="logo" class="c-logo" />
 </template>
 
 <script>
-import logo from "@/../img/logo.png";
+import path from '@img/logo.png'
 export default {
     data() {
         return {
-            logo: logo,
+            imgPath: path
         };
     },
 };

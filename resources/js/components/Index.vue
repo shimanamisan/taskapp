@@ -148,14 +148,14 @@
     </div>
 </template>
 <script>
-import eyecatch_logo from "@/../img/eyecatch-logo.png";
-import eyecatch from "@/../img/eyecatch-img.png";
-import panel_first from "@/../img/top-panels_01.png";
-import panel_second from "@/../img/top-panels_02.png";
-import panel_third from "@/../img/top-panels_03.png";
-import top_gif from "@/../img/animation.gif";
-import Header from "@/components/Include/Header";
-import Footer from "@/components/Include/Footer";
+import eyecatch_logo from "@img/eyecatch-logo.png";
+import eyecatch from "@img/eyecatch-img.png";
+import panel_first from "@img/top-panels_01.png";
+import panel_second from "@img/top-panels_02.png";
+import panel_third from "@img/top-panels_03.png";
+import top_gif from "@img/animation.gif";
+import Header from "@js/components/Include/Header";
+import Footer from "@js/components/Include/Footer";
 export default {
     data() {
         return {

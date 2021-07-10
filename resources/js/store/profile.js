@@ -3,7 +3,7 @@ import {
     UNPROCESSABLE_ENTITY,
     INTERNAL_SERVER_ERROR,
     CREATED,
-} from "@/statusCode";
+} from "@js/statusCode";
 
 /*******************************
 ステート
@@ -61,8 +61,8 @@ const actions = {
     // 画像変更
     async profileImageEdit({ commit }, data) {
         const id = data.user_id;
-        console.log("actions " + id);
-        console.log("actions " + data.img);
+        console.log("profileImageEdit ID： " + id);
+        console.log("profileImageEdit img：" + data.img);
         const response = await axios.post("/api/profile/image/" + id, data.img);
         // 422ステータスの処理
         if (response.status === UNPROCESSABLE_ENTITY) {

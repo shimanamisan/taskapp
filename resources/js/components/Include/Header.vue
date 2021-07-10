@@ -64,12 +64,12 @@
 </template>
 
 <script>
-import header_logo from "../../../img/header-logo.png";
+import header_logo_path from "@img/header-logo.png";
 import { mapState, mapGetters } from "vuex";
 export default {
     data() {
         return {
-            header_logo: header_logo,
+            header_logo: header_logo_path,
             isActive: false,
         };
     },

@@ -16,10 +16,18 @@ const WebpackBuildNotifierPlugin = require("webpack-build-notifier");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 // ファイルをコピーするプラグイン
 const CopyPlugin = require("copy-webpack-plugin");
-// 各種画像形式の圧縮ツールを取りまとめる
-const ImageminPlugin = require("imagemin-webpack-plugin").default;
+
+const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin");
+const { extendDefaultPlugins } = require("svgo");
+
+// // 各種画像形式の圧縮ツールを取りまとめる
+// const ImageminPlugin = require("imagemin-webpack-plugin").default;
+
+/**
+ * 20210703確認：非推奨になっていたプラグイン
 // jpgファイルを圧縮する
 const ImageminMozjpeg = require("imagemin-mozjpeg");
+*/
 
 // [定数] webpack の出力オプションを指定します
 // 'production' か 'development' を指定
@@ -47,6 +55,9 @@ module.exports = {
         // 出力先フォルダを指定
         path: mydir + "/public/js",
     },
+    stats: {
+        children: true,
+    },
     // 最適化（webpack4から導入された）
     optimization: {
         minimizer: [
@@ -69,30 +80,51 @@ module.exports = {
                 // 対象ファイルは .css .scss .scss
                 test: /\.(sa|sc|c)ss$/,
                 use: [
-                    // app.jsとapp.cssファイルに分割するためのプラグイン
-                    MiniCssExtractPlugin.loader,
+                    {
+                        loader: MiniCssExtractPlugin.loader,
+                        options: {
+                            // ファイルの出力先。エントリーポイントのjsディレクトリが基準となるので出力先には注意
+                            // publicPath: (resourcePath, context) => {
+                            //     console.log("publicPath関数をデバッグ");
+                            //     console.log({resourcePath, context});
+                            //     console.log("path.relativeの引数に入っているもの ");
+                            //     console.log(path.dirname(resourcePath))
+                            //     console.log(context)
+                            //     console.log("最終的に返されるもの");
+                            //     console.log(path.relative(path.dirname(resourcePath), context) + "/")
 
-                    // CSSをバンドルするための機能
-                    {
-                        loader: "css-loader",
-                        options: {
-                            // url()を変換しない
-                            // url: false,
-                            // ソースマップを有効にする
-                            sourceMap: enabledSourceMap,
+                            //     return path.relative(path.dirname(resourcePath), context) + "/";
+                            //   },
+                            esModule: false,
                         },
                     },
-                    {
-                        // Sassをバンドルするための機能
-                        loader: "sass-loader",
-                        options: {
-                            // ソースマップの利用有無
-                            sourceMap: enabledSourceMap,
-                        },
-                    },
-                    {
-                        loader: "import-glob-loader",
-                    },
+                    "css-loader",
+                    "sass-loader",
+                    "import-glob-loader",
+                    // app.jsとapp.cssファイルに分割するためのプラグイン
+
+                    // // CSSをバンドルするための機能
+                    // {
+                    //     loader: "css-loader",
+                    //     options: {
+                    //         // url()を変換しない
+                    //         // url: false,
+                    //         // ソースマップを有効にする
+                    //         sourceMap: enabledSourceMap,
+
+                    //     },
+                    // },
+                    // {
+                    //     // Sassをバンドルするための機能
+                    //     loader: "sass-loader",
+                    //     options: {
+                    //         // ソースマップの利用有無
+                    //         sourceMap: enabledSourceMap,
+                    //     },
+                    // },
+                    // {
+                    //     loader: "import-glob-loader",
+                    // },
                     // PostCSSのための設定★
                     // {
                     //     loader: "postcss-loader",
@@ -155,14 +187,18 @@ module.exports = {
                 // 拡張子の大文字も許容するように最後尾に i を加える
                 // jpegとjpgの様にeがあるかないかを許容するのに、jpe?gという形式にする
                 test: /\.(jpe?g|png|svg|gif|ico)$/i,
-                loader: "url-loader",
-                options: {
-                    // 指定のサイズを超過すると、画像が[name]で指定されたファイルに書き換わり独立する
-                    // 画像のパスは別から取得できるので、指定のサイズを超えるものが複数ある場合はそれらをブラウザが並行して取得する
-                    limit: 2048,
-                    // jsディレクトリから見た相対パス
-                    name: "../img/[name].[ext]",
-                },
+                use: [
+                    {
+                        loader: "url-loader",
+                        options: {
+                            // 指定のサイズを超過すると、画像が[name]で指定されたファイルに書き換わり独立する
+                            // 画像のパスは別から取得できるので、指定のサイズを超えるものが複数ある場合はそれらをブラウザが並行して取得する
+                            limit: 2048,
+                            // jsディレクトリから見た相対パス
+                            name: "../img/[name].[ext]",
+                        },
+                    },
+                ],
             },
         ],
     },
@@ -193,24 +229,60 @@ module.exports = {
                 },
             ],
         }),
-        new ImageminPlugin({
-            test: /\.(jpe?g|jpg|png|gif|svg)$/i,
-            pngquant: {
-                quality: "50",
+
+        new ImageMinimizerPlugin({
+            minimizerOptions: {
+                // Lossless optimization with custom option
+                // Feel free to experiment with options for better result for you
+                plugins: [
+                    ["gifsicle", { interlaced: true }],
+                    ["jpegtran", { progressive: true }],
+                    ["optipng", { optimizationLevel: 5 }],
+                    // Svgo configuration here https://github.com/svg/svgo#configuration
+                    [
+                        "svgo",
+                        {
+                            plugins: extendDefaultPlugins([
+                                {
+                                    name: "removeViewBox",
+                                    active: false,
+                                },
+                                {
+                                    name: "addAttributesToSVGElement",
+                                    params: {
+                                        attributes: [
+                                            {
+                                                xmlns:
+                                                    "http://www.w3.org/2000/svg",
+                                            },
+                                        ],
+                                    },
+                                },
+                            ]),
+                        },
+                    ],
+                ],
             },
-            gifsicle: {
-                interlaced: false,
-                optimizationLevel: 1,
-                colors: 256,
-            },
-            svgo: {},
-            plugins: [
-                ImageminMozjpeg({
-                    quality: 60,
-                    progressive: true,
-                }),
-            ],
         }),
+
+        // new ImageminPlugin({
+        //     test: /\.(jpe?g|jpg|png|gif|svg)$/i,
+        //     pngquant: {
+        //         quality: "50",
+        //     },
+        //     gifsicle: {
+        //         interlaced: false,
+        //         optimizationLevel: 1,
+        //         colors: 256,
+        //     },
+        //     svgo: {},
+        //     plugins: [
+        //         ImageminMozjpeg({
+        //             quality: 60,
+        //             progressive: true,
+        //         }),
+        //     ],
+        // }),
     ],
     // import 文で .ts ファイルを解決するため
     resolve: {
@@ -218,7 +290,9 @@ module.exports = {
         alias: {
             vue$: "vue/dist/vue.esm.js",
             // jsディレクトリまでのフルパスをエイリアスとして設定
-            "@": path.resolve(__dirname, "resources/js/"),
+            "@js": path.resolve(__dirname, "resources/js/"),
+            // imgディレクトリまでのパス
+            "@img": path.resolve(__dirname, "resources/img/"),
         },
         extensions: ["*", ".js", ".vue", ".json"],
     },
