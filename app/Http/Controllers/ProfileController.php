@@ -205,7 +205,7 @@ class ProfileController extends Controller
 
             if (!empty($otherUser)) {
                 \Log::debug(
-                    "既にこのメールアドレスを登録しているユーザーがいます"
+                    "違うメールアドレスを指定して下さい。"
                 );
                 \Log::debug("   ");
 
