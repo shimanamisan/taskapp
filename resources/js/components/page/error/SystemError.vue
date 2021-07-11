@@ -12,7 +12,7 @@
   </div>
 </template>
 <script>
-import Header from "@js/components/Include/Header";
+import Header from "@js/components/include/Header";
 export default {
   components: {
     Header,

@@ -75,13 +75,13 @@
 <script>
 import draggable from "vuedraggable";
 import { mapState, mapGetters } from "vuex";
-import Header from "@js/components/Include/Header";
-import TaskFolderProfile from "@js/components/Include/TaskFolderProfile";
-import TaskFolderAdd from "@js/components/Include/TaskFolderAdd";
+import Header from "@js/components/include/Header";
+import TaskFolderProfile from "@js/components/include/TaskFolderProfile";
+import TaskFolderAdd from "@js/components/include/TaskFolderAdd";
 import TaskFolder from "@js/components/TaskFolder";
 import TaskCard from "@js/components/TaskCard";
-import TaskCardAdd from "@js/components/Include/TaskCardAdd";
-import Message from "@js/components/Include/Message";
+import TaskCardAdd from "@js/components/include/TaskCardAdd";
+import Message from "@js/components/include/Message";
 
 export default {
   data() {

@@ -202,9 +202,9 @@
 import { mapMutations, mapState, mapGetters } from "vuex";
 import NoImage from "@js/components/common/NoImage";
 import ChangePassword from "@js/components/modal/ChangePassword";
-import Header from "@js/components/Include/Header";
-import Loading from "@js/components/Loading/Loading";
-import Message from "@js/components/Include/Message";
+import Header from "@js/components/include/Header";
+import Loading from "@js/components/Loading";
+import Message from "@js/components/include/Message";
 export default {
   data() {
     return {

@@ -51,7 +51,7 @@
 import { mapState, mapGetters } from "vuex";
 import { OK } from "@js/statusCode";
 import draggable from "vuedraggable";
-import Loading from "@js/components/Loading/Loading";
+import Loading from "@js/components/Loading";
 
 export default {
     data() {

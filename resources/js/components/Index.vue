@@ -154,8 +154,8 @@ import panel_first from "@img/top-panels_01.png";
 import panel_second from "@img/top-panels_02.png";
 import panel_third from "@img/top-panels_03.png";
 import top_gif from "@img/animation.gif";
-import Header from "@js/components/Include/Header";
-import Footer from "@js/components/Include/Footer";
+import Header from "@js/components/include/Header";
+import Footer from "@js/components/include/Footer";
 export default {
     data() {
         return {

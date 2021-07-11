@@ -38,7 +38,7 @@
 </template>
 <script>
 import draggable from "vuedraggable";
-import Loading from "@js/components/Loading/Loading";
+import Loading from "@js/components/Loading";
 export default {
     data() {
         return {
