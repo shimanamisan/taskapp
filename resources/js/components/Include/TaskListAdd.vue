@@ -52,7 +52,7 @@ import {
     INTERNAL_SERVER_ERROR,
     CREATED,
 } from "@js/statusCode";
-import Loading from "@js/components/Loading/Loading";
+import Loading from "@js/components/Loading";
 export default {
     data() {
         return {

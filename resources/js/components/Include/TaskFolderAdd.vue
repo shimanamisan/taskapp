@@ -58,7 +58,7 @@ import {
   CREATED,
 } from "@js/statusCode";
 import { mapState, mapGetters } from "vuex";
-import Loading from "@js/components/Loading/Loading";
+import Loading from "@js/components/Loading";
 export default {
   data() {
     return {
