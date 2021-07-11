@@ -1,6 +1,6 @@
 require("./bootstrap");
 
-import "../sass/style.scss";
+import "@sass/style.scss";
 import Vue from "vue";
 import App from "@js/App.vue";
 import store from "@js/store/store";

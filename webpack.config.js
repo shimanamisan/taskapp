@@ -292,9 +292,12 @@ module.exports = {
             vue$: "vue/dist/vue.esm.js",
             // jsディレクトリまでのフルパスをエイリアスとして設定
             "@js": path.resolve(__dirname, "resources/js/"),
+            // sassディレクトリまでのフルパスをエイリアスとして設定
+            "@sass": path.resolve(__dirname, "resources/sass/"),
             // imgディレクトリまでのパス
             "@img": path.resolve(__dirname, "resources/img/"),
         },
+        // 拡張子なしでimportやrequire出来るように設定
         extensions: ["*", ".js", ".vue", ".json"],
     },
 };
