@@ -15,6 +15,8 @@
         :class="{ 'c-error__bg': folderRequestErrorMessages }"
         v-model="folderTitle"
         @keydown.enter="createFolder"
+        @compositionstart="composing = true"
+        @compositionend="composing = false"
       />
       <!-- バリデーションエラー --->
       <ul v-if="folderRequestErrorMessages" class="c-error c-error__tasks">
@@ -96,16 +98,20 @@ export default {
   },
   methods: {
     async createFolder() {
-      this.isActiveLoading();
-      await this.$store.dispatch("taskStore/createFolder", {
-        title: this.folderTitle,
-      });
-      if (this.getCode === 200) {
-        this.clearFolderCreateForm();
-      } else if (this.getCode === UNPROCESSABLE_ENTITY) {
-        // バリデーションエラー時は登録用フォームを非表示にしない
+      if (this.composing) {
+        // 全角変換処理中なので何も行わない
+      } else {
+        this.isActiveLoading();
+        await this.$store.dispatch("taskStore/createFolder", {
+          title: this.folderTitle,
+        });
+        if (this.getCode === 200) {
+          this.clearFolderCreateForm();
+        } else if (this.getCode === UNPROCESSABLE_ENTITY) {
+          // バリデーションエラー時は登録用フォームを非表示にしない
+        }
+        this.isActiveLoading();
       }
-      this.isActiveLoading();
     },
     clearFolderCreateForm() {
       this.folderTitle = "";
