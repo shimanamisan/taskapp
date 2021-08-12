@@ -166,7 +166,7 @@ export default {
         window.navigator.userAgent
       );
 
-      console.log(phoneActive)
+      console.log(phoneActive);
 
       // ブラウザの画面内の高さを収録
       const inner = window.innerHeight;
@@ -179,7 +179,12 @@ export default {
       const paddingSum = 20;
       console.log("height: " + targetEl.getBoundingClientRect().height);
       console.log("top: " + targetEl.getBoundingClientRect().top);
-      console.log("targetEl_Top + targetEl_Height: " + targetEl_Top + " + " + targetEl_Height);
+      console.log(
+        "targetEl_Top + targetEl_Height: " +
+          targetEl_Top +
+          " + " +
+          targetEl_Height
+      );
       console.log("custumHeight: " + custumHeight);
       console.log("innerHeight - top :" + (inner - targetEl_Top - paddingSum));
 
@@ -188,7 +193,8 @@ export default {
 
         // 横のスクロールバー分を差し引く
         const yscrollBar = 10;
-        targetEl.style.maxHeight = inner - targetEl_Top - paddingSum - yscrollBar + "px";
+        targetEl.style.maxHeight =
+          inner - targetEl_Top - paddingSum - yscrollBar + "px";
       } else {
         targetEl.style.maxHeight = inner - targetEl_Top - paddingSum + "px";
       }
