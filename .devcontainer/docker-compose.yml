@@ -1,0 +1,49 @@
+version: "3.9"
+
+services:
+  nginx-proxy:
+    image: jwilder/nginx-proxy:alpine
+    container_name: nginx-proxy-taskapp
+    ports:
+      - 80:80
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: web-devcontainer-taskapp
+    volumes:
+      - ./web/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./web/php/php.ini:/usr/local/etc/php/php.ini
+      # トップディレクトリと同期
+      - ../:/workspace:cached
+    environment:
+      - VIRTUAL_HOST=test.example.com
+
+  database:
+    image: mysql:8.0.31-debian
+    container_name: db-devcontainer-taskapp
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./mysql/init:/docker-entrypoint-initdb.d
+      # ボリュームにマウントしデータを永続化する
+      - db-store-taskapp:/var/lib/mysql
+    environment:
+      - TZ=Asia/Tokyo
+      - MYSQL_DATABASE=docker-database
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
+      - MYSQL_ROOT_PASSWORD=rootpass
+
+  mailhog:
+    image: mailhog/mailhog:v1.0.1
+    container_name: mailhog-devcontainer-taskapp
+    ports:
+      - 8025:8025
+
+volumes:
+  db-store-taskapp:

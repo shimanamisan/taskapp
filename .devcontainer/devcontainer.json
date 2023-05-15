@@ -1,0 +1,61 @@
+{
+  // INFO: https://bufferings.hatenablog.com/entry/2020/06/11/233201
+  // INFO: https://techblog.roxx.co.jp/entry/2021/04/19/132838
+
+  "name": "task-app",
+  "dockerComposeFile": "docker-compose.yml",
+  // docker-compose.ymlファイル内のどのサービスがDev Containerであるかを示す
+	"service": "web",
+  // ワークスペースを指定
+  "workspaceFolder": "/workspace",
+  "remoteUser": "root",
+  // devcontainerで開いた時のvscode側の設定カスタマイズ
+  "customizations": {
+    // VS Code固有のプロパティを設定します
+    "vscode": {
+      // 拡張機能などの設定
+      "settings": {
+        // エディターのインデントのサイズを指定（デフォルトは4）
+        "editor.tabSize": 2,
+        // Run on Saveが実行される時のコマンドを指定
+        "emeraldwalk.runonsave": {
+          "commands": [
+            {
+              // 保存時にPHPのファイルに対してprettierの処理を実行
+              "match": "\\.php$",
+              "cmd": "prettier ${file} --write"
+            }
+          ]
+        },
+        // phpstanがインストールされているディレクトリを指定
+        // "phpstan.binPath": "/workspace/src/public",
+        // phpstan.neonが格納されているディレクトリを指定
+        // "phpstan.configFile": "/workspace/src/public",
+        // phpのバイナリファイルを指定
+        "php.validate.executablePath": "/usr/local/bin/php"
+      },
+    
+      // コンテナ内にインストールする拡張機能を指定する
+      "extensions": [
+        // PHP Debug
+        "xdebug.php-debug",
+        // PHP Namespace Resolver
+        "MehediDracula.php-namespace-resolver",
+        // PHP DocBlocker
+        "neilbrayfield.php-docblocker",
+        // phpstan
+        "SanderRonde.phpstan-vscode",
+        // PHP Intelephense
+        "bmewburn.vscode-intelephense-client",
+        // indent-rainbow
+        "oderwat.indent-rainbow",
+        // Run on Save
+        "emeraldwalk.RunOnSave",
+        // Prettier - Code formatter
+        "esbenp.prettier-vscode",
+        // Laravel Extension Pack
+        "onecentlin.laravel-extension-pack"
+      ]
+    }
+  }
+}
