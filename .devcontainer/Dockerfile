@@ -35,10 +35,13 @@ RUN apt-get install -y nodejs \
   && npm install n -g \
   && n latest
 
+# Yarn Install 
+RUN npm install -g yarn
+
 # ワークディレクトリを作成
 WORKDIR /workspace
 
 RUN composer global require "laravel/installer"
 
 # prettier と php を prettier で整形するためのプラグインをインストール
-RUN npm install -g prettier @prettier/plugin-php
+RUN yarn add -g prettier @prettier/plugin-php

@@ -2,7 +2,7 @@
   // INFO: https://bufferings.hatenablog.com/entry/2020/06/11/233201
   // INFO: https://techblog.roxx.co.jp/entry/2021/04/19/132838
 
-  "name": "laravel-demo-app",
+  "name": "task-app",
   "dockerComposeFile": "docker-compose.yml",
   // docker-compose.ymlファイル内のどのサービスがDev Containerであるかを示す
 	"service": "web",
@@ -28,9 +28,9 @@
           ]
         },
         // phpstanがインストールされているディレクトリを指定
-        "phpstan.binPath": "/workspace/src/public",
+        // "phpstan.binPath": "/workspace/src/public",
         // phpstan.neonが格納されているディレクトリを指定
-        "phpstan.configFile": "/workspace/src/public",
+        // "phpstan.configFile": "/workspace/src/public",
         // phpのバイナリファイルを指定
         "php.validate.executablePath": "/usr/local/bin/php"
       },
