@@ -16,7 +16,7 @@
         "axios": "^0.21.1",
         "babel-loader": "^8.2.2",
         "bootstrap": "5.0.2",
-        "browser-sync": "^2.27.4",
+        "browser-sync": "^2.27.11",
         "browser-sync-webpack-plugin": "^2.3.0",
         "copy-webpack-plugin": "^9.0.1",
         "cross-env": "^7.0",
